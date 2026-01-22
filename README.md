@@ -1,5 +1,8 @@
 # Claude Code Best Practices Template
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/xiaobei930/claude-code-best-practices?style=social)](https://github.com/xiaobei930/claude-code-best-practices)
+
 [English](#english) | [中文](#中文)
 
 ---
@@ -76,6 +79,20 @@ your-project/
 | C# | `csharp-style.md` | dotnet format | xUnit/NUnit |
 | Go | `backend-patterns/go.md` | gofmt | testing |
 
+### Workflow
+
+```mermaid
+flowchart LR
+    PM["/pm<br/>Requirements"] --> Clarify["/clarify<br/>Clarify"]
+    Clarify --> Lead["/lead<br/>Design"]
+    Lead --> Designer["/designer<br/>UI Design"]
+    Designer --> Dev["/dev<br/>Implement"]
+    Dev --> QA["/qa<br/>Verify"]
+    QA --> Commit["/commit<br/>Commit"]
+    Commit --> Clear["/clear<br/>Clear"]
+    Clear -.->|Loop| PM
+```
+
 ### Philosophy
 
 This template follows the **"道法术器" (Dao-Fa-Shu-Qi)** methodology:
@@ -97,6 +114,8 @@ MIT License - Feel free to use and modify.
 ## 中文
 
 这是一个可复制到任意项目的 Claude Code 配置模板，支持 **Python / Vue / TypeScript / C++ / Java / C# / Go** 多语言开发。
+
+**快速导航**: [特性](#-特性) | [快速使用](#快速使用) | [目录结构](#目录结构) | [工作流程](#工作流程) | [技能说明](#技能skills说明) | [自定义](#自定义) | [最佳实践](#最佳实践)
 
 ### ✨ 特性
 
@@ -161,6 +180,22 @@ python .claude/scripts/test_template.py
 
 ```
 your-project/
+├── CLAUDE.md                   # 项目宪法（必须）
+├── memory-bank/                # 项目记忆库（progress/architecture/tech-stack）
+└── .claude/
+    ├── commands/               # Slash 命令（30+）
+    ├── rules/                  # 编码规范（13 个文件）
+    ├── skills/                 # 开发技能（10 类）
+    ├── agents/                 # 子智能体（6 个）
+    ├── scripts/                # Hook 脚本
+    └── mcp-configs/            # MCP 配置参考
+```
+
+<details>
+<summary>📂 完整目录结构（点击展开）</summary>
+
+```
+your-project/
 ├── CLAUDE.md                   # 项目主文档（必须）
 ├── CLAUDE.local.md             # 个人本地配置（可选，不提交）
 │
@@ -172,100 +207,43 @@ your-project/
 └── .claude/
     ├── settings.json           # 基础权限（提交到 Git）
     ├── settings.local.json     # 本地权限 + Hooks（不提交）
-    ├── hookify.*.local.md      # Hookify 行为规则（不提交）
     │
     ├── commands/               # Slash 命令
-    │   ├── pm.md               # 产品经理角色
-    │   ├── lead.md             # 技术负责人角色
-    │   ├── dev.md              # 开发者角色
-    │   ├── qa.md               # 测试角色
-    │   ├── iterate.md          # 自主迭代循环
-    │   ├── pair.md             # 结对编程模式
-    │   └── ...
-    │
-    ├── ralph-prompts/          # 长循环提示词模板（/ralph-loop）
-    │   ├── iterate-phase.md    # Phase 迭代
-    │   ├── fix-tests.md        # 测试修复
-    │   ├── refactor.md         # 代码重构
-    │   ├── full-feature.md     # 完整功能开发
-    │   ├── bug-fix.md          # Bug 修复流程
-    │   └── doc-gen.md          # 文档生成
+    │   ├── pm.md, lead.md, dev.md, qa.md   # 角色命令
+    │   ├── iterate.md, pair.md             # 模式命令
+    │   └── build.md, test.md, commit.md... # 工具命令
     │
     ├── rules/                  # 代码规则（按文件类型自动应用）
-    │   ├── methodology.md      # 通用开发方法论
-    │   ├── performance.md      # 性能优化和模型选择策略
+    │   ├── methodology.md      # 开发方法论
     │   ├── code-style.md       # Python 风格
     │   ├── frontend-style.md   # Vue/TS/JS 风格
-    │   ├── ui-design.md        # UI 设计规范
     │   ├── cpp-style.md        # C++ 风格
-    │   ├── esp32-c-style.md    # ESP32 嵌入式 C 风格
     │   ├── java-style.md       # Java 风格
     │   ├── csharp-style.md     # C# 风格
-    │   ├── testing.md          # 测试规范
-    │   ├── security.md         # 安全规则
-    │   └── git-workflow.md     # Git 工作流规则
-    │
-    ├── contexts/               # 动态上下文注入（模式切换）
-    │   ├── dev.md              # 开发模式上下文
-    │   ├── review.md           # 代码审查模式上下文
-    │   ├── research.md         # 研究探索模式上下文
-    │   ├── pm.md               # 产品经理角色上下文
-    │   ├── lead.md             # 技术负责人角色上下文
-    │   └── qa.md               # 测试工程师角色上下文
-    │
-    ├── agents/                 # 子智能体
-    │   ├── code-reviewer.md    # 代码审查
-    │   ├── code-simplifier.md  # 代码简化
-    │   ├── planner.md          # 任务规划
-    │   ├── requirement-validator.md  # 需求验证
-    │   ├── security-reviewer.md      # 安全审查
-    │   └── tdd-guide.md        # TDD 指导
+    │   └── security.md, testing.md, git-workflow.md...
     │
     ├── skills/                 # 自定义技能
-    │   ├── backend-patterns/   # 后端开发模式（含多语言子文件）
-    │   │   ├── SKILL.md        # 通用后端模式
-    │   │   ├── python.md       # Python/FastAPI/Django
-    │   │   ├── typescript.md   # TypeScript/Node.js
-    │   │   ├── java.md         # Java/Spring Boot
-    │   │   ├── go.md           # Go/Gin/Echo
-    │   │   └── csharp.md       # C#/ASP.NET Core
-    │   ├── frontend-patterns/  # 前端开发模式（含多框架子文件）
-    │   │   ├── SKILL.md        # 通用前端模式
-    │   │   ├── vue.md          # Vue 3/Nuxt
-    │   │   └── react.md        # React 18/Next.js
-    │   ├── tdd-workflow/       # TDD 测试驱动开发
-    │   ├── security-review/    # 安全审查清单
-    │   ├── api-development/    # RESTful API 开发
-    │   ├── database-patterns/  # 数据库设计模式
-    │   ├── debugging/          # 系统化调试技巧
-    │   ├── git-workflow/       # Git 工作流最佳实践
-    │   ├── continuous-learning/ # 持续学习（会话评估）
-    │   └── strategic-compact/  # 策略性上下文压缩
+    │   ├── backend-patterns/   # 后端模式（Python/TS/Java/Go/C#）
+    │   ├── frontend-patterns/  # 前端模式（Vue/React）
+    │   ├── tdd-workflow/       # 测试驱动开发
+    │   ├── api-development/    # API 开发
+    │   └── debugging/, git-workflow/, ...
     │
-    ├── docs/                   # 内部文档
-    │   └── plugin-integration.md  # 插件集成指南
+    ├── agents/                 # 子智能体
+    │   ├── code-reviewer.md, code-simplifier.md
+    │   ├── planner.md, security-reviewer.md
+    │   └── tdd-guide.md, requirement-validator.md
     │
-    ├── mcp-configs/            # MCP 服务器配置参考
-    │   ├── mcp-servers.json    # 完整配置（复制到 ~/.claude.json）
-    │   └── README.md           # 使用说明
+    ├── scripts/                # Hook 脚本
+    │   ├── init.sh             # 初始化
+    │   ├── format_file.py      # 自动格式化
+    │   ├── validate_command.py # 命令验证
+    │   └── protect_files.py, session_check.py...
     │
-    └── scripts/                # Hook 脚本和工具
-        ├── init.sh             # 项目初始化脚本
-        ├── ralph.sh            # Ralph Loop 启动脚本
-        ├── test_template.py    # 模板验证脚本
-        ├── format_file.py      # 代码格式化
-        ├── validate_command.py # 命令验证
-        ├── protect_files.py    # 敏感文件保护
-        ├── session_check.py    # 会话启动检查
-        ├── session_start.sh    # 会话启动上下文加载
-        ├── session_end.sh      # 会话结束状态持久化
-        ├── pre_compact.sh      # 上下文压缩前保存
-        ├── check_console_log.py # console.log 检查
-        ├── notify_complete.py  # 任务完成通知
-        ├── pause_before_push.sh # Git push 前暂停确认
-        ├── block_random_md.py  # 阻止随机创建 .md 文件
-        └── typescript_check.sh # TypeScript 类型检查
+    └── mcp-configs/            # MCP 服务器配置参考
 ```
+
+</details>
 
 ### 支持的语言
 
