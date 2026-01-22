@@ -6,14 +6,13 @@
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://github.com/xiaobei930/claude-code-best-practices/actions/workflows/validate-template.yml"><img src="https://github.com/xiaobei930/claude-code-best-practices/actions/workflows/validate-template.yml/badge.svg" alt="Validate Template"></a>
   <a href="https://github.com/xiaobei930/claude-code-best-practices/stargazers"><img src="https://img.shields.io/github/stars/xiaobei930/claude-code-best-practices?style=social" alt="GitHub stars"></a>
   <a href="https://github.com/xiaobei930/claude-code-best-practices/network/members"><img src="https://img.shields.io/github/forks/xiaobei930/claude-code-best-practices?style=social" alt="GitHub forks"></a>
-  <a href="https://github.com/xiaobei930/claude-code-best-practices/issues"><img src="https://img.shields.io/github/issues/xiaobei930/claude-code-best-practices" alt="GitHub issues"></a>
-  <img src="https://img.shields.io/badge/Claude%20Code-Ready-blueviolet" alt="Claude Code Ready">
 </p>
 
 <p align="center">
-  <a href="#english">English</a> | <a href="#中文">中文</a> | <a href="FAQ.md">FAQ</a> | <a href="CONTRIBUTING.md">Contributing</a>
+  <a href="#english">English</a> | <a href="#中文">中文</a> | <a href="FAQ.md">FAQ</a> | <a href="MIGRATION.md">Migration</a> | <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 ---
@@ -124,9 +123,19 @@ This template follows the **"道法术器" (Dao-Fa-Shu-Qi)** methodology:
 - **术 (Shu)** - Practices and techniques
 - **器 (Qi)** - Tools and configurations
 
+### Requirements
+
+| Requirement | Version | Note |
+|-------------|---------|------|
+| Claude Code | Latest recommended | Hooks require recent versions |
+| Python | 3.8+ | For hook scripts |
+| Bash/Git Bash | Any | For shell scripts (Windows: use Git Bash) |
+
 ### Note
 
 This template is primarily designed for **Chinese-speaking developers**. Most internal documentation (rules, commands, skills) is written in Chinese. International users are welcome to use and adapt it, or contribute English translations.
+
+**Migrating from an existing project?** See [MIGRATION.md](MIGRATION.md).
 
 ### License
 
@@ -398,6 +407,16 @@ paths:
    - 普通模式：频繁 `/clear`，避免上下文过长
    - `/iterate` 模式：不主动 clear，保持循环连续性
 5. **MCP 不要贪多** - 同时启用不超过 10 个
+
+### 环境要求
+
+| 依赖 | 版本 | 说明 |
+|------|------|------|
+| Claude Code | 推荐最新版 | 钩子功能需要较新版本 |
+| Python | 3.8+ | 用于钩子脚本 |
+| Bash/Git Bash | 任意版本 | 用于 Shell 脚本（Windows 使用 Git Bash） |
+
+**从现有项目迁移？** 请参阅 [MIGRATION.md](MIGRATION.md)。
 
 ### 参考
 

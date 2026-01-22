@@ -1,0 +1,211 @@
+name: Validate Template
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate Template Structure
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Required Files
+        run: |
+          echo "🔍 Checking required files..."
+
+          required_files=(
+            "CLAUDE.md"
+            "README.md"
+            "LICENSE"
+            ".claude/settings.json"
+            ".claude/settings.local.json.example"
+          )
+
+          missing=0
+          for file in "${required_files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ $file"
+            else
+              echo "❌ Missing: $file"
+              missing=$((missing + 1))
+            fi
+          done
+
+          if [ $missing -gt 0 ]; then
+            echo "::error::Missing $missing required file(s)"
+            exit 1
+          fi
+
+          echo "✅ All required files present"
+
+      - name: Check Directory Structure
+        run: |
+          echo "🔍 Checking directory structure..."
+
+          required_dirs=(
+            ".claude/commands"
+            ".claude/rules"
+            ".claude/skills"
+            ".claude/agents"
+            ".claude/scripts"
+            "memory-bank"
+          )
+
+          missing=0
+          for dir in "${required_dirs[@]}"; do
+            if [ -d "$dir" ]; then
+              echo "✅ $dir/"
+            else
+              echo "❌ Missing: $dir/"
+              missing=$((missing + 1))
+            fi
+          done
+
+          if [ $missing -gt 0 ]; then
+            echo "::error::Missing $missing required directory(s)"
+            exit 1
+          fi
+
+          echo "✅ All required directories present"
+
+      - name: Check Commands
+        run: |
+          echo "🔍 Checking command files..."
+
+          # Core commands that must exist
+          core_commands=(
+            "pm.md"
+            "lead.md"
+            "dev.md"
+            "qa.md"
+            "iterate.md"
+            "commit.md"
+          )
+
+          cd .claude/commands
+          missing=0
+          for cmd in "${core_commands[@]}"; do
+            if [ -f "$cmd" ]; then
+              echo "✅ $cmd"
+            else
+              echo "❌ Missing: $cmd"
+              missing=$((missing + 1))
+            fi
+          done
+
+          if [ $missing -gt 0 ]; then
+            echo "::error::Missing $missing core command(s)"
+            exit 1
+          fi
+
+          # Count total commands
+          total=$(ls -1 *.md 2>/dev/null | wc -l)
+          echo "📊 Total commands: $total"
+
+      - name: Check Rules
+        run: |
+          echo "🔍 Checking rule files..."
+
+          core_rules=(
+            "methodology.md"
+            "coding-standards.md"
+            "security.md"
+          )
+
+          cd .claude/rules
+          missing=0
+          for rule in "${core_rules[@]}"; do
+            if [ -f "$rule" ]; then
+              echo "✅ $rule"
+            else
+              echo "❌ Missing: $rule"
+              missing=$((missing + 1))
+            fi
+          done
+
+          if [ $missing -gt 0 ]; then
+            echo "::error::Missing $missing core rule(s)"
+            exit 1
+          fi
+
+          total=$(ls -1 *.md 2>/dev/null | wc -l)
+          echo "📊 Total rules: $total"
+
+      - name: Check Scripts Syntax
+        run: |
+          echo "🔍 Checking Python scripts syntax..."
+
+          for script in .claude/scripts/*.py; do
+            if [ -f "$script" ]; then
+              python -m py_compile "$script" && echo "✅ $script" || {
+                echo "❌ Syntax error: $script"
+                exit 1
+              }
+            fi
+          done
+
+          echo "✅ All Python scripts have valid syntax"
+
+      - name: Check JSON Files
+        run: |
+          echo "🔍 Checking JSON files..."
+
+          json_files=(
+            ".claude/settings.json"
+            ".claude/settings.local.json.example"
+          )
+
+          for file in "${json_files[@]}"; do
+            if [ -f "$file" ]; then
+              python -c "import json; json.load(open('$file'))" && echo "✅ $file" || {
+                echo "❌ Invalid JSON: $file"
+                exit 1
+              }
+            fi
+          done
+
+          echo "✅ All JSON files are valid"
+
+      - name: Check Markdown Links (README)
+        run: |
+          echo "🔍 Checking README.md links..."
+
+          # Check for broken internal links
+          grep -oP '\[.*?\]\(\K[^)]+' README.md | while read -r link; do
+            # Skip external links and anchors
+            if [[ "$link" == http* ]] || [[ "$link" == "#"* ]] || [[ "$link" == "../../"* ]]; then
+              continue
+            fi
+            if [ -f "$link" ] || [ -d "$link" ]; then
+              echo "✅ $link"
+            else
+              echo "⚠️ Possible broken link: $link"
+            fi
+          done
+
+          echo "✅ README links checked"
+
+      - name: Summary
+        run: |
+          echo "## 📊 Template Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Category | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Commands | $(ls -1 .claude/commands/*.md 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Rules | $(ls -1 .claude/rules/*.md 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Skills | $(ls -1d .claude/skills/*/ 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Agents | $(ls -1 .claude/agents/*.md 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Scripts | $(ls -1 .claude/scripts/*.{py,sh} 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All validations passed!" >> $GITHUB_STEP_SUMMARY
