@@ -2,16 +2,45 @@
 
 Claude Code 钩子系统允许在特定事件触发时执行自定义脚本，实现自动化工作流。
 
-## 钩子类型
+## 钩子类型（9 个生命周期事件）
 
 | 钩子事件 | 触发时机 | 典型用途 |
 |----------|----------|----------|
-| `PreToolUse` | 工具执行**前** | 阻止危险命令、验证操作 |
-| `PostToolUse` | 工具执行**后** | 自动格式化、类型检查 |
 | `SessionStart` | 会话启动时 | 环境检查、加载上下文 |
+| `UserPromptSubmit` | 用户提交提示时 | 验证/添加上下文 |
+| `PreToolUse` | 工具执行**前** | 允许、拒绝或修改工具调用 |
+| `PermissionRequest` | 权限对话框出现时 | 自动批准/拒绝权限请求 |
+| `PostToolUse` | 工具执行**后** | 验证结果、运行后检查 |
+| `Stop` | Claude 完成响应时 | 决定是否继续 |
+| `SubagentStop` | 子代理完成时 | 评估子代理任务是否完成 |
 | `PreCompact` | 上下文压缩前 | 保存重要状态 |
-| `Stop` | 会话结束时 | 持久化状态、学习记录 |
-| `UserPromptSubmit` | 用户提交提示时 | 提示预处理 |
+| `SessionEnd` | 会话终止时 | 清理任务、日志记录 |
+
+## 钩子类型
+
+### Command 类型（默认）
+
+使用 shell 命令执行钩子：
+
+```json
+{
+  "type": "command",
+  "command": "python .claude/scripts/validate.py",
+  "timeout": 5000
+}
+```
+
+### Prompt 类型（LLM 评估）
+
+使用 LLM 评估是否允许操作（支持 Stop、SubagentStop、UserPromptSubmit、PreToolUse、PermissionRequest）：
+
+```json
+{
+  "type": "prompt",
+  "prompt": "评估是否应该停止。上下文: $ARGUMENTS\n\n检查所有任务是否完成。返回 JSON: {\"ok\": true} 允许停止，或 {\"ok\": false, \"reason\": \"原因\"} 继续执行。",
+  "timeout": 30
+}
+```
 
 ## 配置方式
 
@@ -54,6 +83,32 @@ pattern: "rm\\s+-rf\\s+/"
 
 ⛔ 危险命令被阻止！
 ```
+
+> **注意**：模板提供了 `.example` 示例文件，运行 `init.sh` 会自动复制为 `.local.md` 文件。
+
+### 方式 3: Skill/Agent Frontmatter
+
+在技能或子代理的 frontmatter 中定义钩子（作用域限定于该组件）：
+
+```yaml
+---
+name: secure-operations
+description: 带安全检查的操作
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/security-check.sh"
+  PostToolUse:
+    - matcher: "Edit|Write"
+      hooks:
+        - type: command
+          command: "./scripts/run-linter.sh"
+---
+```
+
+支持的事件：`PreToolUse`、`PostToolUse`、`Stop`
 
 ## 推荐钩子配置
 
@@ -345,26 +400,39 @@ echo $?  # 检查退出码
 
 ```
 .claude/
-├── settings.local.json      # 主要钩子配置
-├── hookify.*.local.md       # Hookify 规则文件
+├── settings.local.json                          # 主要钩子配置（运行时）
+├── settings.local.json.example                  # 配置示例（模板）
+├── hookify.*.local.md                           # Hookify 规则文件（运行时）
+├── hookify.*.local.md.example                   # 规则示例（模板）
 ├── hooks/
-│   └── README.md            # 本文档
+│   └── README.md                                # 本文档
 └── scripts/
-    ├── validate_command.py  # 命令验证
-    ├── protect_files.py     # 文件保护
-    ├── format_file.py       # 自动格式化
-    ├── check_console_log.py # console.log 检查
-    ├── typescript_check.sh  # TypeScript 检查
-    ├── pause_before_push.sh # Push 前确认
-    ├── session_check.py     # 会话检查
-    ├── session_start.sh     # 会话启动
-    ├── session_end.sh       # 会话结束
-    └── pre_compact.sh       # 压缩前处理
+    ├── validate_command.py                      # 命令验证
+    ├── protect_files.py                         # 文件保护
+    ├── format_file.py                           # 自动格式化
+    ├── check_console_log.py                     # console.log 检查
+    ├── typescript_check.sh                      # TypeScript 检查
+    ├── pause_before_push.sh                     # Push 前确认
+    ├── session_check.py                         # 会话检查
+    ├── session_start.sh                         # 会话启动
+    ├── session_end.sh                           # 会话结束
+    └── pre_compact.sh                           # 压缩前处理
 ```
+
+## 预置 Hookify 规则
+
+模板提供以下 `.example` 示例文件，运行 `bash .claude/scripts/init.sh` 自动启用：
+
+| 文件 | 功能 |
+|------|------|
+| `hookify.dangerous-commands.local.md.example` | 阻止危险命令（rm -rf、force push 等） |
+| `hookify.iterate-continue.local.md.example` | /iterate 模式自动继续检查 |
 
 ## 注意事项
 
 1. **Hookify 规则文件必须以 `.local.md` 结尾**，否则不会被识别
-2. **settings.local.json 不应提交到 Git**，使用 .example 文件作为模板
-3. **钩子脚本需要可执行权限**（Linux/macOS）
-4. **Windows 下使用 Git Bash** 或 WSL 执行 shell 脚本
+2. **`.local.json` 和 `.local.md` 不应提交到 Git**，使用 `.example` 文件作为模板
+3. **运行 `init.sh` 自动复制示例文件**为本地配置
+4. **钩子脚本需要可执行权限**（Linux/macOS）
+5. **Windows 下使用 Git Bash** 或 WSL 执行 shell 脚本
+6. **钩子在会话启动时加载**，修改后需重启会话生效

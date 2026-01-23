@@ -1,0 +1,26 @@
+---
+name: dangerous-commands
+enabled: true
+event: bash
+action: block
+pattern: "rm\\s+-rf\\s+[/~]|rm\\s+-rf\\s+\\$HOME|git\\s+push\\s+--force|git\\s+reset\\s+--hard|chmod\\s+777|mkfs\\.|dd\\s+if=.*of=/dev/|format\\s+[a-zA-Z]:"
+---
+
+⛔ **危险命令被阻止！**
+
+检测到以下危险命令模式：
+
+| 命令 | 风险 |
+|------|------|
+| `rm -rf /` | 删除系统根目录 |
+| `rm -rf ~` | 删除用户主目录 |
+| `git push --force` | 覆盖远程历史 |
+| `git reset --hard` | 丢失本地更改 |
+| `chmod 777` | 开放所有权限 |
+| `mkfs.*` | 格式化磁盘 |
+| `dd if=...of=/dev/` | 覆写磁盘 |
+| `format X:` | Windows 格式化 |
+
+**如果确实需要执行此操作**：
+1. 请在终端中手动执行
+2. 或请求用户明确授权

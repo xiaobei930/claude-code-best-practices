@@ -20,14 +20,27 @@ else
     echo -e "${YELLOW}⏭️${NC} settings.local.json 已存在"
 fi
 
-# 2. 创建必要目录
+# 2. 创建 Hookify 规则文件
+for example in .claude/hookify.*.local.md.example; do
+    if [ -f "$example" ]; then
+        target="${example%.example}"
+        if [ ! -f "$target" ]; then
+            cp "$example" "$target"
+            echo -e "${GREEN}✅${NC} 创建 $(basename $target)"
+        else
+            echo -e "${YELLOW}⏭️${NC} $(basename $target) 已存在"
+        fi
+    fi
+done
+
+# 3. 创建必要目录
 dirs=(".claude/screenshots" ".claude/logs" "memory-bank" "docs/requirements" "docs/designs" "docs/tasks")
 for dir in "${dirs[@]}"; do
     mkdir -p "$dir"
 done
 echo -e "${GREEN}✅${NC} 创建目录结构"
 
-# 3. 创建 Memory Bank 文件（如不存在）
+# 4. 创建 Memory Bank 文件（如不存在）
 if [ ! -f "memory-bank/progress.md" ]; then
     cat > memory-bank/progress.md << 'EOF'
 # 项目进度
