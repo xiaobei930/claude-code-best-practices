@@ -95,6 +95,59 @@ bash .claude/scripts/init.sh
 
 **Migrating from an existing project?** See [MIGRATION.md](MIGRATION.md).
 
+### Install as Plugin
+
+For existing projects where you want to add these features without copying files:
+
+```bash
+# In Claude Code, run:
+/plugin
+
+# Select "Add Marketplace", then enter:
+xiaobei930/claude-code-best-practices
+```
+
+Or install directly:
+
+```
+/plugin install github:xiaobei930/claude-code-best-practices
+```
+
+#### Clone vs Plugin: When to Use Which
+
+| Method             | Best For          | What You Get                                  |
+| ------------------ | ----------------- | --------------------------------------------- |
+| **Clone Template** | New projects      | Full customization, all files in your repo    |
+| **Install Plugin** | Existing projects | Commands, skills, agents added to Claude Code |
+
+#### Plugin Configuration
+
+After installing as a plugin, you may want to customize settings:
+
+1. **Enable/disable specific components** in your project's `.claude/settings.local.json`:
+
+```json
+{
+  "enabledPlugins": {
+    "claude-code-best-practices@xiaobei930": true
+  }
+}
+```
+
+2. **Override plugin settings** by creating local files:
+   - Create `.claude/commands/` in your project to add/override commands
+   - Create `.claude/rules/` to add project-specific rules
+
+3. **Memory bank**: Plugin doesn't include memory-bank. Create manually if needed:
+
+```bash
+mkdir -p memory-bank
+touch memory-bank/progress.md
+touch memory-bank/architecture.md
+```
+
+> **Note**: Don't install the plugin in a project that was cloned from this template - it will cause duplicate commands and hooks.
+
 ---
 
 ## ✨ Core Features

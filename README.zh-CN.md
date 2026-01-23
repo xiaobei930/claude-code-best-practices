@@ -93,6 +93,59 @@ bash .claude/scripts/init.sh
 
 > **Windows 用户**：使用 Git Bash 运行脚本，或使用 `robocopy` 复制文件。
 
+### 作为插件安装
+
+如果你想在现有项目中添加这些功能，而不需要复制文件：
+
+```bash
+# 在 Claude Code 中运行：
+/plugin
+
+# 选择 "Add Marketplace"，然后输入：
+xiaobei930/claude-code-best-practices
+```
+
+或者直接安装：
+
+```
+/plugin install github:xiaobei930/claude-code-best-practices
+```
+
+#### Clone vs 插件：何时使用哪种方式
+
+| 方式           | 适用场景 | 获得内容                             |
+| -------------- | -------- | ------------------------------------ |
+| **Clone 模板** | 新项目   | 完全可定制，所有文件在你的仓库中     |
+| **安装插件**   | 现有项目 | 命令、技能、智能体添加到 Claude Code |
+
+#### 插件配置
+
+安装为插件后，你可能需要自定义设置：
+
+1. **启用/禁用特定组件**，在项目的 `.claude/settings.local.json` 中：
+
+```json
+{
+  "enabledPlugins": {
+    "claude-code-best-practices@xiaobei930": true
+  }
+}
+```
+
+2. **覆盖插件设置**，创建本地文件：
+   - 在项目中创建 `.claude/commands/` 来添加/覆盖命令
+   - 创建 `.claude/rules/` 来添加项目特定规则
+
+3. **记忆库**：插件不包含 memory-bank，如需要请手动创建：
+
+```bash
+mkdir -p memory-bank
+touch memory-bank/progress.md
+touch memory-bank/architecture.md
+```
+
+> **注意**：不要在从此模板 clone 的项目中安装此插件——会导致命令和 hooks 重复。
+
 ---
 
 ## ✨ 核心特性
