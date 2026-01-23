@@ -243,8 +243,8 @@ hooks:
 | ----------------------- | ------ | ---- | ------------------ |
 | `code-reviewer`         | Opus   | 只读 | 深度代码审查       |
 | `security-reviewer`     | Opus   | 只读 | 安全漏洞检查       |
-| `code-simplifier`       | Sonnet | 读写 | 代码简化和重构     |
-| `planner`               | Sonnet | 只读 | 任务规划和分解     |
+| `code-simplifier`       | Opus   | 读写 | 代码简化和重构     |
+| `planner`               | Opus   | 只读 | 任务规划和分解     |
 | `tdd-guide`             | Sonnet | 读写 | TDD 指导和测试编写 |
 | `requirement-validator` | Sonnet | 只读 | 需求文档验证       |
 
