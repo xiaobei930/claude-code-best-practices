@@ -11,17 +11,20 @@ Thank you for your interest in contributing! This project aims to build the best
 ### Ways to Contribute
 
 #### 1. Report Issues
+
 - Found a bug? [Open an issue](../../issues/new?template=bug_report.md)
 - Have a suggestion? [Open a feature request](../../issues/new?template=feature_request.md)
 - Documentation unclear? Let us know!
 
 #### 2. Submit Pull Requests
+
 - Fix bugs
 - Add new commands/skills/rules
 - Improve documentation
 - Add translations
 
 #### 3. Share Your Experience
+
 - Share usage scenarios in Discussions
 - Write blog posts about using this template
 - Star the project if you find it useful
@@ -39,8 +42,8 @@ git checkout -b feature/your-feature-name
 # 3. Make changes and test
 python .claude/scripts/test_template.py
 
-# 4. Commit (follow conventional commits)
-git commit -m "feat: add new command for X"
+# 4. Commit (follow conventional commits - English only)
+git commit -m "feat(commands): add new command for X"
 
 # 5. Push and create PR
 git push origin feature/your-feature-name
@@ -48,7 +51,9 @@ git push origin feature/your-feature-name
 
 ### Commit Message Format
 
-We use [Conventional Commits](https://www.conventionalcommits.org/):
+We use [Conventional Commits](https://www.conventionalcommits.org/).
+
+> ⚠️ **Important**: All commit messages for this repository must be in **English** to maintain consistency.
 
 ```
 <type>(<scope>): <description>
@@ -56,20 +61,33 @@ We use [Conventional Commits](https://www.conventionalcommits.org/):
 [optional body]
 ```
 
+**Rules:**
+
+- Use **lowercase** for description (not capitalized)
+- Use **present tense** verbs (add, not added)
+- Keep description under **50 characters**
+- No period at the end
+
 **Types:**
-- `feat`: New feature (command, skill, rule)
-- `fix`: Bug fix
-- `docs`: Documentation only
-- `style`: Code style changes
-- `refactor`: Code refactoring
-- `test`: Adding tests
-- `chore`: Maintenance tasks
+
+| Type       | Description       | Example                                 |
+| ---------- | ----------------- | --------------------------------------- |
+| `feat`     | New feature       | feat(commands): add /deploy command     |
+| `fix`      | Bug fix           | fix(hooks): resolve encoding issue      |
+| `docs`     | Documentation     | docs(readme): add FAQ section           |
+| `style`    | Code formatting   | style: format with prettier             |
+| `refactor` | Code refactoring  | refactor(hooks): simplify timeout logic |
+| `perf`     | Performance       | perf(query): optimize search            |
+| `test`     | Tests             | test: add unit tests for hooks          |
+| `chore`    | Build/maintenance | chore(deps): bump axios to 1.6.0        |
 
 **Examples:**
+
 ```
 feat(commands): add /deploy command for CI/CD
 fix(hooks): resolve format_file.py encoding issue
 docs(readme): add FAQ section
+refactor(scripts): simplify timeout configuration
 ```
 
 ### Pull Request Guidelines
@@ -83,21 +101,26 @@ docs(readme): add FAQ section
 ### File Structure Guidelines
 
 #### Adding a New Command
+
 ```
 .claude/commands/your-command.md
 ```
+
 - Include YAML frontmatter with `allowed_tools`
 - Define clear role and responsibilities
 - Add usage examples
 
 #### Adding a New Rule
+
 ```
 .claude/rules/your-rule.md
 ```
+
 - Specify `paths` in frontmatter for auto-matching
 - Keep rules focused and actionable
 
 #### Adding a New Skill
+
 ```
 .claude/skills/your-skill/
 ├── SKILL.md           # Main skill file
@@ -124,17 +147,20 @@ docs(readme): add FAQ section
 ### 贡献方式
 
 #### 1. 报告问题
+
 - 发现 Bug？[提交 Issue](../../issues/new?template=bug_report.md)
 - 有建议？[提交功能请求](../../issues/new?template=feature_request.md)
 - 文档不清楚？告诉我们！
 
 #### 2. 提交 Pull Request
+
 - 修复 Bug
 - 添加新的命令/技能/规则
 - 改进文档
 - 添加翻译
 
 #### 3. 分享你的经验
+
 - 在 Discussions 分享使用场景
 - 写博客介绍这个模板
 - 如果觉得有用，给项目 Star
@@ -152,8 +178,8 @@ git checkout -b feature/your-feature-name
 # 3. 修改并测试
 python .claude/scripts/test_template.py
 
-# 4. 提交（遵循约定式提交）
-git commit -m "feat: 添加 X 功能的新命令"
+# 4. 提交（必须使用英文）
+git commit -m "feat(commands): add new command for X"
 
 # 5. 推送并创建 PR
 git push origin feature/your-feature-name
@@ -161,7 +187,9 @@ git push origin feature/your-feature-name
 
 ### 提交信息格式
 
-我们使用 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/)：
+我们使用 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/)。
+
+> ⚠️ **重要**: 本仓库的所有 commit message 必须使用**英文**，以保持一致性。
 
 ```
 <type>(<scope>): <description>
@@ -169,20 +197,33 @@ git push origin feature/your-feature-name
 [可选正文]
 ```
 
+**规范：**
+
+- 使用**小写字母**开头（不首字母大写）
+- 使用**现在时态**动词（add 而非 added）
+- 描述不超过 **50 字符**
+- 不以句号结尾
+
 **类型：**
-- `feat`: 新功能（命令、技能、规则）
-- `fix`: Bug 修复
-- `docs`: 仅文档修改
-- `style`: 代码风格修改
-- `refactor`: 代码重构
-- `test`: 添加测试
-- `chore`: 维护任务
+
+| Type       | 说明     | 示例                                    |
+| ---------- | -------- | --------------------------------------- |
+| `feat`     | 新功能   | feat(commands): add /deploy command     |
+| `fix`      | Bug 修复 | fix(hooks): resolve encoding issue      |
+| `docs`     | 文档更新 | docs(readme): add FAQ section           |
+| `style`    | 代码格式 | style: format with prettier             |
+| `refactor` | 重构     | refactor(hooks): simplify timeout logic |
+| `perf`     | 性能优化 | perf(query): optimize search            |
+| `test`     | 测试     | test: add unit tests for hooks          |
+| `chore`    | 构建维护 | chore(deps): bump axios to 1.6.0        |
 
 **示例：**
+
 ```
-feat(commands): 添加 /deploy 命令用于 CI/CD
-fix(hooks): 修复 format_file.py 编码问题
-docs(readme): 添加 FAQ 部分
+feat(commands): add /deploy command for CI/CD
+fix(hooks): resolve format_file.py encoding issue
+docs(readme): add FAQ section
+refactor(scripts): simplify timeout configuration
 ```
 
 ### Pull Request 指南
@@ -196,21 +237,26 @@ docs(readme): 添加 FAQ 部分
 ### 文件结构指南
 
 #### 添加新命令
+
 ```
 .claude/commands/your-command.md
 ```
+
 - 包含 YAML frontmatter，指定 `allowed_tools`
 - 定义清晰的角色和职责
 - 添加使用示例
 
 #### 添加新规则
+
 ```
 .claude/rules/your-rule.md
 ```
+
 - 在 frontmatter 中指定 `paths` 用于自动匹配
 - 保持规则聚焦和可操作
 
 #### 添加新技能
+
 ```
 .claude/skills/your-skill/
 ├── SKILL.md           # 主技能文件
