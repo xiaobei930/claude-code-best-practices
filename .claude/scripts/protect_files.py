@@ -39,7 +39,8 @@ def is_protected(file_path: str) -> tuple[bool, str]:
     """检查文件是否受保护"""
     path = Path(file_path)
     name = path.name.lower()
-    path_str = str(path).lower()
+    # 统一使用正斜杠以便跨平台匹配
+    path_str = str(path).replace("\\", "/").lower()
 
     for pattern in PROTECTED_PATTERNS:
         if pattern.startswith("*"):
@@ -47,8 +48,10 @@ def is_protected(file_path: str) -> tuple[bool, str]:
             if name.endswith(pattern[1:]):
                 return True, f"受保护的文件类型: {pattern}"
         elif pattern.endswith("/"):
-            # 目录匹配
-            if pattern[:-1] in path_str:
+            # 目录匹配 - 修复：确保匹配的是目录路径而非文件名的一部分
+            # 例如 ".git/" 应匹配 "/.git/config" 但不应匹配 ".gitignore"
+            dir_pattern = pattern[:-1]  # 去掉末尾的 /
+            if f"/{dir_pattern}/" in path_str or path_str.startswith(f"{dir_pattern}/"):
                 return True, f"受保护的目录: {pattern}"
         else:
             # 精确匹配
