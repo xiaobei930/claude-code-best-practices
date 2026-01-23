@@ -6,8 +6,14 @@
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://github.com/xiaobei930/claude-code-best-practices/releases"><img src="https://img.shields.io/github/v/release/xiaobei930/claude-code-best-practices?include_prereleases" alt="Release"></a>
   <a href="https://github.com/xiaobei930/claude-code-best-practices/actions/workflows/validate-template.yml"><img src="https://github.com/xiaobei930/claude-code-best-practices/actions/workflows/validate-template.yml/badge.svg" alt="Validate Template"></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/xiaobei930/claude-code-best-practices/stargazers"><img src="https://img.shields.io/github/stars/xiaobei930/claude-code-best-practices?style=social" alt="GitHub stars"></a>
+  <a href="https://github.com/xiaobei930/claude-code-best-practices/network/members"><img src="https://img.shields.io/github/forks/xiaobei930/claude-code-best-practices?style=social" alt="GitHub forks"></a>
+  <a href="https://github.com/xiaobei930/claude-code-best-practices/commits"><img src="https://img.shields.io/github/last-commit/xiaobei930/claude-code-best-practices" alt="Last commit"></a>
 </p>
 
 <p align="center">
