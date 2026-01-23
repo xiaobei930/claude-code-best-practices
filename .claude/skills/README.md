@@ -20,11 +20,19 @@ Skill 是一个包含 `SKILL.md` 文件的文件夹，可以包含：
 │   ├── SKILL.md                 # 后端通用模式
 │   ├── python.md                # Python 特定模式
 │   ├── typescript.md            # TypeScript 特定模式
-│   └── go.md                    # Go 特定模式
+│   ├── java.md                  # Java 特定模式
+│   ├── go.md                    # Go 特定模式
+│   └── csharp.md                # C# 特定模式
 ├── frontend-patterns/
 │   ├── SKILL.md                 # 前端通用模式
 │   ├── vue.md                   # Vue 特定模式
-│   └── react.md                 # React 特定模式
+│   ├── react.md                 # React 特定模式
+│   ├── svelte.md                # Svelte 特定模式
+│   └── angular.md               # Angular 特定模式
+├── devops-patterns/
+│   ├── SKILL.md                 # DevOps 通用模式
+│   ├── docker.md                # Docker 最佳实践
+│   └── ci-cd.md                 # CI/CD 流水线
 └── ...
 ```
 
@@ -214,15 +222,16 @@ description: 使用扩展思考进行深度分析
 
 ## 模板中的技能
 
-| 技能 | 用途 |
-|------|------|
-| `security-review` | 安全审查检查清单 |
-| `backend-patterns` | 后端开发模式（多语言） |
-| `frontend-patterns` | 前端开发模式（多框架） |
-| `api-development` | RESTful API 设计 |
-| `database-patterns` | 数据库设计和优化 |
-| `tdd-workflow` | 测试驱动开发 |
-| `debugging` | 系统化调试方法 |
-| `git-workflow` | Git 工作流最佳实践 |
-| `continuous-learning` | 会话评估和知识提取 |
-| `strategic-compact` | 策略性上下文压缩 |
+| 技能 | 结构 | 用途 |
+|------|------|------|
+| `security-review` | 单文件 | 安全审查检查清单 |
+| `backend-patterns` | 主+子(5语言) | 后端开发模式（Python, TypeScript, Java, Go, C#） |
+| `frontend-patterns` | 主+子(4框架) | 前端开发模式（Vue, React, Svelte, Angular） |
+| `devops-patterns` | 主+子(2平台) | DevOps 模式（Docker, CI/CD） |
+| `api-development` | 单文件 | RESTful API 设计 |
+| `database-patterns` | 单文件 | 数据库设计和优化 |
+| `tdd-workflow` | 单文件 | 测试驱动开发 |
+| `debugging` | 单文件 | 系统化调试方法 |
+| `git-workflow` | 单文件 | Git 工作流最佳实践 |
+| `continuous-learning` | 主+脚本 | 会话评估和知识提取 |
+| `strategic-compact` | 主+脚本 | 策略性上下文压缩 |
