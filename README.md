@@ -174,8 +174,9 @@ flowchart LR
     Clarify --> Lead["/lead<br/>Design"]
     Lead --> Designer["/designer<br/>UI Design"]
     Designer --> Dev["/dev<br/>Implement"]
-    Dev --> QA["/qa<br/>Verify"]
-    QA --> Commit["/commit<br/>Commit"]
+    Dev --> QA["/qa<br/>Test"]
+    QA --> Verify["/verify<br/>Verify"]
+    Verify --> Commit["/commit<br/>Commit"]
     Commit --> Clear["/clear<br/>Clear Context"]
     Clear -.->|Loop| PM
 ```

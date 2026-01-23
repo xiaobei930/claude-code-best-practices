@@ -166,8 +166,9 @@ flowchart LR
     Clarify --> Lead["/lead<br/>技术方案"]
     Lead --> Designer["/designer<br/>UI 设计"]
     Designer --> Dev["/dev<br/>编码实现"]
-    Dev --> QA["/qa<br/>功能验证"]
-    QA --> Commit["/commit<br/>代码提交"]
+    Dev --> QA["/qa<br/>质量测试"]
+    QA --> Verify["/verify<br/>综合验证"]
+    Verify --> Commit["/commit<br/>代码提交"]
     Commit --> Clear["/clear<br/>清除上下文"]
     Clear -.->|循环| PM
 ```

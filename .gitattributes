@@ -1,0 +1,60 @@
+# Git attributes for cross-platform compatibility
+# 跨平台兼容性的 Git 属性配置
+
+# Auto-detect text files and normalize line endings to LF
+# 自动检测文本文件并将换行符规范化为 LF
+* text=auto eol=lf
+
+# Shell scripts - always use LF (critical for bash execution)
+# Shell 脚本 - 始终使用 LF（bash 执行必需）
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Python scripts
+*.py text eol=lf
+
+# JavaScript/TypeScript
+*.js text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+
+# JSON/YAML config files
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Markdown documentation
+*.md text eol=lf
+
+# Git config files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Docker files
+Dockerfile text eol=lf
+*.dockerfile text eol=lf
+docker-compose*.yml text eol=lf
+
+# CI/CD config
+.github/**/* text eol=lf
+.travis.yml text eol=lf
+.gitlab-ci.yml text eol=lf
+
+# Explicitly binary files (no conversion)
+# 明确的二进制文件（不转换）
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary
+*.tgz binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
