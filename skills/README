@@ -13,7 +13,7 @@ Skill 是一个包含 `SKILL.md` 文件的文件夹，可以包含：
 ## 目录结构
 
 ```
-.claude/skills/
+skills/
 ├── README.md                    # 本文档
 ├── security-review/
 │   └── SKILL.md                 # 安全审查技能
@@ -122,7 +122,7 @@ agent: Explore
 - 技能内容成为子代理的提示
 - 无法访问对话历史
 - `agent` 字段决定执行环境（模型、工具、权限）
-- 可用代理：`Explore`、`Plan`、`general-purpose` 或自定义 `.claude/agents/`
+- 可用代理：`Explore`、`Plan`、`general-purpose` 或自定义 `agents/`
 
 ## 动态上下文注入
 
@@ -214,7 +214,7 @@ description: 使用扩展思考进行深度分析
 
 ## 技能热重载
 
-修改 `.claude/skills/` 中的技能后**立即生效**，无需重启会话。
+修改 `skills/` 中的技能后**立即生效**，无需重启会话。
 
 ## 故障排查
 

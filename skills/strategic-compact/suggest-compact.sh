@@ -9,7 +9,7 @@
 #       "matcher": "Edit|Write",
 #       "hooks": [{
 #         "type": "command",
-#         "command": "bash .claude/skills/strategic-compact/suggest-compact.sh"
+#         "command": "bash skills/strategic-compact/suggest-compact.sh"
 #       }]
 #     }]
 #   }

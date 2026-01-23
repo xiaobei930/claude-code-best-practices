@@ -9,7 +9,7 @@
 #       "matcher": "*",
 #       "hooks": [{
 #         "type": "command",
-#         "command": "bash .claude/skills/continuous-learning/evaluate-session.sh"
+#         "command": "bash skills/continuous-learning/evaluate-session.sh"
 #       }]
 #     }]
 #   }

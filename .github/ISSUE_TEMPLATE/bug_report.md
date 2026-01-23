@@ -41,10 +41,10 @@ What actually happened.
 Which files are involved? (commands, rules, scripts, etc.)
 涉及哪些文件？（命令、规则、脚本等）
 
-- [ ] `.claude/commands/`
+- [ ] `commands/`
 - [ ] `.claude/rules/`
 - [ ] `.claude/scripts/`
-- [ ] `.claude/skills/`
+- [ ] `skills/`
 - [ ] `CLAUDE.md`
 - [ ] Other / 其他: ___
 

@@ -133,7 +133,7 @@ xiaobei930/claude-code-best-practices
 ```
 
 2. **覆盖插件设置**，创建本地文件：
-   - 在项目中创建 `.claude/commands/` 来添加/覆盖命令
+   - 在项目中创建 `commands/` 来添加/覆盖命令
    - 创建 `.claude/rules/` 来添加项目特定规则
 
 3. **记忆库**：插件不包含 memory-bank，如需要请手动创建：
@@ -344,9 +344,9 @@ flowchart LR
 
 | 层级         | 目录                | 触发方式            | 职责                             | 详细程度 |
 | ------------ | ------------------- | ------------------- | -------------------------------- | -------- |
-| **Commands** | `.claude/commands/` | 用户主动调用 `/xxx` | 角色扮演、完整工作流、上下文交接 | 完整     |
-| **Skills**   | `.claude/skills/`   | 自动注入或手动引用  | 参考文档、最佳实践、代码示例     | 详细     |
-| **Agents**   | `.claude/agents/`   | Task 工具自动委派   | 子代理执行、独立上下文           | 简洁     |
+| **Commands** | `commands/` | 用户主动调用 `/xxx` | 角色扮演、完整工作流、上下文交接 | 完整     |
+| **Skills**   | `skills/`   | 自动注入或手动引用  | 参考文档、最佳实践、代码示例     | 详细     |
+| **Agents**   | `agents/`   | Task 工具自动委派   | 子代理执行、独立上下文           | 简洁     |
 
 ### 触发条件
 
@@ -461,7 +461,7 @@ paths:
 
 ### 添加新命令
 
-在 `.claude/commands/` 创建文件：
+在 `commands/` 创建文件：
 
 ```markdown
 ---
@@ -682,7 +682,7 @@ Windows 常见问题。解决方案：
 <details>
 <summary><strong>Q: 命令找不到</strong></summary>
 
-- 确认文件在 `.claude/commands/` 目录
+- 确认文件在 `commands/` 目录
 - 确认扩展名是 `.md`
 - 重启 Claude Code
 </details>

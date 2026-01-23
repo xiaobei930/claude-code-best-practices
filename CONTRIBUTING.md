@@ -103,7 +103,7 @@ refactor(scripts): simplify timeout configuration
 #### Adding a New Command
 
 ```
-.claude/commands/your-command.md
+commands/your-command.md
 ```
 
 - Include YAML frontmatter with `allowed_tools`
@@ -122,7 +122,7 @@ refactor(scripts): simplify timeout configuration
 #### Adding a New Skill
 
 ```
-.claude/skills/your-skill/
+skills/your-skill/
 ├── SKILL.md           # Main skill file
 └── language.md        # Optional language-specific file
 ```
@@ -239,7 +239,7 @@ refactor(scripts): simplify timeout configuration
 #### 添加新命令
 
 ```
-.claude/commands/your-command.md
+commands/your-command.md
 ```
 
 - 包含 YAML frontmatter，指定 `allowed_tools`
@@ -258,7 +258,7 @@ refactor(scripts): simplify timeout configuration
 #### 添加新技能
 
 ```
-.claude/skills/your-skill/
+skills/your-skill/
 ├── SKILL.md           # 主技能文件
 └── language.md        # 可选的语言特定文件
 ```

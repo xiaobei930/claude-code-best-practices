@@ -113,7 +113,7 @@ To resume: Run `/iterate` again, it reads from `progress.md`.
 
 #### Q: Commands not found
 Check these locations:
-- Commands should be in `.claude/commands/`
+- Commands should be in `commands/`
 - File extension must be `.md`
 - Restart Claude Code after adding new commands
 
@@ -289,7 +289,7 @@ git commit -m "Initial commit from Claude Code template"
 
 #### Q: 命令找不到
 检查以下位置：
-- 命令应该在 `.claude/commands/` 目录
+- 命令应该在 `commands/` 目录
 - 文件扩展名必须是 `.md`
 - 添加新命令后重启 Claude Code
 

@@ -14,11 +14,11 @@ Brief description of changes.
 
 ## Changed Files / 修改的文件
 
-- [ ] `.claude/commands/` - New or modified command
+- [ ] `commands/` - New or modified command
 - [ ] `.claude/rules/` - New or modified rule
-- [ ] `.claude/skills/` - New or modified skill
+- [ ] `skills/` - New or modified skill
 - [ ] `.claude/scripts/` - New or modified script
-- [ ] `.claude/agents/` - New or modified agent
+- [ ] `agents/` - New or modified agent
 - [ ] `CLAUDE.md` - Core documentation
 - [ ] `README.md` - Project documentation
 - [ ] Other / 其他: ___

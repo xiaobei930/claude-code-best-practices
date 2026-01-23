@@ -59,7 +59,7 @@ If you had custom settings in `.claude.backup/`:
 diff .claude.backup/settings.json .claude/settings.json
 
 # Copy your custom commands (if any)
-cp .claude.backup/commands/my-custom-command.md .claude/commands/
+cp .claude.backup/commands/my-custom-command.md commands/
 ```
 
 ### Selective Migration
@@ -69,7 +69,7 @@ Only want specific features? Pick what you need:
 #### Just the Workflow Commands
 
 ```bash
-cp -r /tmp/cc-template/.claude/commands/ .claude/commands/
+cp -r /tmp/cc-template/commands/ commands/
 ```
 
 #### Just the Coding Rules
@@ -92,7 +92,7 @@ cp -r /tmp/cc-template/.claude/scripts/ .claude/scripts/
 Keep these rules:
 - `.claude/rules/code-style.md` (Python style)
 - `.claude/rules/coding-standards.md` (Universal)
-- `.claude/skills/backend-patterns/python.md`
+- `skills/backend-patterns/python.md`
 
 Remove if not needed:
 - `frontend-style.md`, `cpp-style.md`, `java-style.md`, etc.
@@ -102,7 +102,7 @@ Remove if not needed:
 Keep these rules:
 - `.claude/rules/frontend-style.md`
 - `.claude/rules/coding-standards.md`
-- `.claude/skills/frontend-patterns/vue.md`
+- `skills/frontend-patterns/vue.md`
 
 #### Multi-Language Project
 
@@ -193,7 +193,7 @@ bash .claude/scripts/init.sh
 diff .claude.backup/settings.json .claude/settings.json
 
 # 复制自定义命令（如有）
-cp .claude.backup/commands/my-custom-command.md .claude/commands/
+cp .claude.backup/commands/my-custom-command.md commands/
 ```
 
 ### 选择性迁移
@@ -203,7 +203,7 @@ cp .claude.backup/commands/my-custom-command.md .claude/commands/
 #### 只要工作流命令
 
 ```bash
-cp -r /tmp/cc-template/.claude/commands/ .claude/commands/
+cp -r /tmp/cc-template/commands/ commands/
 ```
 
 #### 只要编码规则
@@ -226,7 +226,7 @@ cp -r /tmp/cc-template/.claude/scripts/ .claude/scripts/
 保留这些规则：
 - `.claude/rules/code-style.md`（Python 风格）
 - `.claude/rules/coding-standards.md`（通用）
-- `.claude/skills/backend-patterns/python.md`
+- `skills/backend-patterns/python.md`
 
 如不需要可删除：
 - `frontend-style.md`、`cpp-style.md`、`java-style.md` 等
@@ -236,7 +236,7 @@ cp -r /tmp/cc-template/.claude/scripts/ .claude/scripts/
 保留这些规则：
 - `.claude/rules/frontend-style.md`
 - `.claude/rules/coding-standards.md`
-- `.claude/skills/frontend-patterns/vue.md`
+- `skills/frontend-patterns/vue.md`
 
 #### 多语言项目
 

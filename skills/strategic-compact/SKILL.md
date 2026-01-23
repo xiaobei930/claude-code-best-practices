@@ -109,7 +109,7 @@ export COMPACT_THRESHOLD=50  # 首次提醒的工具调用数
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/skills/strategic-compact/suggest-compact.sh"
+            "command": "bash skills/strategic-compact/suggest-compact.sh"
           }
         ],
         "description": "在逻辑间隔建议压缩"

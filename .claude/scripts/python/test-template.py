@@ -35,10 +35,10 @@ def test_structure():
         ".claude/settings.local.json.example",
         ".claude/rules/methodology.md",
         ".claude/rules/security.md",
-        ".claude/commands/pm.md",
-        ".claude/commands/lead.md",
-        ".claude/commands/dev.md",
-        ".claude/commands/qa.md",
+        "commands/pm.md",
+        "commands/lead.md",
+        "commands/dev.md",
+        "commands/qa.md",
         ".gitignore",
     ]
 

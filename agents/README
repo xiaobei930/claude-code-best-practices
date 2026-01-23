@@ -12,7 +12,7 @@
 ## 目录结构
 
 ```
-.claude/agents/
+agents/
 ├── README.md              # 本文档
 ├── code-reviewer.md       # 代码审查代理
 ├── security-reviewer.md   # 安全审查代理

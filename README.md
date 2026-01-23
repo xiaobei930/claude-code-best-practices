@@ -135,7 +135,7 @@ After installing as a plugin, you may want to customize settings:
 ```
 
 2. **Override plugin settings** by creating local files:
-   - Create `.claude/commands/` in your project to add/override commands
+   - Create `commands/` in your project to add/override commands
    - Create `.claude/rules/` to add project-specific rules
 
 3. **Memory bank**: Plugin doesn't include memory-bank. Create manually if needed:
@@ -346,9 +346,9 @@ This template uses a three-tier architecture, each with different responsibiliti
 
 | Layer        | Directory           | Trigger Method           | Responsibility                                | Detail Level |
 | ------------ | ------------------- | ------------------------ | --------------------------------------------- | ------------ |
-| **Commands** | `.claude/commands/` | User invokes `/xxx`      | Role-playing, full workflow, context handoff  | Complete     |
-| **Skills**   | `.claude/skills/`   | Auto-inject or reference | Reference docs, best practices, code examples | Detailed     |
-| **Agents**   | `.claude/agents/`   | Task tool delegation     | Sub-agent execution, isolated context         | Concise      |
+| **Commands** | `commands/` | User invokes `/xxx`      | Role-playing, full workflow, context handoff  | Complete     |
+| **Skills**   | `skills/`   | Auto-inject or reference | Reference docs, best practices, code examples | Detailed     |
+| **Agents**   | `agents/`   | Task tool delegation     | Sub-agent execution, isolated context         | Concise      |
 
 ### Trigger Conditions
 
@@ -463,7 +463,7 @@ paths:
 
 ### Adding New Commands
 
-Create a file in `.claude/commands/`:
+Create a file in `commands/`:
 
 ```markdown
 ---
@@ -684,7 +684,7 @@ Recovery: Run `/iterate` again
 <details>
 <summary><strong>Q: Command not found</strong></summary>
 
-- Confirm file is in `.claude/commands/` directory
+- Confirm file is in `commands/` directory
 - Confirm file extension is `.md`
 - Restart Claude Code
 </details>
@@ -793,7 +793,7 @@ Some commands use MCP (Model Context Protocol) tools for enhanced functionality:
 
 ## 🌐 Note on Internal Files
 
-This template's internal files (`.claude/commands/`, `.claude/rules/`, `.claude/skills/`) are written in **Chinese**. This is intentional:
+This template's internal files (`commands/`, `.claude/rules/`, `skills/`) are written in **Chinese**. This is intentional:
 
 - **Claude understands Chinese** - All Claude models can read and follow Chinese instructions perfectly
 - **No translation burden** - Maintaining dual-language internal files would be impractical
