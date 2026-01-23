@@ -3,5 +3,9 @@
   "description": "Production-ready Claude Code configuration template with role-based workflows, safety hooks, multi-language standards, and memory persistence",
   "author": {
     "name": "xiaobei930"
-  }
+  },
+  "commands": "./.claude/commands/",
+  "agents": "./.claude/agents/",
+  "skills": "./.claude/skills/",
+  "hooks": "./hooks/hooks.json"
 }
