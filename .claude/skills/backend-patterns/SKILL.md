@@ -1,6 +1,6 @@
 ---
 name: backend-patterns
-description: "后端开发模式技能：包含服务架构、错误处理、日志、缓存等后端最佳实践。支持多语言，按需加载语言专属模式。Use when building backend services, APIs, microservices, or server-side applications."
+description: "Backend development patterns for services, error handling, logging, caching. Use when building backend services, APIs, or microservices."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -20,13 +20,13 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 
 根据项目技术栈，加载对应的语言专属文件：
 
-| 技术栈 | 加载文件 | 框架 |
-|--------|----------|------|
-| Python | `python.md` | FastAPI, Django, Flask |
+| 技术栈             | 加载文件        | 框架                     |
+| ------------------ | --------------- | ------------------------ |
+| Python             | `python.md`     | FastAPI, Django, Flask   |
 | TypeScript/Node.js | `typescript.md` | Express, NestJS, Fastify |
-| Java | `java.md` | Spring Boot, Quarkus |
-| Go | `go.md` | Gin, Echo, Fiber |
-| C# | `csharp.md` | ASP.NET Core |
+| Java               | `java.md`       | Spring Boot, Quarkus     |
+| Go                 | `go.md`         | Gin, Echo, Fiber         |
+| C#                 | `csharp.md`     | ASP.NET Core             |
 
 **加载方式**: 检测项目中的 `pyproject.toml`/`package.json`/`pom.xml`/`go.mod` 等文件确定技术栈。
 
@@ -86,6 +86,7 @@ src/
 ```
 
 **原则**:
+
 - 自定义错误类继承基础错误
 - 统一错误响应格式
 - 区分可操作错误和程序错误
@@ -102,6 +103,7 @@ src/
 | DEBUG | 开发调试信息 | 变量值、执行路径 |
 
 **结构化日志字段**:
+
 ```json
 {
   "timestamp": "2025-01-22T10:00:00Z",
@@ -115,13 +117,14 @@ src/
 
 ### 3. 缓存策略
 
-| 策略 | 适用场景 | TTL 建议 |
-|------|----------|----------|
-| Cache-Aside | 读多写少 | 5-60 分钟 |
-| Write-Through | 强一致性要求 | 短 TTL |
-| Write-Behind | 写多读少 | 根据业务 |
+| 策略          | 适用场景     | TTL 建议  |
+| ------------- | ------------ | --------- |
+| Cache-Aside   | 读多写少     | 5-60 分钟 |
+| Write-Through | 强一致性要求 | 短 TTL    |
+| Write-Behind  | 写多读少     | 根据业务  |
 
 **缓存键命名**:
+
 ```
 {service}:{entity}:{id}
 {service}:{entity}:list:{hash}

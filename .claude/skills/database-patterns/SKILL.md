@@ -1,6 +1,6 @@
 ---
 name: database-patterns
-description: "数据库模式技能：包含数据库设计、查询优化、迁移、索引等最佳实践。Use when designing database schemas, writing queries, optimizing performance, or managing migrations."
+description: "Database design, query optimization, migrations, and indexing. Use when designing schemas, writing queries, or managing migrations."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -127,23 +127,26 @@ const userWithPosts = await prisma.user.findUnique({
   include: {
     posts: {
       where: { published: true },
-      orderBy: { createdAt: 'desc' },
-      take: 10
-    }
-  }
-})
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    },
+  },
+});
 
 // 批量创建
 await prisma.user.createMany({
   data: users,
-  skipDuplicates: true
-})
+  skipDuplicates: true,
+});
 
 // 事务
 await prisma.$transaction([
-  prisma.user.update({ where: { id }, data: { balance: { decrement: amount } } }),
-  prisma.transaction.create({ data: { userId: id, amount, type: 'debit' } })
-])
+  prisma.user.update({
+    where: { id },
+    data: { balance: { decrement: amount } },
+  }),
+  prisma.transaction.create({ data: { userId: id, amount, type: "debit" } }),
+]);
 ```
 
 ### SQLAlchemy (Python)
@@ -229,17 +232,17 @@ CREATE INDEX idx_posts_content_fts
 
 ```typescript
 // ❌ N+1 问题
-const users = await prisma.user.findMany()
+const users = await prisma.user.findMany();
 for (const user of users) {
   const posts = await prisma.post.findMany({
-    where: { authorId: user.id }
-  })
+    where: { authorId: user.id },
+  });
 }
 
 // ✅ 使用 include 预加载
 const users = await prisma.user.findMany({
-  include: { posts: true }
-})
+  include: { posts: true },
+});
 
 // ✅ 使用 select 只获取需要的字段
 const users = await prisma.user.findMany({
@@ -247,10 +250,10 @@ const users = await prisma.user.findMany({
     id: true,
     name: true,
     posts: {
-      select: { id: true, title: true }
-    }
-  }
-})
+      select: { id: true, title: true },
+    },
+  },
+});
 ```
 
 ```python
@@ -391,11 +394,11 @@ SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL
-    }
+      url: process.env.DATABASE_URL,
+    },
   },
-  log: ['query', 'info', 'warn', 'error']
-})
+  log: ["query", "info", "warn", "error"],
+});
 
 // 连接池通过 URL 参数配置
 // postgresql://user:pass@host/db?connection_limit=10&pool_timeout=30

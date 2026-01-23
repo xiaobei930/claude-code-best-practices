@@ -1,6 +1,6 @@
 ---
 name: strategic-compact
-description: "策略性压缩技能：在逻辑断点建议上下文压缩，而非任意压缩。Use to suggest compaction at logical intervals during development sessions."
+description: "Strategic compaction skill: suggests context compression at logical breakpoints. Use to suggest compaction at logical intervals during development sessions."
 allowed-tools: Read, Bash
 ---
 
@@ -57,6 +57,7 @@ allowed-tools: Read, Bash
 
 ```markdown
 ## 压缩前确认
+
 - [ ] 当前任务状态已记录到 progress.md
 - [ ] 重要决策已记录
 - [ ] 待确认假设已标注
@@ -64,6 +65,7 @@ allowed-tools: Read, Bash
 - [ ] 下一步明确
 
 ## 压缩内容
+
 - 当前进度
 - 关键决策及原因
 - 待处理项
@@ -125,23 +127,28 @@ export COMPACT_THRESHOLD=50  # 首次提醒的工具调用数
 ## 会话摘要
 
 ### 完成的任务
+
 1. [任务1描述]
 2. [任务2描述]
 
 ### 关键决策
-| 决策 | 原因 | 置信度 |
-|------|------|--------|
+
+| 决策    | 原因   | 置信度   |
+| ------- | ------ | -------- |
 | [决策1] | [原因] | 高/中/低 |
 
 ### 当前状态
+
 - 进度: [百分比或阶段]
 - 阻塞: [如有]
 
 ### 待处理
+
 - [ ] [待处理项1]
 - [ ] [待处理项2]
 
 ### 下一步
+
 [明确的下一步任务]
 ```
 

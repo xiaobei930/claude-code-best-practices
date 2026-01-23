@@ -1,6 +1,6 @@
 ---
 name: devops-patterns
-description: "DevOps 模式技能：包含容器化、CI/CD、部署策略、监控等最佳实践。支持多平台，按需加载平台专属模式。Use when containerizing applications, setting up CI/CD pipelines, deploying services, or configuring infrastructure."
+description: "DevOps patterns: containerization, CI/CD, deployment strategies, monitoring. Use when containerizing apps, setting up pipelines, or deploying services."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 

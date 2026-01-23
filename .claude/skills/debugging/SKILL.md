@@ -1,6 +1,6 @@
 ---
 name: debugging
-description: "调试技能：包含系统化调试方法、日志分析、性能诊断等技巧。Use when debugging issues, analyzing errors, investigating performance problems, or troubleshooting production incidents."
+description: "Systematic debugging methods, log analysis, and performance diagnostics. Use when debugging issues, analyzing errors, or troubleshooting incidents."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -36,28 +36,35 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 
 ```markdown
 ## 问题描述
+
 [简要描述问题现象]
 
 ## 预期行为
+
 [期望的正确行为]
 
 ## 实际行为
+
 [实际观察到的行为]
 
 ## 复现步骤
+
 1. [步骤1]
 2. [步骤2]
 3. [步骤3]
 
 ## 环境信息
+
 - OS: [操作系统]
 - Node/Python 版本: [版本]
 - 相关依赖版本: [版本]
 
 ## 错误信息
+
 [完整的错误堆栈或日志]
 
 ## 已尝试的方案
+
 - [ ] 方案1 - 结果
 - [ ] 方案2 - 结果
 ```
@@ -68,25 +75,25 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 
 ```typescript
 // ❌ 无用的日志
-console.log('here')
-console.log(data)
+console.log("here");
+console.log(data);
 
 // ✅ 有信息量的日志
-console.log('[UserService.createUser] 开始创建用户:', {
+console.log("[UserService.createUser] 开始创建用户:", {
   email: user.email,
-  timestamp: new Date().toISOString()
-})
+  timestamp: new Date().toISOString(),
+});
 
-console.log('[UserService.createUser] 数据库插入成功:', {
+console.log("[UserService.createUser] 数据库插入成功:", {
   userId: result.id,
-  duration: Date.now() - startTime
-})
+  duration: Date.now() - startTime,
+});
 
-console.error('[UserService.createUser] 创建失败:', {
+console.error("[UserService.createUser] 创建失败:", {
   error: error.message,
   stack: error.stack,
-  input: { email: user.email }
-})
+  input: { email: user.email },
+});
 ```
 
 ```python
@@ -105,13 +112,13 @@ logger.error(f"[create_user] 创建失败: error={str(e)}", exc_info=True)
 
 ### 日志级别使用
 
-| 级别 | 用途 | 示例 |
-|------|------|------|
-| DEBUG | 详细调试信息 | 函数参数、中间状态 |
-| INFO | 正常操作信息 | 用户登录、订单创建 |
-| WARN | 警告但可继续 | 配置缺失使用默认值 |
-| ERROR | 错误但可恢复 | API 调用失败重试 |
-| FATAL | 致命错误需退出 | 数据库连接失败 |
+| 级别  | 用途           | 示例               |
+| ----- | -------------- | ------------------ |
+| DEBUG | 详细调试信息   | 函数参数、中间状态 |
+| INFO  | 正常操作信息   | 用户登录、订单创建 |
+| WARN  | 警告但可继续   | 配置缺失使用默认值 |
+| ERROR | 错误但可恢复   | API 调用失败重试   |
+| FATAL | 致命错误需退出 | 数据库连接失败     |
 
 ## 断点调试
 
@@ -154,7 +161,7 @@ logger.error(f"[create_user] 创建失败: error={str(e)}", exc_info=True)
 // 在循环中只在特定条件暂停
 for (const item of items) {
   // 条件断点: item.id === 'target-id'
-  processItem(item)
+  processItem(item);
 }
 ```
 
@@ -164,33 +171,33 @@ for (const item of items) {
 
 ```typescript
 // Axios 拦截器
-axios.interceptors.request.use(config => {
-  console.log('[HTTP Request]', {
+axios.interceptors.request.use((config) => {
+  console.log("[HTTP Request]", {
     method: config.method,
     url: config.url,
-    data: config.data
-  })
-  return config
-})
+    data: config.data,
+  });
+  return config;
+});
 
 axios.interceptors.response.use(
-  response => {
-    console.log('[HTTP Response]', {
+  (response) => {
+    console.log("[HTTP Response]", {
       status: response.status,
       url: response.config.url,
-      data: response.data
-    })
-    return response
+      data: response.data,
+    });
+    return response;
   },
-  error => {
-    console.error('[HTTP Error]', {
+  (error) => {
+    console.error("[HTTP Error]", {
       status: error.response?.status,
       url: error.config?.url,
-      message: error.message
-    })
-    throw error
-  }
-)
+      message: error.message,
+    });
+    throw error;
+  },
+);
 ```
 
 ### cURL 调试
@@ -220,18 +227,18 @@ curl -X POST \
 // Prisma 查询日志
 const prisma = new PrismaClient({
   log: [
-    { emit: 'event', level: 'query' },
-    { emit: 'stdout', level: 'info' },
-    { emit: 'stdout', level: 'warn' },
-    { emit: 'stdout', level: 'error' }
-  ]
-})
+    { emit: "event", level: "query" },
+    { emit: "stdout", level: "info" },
+    { emit: "stdout", level: "warn" },
+    { emit: "stdout", level: "error" },
+  ],
+});
 
-prisma.$on('query', e => {
-  console.log('Query:', e.query)
-  console.log('Params:', e.params)
-  console.log('Duration:', e.duration, 'ms')
-})
+prisma.$on("query", (e) => {
+  console.log("Query:", e.query);
+  console.log("Params:", e.params);
+  console.log("Duration:", e.duration, "ms");
+});
 ```
 
 ```python
@@ -258,14 +265,14 @@ SHOW STATUS LIKE 'Slow_queries';
 
 ```typescript
 // 简单计时
-const start = performance.now()
-await someOperation()
-console.log(`耗时: ${performance.now() - start}ms`)
+const start = performance.now();
+await someOperation();
+console.log(`耗时: ${performance.now() - start}ms`);
 
 // 使用 console.time
-console.time('operation')
-await someOperation()
-console.timeEnd('operation')
+console.time("operation");
+await someOperation();
+console.timeEnd("operation");
 ```
 
 ```python
@@ -291,12 +298,12 @@ async def slow_operation():
 
 ```typescript
 // Node.js 内存使用
-const used = process.memoryUsage()
+const used = process.memoryUsage();
 console.log({
   heapUsed: `${Math.round(used.heapUsed / 1024 / 1024)}MB`,
   heapTotal: `${Math.round(used.heapTotal / 1024 / 1024)}MB`,
-  rss: `${Math.round(used.rss / 1024 / 1024)}MB`
-})
+  rss: `${Math.round(used.rss / 1024 / 1024)}MB`,
+});
 ```
 
 ```python
@@ -316,22 +323,22 @@ for stat in top_stats[:10]:
 
 ```typescript
 // 分组输出
-console.group('用户数据')
-console.log('ID:', user.id)
-console.log('Name:', user.name)
-console.groupEnd()
+console.group("用户数据");
+console.log("ID:", user.id);
+console.log("Name:", user.name);
+console.groupEnd();
 
 // 表格输出
-console.table(users)
+console.table(users);
 
 // 条件断言
-console.assert(user.age > 0, '年龄必须大于0')
+console.assert(user.age > 0, "年龄必须大于0");
 
 // 堆栈跟踪
-console.trace('调用堆栈')
+console.trace("调用堆栈");
 
 // 计数
-console.count('render') // render: 1, render: 2, ...
+console.count("render"); // render: 1, render: 2, ...
 ```
 
 ### React DevTools
@@ -356,14 +363,14 @@ function useCustomHook() {
 ```typescript
 // ❌ 忘记 await
 async function fetchData() {
-  const data = fetch('/api/data') // 缺少 await
-  return data.json() // data 是 Promise，不是 Response
+  const data = fetch("/api/data"); // 缺少 await
+  return data.json(); // data 是 Promise，不是 Response
 }
 
 // ✅ 正确
 async function fetchData() {
-  const response = await fetch('/api/data')
-  return await response.json()
+  const response = await fetch("/api/data");
+  return await response.json();
 }
 ```
 
@@ -372,12 +379,12 @@ async function fetchData() {
 ```typescript
 // ❌ 闭包捕获变量
 for (var i = 0; i < 5; i++) {
-  setTimeout(() => console.log(i), 100) // 全部输出 5
+  setTimeout(() => console.log(i), 100); // 全部输出 5
 }
 
 // ✅ 使用 let
 for (let i = 0; i < 5; i++) {
-  setTimeout(() => console.log(i), 100) // 0, 1, 2, 3, 4
+  setTimeout(() => console.log(i), 100); // 0, 1, 2, 3, 4
 }
 ```
 
@@ -386,30 +393,34 @@ for (let i = 0; i < 5; i++) {
 ```typescript
 // ❌ this 丢失
 class Handler {
-  name = 'handler'
+  name = "handler";
   handle() {
-    console.log(this.name)
+    console.log(this.name);
   }
 }
-const h = new Handler()
-const fn = h.handle
-fn() // undefined
+const h = new Handler();
+const fn = h.handle;
+fn(); // undefined
 
 // ✅ 绑定 this
-const fn = h.handle.bind(h)
+const fn = h.handle.bind(h);
 // 或使用箭头函数
-handle = () => { console.log(this.name) }
+handle = () => {
+  console.log(this.name);
+};
 ```
 
 ## 调试清单
 
 ```markdown
 ## 调试前
+
 - [ ] 能稳定复现问题吗？
 - [ ] 最小复现用例是什么？
 - [ ] 最近改动了什么？
 
 ## 调试中
+
 - [ ] 查看错误日志和堆栈
 - [ ] 添加必要的日志输出
 - [ ] 使用断点逐步执行
@@ -417,6 +428,7 @@ handle = () => { console.log(this.name) }
 - [ ] 检查环境变量和配置
 
 ## 调试后
+
 - [ ] 修复是否解决了根本原因？
 - [ ] 是否需要添加测试？
 - [ ] 是否需要更新文档？

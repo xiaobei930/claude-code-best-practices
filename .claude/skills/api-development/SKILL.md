@@ -1,6 +1,6 @@
 ---
 name: api-development
-description: "API 开发技能：包含 RESTful API 设计、请求处理、响应格式、版本控制等最佳实践。Use when creating API endpoints, designing REST APIs, or implementing backend routes."
+description: "RESTful API design patterns and best practices. Use when creating endpoints, designing APIs, or implementing routes."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -40,13 +40,13 @@ POST   /api/v1/orders/:id/cancel          # 取消订单
 
 ### HTTP 方法语义
 
-| 方法 | 语义 | 幂等 | 安全 |
-|------|------|------|------|
-| GET | 读取资源 | ✅ | ✅ |
-| POST | 创建资源 | ❌ | ❌ |
-| PUT | 完整更新 | ✅ | ❌ |
-| PATCH | 部分更新 | ❌ | ❌ |
-| DELETE | 删除资源 | ✅ | ❌ |
+| 方法   | 语义     | 幂等 | 安全 |
+| ------ | -------- | ---- | ---- |
+| GET    | 读取资源 | ✅   | ✅   |
+| POST   | 创建资源 | ❌   | ❌   |
+| PUT    | 完整更新 | ✅   | ❌   |
+| PATCH  | 部分更新 | ❌   | ❌   |
+| DELETE | 删除资源 | ✅   | ❌   |
 
 ## 统一响应格式
 
@@ -108,28 +108,28 @@ POST   /api/v1/orders/:id/cancel          # 取消订单
 
 ```typescript
 // app/api/users/route.ts
-import { NextRequest, NextResponse } from 'next/server'
-import { z } from 'zod'
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 const CreateUserSchema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email(),
-  age: z.number().int().min(0).optional()
-})
+  age: z.number().int().min(0).optional(),
+});
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
-    const page = parseInt(searchParams.get('page') || '1')
-    const pageSize = parseInt(searchParams.get('pageSize') || '20')
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page") || "1");
+    const pageSize = parseInt(searchParams.get("pageSize") || "20");
 
     const [users, total] = await Promise.all([
       db.users.findMany({
         skip: (page - 1) * pageSize,
-        take: pageSize
+        take: pageSize,
       }),
-      db.users.count()
-    ])
+      db.users.count(),
+    ]);
 
     return NextResponse.json({
       success: true,
@@ -138,43 +138,43 @@ export async function GET(request: NextRequest) {
         page,
         pageSize,
         total,
-        totalPages: Math.ceil(total / pageSize)
-      }
-    })
+        totalPages: Math.ceil(total / pageSize),
+      },
+    });
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: { message: '获取用户失败' } },
-      { status: 500 }
-    )
+      { success: false, error: { message: "获取用户失败" } },
+      { status: 500 },
+    );
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const validated = CreateUserSchema.parse(body)
+    const body = await request.json();
+    const validated = CreateUserSchema.parse(body);
 
-    const user = await db.users.create({ data: validated })
+    const user = await db.users.create({ data: validated });
 
     return NextResponse.json(
-      { success: true, data: user, message: '创建成功' },
-      { status: 201 }
-    )
+      { success: true, data: user, message: "创建成功" },
+      { status: 201 },
+    );
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         {
           success: false,
           error: {
-            code: 'VALIDATION_ERROR',
-            message: '请求参数无效',
-            details: error.errors
-          }
+            code: "VALIDATION_ERROR",
+            message: "请求参数无效",
+            details: error.errors,
+          },
         },
-        { status: 400 }
-      )
+        { status: 400 },
+      );
     }
-    throw error
+    throw error;
   }
 }
 ```
@@ -242,71 +242,75 @@ async def get_user(user_id: str):
 
 ```typescript
 // routes/users.ts
-import { Router } from 'express'
-import { body, query, validationResult } from 'express-validator'
+import { Router } from "express";
+import { body, query, validationResult } from "express-validator";
 
-const router = Router()
+const router = Router();
 
 router.get(
-  '/',
+  "/",
   [
-    query('page').optional().isInt({ min: 1 }),
-    query('pageSize').optional().isInt({ min: 1, max: 100 })
+    query("page").optional().isInt({ min: 1 }),
+    query("pageSize").optional().isInt({ min: 1, max: 100 }),
   ],
   async (req, res, next) => {
     try {
-      const errors = validationResult(req)
+      const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           success: false,
-          error: { code: 'VALIDATION_ERROR', details: errors.array() }
-        })
+          error: { code: "VALIDATION_ERROR", details: errors.array() },
+        });
       }
 
-      const page = parseInt(req.query.page as string) || 1
-      const pageSize = parseInt(req.query.pageSize as string) || 20
+      const page = parseInt(req.query.page as string) || 1;
+      const pageSize = parseInt(req.query.pageSize as string) || 20;
 
       const [users, total] = await Promise.all([
-        User.find().skip((page - 1) * pageSize).limit(pageSize),
-        User.countDocuments()
-      ])
+        User.find()
+          .skip((page - 1) * pageSize)
+          .limit(pageSize),
+        User.countDocuments(),
+      ]);
 
       res.json({
         success: true,
         data: users,
-        pagination: { page, pageSize, total, totalPages: Math.ceil(total / pageSize) }
-      })
+        pagination: {
+          page,
+          pageSize,
+          total,
+          totalPages: Math.ceil(total / pageSize),
+        },
+      });
     } catch (error) {
-      next(error)
+      next(error);
     }
-  }
-)
+  },
+);
 
 router.post(
-  '/',
-  [
-    body('name').notEmpty().isLength({ max: 100 }),
-    body('email').isEmail()
-  ],
+  "/",
+  [body("name").notEmpty().isLength({ max: 100 }), body("email").isEmail()],
   async (req, res, next) => {
     try {
-      const errors = validationResult(req)
+      const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           success: false,
-          error: { code: 'VALIDATION_ERROR', details: errors.array() }
-        })
+          error: { code: "VALIDATION_ERROR", details: errors.array() },
+        });
       }
 
-      const user = await User.create(req.body)
-      res.status(201).json({ success: true, data: user, message: '创建成功' })
+      const user = await User.create(req.body);
+      res.status(201).json({ success: true, data: user, message: "创建成功" });
     } catch (error) {
-      next(error)
+      next(error);
     }
-  }
-)
+  },
+);
 
-export default router
+export default router;
 ```
 
 ## 查询参数处理
@@ -315,53 +319,55 @@ export default router
 
 ```typescript
 interface PaginationParams {
-  page?: number
-  pageSize?: number
-  cursor?: string  // 游标分页
+  page?: number;
+  pageSize?: number;
+  cursor?: string; // 游标分页
 }
 
 // 偏移分页
-const { page = 1, pageSize = 20 } = query
-const skip = (page - 1) * pageSize
+const { page = 1, pageSize = 20 } = query;
+const skip = (page - 1) * pageSize;
 
 // 游标分页（大数据量推荐）
-const { cursor, pageSize = 20 } = query
-const where = cursor ? { id: { gt: cursor } } : {}
+const { cursor, pageSize = 20 } = query;
+const where = cursor ? { id: { gt: cursor } } : {};
 ```
 
 ### 排序
 
 ```typescript
 // ?sort=createdAt:desc,name:asc
-const sortParam = query.sort as string
-const orderBy = sortParam?.split(',').map(s => {
-  const [field, order] = s.split(':')
-  return { [field]: order || 'asc' }
-}) || [{ createdAt: 'desc' }]
+const sortParam = query.sort as string;
+const orderBy = sortParam?.split(",").map((s) => {
+  const [field, order] = s.split(":");
+  return { [field]: order || "asc" };
+}) || [{ createdAt: "desc" }];
 ```
 
 ### 筛选
 
 ```typescript
 // ?status=active&role=admin
-const { status, role } = query
+const { status, role } = query;
 const where = {
   ...(status && { status }),
-  ...(role && { role })
-}
+  ...(role && { role }),
+};
 ```
 
 ### 搜索
 
 ```typescript
 // ?q=keyword
-const { q } = query
-const where = q ? {
-  OR: [
-    { name: { contains: q, mode: 'insensitive' } },
-    { email: { contains: q, mode: 'insensitive' } }
-  ]
-} : {}
+const { q } = query;
+const where = q
+  ? {
+      OR: [
+        { name: { contains: q, mode: "insensitive" } },
+        { email: { contains: q, mode: "insensitive" } },
+      ],
+    }
+  : {};
 ```
 
 ## API 版本控制
@@ -395,26 +401,32 @@ export async function GET() { ... }
 
 ```typescript
 // middlewares/auth.ts
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 export async function authMiddleware(request: NextRequest) {
-  const token = request.headers.get('Authorization')?.replace('Bearer ', '')
+  const token = request.headers.get("Authorization")?.replace("Bearer ", "");
 
   if (!token) {
     return NextResponse.json(
-      { success: false, error: { code: 'UNAUTHORIZED', message: '未提供认证信息' } },
-      { status: 401 }
-    )
+      {
+        success: false,
+        error: { code: "UNAUTHORIZED", message: "未提供认证信息" },
+      },
+      { status: 401 },
+    );
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!)
-    request.user = decoded
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    request.user = decoded;
   } catch (error) {
     return NextResponse.json(
-      { success: false, error: { code: 'UNAUTHORIZED', message: 'Token 无效' } },
-      { status: 401 }
-    )
+      {
+        success: false,
+        error: { code: "UNAUTHORIZED", message: "Token 无效" },
+      },
+      { status: 401 },
+    );
   }
 }
 ```
@@ -426,20 +438,20 @@ export function requireRole(...roles: string[]) {
   return (request: NextRequest) => {
     if (!roles.includes(request.user.role)) {
       return NextResponse.json(
-        { success: false, error: { code: 'FORBIDDEN', message: '权限不足' } },
-        { status: 403 }
-      )
+        { success: false, error: { code: "FORBIDDEN", message: "权限不足" } },
+        { status: 403 },
+      );
     }
-  }
+  };
 }
 
 // 使用
 export async function DELETE(request: NextRequest) {
-  const authError = await authMiddleware(request)
-  if (authError) return authError
+  const authError = await authMiddleware(request);
+  if (authError) return authError;
 
-  const roleError = requireRole('admin')(request)
-  if (roleError) return roleError
+  const roleError = requireRole("admin")(request);
+  if (roleError) return roleError;
 
   // 执行删除
 }
@@ -447,19 +459,19 @@ export async function DELETE(request: NextRequest) {
 
 ## HTTP 状态码
 
-| 状态码 | 含义 | 使用场景 |
-|--------|------|----------|
-| 200 | OK | 成功获取/更新 |
-| 201 | Created | 成功创建 |
-| 204 | No Content | 成功删除 |
-| 400 | Bad Request | 请求参数错误 |
-| 401 | Unauthorized | 未认证 |
-| 403 | Forbidden | 无权限 |
-| 404 | Not Found | 资源不存在 |
-| 409 | Conflict | 资源冲突 |
-| 422 | Unprocessable Entity | 业务逻辑错误 |
-| 429 | Too Many Requests | 请求过多 |
-| 500 | Internal Server Error | 服务器错误 |
+| 状态码 | 含义                  | 使用场景      |
+| ------ | --------------------- | ------------- |
+| 200    | OK                    | 成功获取/更新 |
+| 201    | Created               | 成功创建      |
+| 204    | No Content            | 成功删除      |
+| 400    | Bad Request           | 请求参数错误  |
+| 401    | Unauthorized          | 未认证        |
+| 403    | Forbidden             | 无权限        |
+| 404    | Not Found             | 资源不存在    |
+| 409    | Conflict              | 资源冲突      |
+| 422    | Unprocessable Entity  | 业务逻辑错误  |
+| 429    | Too Many Requests     | 请求过多      |
+| 500    | Internal Server Error | 服务器错误    |
 
 ## 最佳实践
 

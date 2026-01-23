@@ -1,6 +1,6 @@
 ---
 name: frontend-patterns
-description: "前端开发模式技能：包含组件设计、状态管理、性能优化、无障碍等前端最佳实践。支持多框架，按需加载框架专属模式。Use when building web frontends, components, or client-side applications."
+description: "Frontend patterns: component design, state management, performance, accessibility. Use when building web frontends, components, or client-side apps."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -20,12 +20,12 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 
 根据项目技术栈，加载对应的框架专属文件：
 
-| 技术栈 | 加载文件 | 框架 |
-|--------|----------|------|
-| Vue | `vue.md` | Vue 3, Nuxt 3 |
-| React | `react.md` | React 18, Next.js |
-| Svelte | `svelte.md` | Svelte, SvelteKit |
-| Angular | `angular.md` | Angular 17+ |
+| 技术栈  | 加载文件     | 框架              |
+| ------- | ------------ | ----------------- |
+| Vue     | `vue.md`     | Vue 3, Nuxt 3     |
+| React   | `react.md`   | React 18, Next.js |
+| Svelte  | `svelte.md`  | Svelte, SvelteKit |
+| Angular | `angular.md` | Angular 17+       |
 
 **加载方式**: 检测项目中的 `package.json` 依赖确定技术栈。
 
@@ -63,13 +63,13 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 
 ### 组件设计原则
 
-| 原则 | 说明 |
-|------|------|
-| **单一职责** | 一个组件只做一件事 |
-| **Props 向下** | 数据从父组件流向子组件 |
-| **Events 向上** | 事件从子组件通知父组件 |
+| 原则             | 说明                        |
+| ---------------- | --------------------------- |
+| **单一职责**     | 一个组件只做一件事          |
+| **Props 向下**   | 数据从父组件流向子组件      |
+| **Events 向上**  | 事件从子组件通知父组件      |
 | **组合优于继承** | 使用 slot/children 组合组件 |
-| **可预测** | 相同 props 产生相同输出 |
+| **可预测**       | 相同 props 产生相同输出     |
 
 ### 命名规范
 
@@ -93,13 +93,13 @@ components/
 
 ### 状态分层
 
-| 层级 | 范围 | 存储方式 | 示例 |
-|------|------|----------|------|
-| **组件状态** | 单个组件 | useState/ref | 表单输入、UI 状态 |
-| **共享状态** | 多个组件 | Context/Store | 用户信息、主题 |
-| **服务器状态** | 来自 API | Query Cache | 列表数据、详情 |
-| **URL 状态** | 路由参数 | Router | 页码、筛选条件 |
-| **持久状态** | 跨会话 | localStorage | 用户偏好 |
+| 层级           | 范围     | 存储方式      | 示例              |
+| -------------- | -------- | ------------- | ----------------- |
+| **组件状态**   | 单个组件 | useState/ref  | 表单输入、UI 状态 |
+| **共享状态**   | 多个组件 | Context/Store | 用户信息、主题    |
+| **服务器状态** | 来自 API | Query Cache   | 列表数据、详情    |
+| **URL 状态**   | 路由参数 | Router        | 页码、筛选条件    |
+| **持久状态**   | 跨会话   | localStorage  | 用户偏好          |
 
 ### 状态管理选择
 
@@ -127,12 +127,12 @@ API 请求 → Query Library（TanStack Query）
 
 ### 渲染优化
 
-| 技术 | 用途 | 框架实现 |
-|------|------|----------|
-| **Memoization** | 避免重复计算 | useMemo/computed |
-| **Lazy Loading** | 延迟加载组件 | lazy/defineAsyncComponent |
-| **Virtual List** | 大列表渲染 | react-window/vue-virtual-scroller |
-| **Code Splitting** | 按需加载代码 | 动态 import |
+| 技术               | 用途         | 框架实现                          |
+| ------------------ | ------------ | --------------------------------- |
+| **Memoization**    | 避免重复计算 | useMemo/computed                  |
+| **Lazy Loading**   | 延迟加载组件 | lazy/defineAsyncComponent         |
+| **Virtual List**   | 大列表渲染   | react-window/vue-virtual-scroller |
+| **Code Splitting** | 按需加载代码 | 动态 import                       |
 
 ### 资源优化
 
@@ -152,12 +152,12 @@ API 请求 → Query Library（TanStack Query）
 
 ### 性能指标
 
-| 指标 | 目标 | 说明 |
-|------|------|------|
-| **LCP** | < 2.5s | 最大内容绘制 |
+| 指标    | 目标    | 说明         |
+| ------- | ------- | ------------ |
+| **LCP** | < 2.5s  | 最大内容绘制 |
 | **FID** | < 100ms | 首次输入延迟 |
-| **CLS** | < 0.1 | 累积布局偏移 |
-| **TTI** | < 3.8s | 可交互时间 |
+| **CLS** | < 0.1   | 累积布局偏移 |
+| **TTI** | < 3.8s  | 可交互时间   |
 
 ---
 
@@ -188,9 +188,7 @@ API 请求 → Query Library（TanStack Query）
 />
 
 <!-- 动态内容 -->
-<div aria-live="polite" aria-busy="false">
-  加载完成
-</div>
+<div aria-live="polite" aria-busy="false">加载完成</div>
 
 <!-- 对话框 -->
 <div role="dialog" aria-modal="true" aria-labelledby="dialog-title">
@@ -200,13 +198,13 @@ API 请求 → Query Library（TanStack Query）
 
 ### 键盘交互
 
-| 元素 | 按键 | 行为 |
-|------|------|------|
-| 按钮 | Enter/Space | 激活 |
-| 链接 | Enter | 导航 |
-| 菜单 | ↑↓ | 移动焦点 |
-| 对话框 | Esc | 关闭 |
-| Tab列表 | ←→ | 切换标签 |
+| 元素    | 按键        | 行为     |
+| ------- | ----------- | -------- |
+| 按钮    | Enter/Space | 激活     |
+| 链接    | Enter       | 导航     |
+| 菜单    | ↑↓          | 移动焦点 |
+| 对话框  | Esc         | 关闭     |
+| Tab列表 | ←→          | 切换标签 |
 
 ---
 
@@ -252,9 +250,7 @@ API 请求 → Query Library（TanStack Query）
 </div>
 
 <!-- 表单级错误 -->
-<div role="alert" class="form-error">
-  提交失败：网络错误，请重试
-</div>
+<div role="alert" class="form-error">提交失败：网络错误，请重试</div>
 ```
 
 ---
@@ -263,13 +259,13 @@ API 请求 → Query Library（TanStack Query）
 
 ### 动画类型
 
-| 类型 | 用途 | 实现 |
-|------|------|------|
-| **进入/退出** | 元素出现/消失 | CSS Transition |
-| **状态变化** | hover/active | CSS Transition |
-| **列表动画** | 添加/删除/排序 | FLIP 动画 |
-| **页面切换** | 路由过渡 | 路由动画 |
-| **复杂动画** | 多阶段动画 | Framer Motion/GSAP |
+| 类型          | 用途           | 实现               |
+| ------------- | -------------- | ------------------ |
+| **进入/退出** | 元素出现/消失  | CSS Transition     |
+| **状态变化**  | hover/active   | CSS Transition     |
+| **列表动画**  | 添加/删除/排序 | FLIP 动画          |
+| **页面切换**  | 路由过渡       | 路由动画           |
+| **复杂动画**  | 多阶段动画     | Framer Motion/GSAP |
 
 ### 动画原则
 
@@ -282,7 +278,9 @@ API 请求 → Query Library（TanStack Query）
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -320,11 +318,11 @@ API 请求 → Query Library（TanStack Query）
 
 ### 测试库
 
-| 框架 | 单元/集成 | E2E |
-|------|-----------|-----|
+| 框架  | 单元/集成       | E2E                |
+| ----- | --------------- | ------------------ |
 | React | Testing Library | Playwright/Cypress |
-| Vue | Testing Library | Playwright/Cypress |
-| 通用 | Vitest | Playwright |
+| Vue   | Testing Library | Playwright/Cypress |
+| 通用  | Vitest          | Playwright         |
 
 ---
 

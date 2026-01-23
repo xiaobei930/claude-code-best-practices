@@ -1,6 +1,6 @@
 ---
 name: continuous-learning
-description: "持续学习技能：从会话中自动提取可复用的模式和知识。Use at session end to evaluate and extract learnable patterns from debugging, workarounds, and project-specific knowledge."
+description: "Extracts reusable patterns from sessions. Use at session end to capture debugging insights and project-specific knowledge."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 

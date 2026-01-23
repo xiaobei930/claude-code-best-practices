@@ -1,6 +1,6 @@
 ---
 name: security-review
-description: "安全审查技能：全面的安全检查清单和模式。Use when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing sensitive features."
+description: "Security review skill: comprehensive security checklist and patterns. Use when adding authentication, handling user input, working with secrets, or creating API endpoints."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -23,19 +23,21 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ### 1. 密钥管理
 
 #### ❌ 绝对禁止
+
 ```typescript
-const apiKey = "sk-proj-xxxxx"  // 硬编码密钥
-const dbPassword = "password123" // 源码中的密码
+const apiKey = "sk-proj-xxxxx"; // 硬编码密钥
+const dbPassword = "password123"; // 源码中的密码
 ```
 
 #### ✅ 正确做法
+
 ```typescript
-const apiKey = process.env.OPENAI_API_KEY
-const dbUrl = process.env.DATABASE_URL
+const apiKey = process.env.OPENAI_API_KEY;
+const dbUrl = process.env.DATABASE_URL;
 
 // 验证密钥存在
 if (!apiKey) {
-  throw new Error('OPENAI_API_KEY 未配置')
+  throw new Error("OPENAI_API_KEY 未配置");
 }
 ```
 
@@ -48,6 +50,7 @@ if not api_key:
 ```
 
 #### 检查项
+
 - [ ] 无硬编码的 API 密钥、Token 或密码
 - [ ] 所有密钥在环境变量中
 - [ ] `.env.local` 在 .gitignore 中
@@ -57,18 +60,19 @@ if not api_key:
 ### 2. 输入验证
 
 #### 始终验证用户输入
+
 ```typescript
-import { z } from 'zod'
+import { z } from "zod";
 
 const CreateUserSchema = z.object({
   email: z.string().email(),
   name: z.string().min(1).max(100),
-  age: z.number().int().min(0).max(150)
-})
+  age: z.number().int().min(0).max(150),
+});
 
 export async function createUser(input: unknown) {
-  const validated = CreateUserSchema.parse(input)
-  return await db.users.create(validated)
+  const validated = CreateUserSchema.parse(input);
+  return await db.users.create(validated);
 }
 ```
 
@@ -88,32 +92,34 @@ class UserCreate(BaseModel):
 ```
 
 #### 文件上传验证
+
 ```typescript
 function validateFileUpload(file: File) {
   // 大小检查 (5MB 限制)
-  const maxSize = 5 * 1024 * 1024
+  const maxSize = 5 * 1024 * 1024;
   if (file.size > maxSize) {
-    throw new Error('文件过大 (最大 5MB)')
+    throw new Error("文件过大 (最大 5MB)");
   }
 
   // 类型检查
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']
+  const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
   if (!allowedTypes.includes(file.type)) {
-    throw new Error('文件类型不允许')
+    throw new Error("文件类型不允许");
   }
 
   // 扩展名检查
-  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif']
-  const extension = file.name.toLowerCase().match(/\.[^.]+$/)?.[0]
+  const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+  const extension = file.name.toLowerCase().match(/\.[^.]+$/)?.[0];
   if (!extension || !allowedExtensions.includes(extension)) {
-    throw new Error('文件扩展名无效')
+    throw new Error("文件扩展名无效");
   }
 
-  return true
+  return true;
 }
 ```
 
 #### 检查项
+
 - [ ] 所有用户输入使用 Schema 验证
 - [ ] 文件上传限制（大小、类型、扩展名）
 - [ ] 不直接在查询中使用用户输入
@@ -123,10 +129,11 @@ function validateFileUpload(file: File) {
 ### 3. SQL 注入防护
 
 #### ❌ 绝不拼接 SQL
+
 ```typescript
 // 危险 - SQL 注入漏洞
-const query = `SELECT * FROM users WHERE email = '${userEmail}'`
-await db.query(query)
+const query = `SELECT * FROM users WHERE email = '${userEmail}'`;
+await db.query(query);
 ```
 
 ```python
@@ -136,18 +143,16 @@ cursor.execute(query)
 ```
 
 #### ✅ 始终使用参数化查询
+
 ```typescript
 // 安全 - 参数化查询
 const { data } = await supabase
-  .from('users')
-  .select('*')
-  .eq('email', userEmail)
+  .from("users")
+  .select("*")
+  .eq("email", userEmail);
 
 // 或原生 SQL
-await db.query(
-  'SELECT * FROM users WHERE email = $1',
-  [userEmail]
-)
+await db.query("SELECT * FROM users WHERE email = $1", [userEmail]);
 ```
 
 ```python
@@ -159,6 +164,7 @@ cursor.execute(
 ```
 
 #### 检查项
+
 - [ ] 所有数据库查询使用参数化
 - [ ] SQL 中无字符串拼接
 - [ ] ORM/查询构建器正确使用
@@ -166,35 +172,37 @@ cursor.execute(
 ### 4. 认证与授权
 
 #### JWT Token 处理
+
 ```typescript
 // ❌ 错误: localStorage (易受 XSS 攻击)
-localStorage.setItem('token', token)
+localStorage.setItem("token", token);
 
 // ✅ 正确: httpOnly cookies
-res.setHeader('Set-Cookie',
-  `token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`)
+res.setHeader(
+  "Set-Cookie",
+  `token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`,
+);
 ```
 
 #### 授权检查
+
 ```typescript
 export async function deleteUser(userId: string, requesterId: string) {
   // 始终先验证授权
   const requester = await db.users.findUnique({
-    where: { id: requesterId }
-  })
+    where: { id: requesterId },
+  });
 
-  if (requester.role !== 'admin') {
-    return NextResponse.json(
-      { error: '无权限' },
-      { status: 403 }
-    )
+  if (requester.role !== "admin") {
+    return NextResponse.json({ error: "无权限" }, { status: 403 });
   }
 
-  await db.users.delete({ where: { id: userId } })
+  await db.users.delete({ where: { id: userId } });
 }
 ```
 
 #### 检查项
+
 - [ ] Token 存储在 httpOnly cookies（非 localStorage）
 - [ ] 敏感操作前验证授权
 - [ ] 实现基于角色的访问控制
@@ -203,6 +211,7 @@ export async function deleteUser(userId: string, requesterId: string) {
 ### 5. XSS 防护
 
 #### 净化 HTML
+
 ```typescript
 import DOMPurify from 'isomorphic-dompurify'
 
@@ -216,22 +225,26 @@ function renderUserContent(html: string) {
 ```
 
 #### CSP 头配置
+
 ```typescript
 // next.config.js
 const securityHeaders = [
   {
-    key: 'Content-Security-Policy',
+    key: "Content-Security-Policy",
     value: `
       default-src 'self';
       script-src 'self';
       style-src 'self' 'unsafe-inline';
       img-src 'self' data: https:;
-    `.replace(/\s{2,}/g, ' ').trim()
-  }
-]
+    `
+      .replace(/\s{2,}/g, " ")
+      .trim(),
+  },
+];
 ```
 
 #### 检查项
+
 - [ ] 用户提供的 HTML 已净化
 - [ ] CSP 头已配置
 - [ ] 无未验证的动态内容渲染
@@ -241,19 +254,17 @@ const securityHeaders = [
 
 ```typescript
 export async function POST(request: Request) {
-  const token = request.headers.get('X-CSRF-Token')
+  const token = request.headers.get("X-CSRF-Token");
 
   if (!csrf.verify(token)) {
-    return NextResponse.json(
-      { error: 'CSRF Token 无效' },
-      { status: 403 }
-    )
+    return NextResponse.json({ error: "CSRF Token 无效" }, { status: 403 });
   }
   // 处理请求
 }
 ```
 
 #### 检查项
+
 - [ ] 状态变更操作有 CSRF Token
 - [ ] 所有 Cookie 使用 SameSite=Strict
 - [ ] 双重提交 Cookie 模式
@@ -261,20 +272,20 @@ export async function POST(request: Request) {
 ### 7. 速率限制
 
 ```typescript
-import rateLimit from 'express-rate-limit'
+import rateLimit from "express-rate-limit";
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 分钟
   max: 100, // 每窗口 100 请求
-  message: '请求过多'
-})
+  message: "请求过多",
+});
 
 // 对搜索等昂贵操作更严格限制
 const searchLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 分钟
   max: 10,
-  message: '搜索请求过多'
-})
+  message: "搜索请求过多",
+});
 ```
 
 ```python
@@ -290,6 +301,7 @@ async def search(request: Request):
 ```
 
 #### 检查项
+
 - [ ] 所有 API 端点有速率限制
 - [ ] 昂贵操作更严格限制
 - [ ] 基于 IP 的速率限制
@@ -298,15 +310,17 @@ async def search(request: Request):
 ### 8. 敏感数据暴露
 
 #### 日志
+
 ```typescript
 // ❌ 错误: 记录敏感数据
-console.log('用户登录:', { email, password })
+console.log("用户登录:", { email, password });
 
 // ✅ 正确: 脱敏
-console.log('用户登录:', { email, userId })
+console.log("用户登录:", { email, userId });
 ```
 
 #### 错误消息
+
 ```typescript
 // ❌ 错误: 暴露内部细节
 catch (error) {
@@ -321,6 +335,7 @@ catch (error) {
 ```
 
 #### 检查项
+
 - [ ] 日志中无密码、Token 或密钥
 - [ ] 用户看到通用错误消息
 - [ ] 详细错误仅在服务器日志
@@ -345,6 +360,7 @@ npm outdated
 ```
 
 #### 检查项
+
 - [ ] 依赖保持更新
 - [ ] 无已知漏洞 (npm audit clean)
 - [ ] Lock 文件已提交
@@ -364,10 +380,10 @@ subprocess.run(["echo", user_input], shell=False)
 
 ```typescript
 // ❌ 危险
-exec(`process ${userInput}`)
+exec(`process ${userInput}`);
 
 // ✅ 安全
-execFile('process', [userInput])
+execFile("process", [userInput]);
 ```
 
 ### 11. 路径遍历防护
@@ -386,37 +402,37 @@ file_path = os.path.join("/uploads", safe_name)
 
 ```typescript
 // 测试认证
-test('需要认证', async () => {
-  const response = await fetch('/api/protected')
-  expect(response.status).toBe(401)
-})
+test("需要认证", async () => {
+  const response = await fetch("/api/protected");
+  expect(response.status).toBe(401);
+});
 
 // 测试授权
-test('需要管理员角色', async () => {
-  const response = await fetch('/api/admin', {
-    headers: { Authorization: `Bearer ${userToken}` }
-  })
-  expect(response.status).toBe(403)
-})
+test("需要管理员角色", async () => {
+  const response = await fetch("/api/admin", {
+    headers: { Authorization: `Bearer ${userToken}` },
+  });
+  expect(response.status).toBe(403);
+});
 
 // 测试输入验证
-test('拒绝无效输入', async () => {
-  const response = await fetch('/api/users', {
-    method: 'POST',
-    body: JSON.stringify({ email: '非邮箱' })
-  })
-  expect(response.status).toBe(400)
-})
+test("拒绝无效输入", async () => {
+  const response = await fetch("/api/users", {
+    method: "POST",
+    body: JSON.stringify({ email: "非邮箱" }),
+  });
+  expect(response.status).toBe(400);
+});
 
 // 测试速率限制
-test('强制速率限制', async () => {
-  const requests = Array(101).fill(null).map(() =>
-    fetch('/api/endpoint')
-  )
-  const responses = await Promise.all(requests)
-  const tooMany = responses.filter(r => r.status === 429)
-  expect(tooMany.length).toBeGreaterThan(0)
-})
+test("强制速率限制", async () => {
+  const requests = Array(101)
+    .fill(null)
+    .map(() => fetch("/api/endpoint"));
+  const responses = await Promise.all(requests);
+  const tooMany = responses.filter((r) => r.status === 429);
+  expect(tooMany.length).toBeGreaterThan(0);
+});
 ```
 
 ## 部署前安全检查清单
