@@ -30,6 +30,7 @@
 - [命令速查](#-命令速查)
 - [技能说明](#-技能说明)
 - [智能体](#-智能体)
+- [插件配合](#-插件配合)
 - [自定义指南](#-自定义指南)
 - [最佳实践](#-最佳实践)
 - [常见问题](#-常见问题)
@@ -266,6 +267,40 @@ flowchart LR
 | `requirement-validator` | 需求验证 | 设计阶段前验证需求文档 |
 | `security-reviewer` | 安全审查 | 认证、用户输入、密钥、API 端点 |
 | `tdd-guide` | TDD 指导 | 新功能、Bug 修复、测试优先方法 |
+
+---
+
+## 🔌 插件配合
+
+本模板设计为与官方 Claude Code 插件无缝配合。我们内置的智能体和技能是对官方插件的补充（而非替代）。
+
+### 与官方插件的关系
+
+| 模板内容 | 官方插件 | 关系说明 |
+|----------|----------|----------|
+| `code-reviewer` 智能体 | `code-review` 插件 | 模板：轻量级本地版；插件：功能更强大，自动触发 |
+| `security-reviewer` 智能体 | `security-guidance` | 模板：OWASP 检查清单；插件：自动安全分析 |
+| `code-simplifier` 智能体 | `code-simplifier` | 功能相似；插件拥有更多上下文 |
+| `/iterate` 命令 | `ralph-loop` 插件 | 模板：单会话循环；插件：跨会话持久化 |
+| `hookify` 示例 | `hookify` 插件 | 模板：示例配置；插件：完整钩子管理 |
+
+### 推荐的插件配置
+
+```json
+{
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true
+  }
+}
+```
+
+### 使用建议
+
+- **未安装插件时**：模板智能体/技能可独立工作
+- **已安装插件时**：插件用于高级功能，模板用于快速本地检查
+- **最佳实践**：安装插件，使用模板智能体获得即时反馈，使用插件进行深度分析
 
 ---
 
