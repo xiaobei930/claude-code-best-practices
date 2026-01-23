@@ -55,6 +55,14 @@ A comprehensive Claude Code configuration template for development teams. Suppor
 | ❌ Risk of dangerous commands         | ✅ Safety hooks protect your system  |
 | ❌ Context lost between sessions      | ✅ Memory bank persists progress     |
 
+### Demo
+
+<p align="center">
+  <img src="assets/setup.gif" alt="Setup Demo" width="80%">
+  <br>
+  <em>Plugin commands in action</em>
+</p>
+
 ---
 
 ## 🚀 Quick Start

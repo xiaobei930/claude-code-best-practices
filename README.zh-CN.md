@@ -55,6 +55,14 @@
 | ❌ 危险命令风险         | ✅ 安全钩子保护系统          |
 | ❌ 会话间上下文丢失     | ✅ 记忆库持久化进度          |
 
+### 演示
+
+<p align="center">
+  <img src="assets/setup.gif" alt="Setup 演示" width="80%">
+  <br>
+  <em>插件命令展示</em>
+</p>
+
 ---
 
 ## 🚀 快速开始
