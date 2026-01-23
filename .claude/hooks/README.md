@@ -2,10 +2,11 @@
 
 Claude Code 钩子系统允许在特定事件触发时执行自定义脚本，实现自动化工作流。
 
-## 钩子类型（9 个生命周期事件）
+## 钩子类型（10 个生命周期事件）
 
 | 钩子事件 | 触发时机 | 典型用途 |
 |----------|----------|----------|
+| `Setup` | `--init` / `--maintenance` 启动时 | 🆕 项目初始化、环境配置 |
 | `SessionStart` | 会话启动时 | 环境检查、加载上下文 |
 | `UserPromptSubmit` | 用户提交提示时 | 验证/添加上下文 |
 | `PreToolUse` | 工具执行**前** | 允许、拒绝或修改工具调用 |
@@ -221,7 +222,42 @@ hooks:
 }
 ```
 
-### 4. 会话管理钩子
+### 4. 项目初始化钩子（v2.1.10+）
+
+#### Setup Hook - 自动初始化项目
+
+通过 `--init`、`--init-only` 或 `--maintenance` 标志触发：
+
+```json
+{
+  "Setup": [
+    {
+      "matcher": "*",
+      "hooks": [{
+        "type": "command",
+        "command": "bash .claude/scripts/init.sh",
+        "timeout": 30000
+      }],
+      "description": "项目初始化 - 创建目录、配置文件、Memory Bank"
+    }
+  ]
+}
+```
+
+**触发方式**：
+```bash
+claude --init              # 初始化并启动会话
+claude --init-only         # 仅初始化，不启动会话
+claude --maintenance       # 维护模式
+```
+
+**适用场景**：
+- 首次克隆项目后自动配置环境
+- 创建必要的本地配置文件（settings.local.json、hookify 规则）
+- 初始化 Memory Bank 目录结构
+- 检查依赖和环境变量
+
+### 5. 会话管理钩子
 
 #### 会话启动检查
 ```json

@@ -126,6 +126,19 @@
   "_hooks_guide": "钩子配置指南见 .claude/hooks/README.md",
 
   "hooks": {
+    "Setup": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/scripts/init.sh",
+            "timeout": 30000
+          }
+        ],
+        "description": "项目初始化 - 通过 claude --init 触发"
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
