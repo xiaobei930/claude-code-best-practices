@@ -2,6 +2,12 @@
 # 长时间运行命令提醒脚本
 # 检测 dev server、watch 等可能长时间运行的命令
 
+# 检查 jq 是否存在
+if ! command -v jq &> /dev/null; then
+    # jq 不存在时静默退出，不阻止操作
+    exit 0
+fi
+
 # 从 stdin 读取输入
 input=$(cat)
 

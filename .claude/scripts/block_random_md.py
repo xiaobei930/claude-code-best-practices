@@ -82,22 +82,18 @@ def is_allowed_path(file_path: str) -> bool:
 
 
 def main():
-    # 从环境变量获取文件路径
-    tool_input = os.environ.get("CLAUDE_TOOL_INPUT", "")
-
+    # 从 stdin 读取 JSON 输入（Claude Code 标准方式）
     try:
-        # 尝试解析 JSON 格式
-        data = json.loads(tool_input)
-        file_path = data.get("file_path", "")
-    except (json.JSONDecodeError, TypeError):
-        # 如果不是 JSON，直接使用
-        file_path = tool_input
+        input_data = json.load(sys.stdin)
+        file_path = input_data.get("tool_input", {}).get("file_path", "")
+    except (json.JSONDecodeError, KeyError, TypeError):
+        sys.exit(0)
 
     if not file_path:
         sys.exit(0)
 
     if not is_allowed_path(file_path):
-        sys.exit(1)
+        sys.exit(2)  # Exit code 2 = 阻止执行
 
     sys.exit(0)
 

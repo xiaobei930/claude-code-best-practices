@@ -179,15 +179,21 @@ echo -e "${BLUE}================================${NC}"
 echo -e "${BLUE}清理完成${NC}"
 echo -e "${BLUE}================================${NC}"
 
-# 格式化大小
+# 格式化大小（不依赖 bc，使用纯 bash 算术）
 format_size() {
     local size=$1
     if [[ $size -ge 1073741824 ]]; then
-        echo "$(echo "scale=2; $size/1073741824" | bc) GB"
+        local gb=$((size / 1073741824))
+        local gb_rem=$(((size % 1073741824) * 100 / 1073741824))
+        echo "${gb}.${gb_rem} GB"
     elif [[ $size -ge 1048576 ]]; then
-        echo "$(echo "scale=2; $size/1048576" | bc) MB"
+        local mb=$((size / 1048576))
+        local mb_rem=$(((size % 1048576) * 100 / 1048576))
+        echo "${mb}.${mb_rem} MB"
     elif [[ $size -ge 1024 ]]; then
-        echo "$(echo "scale=2; $size/1024" | bc) KB"
+        local kb=$((size / 1024))
+        local kb_rem=$(((size % 1024) * 100 / 1024))
+        echo "${kb}.${kb_rem} KB"
     else
         echo "$size B"
     fi
