@@ -1,6 +1,6 @@
 ---
 name: code-simplifier
-description: "代码简化智能体：在功能完成后清理和简化代码架构，消除冗余，提升可维护性。Use when code maintenance, refactoring, or dead code cleanup is needed. Invoked after feature completion for code quality improvement."
+description: "Cleans and simplifies code architecture after feature completion, eliminating redundancy and improving maintainability. Use when code maintenance, refactoring, or dead code cleanup is needed. Invoked after feature completion for code quality improvement."
 model: opus
 tools: Read, Edit, Grep, Glob
 ---

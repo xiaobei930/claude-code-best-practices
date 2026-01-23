@@ -1,6 +1,6 @@
 ---
 name: requirement-validator
-description: "需求质量验证智能体：执行'需求的单元测试'，检查需求文档的完整性、清晰度、一致性。Use after /pm completes REQ document or when validating requirement quality before design phase."
+description: "Performs 'unit tests for requirements': validates completeness, clarity, and consistency of requirement documents. Use after /pm completes REQ document or when validating requirement quality before design phase."
 model: sonnet
 tools: Read, Grep, Glob
 ---

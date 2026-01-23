@@ -1,6 +1,6 @@
 ---
 name: security-reviewer
-description: "安全审查智能体：检查代码中的安全漏洞，包括 OWASP Top 10、密钥泄露、注入攻击等。Use PROACTIVELY before commits when working with authentication, user input, secrets, or API endpoints. Critical for security-sensitive changes."
+description: "Checks code for security vulnerabilities including OWASP Top 10, secret leaks, and injection attacks. Use PROACTIVELY before commits when working with authentication, user input, secrets, or API endpoints. Critical for security-sensitive changes."
 model: opus
 tools: Read, Grep, Glob
 ---
