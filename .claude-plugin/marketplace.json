@@ -1,0 +1,53 @@
+{
+  "name": "claude-code-best-practices",
+  "owner": {
+    "name": "xiaobei930",
+    "github": "https://github.com/xiaobei930"
+  },
+  "metadata": {
+    "description": "Production-ready Claude Code template - Clone and start coding in minutes",
+    "version": "1.0.0",
+    "minClaudeCodeVersion": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-code-best-practices",
+      "source": "./",
+      "description": "Complete development environment with role-based workflows (PM→Lead→Dev→QA), safety hooks, 30+ commands, 12 skills, 6 agents, and multi-language coding standards",
+      "version": "1.0.0",
+      "author": {
+        "name": "xiaobei930"
+      },
+      "homepage": "https://github.com/xiaobei930/claude-code-best-practices",
+      "repository": "https://github.com/xiaobei930/claude-code-best-practices",
+      "license": "MIT",
+      "keywords": [
+        "template",
+        "workflow",
+        "hooks",
+        "skills",
+        "agents",
+        "tdd",
+        "code-review",
+        "security"
+      ],
+      "category": "workflow",
+      "tags": [
+        "production-ready",
+        "multi-language",
+        "role-based",
+        "safety-hooks",
+        "memory-bank"
+      ],
+      "features": [
+        "Role-based workflow: PM → Lead → Dev → QA → Commit",
+        "Autonomous iteration mode with /iterate",
+        "Safety hooks: block dangerous commands, protect sensitive files",
+        "Multi-language standards: Python, Vue/TS, C++, Java, C#, Go",
+        "Memory bank for progress persistence",
+        "Strategic context compression suggestions",
+        "Continuous learning from sessions"
+      ]
+    }
+  ]
+}

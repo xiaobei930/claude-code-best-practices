@@ -1,0 +1,189 @@
+{
+  "$schema": "Standalone hooks configuration for plugin compatibility",
+  "_note": "Copy relevant sections to .claude/settings.local.json to activate",
+
+  "hooks": {
+    "Setup": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/scripts/init.sh",
+            "timeout": 30000
+          }
+        ],
+        "description": "Project initialization - triggered by claude --init"
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ${PLUGIN_ROOT}/.claude/scripts/validate_command.py",
+            "timeout": 5000
+          }
+        ],
+        "description": "Validate dangerous commands"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/scripts/pause_before_push.sh",
+            "timeout": 5000
+          }
+        ],
+        "description": "Pause before git push"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/scripts/long_running_warning.sh",
+            "timeout": 3000
+          }
+        ],
+        "description": "Warn about long-running commands"
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ${PLUGIN_ROOT}/.claude/scripts/protect_files.py",
+            "timeout": 3000
+          }
+        ],
+        "description": "Protect sensitive files"
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ${PLUGIN_ROOT}/.claude/scripts/block_random_md.py",
+            "timeout": 3000
+          }
+        ],
+        "description": "Block random .md file creation"
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/skills/strategic-compact/suggest-compact.sh",
+            "timeout": 3000
+          }
+        ],
+        "description": "Strategic compaction suggestions"
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ${PLUGIN_ROOT}/.claude/scripts/format_file.py",
+            "timeout": 30000
+          }
+        ],
+        "description": "Auto-format code"
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ${PLUGIN_ROOT}/.claude/scripts/check_console_log.py",
+            "timeout": 3000
+          }
+        ],
+        "description": "Check for console.log statements"
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/scripts/typescript_check.sh",
+            "timeout": 10000
+          }
+        ],
+        "description": "TypeScript type check"
+      }
+    ],
+
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ${PLUGIN_ROOT}/.claude/scripts/session_check.py",
+            "timeout": 5000
+          }
+        ],
+        "description": "Session health check"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/scripts/session_start.sh",
+            "timeout": 3000
+          }
+        ],
+        "description": "Load previous session context"
+      }
+    ],
+
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/scripts/pre_compact.sh",
+            "timeout": 5000
+          }
+        ],
+        "description": "Save state before context compaction"
+      }
+    ],
+
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/scripts/session_end.sh",
+            "timeout": 5000
+          }
+        ],
+        "description": "Persist state on session end"
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${PLUGIN_ROOT}/.claude/skills/continuous-learning/evaluate-session.sh",
+            "timeout": 5000
+          }
+        ],
+        "description": "Evaluate session for extractable patterns"
+      }
+    ]
+  }
+}
