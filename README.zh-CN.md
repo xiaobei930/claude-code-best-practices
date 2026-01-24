@@ -180,10 +180,10 @@ bash scripts/shell/init.sh
 
 ### 插件 vs Clone：何时使用哪种方式
 
-| 方式           | 适用场景 | 获得内容                               |
-| -------------- | -------- | -------------------------------------- |
-| **安装插件**   | 现有项目 | 命令、技能、智能体、hooks 即时可用     |
-| **Clone 模板** | 新项目   | 完全可定制，所有文件在你的仓库中       |
+| 方式           | 适用场景 | 获得内容                           |
+| -------------- | -------- | ---------------------------------- |
+| **安装插件**   | 现有项目 | 命令、技能、智能体、hooks 即时可用 |
+| **Clone 模板** | 新项目   | 完全可定制，所有文件在你的仓库中   |
 
 > **注意**：不要在从此模板 clone 的项目中安装此插件——会导致命令和 hooks 重复。
 
@@ -389,8 +389,8 @@ flowchart LR
 
 ### 分层对比
 
-| 层级         | 目录                | 触发方式            | 职责                             | 详细程度 |
-| ------------ | ------------------- | ------------------- | -------------------------------- | -------- |
+| 层级         | 目录        | 触发方式            | 职责                             | 详细程度 |
+| ------------ | ----------- | ------------------- | -------------------------------- | -------- |
 | **Commands** | `commands/` | 用户主动调用 `/xxx` | 角色扮演、完整工作流、上下文交接 | 完整     |
 | **Skills**   | `skills/`   | 自动注入或手动引用  | 参考文档、最佳实践、代码示例     | 详细     |
 | **Agents**   | `agents/`   | Task 工具自动委派   | 子代理执行、独立上下文           | 简洁     |
@@ -450,6 +450,18 @@ Claude 行为:
 | `requirement-validator` | 需求验证 | 设计阶段前验证需求文档         |
 | `security-reviewer`     | 安全审查 | 涉及认证、用户输入、密钥、API  |
 | `tdd-guide`             | TDD 指导 | 新功能、Bug 修复、测试优先方法 |
+
+### 智能体调用
+
+通过 Task 工具或命令 handoffs 调用：
+
+```
+Task:
+  subagent_type: "code-reviewer"
+  prompt: "审查代码质量"
+```
+
+> **说明**：直接使用 agent 名称（如 `code-simplifier`），插件安装和 Clone 安装均适用。
 
 ---
 
@@ -570,7 +582,7 @@ allowed_tools:
 | PostToolUse  | console.log 检查  | `node/hooks/check-console-log.js`    |
 | SessionStart | 会话健康检查      | `node/hooks/session-check.js`        |
 | SessionStart | 会话启动初始化    | `node/hooks/session-start.js`        |
-| Stop         | 会话结束持久化    | `node/hooks/session-end.js`          |
+| SessionEnd   | 会话结束持久化    | `node/hooks/session-end.js`          |
 
 ---
 

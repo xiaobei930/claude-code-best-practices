@@ -2,6 +2,47 @@
 
 子代理是专门处理特定任务的 AI 助手，拥有独立的上下文窗口、自定义系统提示、特定工具访问和独立权限。
 
+## Skill vs Agent：核心区别
+
+> **重要**：理解 Skill 和 Agent 的区别是正确使用本插件的关键。
+
+| 维度 | Skill（技能） | Agent（代理） |
+|------|--------------|---------------|
+| **本质** | 知识库 / 参考文档 | 执行者 / 独立助手 |
+| **作用** | 提供清单、模式、最佳实践 | 主动分析、产出报告 |
+| **上下文** | 注入到当前对话 | 独立上下文窗口 |
+| **调用方式** | 自动加载或 `/skill-name` | `Task` 工具委派 |
+| **消耗** | 不额外消耗 token | 独立 token 消耗 |
+| **适用场景** | 需要参考指南时 | 需要独立执行任务时 |
+
+### 配对关系
+
+本插件中存在功能相关的 Skill-Agent 配对：
+
+| Skill | Agent | 关系说明 |
+|-------|-------|----------|
+| `security-review` | `security-reviewer` | Skill 提供检查清单，Agent 执行自动扫描并产出报告 |
+| `tdd-workflow` | `tdd-guide` | Skill 提供 TDD 方法论，Agent 指导具体测试编写 |
+| - | `code-reviewer` | 无对应 Skill，Agent 直接执行代码审查 |
+| - | `code-simplifier` | 无对应 Skill，Agent 直接执行代码简化 |
+| - | `planner` | 无对应 Skill，与 `/lead` 命令配合使用 |
+| - | `requirement-validator` | 无对应 Skill，与 `/pm` 命令配合使用 |
+
+### 使用建议
+
+```
+# 需要了解安全最佳实践？→ 使用 Skill
+/security-review  # 加载安全检查清单到上下文
+
+# 需要自动扫描代码安全问题？→ 使用 Agent
+Task: security-reviewer  # 委派 Agent 执行扫描
+
+# 最佳实践：组合使用
+1. 先加载 Skill 了解检查标准
+2. 再委派 Agent 执行自动检查
+3. Agent 可引用 Skill 中的清单
+```
+
 ## 为什么使用子代理？
 
 - **保持上下文干净**：复杂任务在子代理中执行，只返回精炼结果
@@ -247,6 +288,20 @@ hooks:
 | `planner`               | Opus   | 只读 | 任务规划和分解     |
 | `tdd-guide`             | Sonnet | 读写 | TDD 指导和测试编写 |
 | `requirement-validator` | Sonnet | 只读 | 需求文档验证       |
+
+## 调用方式
+
+通过 Task 工具或命令 handoffs 调用：
+
+```
+Task:
+  subagent_type: "code-simplifier"
+  prompt: "简化代码"
+```
+
+> **说明**：直接使用 agent 名称，插件安装和 Clone 安装均适用。
+
+---
 
 ## 与官方插件的配合
 

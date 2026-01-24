@@ -180,10 +180,10 @@ bash scripts/shell/init.sh
 
 ### Plugin vs Clone: When to Use Which
 
-| Method             | Best For          | What You Get                                       |
-| ------------------ | ----------------- | -------------------------------------------------- |
-| **Install Plugin** | Existing projects | Commands, skills, agents, hooks added instantly    |
-| **Clone Template** | New projects      | Full customization, all files in your repo         |
+| Method             | Best For          | What You Get                                    |
+| ------------------ | ----------------- | ----------------------------------------------- |
+| **Install Plugin** | Existing projects | Commands, skills, agents, hooks added instantly |
+| **Clone Template** | New projects      | Full customization, all files in your repo      |
 
 > **Note**: Don't install the plugin in a project that was cloned from this template - it will cause duplicate commands and hooks.
 
@@ -389,8 +389,8 @@ This template uses a three-tier architecture, each with different responsibiliti
 
 ### Layer Comparison
 
-| Layer        | Directory           | Trigger Method           | Responsibility                                | Detail Level |
-| ------------ | ------------------- | ------------------------ | --------------------------------------------- | ------------ |
+| Layer        | Directory   | Trigger Method           | Responsibility                                | Detail Level |
+| ------------ | ----------- | ------------------------ | --------------------------------------------- | ------------ |
 | **Commands** | `commands/` | User invokes `/xxx`      | Role-playing, full workflow, context handoff  | Complete     |
 | **Skills**   | `skills/`   | Auto-inject or reference | Reference docs, best practices, code examples | Detailed     |
 | **Agents**   | `agents/`   | Task tool delegation     | Sub-agent execution, isolated context         | Concise      |
@@ -450,6 +450,18 @@ Sub-agents for specialized tasks, automatically invoked by the Task tool.
 | `requirement-validator` | Requirement validation | Validate requirement docs before design phase         |
 | `security-reviewer`     | Security review        | Auth, user input, secrets, API endpoints involved     |
 | `tdd-guide`             | TDD guidance           | New features, bug fixes, test-first methodology       |
+
+### Agent Invocation
+
+Agents are invoked via Task tool or through command handoffs:
+
+```
+Task:
+  subagent_type: "code-reviewer"
+  prompt: "Review code quality"
+```
+
+> **Note**: Use agent name directly (e.g., `code-simplifier`). Works for both plugin install and clone install.
 
 ---
 
@@ -545,7 +557,7 @@ Edit `.claude/settings.local.json`:
           {
             "type": "command",
             "command": "python scripts/your-script.py",
-            "timeout": 5
+            "timeout": 5000
           }
         ]
       }
@@ -570,7 +582,7 @@ All hooks default to Node.js for cross-platform compatibility. Python/Bash alter
 | SessionStart | Session health check        | `session-check.js`     |
 | SessionStart | Load previous context       | `session-start.js`     |
 | PreCompact   | Save state before compact   | `pre-compact.js`       |
-| Stop         | Session end persistence     | `session-end.js`       |
+| SessionEnd   | Session end persistence     | `session-end.js`       |
 
 ---
 

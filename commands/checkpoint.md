@@ -47,6 +47,7 @@ git commit -m "type(scope): description"
 ```
 
 **提交类型：**
+
 - `feat`: 新功能
 - `fix`: 修复 bug
 - `docs`: 文档更新
@@ -62,34 +63,42 @@ git commit -m "type(scope): description"
 # 项目进度
 
 ## 当前状态
+
 - **阶段**: [阶段名称]
 - **最后更新**: [YYYY-MM-DD HH:MM]
 - **last_checkpoint**: [YYYY-MM-DD HH:MM]
 
 ## 已完成
+
 - [x] 完成的任务1
 - [x] 完成的任务2
 
 ## 进行中
+
 - [ ] 当前任务（如有）
 
 ## 待办
+
 - [ ] 下一个任务
 - [ ] 后续任务
 
 ## 下一步
+
 [明确说明下一个要做什么]
 
 ## 决策记录
+
 | 日期 | 角色 | 决策 | 依据 | 置信度 |
-|------|------|------|------|--------|
+| ---- | ---- | ---- | ---- | ------ |
 
 ## 检查点历史
+
 | 时间 | 完成内容 | Git Commit |
-|------|----------|------------|
+| ---- | -------- | ---------- |
 ```
 
 **文档更新原则：**
+
 - 写给 /clear 后的下一个 Claude 实例看
 - 包含足够的上下文让它能继续工作
 - 明确说明下一步是什么
@@ -104,15 +113,19 @@ git commit -m "type(scope): description"
 # 会话笔记 - YYYY-MM-DD
 
 ## 本次会话完成
+
 - [完成的内容]
 
 ## 遇到的问题
+
 - [问题及解决方案]
 
 ## 下次会话注意
+
 - [需要注意的事项]
 
 ## 需要加载的上下文
+
 - memory-bank/progress.md
 - [其他相关文件]
 ```
@@ -134,21 +147,25 @@ git commit -m "type(scope): description"
 ## 检查清单
 
 ### 代码检查点
+
 - [ ] 无语法错误
 - [ ] 可以正常导入/构建
 - [ ] 相关测试通过
 
 ### 前端检查点（如涉及）
+
 - [ ] 页面正常渲染
 - [ ] Console 无 Error 级别日志
 - [ ] 关键交互功能正常
 
 ### Git 检查点
+
 - [ ] 变更已提交
 - [ ] commit message 符合规范
 - [ ] 无敏感信息
 
 ### 文档检查点（最重要！）
+
 - [ ] progress.md 已更新
 - [ ] 记录了完成的内容
 - [ ] 明确了下一步任务
@@ -184,6 +201,7 @@ git commit -m "type(scope): description"
    - 读取相关的任务文档
 
 3. **验证代码状态**
+
    ```bash
    git log --oneline -5    # 确认最近提交
    git status              # 检查工作区状态
@@ -200,7 +218,7 @@ git commit -m "type(scope): description"
 ```json
 {
   "hooks": {
-    "Stop": [
+    "SessionEnd": [
       {
         "matcher": "*",
         "hooks": [
@@ -226,6 +244,7 @@ git commit -m "type(scope): description"
 ```
 
 如果不更新文档：
+
 ```
 会话1: 完成任务A → 没更新文档 → /clear
 

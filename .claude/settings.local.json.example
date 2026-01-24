@@ -45,48 +45,7 @@
       "WebFetch(domain:pytorch.org)",
       "WebFetch(domain:fastapi.tiangolo.com)",
 
-      "Skill(iterate)",
-      "Skill(pair)",
-      "Skill(pm)",
-      "Skill(lead)",
-      "Skill(lead:*)",
-      "Skill(clarify)",
-      "Skill(dev)",
-      "Skill(qa)",
-      "Skill(designer)",
-      "Skill(frontend-design:frontend-design)",
-      "Skill(build)",
-      "Skill(test)",
-      "Skill(run)",
-      "Skill(commit)",
-      "Skill(checkpoint)",
-      "Skill(status)",
-      "Skill(context)",
-      "Skill(memory)",
-      "Skill(catchup)",
-      "Skill(git)",
-      "Skill(self-check)",
-      "Skill(task)",
-      "Skill(pr)",
-      "Skill(train)",
-      "Skill(infer)",
-      "Skill(compact)",
-      "Skill(setup)",
-      "Skill(verify)",
-      "Skill(cleanup)",
-      "Skill(docs)",
-      "Skill(fix)",
-      "Skill(learn)",
-      "Skill(hookify:hookify)",
-      "Skill(hookify:*)",
-      "Skill(setup-pm)",
-
-      "Skill(code-review:code-review)",
-      "Skill(feature-dev:*)",
-      "Skill(pr-review-toolkit:*)",
-      "Skill(code-simplifier:code-simplifier)",
-      "Skill(security-guidance:*)",
-
+      "Skill(*)",
       "Bash(git commit:*)"
     ],
     "deny": [
@@ -221,7 +180,7 @@
           {
             "type": "command",
             "command": "node scripts/node/hooks/format-file.js",
-            "timeout": 30
+            "timeout": 60
           }
         ],
         "description": "自动格式化代码"
@@ -244,7 +203,7 @@
             "type": "command",
             "command": "node scripts/node/hooks/typescript-check.js",
             "_command_bash": "bash scripts/shell/typescript-check.sh",
-            "timeout": 10
+            "timeout": 30
           }
         ],
         "description": "TypeScript 类型检查"
@@ -289,7 +248,7 @@
         "description": "压缩前保存状态"
       }
     ],
-    "Stop": [
+    "SessionEnd": [
       {
         "matcher": "*",
         "hooks": [

@@ -53,12 +53,12 @@ cp .claude/settings.local.json.example .claude/settings.local.json
 | SessionStart | `session-check.js` | 新会话启动     |
 | SessionStart | `session-start.js` | 加载上次上下文 |
 | PreCompact   | `pre-compact.js`   | 上下文压缩前   |
-| Stop         | `session-end.js`   | 会话结束       |
+| SessionEnd   | `session-end.js`   | 会话终止       |
 
 ### 策略性钩子
 
-| 脚本                  | 功能         | 位置                                  |
-| --------------------- | ------------ | ------------------------------------- |
+| 脚本                  | 功能         | 位置                          |
+| --------------------- | ------------ | ----------------------------- |
 | `suggest-compact.sh`  | 建议压缩时机 | `skills/strategic-compact/`   |
 | `evaluate-session.sh` | 提取模式     | `skills/continuous-learning/` |
 

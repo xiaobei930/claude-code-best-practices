@@ -1,11 +1,11 @@
 #!/bin/bash
 # 持续学习 - 会话评估器
-# 在 Stop hook 时运行，从会话中提取可复用的模式
+# 在 SessionEnd hook 时运行，从会话中提取可复用的模式
 #
 # Hook 配置 (在 settings.local.json 中):
 # {
 #   "hooks": {
-#     "Stop": [{
+#     "SessionEnd": [{
 #       "matcher": "*",
 #       "hooks": [{
 #         "type": "command",

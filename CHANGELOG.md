@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.1] - 2025-01-25
+
+### Fixed / 修复
+
+- **Agent handoffs 兼容性** - 移除 `cc-best:` 前缀，支持 Clone 用户直接使用本地 agents
+- **README timeout 不一致** - 英文版 `timeout: 5` 修正为 `timeout: 5000`（与中文版一致）
+- **lead.md 外部插件说明** - 添加 `feature-dev` 官方插件的可选安装说明，明确本地 `planner` 可作为替代
+
+### Changed / 变更
+
+- **命令 handoffs 更新** - `pm.md`, `lead.md`, `dev.md`, `qa.md`, `verify.md`, `checkpoint.md` 统一使用无前缀 agent 名称
+
+---
+
+## [0.4.0] - 2025-01-24
+
+### Security / 安全
+
+- **命令注入修复** - `commandExists()` 使用 `spawnSync` 替代 `execSync`，添加输入验证，防止命令注入攻击
+
+### Changed / 变更
+
+- **Hook 生命周期** - `Stop` 重命名为 `SessionEnd`（跟随 Claude Code 2.1.x 官方更新）
+- **超时配置增加** - `format-file`: 30s→60s, `typescript-check`: 10s→30s（官方超时上限从 60s 提升至 10min）
+- **权限配置简化** - 使用 `Skill(*)` 通配符替代单独的技能声明
+
+### Added / 新增
+
+- **安全警告注释** - 为 `runCommand()` 添加安全使用说明，防止传入用户输入
+
+### Fixed / 修复
+
+- **文档一致性** - 修正 README/hooks 文档中 `Stop` → `SessionEnd` 的错误引用
+- **版本同步** - 统一 `plugin.json` 和 `marketplace.json` 版本号至 0.4.0
+
+---
+
 ## [0.3.0] - 2025-01-24
 
 ### Fixed / 修复
@@ -112,20 +149,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Roadmap / 路线图
 
-### v0.4.0 (Planned)
+### v0.5.0 (Planned) - 质量保证与英文支持
 
-- [ ] English translations for key commands
-- [ ] GitHub Actions for template validation
-- [ ] Hook validation script
+**核心目标**: 提升可靠性、扩大受众
 
-### v1.0.0 (Future)
+- [ ] Hook 验证脚本（配置正确性自动检测）
+- [ ] GitHub Actions CI（frontmatter、路径自动验证）
+- [ ] 核心命令英文版（/pm, /lead, /dev, /qa, /iterate）
+- [ ] 文档结构优化（README 英文优先、中文版链接）
 
-- [ ] Stable API for custom extensions
-- [ ] Cloud sync support for memory-bank
-- [ ] Team collaboration features
+> **i18n 说明**: 官方 Claude Code 暂无 i18n 支持（跟踪 #7233），
+> 待官方发布后在 v0.6.0+ 适配。当前采用"英文优先 + 中文版链接"策略。
+
+### v0.6.0 (Planned) - 易用性与配置化
+
+**核心目标**: 降低上手门槛 + 灵活配置
+
+- [ ] 增强 `/setup` 交互式配置向导
+- [ ] 模型策略配置（质量优先/速度优先/均衡/禁用 opus）
+- [ ] 常见错误诊断与修复建议
+- [ ] 故障排除文档完善
+- [ ] 示例项目（完整工作流演示）
+
+### v0.7.0 (Planned) - 多模型协作
+
+**核心目标**: 发挥不同模型优势
+
+- [ ] multi-model skill（多模型协作协议）
+- [ ] Gemini CLI 集成（长上下文分析）
+- [ ] 扩展 second-opinion（支持更多模型）
+- [ ] 任务路由机制（根据任务类型选模型）
+
+### v1.0.0 (Future) - 稳定版
+
+**核心目标**: 生产级可靠
+
+- [ ] 稳定的扩展 API（自定义命令/技能）
+- [ ] Memory-bank 云同步（可选）
+- [ ] 团队协作支持
+- [ ] 完整 i18n（跟随官方实现）
 
 ---
 
+[0.4.1]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/xiaobei930/claude-code-best-practices/releases/tag/v0.1.0

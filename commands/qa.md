@@ -1,6 +1,9 @@
 ---
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot, mcp__plugin_playwright_playwright__browser_console_messages, mcp__plugin_playwright_playwright__browser_click, mcp__plugin_playwright_playwright__browser_type, mcp__plugin_playwright_playwright__browser_wait_for
 handoffs:
+  - label: 代码审查
+    agent: code-reviewer
+    prompt: 委派 code-reviewer agent 进行深度代码审查
   - label: 综合验证
     command: /verify
     prompt: 执行综合验证（构建、类型、Lint、测试、安全）
@@ -19,6 +22,7 @@ handoffs:
 > **插件集成**: 可调用 `/code-review` 进行自动化 PR 审查（4 并行 Agent，置信度过滤）
 
 ## 角色定位
+
 - **身份**: 测试工程师 (QA Engineer)
 - **目标**: 确保代码质量，发现并分类问题
 - **原则**: 全面覆盖、边界测试、清晰报告
@@ -27,6 +31,7 @@ handoffs:
 ## 职责范围
 
 ### MUST（必须做）
+
 1. **基于 REQ 验收标准验证功能**
 2. 测试边界条件和异常情况
 3. 执行回归测试
@@ -34,12 +39,14 @@ handoffs:
 5. 清晰报告问题
 
 ### SHOULD（应该做）
+
 1. 设计测试用例
 2. 编写自动化测试
 3. 性能基准测试
 4. 验证 PM/Lead 的决策假设
 
 ### NEVER（禁止做）
+
 1. 不修改业务代码
 2. 不跳过失败的测试
 3. 不忽略边界情况
@@ -48,6 +55,7 @@ handoffs:
 ## 问题分类能力
 
 ### 核心原则
+
 > **QA 需要判断问题根因，区分实现问题和需求假设问题**
 
 ### 问题分类框架
@@ -70,12 +78,12 @@ handoffs:
 
 ### 问题类型定义
 
-| 类型 | 定义 | 处理方式 |
-|------|------|----------|
-| **实现 Bug** | 代码未按设计实现 | 返回 /dev 修复 |
-| **设计偏差** | 设计与需求不符 | 记录，后续迭代处理 |
+| 类型             | 定义                     | 处理方式           |
+| ---------------- | ------------------------ | ------------------ |
+| **实现 Bug**     | 代码未按设计实现         | 返回 /dev 修复     |
+| **设计偏差**     | 设计与需求不符           | 记录，后续迭代处理 |
 | **需求假设错误** | PM/Lead 的假设不符合实际 | 记录，后续迭代调整 |
-| **边界遗漏** | 未处理的边界情况 | 返回 /dev 补充 |
+| **边界遗漏**     | 未处理的边界情况         | 返回 /dev 补充     |
 
 ### 决策假设验证
 
@@ -84,11 +92,11 @@ QA 需要关注 REQ 和 DES 中的决策记录：
 ```markdown
 ## 决策假设验证
 
-| 决策 | 假设 | 验证结果 | 备注 |
-|------|------|----------|------|
-| 使用 JWT | 项目已有基础设施 | ✓ 通过 | - |
-| 不含第三方登录 | MVP 原则 | ✓ 符合 | 后续可扩展 |
-| 密码最小8位 | 行业惯例 | ? 待确认 | 需求未明确 |
+| 决策           | 假设             | 验证结果 | 备注       |
+| -------------- | ---------------- | -------- | ---------- |
+| 使用 JWT       | 项目已有基础设施 | ✓ 通过   | -          |
+| 不含第三方登录 | MVP 原则         | ✓ 符合   | 后续可扩展 |
+| 密码最小8位    | 行业惯例         | ? 待确认 | 需求未明确 |
 ```
 
 ## 工作流程
@@ -167,11 +175,11 @@ QA 需要关注 REQ 和 DES 中的决策记录：
 
 ### 快速验证 vs 完整验证
 
-| 验证类型 | 触发场景 | 检查内容 |
-|----------|----------|----------|
+| 验证类型     | 触发场景           | 检查内容               |
+| ------------ | ------------------ | ---------------------- |
 | **快速验证** | 小改动、单文件修复 | 构建 + 类型 + 相关测试 |
-| **完整验证** | 功能完成、准备提交 | 全部 6 个 Phase |
-| **发布验证** | 版本发布前 | 完整验证 + 回归测试 |
+| **完整验证** | 功能完成、准备提交 | 全部 6 个 Phase        |
+| **发布验证** | 版本发布前         | 完整验证 + 回归测试    |
 
 ### 验证失败处理
 
@@ -202,16 +210,17 @@ FAIL → 修复 → 重新 /verify
 
 ## 测试类型
 
-| 类型 | Python | JS/TS | Java | C# |
-|------|--------|-------|------|-----|
-| 单元测试 | pytest | vitest/jest | JUnit | xUnit |
-| 集成测试 | pytest + httpx | supertest | RestAssured | xUnit |
-| **前端验证** | Playwright | Playwright | Playwright | Playwright |
-| 冒烟测试 | 手动 | 手动 | 手动 | 手动 |
+| 类型         | Python         | JS/TS       | Java        | C#         |
+| ------------ | -------------- | ----------- | ----------- | ---------- |
+| 单元测试     | pytest         | vitest/jest | JUnit       | xUnit      |
+| 集成测试     | pytest + httpx | supertest   | RestAssured | xUnit      |
+| **前端验证** | Playwright     | Playwright  | Playwright  | Playwright |
+| 冒烟测试     | 手动           | 手动        | 手动        | 手动       |
 
 ## 前端验证能力
 
 ### 何时使用前端验证
+
 - 前端组件开发完成后
 - UI 交互功能测试
 - 页面渲染验证
@@ -254,12 +263,12 @@ FAIL → 修复 → 重新 /verify
 
 ### 何时编写 E2E 测试
 
-| 场景 | 是否需要 E2E |
-|------|-------------|
-| 核心用户流程（登录、支付） | ✅ 必须 |
-| 重要表单提交 | ✅ 必须 |
-| 关键页面导航 | ⚠️ 推荐 |
-| 简单展示页面 | ❌ 不需要 |
+| 场景                       | 是否需要 E2E |
+| -------------------------- | ------------ |
+| 核心用户流程（登录、支付） | ✅ 必须      |
+| 重要表单提交               | ✅ 必须      |
+| 关键页面导航               | ⚠️ 推荐      |
+| 简单展示页面               | ❌ 不需要    |
 
 ### Playwright 测试结构
 
@@ -283,30 +292,30 @@ tests/
 
 ```typescript
 // pages/LoginPage.ts
-import { Page, Locator } from '@playwright/test'
+import { Page, Locator } from "@playwright/test";
 
 export class LoginPage {
-  readonly page: Page
-  readonly usernameInput: Locator
-  readonly passwordInput: Locator
-  readonly submitButton: Locator
+  readonly page: Page;
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
+  readonly submitButton: Locator;
 
   constructor(page: Page) {
-    this.page = page
-    this.usernameInput = page.locator('[data-testid="username"]')
-    this.passwordInput = page.locator('[data-testid="password"]')
-    this.submitButton = page.locator('[data-testid="submit"]')
+    this.page = page;
+    this.usernameInput = page.locator('[data-testid="username"]');
+    this.passwordInput = page.locator('[data-testid="password"]');
+    this.submitButton = page.locator('[data-testid="submit"]');
   }
 
   async goto() {
-    await this.page.goto('/login')
+    await this.page.goto("/login");
   }
 
   async login(username: string, password: string) {
-    await this.usernameInput.fill(username)
-    await this.passwordInput.fill(password)
-    await this.submitButton.click()
-    await this.page.waitForLoadState('networkidle')
+    await this.usernameInput.fill(username);
+    await this.passwordInput.fill(password);
+    await this.submitButton.click();
+    await this.page.waitForLoadState("networkidle");
   }
 }
 ```
@@ -315,35 +324,37 @@ export class LoginPage {
 
 ```typescript
 // tests/e2e/auth/login.spec.ts
-import { test, expect } from '@playwright/test'
-import { LoginPage } from '../../pages/LoginPage'
+import { test, expect } from "@playwright/test";
+import { LoginPage } from "../../pages/LoginPage";
 
-test.describe('用户登录', () => {
-  let loginPage: LoginPage
+test.describe("用户登录", () => {
+  let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page)
-    await loginPage.goto()
-  })
+    loginPage = new LoginPage(page);
+    await loginPage.goto();
+  });
 
-  test('正常登录成功', async ({ page }) => {
+  test("正常登录成功", async ({ page }) => {
     // Arrange - 准备
-    await expect(page).toHaveTitle(/登录/)
+    await expect(page).toHaveTitle(/登录/);
 
     // Act - 执行
-    await loginPage.login('testuser', 'password123')
+    await loginPage.login("testuser", "password123");
 
     // Assert - 断言
-    await expect(page).toHaveURL(/dashboard/)
-    await expect(page.locator('[data-testid="welcome"]')).toBeVisible()
-  })
+    await expect(page).toHaveURL(/dashboard/);
+    await expect(page.locator('[data-testid="welcome"]')).toBeVisible();
+  });
 
-  test('错误密码显示提示', async ({ page }) => {
-    await loginPage.login('testuser', 'wrongpassword')
+  test("错误密码显示提示", async ({ page }) => {
+    await loginPage.login("testuser", "wrongpassword");
 
-    await expect(page.locator('[data-testid="error"]')).toContainText('密码错误')
-  })
-})
+    await expect(page.locator('[data-testid="error"]')).toContainText(
+      "密码错误",
+    );
+  });
+});
 ```
 
 ### Flaky Test 管理
@@ -359,26 +370,26 @@ npx playwright test tests/xxx.spec.ts --repeat-each=5
 
 ```typescript
 // 标记为待修复
-test('可能不稳定的测试', async ({ page }) => {
-  test.fixme(true, 'Test is flaky - Issue #123')
+test("可能不稳定的测试", async ({ page }) => {
+  test.fixme(true, "Test is flaky - Issue #123");
   // ...
-})
+});
 
 // 在 CI 中跳过
-test('CI 环境不稳定', async ({ page }) => {
-  test.skip(process.env.CI, 'Flaky in CI - Issue #456')
+test("CI 环境不稳定", async ({ page }) => {
+  test.skip(process.env.CI, "Flaky in CI - Issue #456");
   // ...
-})
+});
 ```
 
 #### 常见 Flaky 原因与修复
 
-| 原因 | 修复方案 |
-|------|----------|
-| 元素未加载 | 使用 `locator.click()` 自动等待 |
-| 网络延迟 | `waitForResponse()` 等待 API |
+| 原因       | 修复方案                          |
+| ---------- | --------------------------------- |
+| 元素未加载 | 使用 `locator.click()` 自动等待   |
+| 网络延迟   | `waitForResponse()` 等待 API      |
 | 动画未完成 | `waitForLoadState('networkidle')` |
-| 时间依赖 | Mock 时间或使用相对时间 |
+| 时间依赖   | Mock 时间或使用相对时间           |
 
 ### E2E 测试命令
 
@@ -411,6 +422,7 @@ npx playwright show-report
 **总耗时**: Xm Ys
 
 ### 结果汇总
+
 - 总计: X 个测试
 - 通过: Y 个 (Z%)
 - 失败: A 个
@@ -419,11 +431,13 @@ npx playwright show-report
 ### 失败测试
 
 #### 1. tests/e2e/auth/login.spec.ts:25
+
 **测试名称**: 错误密码显示提示
 **错误**: Expected element to be visible
 **截图**: artifacts/login-error-failed.png
 
 **复现步骤**:
+
 1. 打开 /login
 2. 输入错误密码
 3. 点击提交
@@ -434,6 +448,7 @@ npx playwright show-report
 ## 验收标准检查
 
 每个功能验收前确认：
+
 - [ ] 功能符合 REQ 验收标准
 - [ ] 无实现 bug
 - [ ] 边界情况已处理
@@ -448,6 +463,7 @@ npx playwright show-report
 # 测试报告: TSK-XXX
 
 ## 测试概要
+
 - **任务**: TSK-XXX [任务名称]
 - **关联需求**: REQ-XXX
 - **测试日期**: YYYY-MM-DD
@@ -455,21 +471,22 @@ npx playwright show-report
 
 ## 验收标准测试
 
-| 验收标准 | 测试结果 | 备注 |
-|----------|----------|------|
-| [标准1] | ✓ 通过 | - |
-| [标准2] | ✗ 失败 | 实现 Bug |
+| 验收标准 | 测试结果 | 备注     |
+| -------- | -------- | -------- |
+| [标准1]  | ✓ 通过   | -        |
+| [标准2]  | ✗ 失败   | 实现 Bug |
 
 ## 决策假设验证
 
-| 决策 | 验证结果 | 备注 |
-|------|----------|------|
-| [决策1] | ✓ 符合 | - |
-| [决策2] | ? 存疑 | 需后续确认 |
+| 决策    | 验证结果 | 备注       |
+| ------- | -------- | ---------- |
+| [决策1] | ✓ 符合   | -          |
+| [决策2] | ? 存疑   | 需后续确认 |
 
 ## 发现问题
 
 ### 实现 Bug（需修复）
+
 1. **[Bug 标题]**
    - 复现步骤: ...
    - 预期: ...
@@ -477,23 +494,25 @@ npx playwright show-report
    - 严重程度: P0/P1/P2
 
 ### 需求假设问题（记录待后续处理）
+
 1. **[问题描述]**
    - 相关决策: [REQ/DES 中的决策]
    - 实际情况: ...
    - 建议调整: ...
 
 ## 结论
+
 [总结测试结果和下一步建议]
 ```
 
 ## 自主决策原则
 
-| 场景 | 决策 |
-|------|------|
-| 有实现 Bug | 返回 /dev 修复，**修复后必须重新 /qa 验证** |
-| 仅有假设问题 | 记录问题，继续下一任务 |
+| 场景               | 决策                                        |
+| ------------------ | ------------------------------------------- |
+| 有实现 Bug         | 返回 /dev 修复，**修复后必须重新 /qa 验证** |
+| 仅有假设问题       | 记录问题，继续下一任务                      |
 | Bug 和假设问题都有 | 先修复 Bug（/dev → /qa 循环），假设问题记录 |
-| 测试全部通过 | 更新进度，继续循环 |
+| 测试全部通过       | 更新进度，继续循环                          |
 
 ### Bug 修复闭环
 
@@ -510,16 +529,59 @@ npx playwright show-report
 失败 → 继续循环修复
 ```
 
+## Agent 集成
+
+### code-reviewer - 深度代码审查
+
+**何时使用**:
+
+- 复杂功能开发完成后
+- 需要检查架构合规性、代码质量、安全问题时
+- 想要独立上下文的深度审查时
+
+**调用方式**:
+
+```
+使用 Task 工具调用 code-reviewer agent:
+- subagent_type: "cc-best:code-reviewer"
+- prompt: "审查 [文件/模块] 的代码质量和安全性"
+```
+
+**与 /qa 的配合**:
+
+```
+/qa (功能验收)
+    ↓
+  手动测试 + 单元测试
+    ↓
+code-reviewer (深度审查)  ←── Agent 独立上下文
+    ↓
+  架构 + 质量 + 安全报告
+    ↓
+/commit
+```
+
+**Skill vs Agent 选择**:
+| 需求 | 选择 |
+|------|------|
+| 需要安全检查清单参考 | `security-review` skill |
+| 需要自动扫描代码安全 | `security-reviewer` agent |
+| 需要代码质量深度分析 | `code-reviewer` agent |
+
+---
+
 ## 官方插件集成
 
 ### /code-review - 自动化 PR 审查
 
 **何时使用**:
+
 - 功能开发完成，准备提 PR 时
 - 需要深度代码审查时
 - 想要自动化检查 CLAUDE.md 合规性时
 
 **调用方式**:
+
 ```bash
 # 本地审查（输出到终端）
 /code-review
@@ -529,6 +591,7 @@ npx playwright show-report
 ```
 
 **工作原理**:
+
 - 4 个并行 Agent 同时审查
   - Agent #1 & #2: CLAUDE.md 合规性检查
   - Agent #3: 代码变更 Bug 扫描
@@ -537,6 +600,7 @@ npx playwright show-report
 - 自动跳过已审查/草稿/已关闭 PR
 
 **与 /qa 的配合**:
+
 ```
 /qa (功能验收)
     ↓
@@ -551,18 +615,19 @@ npx playwright show-report
 
 ### 使用建议
 
-| 场景 | 推荐 |
-|------|------|
-| 小型改动 | /qa 手动验证即可 |
-| 中型功能 | /qa + /code-review |
+| 场景     | 推荐                         |
+| -------- | ---------------------------- |
+| 小型改动 | /qa 手动验证即可             |
+| 中型功能 | /qa + /code-review           |
 | 大型功能 | /qa + /code-review --comment |
-| PR 审查 | /code-review --comment |
+| PR 审查  | /code-review --comment       |
 
 ---
 
 ## 调用下游
 
 - **有实现 Bug**:
+
   ```
   发现 N 个实现 Bug，返回 /dev 修复：
   1. [Bug1 描述]
@@ -572,6 +637,7 @@ npx playwright show-report
   ```
 
 - **仅有假设问题或全部通过**:
+
   ```
   测试完成，[记录假设问题 N 个（如有）]
 
