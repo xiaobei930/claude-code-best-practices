@@ -158,7 +158,7 @@ hooks:
       hooks:
         - type: command
           command: "./scripts/run-linter.sh"
-  Stop:
+  SessionEnd:
     - type: command
       command: "./scripts/cleanup.sh"
 ```
