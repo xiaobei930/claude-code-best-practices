@@ -1,4 +1,4 @@
-name: Validate Template
+name: Validate Plugin
 
 on:
   push:
@@ -9,11 +9,16 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    name: Validate Template Structure
+    name: Validate Plugin Structure
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -161,21 +166,132 @@ jobs:
         run: |
           echo "🔍 Checking JSON files..."
 
+          # Core JSON files
           json_files=(
             ".claude/settings.json"
-            ".claude/settings.local.json.example"
+            ".claude-plugin/plugin.json"
+            ".claude-plugin/marketplace.json"
+            "hooks/hooks.json"
           )
 
+          errors=0
           for file in "${json_files[@]}"; do
             if [ -f "$file" ]; then
-              python -c "import json; json.load(open('$file'))" && echo "✅ $file" || {
+              if python -c "import json; json.load(open('$file'))" 2>/dev/null; then
+                echo "✅ $file"
+              else
                 echo "❌ Invalid JSON: $file"
-                exit 1
-              }
+                errors=$((errors + 1))
+              fi
+            else
+              echo "⚠️ Optional file not found: $file"
             fi
           done
 
+          # Check all JSON files in skills/
+          for file in $(find skills -name "*.json" 2>/dev/null); do
+            if python -c "import json; json.load(open('$file'))" 2>/dev/null; then
+              echo "✅ $file"
+            else
+              echo "❌ Invalid JSON: $file"
+              errors=$((errors + 1))
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo "::error::Found $errors invalid JSON file(s)"
+            exit 1
+          fi
+
           echo "✅ All JSON files are valid"
+
+      - name: Validate Plugin Manifest
+        run: |
+          echo "🔍 Validating plugin.json..."
+
+          python << 'EOF'
+          import json
+          import sys
+
+          required_fields = ["name", "version", "description"]
+
+          with open(".claude-plugin/plugin.json") as f:
+              plugin = json.load(f)
+
+          missing = [f for f in required_fields if f not in plugin]
+          if missing:
+              print(f"❌ Missing required fields: {missing}")
+              sys.exit(1)
+
+          # Version format check (semver)
+          version = plugin.get("version", "")
+          parts = version.split(".")
+          if len(parts) != 3 or not all(p.isdigit() for p in parts):
+              print(f"⚠️ Version '{version}' may not follow semver")
+
+          print(f"✅ Plugin: {plugin['name']} v{plugin['version']}")
+          EOF
+
+      - name: Check Node.js Scripts Syntax
+        run: |
+          echo "🔍 Checking Node.js scripts syntax..."
+
+          errors=0
+          for script in $(find scripts/node -name "*.js" 2>/dev/null); do
+            if node --check "$script" 2>/dev/null; then
+              echo "✅ $script"
+            else
+              echo "❌ Syntax error: $script"
+              errors=$((errors + 1))
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo "::error::Found $errors JavaScript file(s) with syntax errors"
+            exit 1
+          fi
+
+          echo "✅ All Node.js scripts have valid syntax"
+
+      - name: Check Markdown Frontmatter
+        run: |
+          echo "🔍 Checking Markdown frontmatter..."
+
+          errors=0
+
+          # Check commands have frontmatter
+          for file in commands/*.md; do
+            if [ -f "$file" ]; then
+              if head -1 "$file" | grep -q "^---$"; then
+                echo "✅ $file"
+              else
+                echo "❌ Missing frontmatter: $file"
+                errors=$((errors + 1))
+              fi
+            fi
+          done
+
+          # Check skills have proper frontmatter
+          for file in $(find skills -name "SKILL.md" 2>/dev/null); do
+            if head -1 "$file" | grep -q "^---$"; then
+              # Check for required fields
+              if grep -q "^name:" "$file" && grep -q "^description:" "$file"; then
+                echo "✅ $file"
+              else
+                echo "⚠️ Missing name/description in frontmatter: $file"
+              fi
+            else
+              echo "❌ Missing frontmatter: $file"
+              errors=$((errors + 1))
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo "::error::Found $errors file(s) with missing frontmatter"
+            exit 1
+          fi
+
+          echo "✅ All Markdown files have valid frontmatter"
 
       - name: Check Markdown Links (README)
         run: |
@@ -198,16 +314,27 @@ jobs:
 
       - name: Summary
         run: |
-          echo "## 📊 Template Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 Plugin Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Get plugin info
+          plugin_name=$(python -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['name'])")
+          plugin_version=$(python -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+
+          echo "**Plugin**: \`$plugin_name\` v$plugin_version" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Category | Count |" >> $GITHUB_STEP_SUMMARY
           echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Commands | $(ls -1 commands/*.md 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
           echo "| Rules | $(ls -1 rules/*.md 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
-          echo "| Skills | $(ls -1d skills/*/ 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Skills | $(find skills -name "SKILL.md" 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
           echo "| Agents | $(ls -1 agents/*.md 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
-          echo "| Shell Scripts | $(ls -1 scripts/shell/*.sh 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
-          echo "| Python Scripts | $(ls -1 scripts/python/*.py 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
-          echo "| Node.js Scripts | $(ls -1 scripts/node/**/*.js 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Node.js Scripts | $(find scripts/node -name "*.js" 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
+          echo "| JSON Configs | $(find . -name "*.json" -not -path "./node_modules/*" 2>/dev/null | wc -l) |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ All validations passed!" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Validations Passed" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Required files and directories" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] JSON syntax validation" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Plugin manifest validation" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Node.js script syntax" >> $GITHUB_STEP_SUMMARY
+          echo "- [x] Markdown frontmatter" >> $GITHUB_STEP_SUMMARY
