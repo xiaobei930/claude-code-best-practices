@@ -304,6 +304,8 @@ your-project/
 │       ├── lib/                # Utilities
 │       │   ├── utils.js        # 27 helper functions
 │       │   └── package-manager.js
+│       ├── verify-hooks.js     # Hook configuration verifier
+│       ├── archive-progress.js # Progress file archiver
 │       └── hooks/              # 13 lifecycle hooks
 │           ├── validate-command.js, protect-files.js
 │           ├── session-start.js, session-end.js
@@ -372,23 +374,23 @@ flowchart LR
 
 ### Tool Commands
 
-| Command       | Function                  |
-| ------------- | ------------------------- |
-| `/build`      | Build project             |
-| `/test`       | Run tests                 |
-| `/run`        | Start development server  |
-| `/commit`     | Git commit                |
-| `/pr`         | Create Pull Request       |
-| `/git`        | Git commit conventions    |
-| `/status`     | View project status       |
-| `/checkpoint` | Create checkpoint         |
-| `/compact`    | Compress context          |
-| `/context`    | Context management        |
-| `/memory`     | Project memory management |
-| `/verify`     | Verify code quality       |
-| `/setup`      | Project initialization    |
-| `/fix`        | Fix build errors          |
-| `/docs`       | Sync documentation        |
+| Command       | Function                                              |
+| ------------- | ----------------------------------------------------- |
+| `/build`      | Build project                                         |
+| `/test`       | Run tests                                             |
+| `/run`        | Start development server                              |
+| `/commit`     | Git commit                                            |
+| `/pr`         | Create Pull Request                                   |
+| `/git`        | Git commit conventions                                |
+| `/status`     | View project status                                   |
+| `/checkpoint` | Create checkpoint                                     |
+| `/compact`    | Compress context                                      |
+| `/context`    | Context management                                    |
+| `/memory`     | Project memory management                             |
+| `/verify`     | Verify code quality                                   |
+| `/setup`      | Project initialization (`--verify` to diagnose hooks) |
+| `/fix`        | Fix build errors                                      |
+| `/docs`       | Sync documentation                                    |
 
 ### Auxiliary Commands
 
@@ -598,7 +600,7 @@ Edit `.claude/settings.local.json`:
           {
             "type": "command",
             "command": "python scripts/your-script.py",
-            "timeout": 5000
+            "timeout": 5
           }
         ]
       }
@@ -752,6 +754,28 @@ git commit -m "Initial commit from Claude Code template"
    ```
 
 3. Check Claude Code version - hooks require recent versions
+
+4. Run `/setup --verify` to diagnose hook configuration issues
+</details>
+
+<details>
+<summary><strong>Q: How to diagnose hook configuration issues?</strong></summary>
+
+Run the hook verification command:
+
+```bash
+/setup --verify
+```
+
+This will check:
+
+- Script paths exist
+- Timeout values are valid (1s - 600s)
+- Matcher syntax is correct
+- Lifecycle events are valid
+
+Output includes diagnostic report and fix suggestions.
+
 </details>
 
 <details>

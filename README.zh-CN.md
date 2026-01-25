@@ -296,6 +296,8 @@ your-project/
 │       ├── lib/                # 工具库
 │       │   ├── utils.js        # 27 个辅助函数
 │       │   └── package-manager.js
+│       ├── verify-hooks.js     # Hooks 配置验证器
+│       ├── archive-progress.js # 进度文件归档器
 │       └── hooks/              # 13 个生命周期钩子
 │           ├── validate-command.js, protect-files.js
 │           ├── session-start.js, session-end.js
@@ -364,23 +366,23 @@ flowchart LR
 
 ### 工具命令
 
-| 命令          | 功能              |
-| ------------- | ----------------- |
-| `/build`      | 构建项目          |
-| `/test`       | 运行测试          |
-| `/run`        | 启动开发服务器    |
-| `/commit`     | Git 提交          |
-| `/pr`         | 创建 Pull Request |
-| `/git`        | Git 提交规范      |
-| `/status`     | 查看项目状态      |
-| `/checkpoint` | 创建检查点        |
-| `/compact`    | 压缩上下文        |
-| `/context`    | 上下文管理        |
-| `/memory`     | 项目记忆管理      |
-| `/verify`     | 验证代码质量      |
-| `/setup`      | 项目初始化        |
-| `/fix`        | 修复构建错误      |
-| `/docs`       | 同步文档          |
+| 命令          | 功能                                |
+| ------------- | ----------------------------------- |
+| `/build`      | 构建项目                            |
+| `/test`       | 运行测试                            |
+| `/run`        | 启动开发服务器                      |
+| `/commit`     | Git 提交                            |
+| `/pr`         | 创建 Pull Request                   |
+| `/git`        | Git 提交规范                        |
+| `/status`     | 查看项目状态                        |
+| `/checkpoint` | 创建检查点                          |
+| `/compact`    | 压缩上下文                          |
+| `/context`    | 上下文管理                          |
+| `/memory`     | 项目记忆管理                        |
+| `/verify`     | 验证代码质量                        |
+| `/setup`      | 项目初始化（`--verify` 诊断 hooks） |
+| `/fix`        | 修复构建错误                        |
+| `/docs`       | 同步文档                            |
 
 ### 辅助命令
 
@@ -590,7 +592,7 @@ allowed_tools:
           {
             "type": "command",
             "command": "python scripts/your-script.py",
-            "timeout": 5000
+            "timeout": 5
           }
         ]
       }
@@ -744,6 +746,28 @@ git commit -m "Initial commit from Claude Code template"
    ```
 
 3. 检查 Claude Code 版本 - 钩子需要较新版本
+
+4. 运行 `/setup --verify` 诊断 hooks 配置问题
+</details>
+
+<details>
+<summary><strong>Q: 如何诊断 hooks 配置问题？</strong></summary>
+
+运行 hooks 验证命令：
+
+```bash
+/setup --verify
+```
+
+这会检查：
+
+- 脚本路径是否存在
+- timeout 值是否有效（1s - 600s）
+- matcher 语法是否正确
+- 生命周期事件是否有效
+
+输出包含诊断报告和修复建议。
+
 </details>
 
 <details>
