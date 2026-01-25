@@ -578,15 +578,15 @@ allowed_tools:
 
 ### 预配置的 Hooks
 
-> ⚠️ **重要：插件模式 Hooks 限制**
+> ⚠️ **重要：Hooks 需要手动启用**
 >
-> 由于 [Claude Code 已知问题](https://github.com/anthropics/claude-code/issues/9354)，`${CLAUDE_PLUGIN_ROOT}` 环境变量在某些平台（尤其是 Windows）上可能无法正确工作。如果在执行 hooks 时遇到 "Cannot find module" 错误，请运行：
+> 由于 [Claude Code 已知问题](https://github.com/anthropics/claude-code/issues/9354)，插件 hooks **默认禁用**。要启用安全防护和自动化 hooks，请运行：
 >
 > ```bash
 > /setup --hooks
 > ```
 >
-> 此命令会自动配置使用绝对路径的 hooks。详见 [FAQ](#钩子问题)。
+> 此命令会配置使用绝对路径的 hooks。详见 [FAQ](#钩子问题)。
 
 > 默认使用 Node.js 版本，支持 Windows/macOS/Linux 跨平台运行。
 

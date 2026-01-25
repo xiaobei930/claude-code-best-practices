@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.4] - 2025-01-25
+
+### Fixed / 修复
+
+- **Plugin Hooks 双重加载问题** - 修复插件 hooks 和全局配置 hooks 同时加载导致的错误
+  - 清空 `hooks/hooks.json`，插件不再自动加载 hooks
+  - hooks 需要通过 `/setup --hooks` 手动启用
+  - 解决 "PreToolUse:Bash hook error" 问题
+
+### Changed / 变更
+
+- **Hooks 默认禁用** - 由于 `${CLAUDE_PLUGIN_ROOT}` 环境变量问题，插件 hooks 现在默认禁用
+- **README 更新** - 更新警告说明为 "Hooks 需要手动启用"
+
+---
+
 ## [0.4.3] - 2025-01-25
 
 ### Fixed / 修复

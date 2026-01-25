@@ -578,15 +578,15 @@ Edit `.claude/settings.local.json`:
 
 ### Pre-configured Hooks
 
-> ⚠️ **Important: Plugin Hooks Limitation**
+> ⚠️ **Important: Hooks Require Manual Setup**
 >
-> Due to a [known Claude Code issue](https://github.com/anthropics/claude-code/issues/9354), the `${CLAUDE_PLUGIN_ROOT}` environment variable may not work correctly on some platforms (especially Windows). If you encounter errors like "Cannot find module" when hooks execute, run:
+> Due to a [known Claude Code issue](https://github.com/anthropics/claude-code/issues/9354), plugin hooks are **disabled by default**. To enable the safety guards and automation hooks, run:
 >
 > ```bash
 > /setup --hooks
 > ```
 >
-> This command automatically configures hooks with absolute paths. See the [FAQ](#hook-issues) for more details.
+> This command configures hooks with absolute paths. See the [FAQ](#hook-issues) for more details.
 
 All hooks default to Node.js for cross-platform compatibility. Python/Bash alternatives available.
 
