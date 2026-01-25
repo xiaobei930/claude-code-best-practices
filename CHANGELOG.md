@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.5] - 2025-01-25
+
+### Added / 新增
+
+- **`progress.md` 自动归档机制** - 解决长期项目中 progress.md 文件膨胀问题
+  - 新增 `progress-archive.md` 模板，存储历史记录
+  - 新增 `scripts/node/archive-progress.js` 归档脚本
+  - 新增 `/checkpoint --archive` 命令支持
+  - 滚动窗口策略：保留最近 5 项完成、5 条决策、5 个检查点
+
+### Changed / 变更
+
+- **`progress.md` 模板优化** - 从累积模式改为滚动窗口模式
+  - "已完成" → "最近完成"（限制 5 项）
+  - "决策记录" → "最近决策"（限制 5 条）
+  - "检查点历史" → "最近检查点"（限制 5 个）
+  - 超出限制的记录自动归档
+
+### Fixed / 修复
+
+- **大文件读取问题** - progress.md 超过 25000 tokens 时无法读取的问题
+
+---
+
 ## [0.4.4] - 2025-01-25
 
 ### Fixed / 修复

@@ -180,6 +180,58 @@ git commit -m "type(scope): description"
 /checkpoint verify   # 只验证，不提交
 /checkpoint docs     # 只更新文档
 /checkpoint restore  # 从上一个检查点恢复状态
+/checkpoint --archive  # 归档旧记录（当 progress.md 过大时）
+```
+
+---
+
+## 自动归档机制
+
+### 触发条件
+
+当 `progress.md` 满足以下任一条件时，建议执行归档：
+
+- 文件超过 **300 行**
+- "最近完成" 超过 **5 项**
+- "最近决策" 超过 **10 条**
+- "最近检查点" 超过 **5 个**
+
+### `/checkpoint --archive` 流程
+
+1. **检测文件大小**
+
+   ```bash
+   wc -l memory-bank/progress.md
+   ```
+
+2. **移动旧记录到归档**
+   - "最近完成" 中超过 5 项的 → `progress-archive.md` 的 "已完成任务"
+   - "最近决策" 中超过 5 条的 → `progress-archive.md` 的 "决策记录归档"
+   - "最近检查点" 中超过 5 个的 → `progress-archive.md` 的 "检查点历史"
+
+3. **更新归档日志**
+   在 `progress-archive.md` 的 "归档日志" 表格添加记录
+
+4. **验证**
+   确保 `progress.md` 行数 < 150 行
+
+### 滚动窗口策略
+
+| 区域       | 保留数量 | 超出处理              |
+| ---------- | -------- | --------------------- |
+| 最近完成   | 5 项     | 移到归档              |
+| 最近决策   | 5 条     | 移到归档              |
+| 最近检查点 | 5 个     | 移到归档              |
+| 待办       | 10 项    | 超出的移到 backlog.md |
+
+### 为什么需要归档？
+
+```
+❌ 问题场景:
+progress.md 累积 10000+ 行 → 无法一次读取 → /iterate 失败
+
+✅ 解决方案:
+滚动窗口 + 自动归档 → progress.md 始终 < 300 行 → 快速读取
 ```
 
 ---

@@ -220,6 +220,12 @@ PM → Lead → Dev → QA → Commit 完整开发循环，每个角色有明确
 
 `memory-bank/` 目录持久化项目进度、架构决策、技术选型。
 
+**自动归档**: `progress.md` 采用滚动窗口策略防止文件膨胀：
+
+- 只保留最近 5 项完成任务、5 条决策、5 个检查点
+- 旧记录自动归档到 `progress-archive.md`
+- 文件超过 300 行时执行 `/checkpoint --archive`
+
 ### 🌐 跨平台支持
 
 基于 Node.js 的 hooks 和工具库，支持 Windows/macOS/Linux。自动检测包管理器（npm/pnpm/yarn/bun）。
@@ -236,7 +242,8 @@ PM → Lead → Dev → QA → Commit 完整开发循环，每个角色有明确
 your-project/
 ├── CLAUDE.md                   # 项目宪法（必须保留）
 ├── memory-bank/                # 项目记忆库
-│   ├── progress.md             # 进度跟踪
+│   ├── progress.md             # 进度跟踪（滚动窗口）
+│   ├── progress-archive.md     # 历史记录归档
 │   ├── architecture.md         # 架构文档
 │   └── tech-stack.md           # 技术选型
 │

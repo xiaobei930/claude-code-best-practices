@@ -220,6 +220,12 @@ Coding standards for 7+ languages: Python, Vue/TS, C++, Java, C#, Go, and more.
 
 `memory-bank/` directory persists project progress, architecture decisions, and tech stack choices.
 
+**Auto-archiving**: `progress.md` uses rolling window strategy to prevent file bloat:
+
+- Keeps only recent 5 completed tasks, 5 decisions, 5 checkpoints
+- Old records auto-archive to `progress-archive.md`
+- Run `/checkpoint --archive` when file exceeds 300 lines
+
 ### 🌐 Cross-Platform Support
 
 Node.js-based hooks and utilities for Windows/macOS/Linux compatibility. Auto-detects package manager (npm/pnpm/yarn/bun).
@@ -236,7 +242,8 @@ Ready-to-use MCP server configurations supporting memory, playwright, firecrawl,
 your-project/
 ├── CLAUDE.md                   # Project constitution (must keep)
 ├── memory-bank/                # Project memory bank
-│   ├── progress.md             # Progress tracking
+│   ├── progress.md             # Progress tracking (rolling window)
+│   ├── progress-archive.md     # Historical records archive
 │   ├── architecture.md         # Architecture documentation
 │   └── tech-stack.md           # Technology choices
 │
