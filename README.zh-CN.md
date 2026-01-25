@@ -750,6 +750,39 @@ git commit -m "Initial commit from Claude Code template"
 </details>
 
 <details>
+<summary><strong>Q: Windows 上出现 "SessionStart:startup hook error"</strong></summary>
+
+此错误通常由**官方插件**（superpowers、learning-output-style 等）引起，它们也使用 `${CLAUDE_PLUGIN_ROOT}` 环境变量。
+
+**解决方案：**
+
+1. **清理问题插件的 hooks**（在 Git Bash 中运行）：
+
+   ```bash
+   # 清理 superpowers 的 SessionStart hooks
+   find ~/.claude/plugins/cache/claude-plugins-official/superpowers -name "hooks.json" \
+     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
+
+   # 清理 learning-output-style 的 SessionStart hooks
+   find ~/.claude/plugins/cache/claude-plugins-official/learning-output-style -name "hooks.json" \
+     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
+   ```
+
+2. **清理 cc-best 旧版本缓存**（如果错误持续）：
+
+   ```bash
+   # 清理旧版本 hooks
+   find ~/.claude/plugins/cache/claude-code-best-practices -name "hooks.json" \
+     -exec sh -c 'echo "{\"hooks\":{}}" > {}' \;
+   ```
+
+3. **验证修复**：重启 Claude Code，错误应该消失
+
+> **注意**：插件更新时这些更改可能会被覆盖，如果错误再次出现请重新执行。
+
+</details>
+
+<details>
 <summary><strong>Q: format_file.py 报编码错误</strong></summary>
 
 Windows 常见问题。解决方案：

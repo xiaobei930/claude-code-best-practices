@@ -750,6 +750,39 @@ This is a [known Claude Code issue](https://github.com/anthropics/claude-code/is
 </details>
 
 <details>
+<summary><strong>Q: "SessionStart:startup hook error" on Windows</strong></summary>
+
+This error is often caused by **official plugins** (superpowers, learning-output-style, etc.) that also use `${CLAUDE_PLUGIN_ROOT}`.
+
+**Solutions:**
+
+1. **Clear problematic plugin hooks** (run in Git Bash):
+
+   ```bash
+   # Clear superpowers SessionStart hooks
+   find ~/.claude/plugins/cache/claude-plugins-official/superpowers -name "hooks.json" \
+     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
+
+   # Clear learning-output-style SessionStart hooks
+   find ~/.claude/plugins/cache/claude-plugins-official/learning-output-style -name "hooks.json" \
+     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
+   ```
+
+2. **Clear old cc-best plugin cache** (if errors persist):
+
+   ```bash
+   # Clear old version hooks
+   find ~/.claude/plugins/cache/claude-code-best-practices -name "hooks.json" \
+     -exec sh -c 'echo "{\"hooks\":{}}" > {}' \;
+   ```
+
+3. **Verify fix**: Restart Claude Code - error should be gone
+
+> **Note**: These changes may be overwritten when plugins update. Re-run if errors return.
+
+</details>
+
+<details>
 <summary><strong>Q: format_file.py encoding error</strong></summary>
 
 Common Windows issue. Solutions:
