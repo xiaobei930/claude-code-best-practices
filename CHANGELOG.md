@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.5.0] - 2025-01-25
+
+### Added / 新增
+
+- **Hooks 配置验证脚本** - 新增 `scripts/node/verify-hooks.js`
+  - 验证脚本路径是否存在
+  - 验证 timeout 是否在合理范围 (1s - 600s)
+  - 验证 matcher 语法是否正确
+  - 验证生命周期事件是否有效
+  - 输出诊断报告和修复建议
+- **`/setup --verify` 参数** - 运行 hooks 配置验证，诊断模式
+- **GitHub Actions CI 增强** - `validate-template.yml` 升级为 `validate-plugin.yml`
+  - 添加 JSON 文件语法验证（plugin.json, marketplace.json, hooks.json）
+  - 添加 Node.js 脚本语法检查
+  - 添加 Markdown frontmatter 验证
+  - 添加插件清单字段验证
+
+### Changed / 变更
+
+- **Roadmap 更新** - v0.5.0 主要目标（质量保证）已完成
+  - ✅ Hook 验证脚本
+  - ✅ GitHub Actions CI
+  - ✅ 文档结构优化（英文优先策略）
+  - ⏳ 核心命令英文版（等待官方 i18n #7233）
+
+---
+
 ## [0.4.5] - 2025-01-25
 
 ### Added / 新增
@@ -226,14 +253,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Roadmap / 路线图
 
-### v0.5.0 (Planned) - 质量保证与英文支持
+### v0.5.0 ✅ (Released 2025-01-25) - 质量保证与英文支持
 
 **核心目标**: 提升可靠性、扩大受众
 
-- [ ] Hook 验证脚本（配置正确性自动检测）
-- [ ] GitHub Actions CI（frontmatter、路径自动验证）
-- [ ] 核心命令英文版（/pm, /lead, /dev, /qa, /iterate）
-- [ ] 文档结构优化（README 英文优先、中文版链接）
+- [x] Hook 验证脚本（配置正确性自动检测）
+- [x] GitHub Actions CI（frontmatter、路径自动验证）
+- [x] 文档结构优化（README 英文优先、中文版链接）
+- [ ] ~~核心命令英文版~~ → 等待官方 i18n 支持 (#7233)
 
 > **i18n 说明**: 官方 Claude Code 暂无 i18n 支持（跟踪 #7233），
 > 待官方发布后在 v0.6.0+ 适配。当前采用"英文优先 + 中文版链接"策略。
@@ -272,6 +299,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.5.0]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.4.5...v0.5.0
+[0.4.5]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.4.4...v0.4.5
+[0.4.4]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.4.3...v0.4.4
+[0.4.3]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.4.2...v0.4.3
+[0.4.2]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.2.0...v0.3.0
