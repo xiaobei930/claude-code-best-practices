@@ -578,6 +578,16 @@ allowed_tools:
 
 ### 预配置的 Hooks
 
+> ⚠️ **重要：插件模式 Hooks 限制**
+>
+> 由于 [Claude Code 已知问题](https://github.com/anthropics/claude-code/issues/9354)，`${CLAUDE_PLUGIN_ROOT}` 环境变量在某些平台（尤其是 Windows）上可能无法正确工作。如果在执行 hooks 时遇到 "Cannot find module" 错误，请运行：
+>
+> ```bash
+> /setup --hooks
+> ```
+>
+> 此命令会自动配置使用绝对路径的 hooks。详见 [FAQ](#钩子问题)。
+
 > 默认使用 Node.js 版本，支持 Windows/macOS/Linux 跨平台运行。
 
 | 触发时机     | 功能              | 脚本 (Node.js)                       |
@@ -689,7 +699,7 @@ git commit -m "Initial commit from Claude Code template"
 ### 钩子问题
 
 <details>
-<summary><strong>Q: 钩子不工作怎么办？</strong></summary>
+<summary><strong>Q: 钩子不工作怎么办？（Clone 用户）</strong></summary>
 
 1. 检查 `settings.local.json` 是否存在：
 
@@ -711,6 +721,25 @@ git commit -m "Initial commit from Claude Code template"
    ```
 
 3. 检查 Claude Code 版本 - 钩子需要较新版本
+</details>
+
+<details>
+<summary><strong>Q: 钩子报 "Cannot find module" 错误（插件用户）</strong></summary>
+
+这是一个 [Claude Code 已知问题](https://github.com/anthropics/claude-code/issues/9354)。`${CLAUDE_PLUGIN_ROOT}` 环境变量可能无法正确展开。
+
+**解决方案：**
+
+1. **运行 `/setup --hooks`（推荐）**：此命令会自动检测环境并配置使用绝对路径的 hooks
+
+   ```bash
+   /setup --hooks --global  # 配置到全局设置
+   /setup --hooks --project # 配置到项目设置
+   ```
+
+2. **改用 Clone 方式**：Clone 本仓库并复制文件到你的项目
+
+3. **等待官方修复**：跟踪 [Issue #9354](https://github.com/anthropics/claude-code/issues/9354) 获取更新
 </details>
 
 <details>

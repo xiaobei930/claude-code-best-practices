@@ -578,6 +578,16 @@ Edit `.claude/settings.local.json`:
 
 ### Pre-configured Hooks
 
+> ⚠️ **Important: Plugin Hooks Limitation**
+>
+> Due to a [known Claude Code issue](https://github.com/anthropics/claude-code/issues/9354), the `${CLAUDE_PLUGIN_ROOT}` environment variable may not work correctly on some platforms (especially Windows). If you encounter errors like "Cannot find module" when hooks execute, run:
+>
+> ```bash
+> /setup --hooks
+> ```
+>
+> This command automatically configures hooks with absolute paths. See the [FAQ](#hook-issues) for more details.
+
 All hooks default to Node.js for cross-platform compatibility. Python/Bash alternatives available.
 
 | Trigger      | Function                    | Script (Node.js)       |
@@ -689,7 +699,7 @@ git commit -m "Initial commit from Claude Code template"
 ### Hook Issues
 
 <details>
-<summary><strong>Q: Hooks not working?</strong></summary>
+<summary><strong>Q: Hooks not working? (Clone users)</strong></summary>
 
 1. Check if `settings.local.json` exists:
 
@@ -711,6 +721,25 @@ git commit -m "Initial commit from Claude Code template"
    ```
 
 3. Check Claude Code version - hooks require recent versions
+</details>
+
+<details>
+<summary><strong>Q: Hooks error "Cannot find module" (Plugin users)</strong></summary>
+
+This is a [known Claude Code issue](https://github.com/anthropics/claude-code/issues/9354). The `${CLAUDE_PLUGIN_ROOT}` environment variable may not expand correctly.
+
+**Solutions:**
+
+1. **Run `/setup --hooks` (Recommended)**: This command automatically detects your environment and configures hooks with absolute paths
+
+   ```bash
+   /setup --hooks --global  # Configure to global settings
+   /setup --hooks --project # Configure to project settings
+   ```
+
+2. **Use Clone method instead**: Clone this repository and copy files to your project
+
+3. **Wait for official fix**: Track [Issue #9354](https://github.com/anthropics/claude-code/issues/9354) for updates
 </details>
 
 <details>

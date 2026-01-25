@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.3] - 2025-01-25
+
+### Fixed / 修复
+
+- **Plugin Hooks 路径问题** - 解决 `${CLAUDE_PLUGIN_ROOT}` 在某些平台（特别是 Windows）上无法正确展开的问题
+  - 更新 `/setup` 命令支持 `--hooks` 参数，自动配置使用绝对路径的 hooks
+  - 支持 `--global` 配置到全局、`--project` 配置到项目
+  - 添加详细的 FAQ 说明和故障排查指南
+  - 参见 [Issue #9354](https://github.com/anthropics/claude-code/issues/9354)
+
+### Changed / 变更
+
+- **`/setup` 命令增强** - 添加 hooks 配置步骤，自动检测环境并生成正确的配置
+- **README 更新** - 简化 hooks 限制说明，引导用户使用 `/setup --hooks` 命令
+
+---
+
 ## [0.4.2] - 2025-01-25
 
 ### Added / 新增
