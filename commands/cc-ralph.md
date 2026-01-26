@@ -1,3 +1,7 @@
+---
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, WebFetch, Skill, mcp__*
+---
+
 # /cc-ralph - CC-Best Ralph Loop 集成
 
 使用 cc-best 工作流启动 Ralph Loop 自主开发循环。
