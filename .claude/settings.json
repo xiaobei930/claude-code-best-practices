@@ -86,7 +86,7 @@
   "_plugins_guide": {
     "description": "推荐的官方插件配置。本地 agents/skills 无需插件也能独立工作，插件提供增强功能。",
     "optional_plugins": {
-      "ralph-wiggum@claude-plugins-official": "跨会话持久化循环，配合 /ralph-loop 使用",
+      "ralph-loop@claude-plugins-official": "跨会话持久化循环，配合 /ralph-loop 使用",
       "frontend-design@claude-plugins-official": "前端设计系统，配合 /designer 使用"
     },
     "local_alternatives": {

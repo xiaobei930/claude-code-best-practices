@@ -9,6 +9,7 @@
 ### Plugin 模式（作为插件安装）
 
 组件位于插件根目录：
+
 ```
 /                    # 插件根目录
 ├── commands/        # Slash 命令
@@ -22,6 +23,7 @@
 ### Clone 模式（克隆后直接使用）
 
 与 Plugin 模式相同，组件在项目根目录，`.claude/` 目录存放 Claude Code 配置：
+
 ```
 .claude/
 ├── settings.json                  # 权限配置
@@ -48,7 +50,7 @@
 | 本地 Agent              | 官方插件            | 本地特点                     | 插件特点               | 配合策略                       |
 | ----------------------- | ------------------- | ---------------------------- | ---------------------- | ------------------------------ |
 | `code-reviewer`         | `code-review`       | 轻量、即时反馈、可定制检查项 | 更深度分析、自动触发   | 本地做快速检查，插件做深度审查 |
-| `securityer`     | `security-guidance` | OWASP 清单、关键词搜索       | 自动安全分析、持续监控 | 本地做清单检查，插件做智能分析 |
+| `security-reviewer`     | `security-guidance` | OWASP 清单、关键词搜索       | 自动安全分析、持续监控 | 本地做清单检查，插件做智能分析 |
 | `code-simplifier`       | `code-simplifier`   | 本地执行、快速反馈           | 更多上下文、更智能     | 二选一或插件优先               |
 | `tdd-guide`             | -                   | 本地独有                     | 无官方对应             | 独立使用                       |
 | `planner`               | -                   | 本地独有                     | 无官方对应             | 独立使用                       |
@@ -58,11 +60,11 @@
 
 ## Commands 与官方插件对照
 
-| 本地命令    | 官方插件                            | 关系说明                             |
-| ----------- | ----------------------------------- | ------------------------------------ |
-| `/iterate`  | `ralph-wiggum` (提供 `/ralph-loop`) | 本地：单会话循环；插件：跨会话持久化 |
-| `/designer` | `frontend-design`                   | 本地：设计指导；插件：设计系统集成   |
-| hooks 配置  | `hookify`                           | 本地：示例配置；插件：完整 Hook 管理 |
+| 本地命令    | 官方插件                          | 关系说明                             |
+| ----------- | --------------------------------- | ------------------------------------ |
+| `/iterate`  | `ralph-loop` (提供 `/ralph-loop`) | 本地：单会话循环；插件：跨会话持久化 |
+| `/designer` | `frontend-design`                 | 本地：设计指导；插件：设计系统集成   |
+| hooks 配置  | `hookify`                         | 本地：示例配置；插件：完整 Hook 管理 |
 
 ---
 
@@ -103,7 +105,7 @@
     "code-review@claude-plugins-official": true,
     "hookify@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
-    "ralph-wiggum@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true
   }
 }
@@ -135,7 +137,7 @@ Claude 自动委派 code-reviewer agent 进行审查
 **无插件时**:
 
 ```
-Claude 委派 securityer agent
+Claude 委派 security-reviewer agent
 按 OWASP 清单逐项检查
 搜索敏感关键词（password, secret, key 等）
 ```
@@ -157,7 +159,7 @@ Claude 委派 securityer agent
 会话结束后需手动恢复上下文
 ```
 
-**有 ralph-wiggum 插件时**:
+**有 ralph-loop 插件时**:
 
 ```
 /ralph-loop 命令跨会话持久化
@@ -176,7 +178,7 @@ Claude 委派 securityer agent
 Claude 会在适当时机自动委派：
 
 - 代码变更后 → `code-reviewer`
-- 涉及认证/输入 → `securityer`
+- 涉及认证/输入 → `security-reviewer`
 - 需要测试 → `tdd-guide`
 - 复杂任务 → `planner`
 - 需求文档 → `requirement-validator`
@@ -239,7 +241,7 @@ Claude 会在适当时机自动委派：
 
 ## 版本历史
 
-| 日期       | 变更                             |
-| ---------- | -------------------------------- |
-| 2026-01-24 | 更新组件目录结构（Plugin 优先）  |
-| 2026-01-23 | 初始版本，记录联动关系           |
+| 日期       | 变更                            |
+| ---------- | ------------------------------- |
+| 2026-01-24 | 更新组件目录结构（Plugin 优先） |
+| 2026-01-23 | 初始版本，记录联动关系          |

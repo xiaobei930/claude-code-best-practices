@@ -1,12 +1,12 @@
 # Ralph Loop 提示词模板
 
-这些模板用于配合官方 [ralph-wiggum](https://github.com/anthropics/claude-plugins-official) 插件使用，实现跨会话的自主开发循环。
+这些模板用于配合官方 [ralph-loop](https://github.com/anthropics/claude-plugins-official) 插件使用，实现跨会话的自主开发循环。
 
 ## 前置条件
 
 ```bash
-# 安装 ralph-wiggum 插件（官方插件）
-/plugin install ralph-wiggum@claude-plugins-official
+# 安装 ralph-loop 插件（官方插件）
+/plugin install ralph-loop@claude-plugins-official
 ```
 
 ## 可用模板
@@ -73,7 +73,7 @@
 
 ## 注意事项
 
-- 需要先安装 `ralph-wiggum` 官方插件
+- 需要先安装 `ralph-loop` 官方插件
 - 模板遵循 `<promise>` 标签协议控制循环
 - 建议配合 `memory-bank/progress.md` 使用以保持上下文
 - 每次循环迭代会消耗 API 配额，注意设置合理的 `--max-iterations`
