@@ -1,6 +1,6 @@
 # CC-Best Plugin Constitution
 
-**Version**: 0.5.3 | **Plugin Name**: cc-best | **Author**: xiaobei930
+**Version**: 0.5.4 | **Plugin Name**: cc-best | **Author**: xiaobei930
 
 > Claude Code best practices plugin with role-based workflows, safety hooks, and multi-language standards.
 > Claude Code 最佳实践插件，提供角色工作流、安全钩子和多语言编码规范。
@@ -10,7 +10,7 @@
 | Document 文档                   | Purpose 用途                         |
 | ------------------------------- | ------------------------------------ |
 | `README.md` / `README.zh-CN.md` | Full documentation 完整文档          |
-| `commands/`                     | 32 slash commands 斜杠命令           |
+| `commands/`                     | 33 slash commands 斜杠命令           |
 | `skills/`                       | 17 development skills 开发技能       |
 | `agents/`                       | 6 specialized agents 专业代理        |
 | `hooks/`                        | Safety hooks 安全钩子                |

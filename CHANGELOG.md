@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.5.4] - 2026-01-27
+
+### Added / 新增
+
+- **`/mode` 命令** - 工作模式切换，支持 4 种模式
+  - `dev` - 开发模式：先写代码再解释，偏好可工作方案
+  - `research` - 研究模式：先理解再行动，边探索边记录
+  - `review` - 审查模式：彻底阅读，按严重性排序问题
+  - `planning` - 规划模式：不低估复杂度，明确依赖和风险
+- **`examples/` 目录** - 配置示例集合
+  - `statusline.json` - 自定义状态行配置模板
+  - 跨平台支持说明（macOS/Linux/WSL/Git Bash）
+- **SessionEnd 自动学习钩子** - `evaluate-session.js`
+  - 会话结束时自动评估是否有可提取的学习模式
+  - 检测错误解决模式、调试技巧、用户纠正等
+  - 输出学习建议到 stderr（不阻塞会话）
+- **tmux 支持** - `long-running-warning.js` 增强
+  - 平台检测（Windows/macOS/Linux/WSL）
+  - 在支持 tmux 的环境中提供会话持久化建议
+  - 仅在非 tmux 环境中显示提醒
+
+### Changed / 变更
+
+- **hooks/README.md** - 更新钩子脚本列表，新增 `evaluate-session.js` 说明
+- **hooks/hooks.json** - 添加 SessionEnd 生命周期钩子配置
+
+---
+
 ## [0.5.3] - 2026-01-27
 
 ### Added / 新增
@@ -486,6 +514,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.5.4]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.0...v0.5.1
