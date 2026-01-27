@@ -405,17 +405,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Roadmap / 路线图
 
-### v0.5.0 ✅ (Released 2025-01-25) - 质量保证与英文支持
+### v0.5.x ✅ (Released 2025-01-25 ~ 2026-01-27) - 质量保证与架构优化
 
-**核心目标**: 提升可靠性、扩大受众
+**核心目标**: 提升可靠性、扩大受众、完善架构
 
 - [x] Hook 验证脚本（配置正确性自动检测）
 - [x] GitHub Actions CI（frontmatter、路径自动验证）
 - [x] 文档结构优化（README 英文优先、中文版链接）
+- [x] Skills 父子结构重组（17 个技能，42 个文件）
+- [x] 数据库专属最佳实践（PostgreSQL、MySQL、Oracle、SQLite）
+- [x] `/designer` 命令 + `architecture` 技能
+- [x] Windows 兼容性修复（Hooks 路径、JSON 输出、SessionStart）
+- [x] 敏感文件保护启用（.env、_.key、_.pem、credentials.json）
+- [x] 文档审计与一致性修复
 - [ ] ~~核心命令英文版~~ → 等待官方 i18n 支持 (#7233)
 
 > **i18n 说明**: 官方 Claude Code 暂无 i18n 支持（跟踪 #7233），
 > 待官方发布后在 v0.6.0+ 适配。当前采用"英文优先 + 中文版链接"策略。
+
+> **Windows 兼容性**: 已知第三方插件在 Windows 上存在 hook 路径问题，
+> 已提交上游 issue：[superpowers#369](https://github.com/obra/superpowers/issues/369)、
+> [claude-plugins-official#288](https://github.com/anthropics/claude-plugins-official/issues/288)
 
 ### v0.6.0 (Planned) - 易用性与配置化
 
@@ -428,7 +438,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] 增强 `/setup` 交互式配置向导
 - [ ] 模型策略配置（质量优先/速度优先/均衡/禁用 opus）
 - [ ] 常见错误诊断与修复建议
-- [ ] 故障排除文档完善
 - [ ] 示例项目（完整工作流演示）
 
 ### v0.7.0 (Planned) - 多模型协作
