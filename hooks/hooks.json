@@ -77,6 +77,18 @@
           }
         ]
       }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/evaluate-session.js\"",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

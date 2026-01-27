@@ -4,9 +4,23 @@
  *
  * 检测 dev server、watch 等可能长时间运行的命令
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 功能：
+ * 1. 警告长时间运行命令
+ * 2. 在 Linux/macOS/WSL 环境下提醒使用 tmux
  */
 
 const { readStdinJson, log } = require("../lib/utils");
+
+// 平台检测
+const isWindows = process.platform === "win32";
+const isMacOS = process.platform === "darwin";
+const isLinux = process.platform === "linux";
+const isWSL = !!process.env.WSL_DISTRO_NAME;
+const inTmux = !!process.env.TMUX;
+
+// tmux 可用的环境（非纯 Windows 或在 WSL 中）
+const tmuxAvailable = isMacOS || isLinux || isWSL;
 
 // 长时间运行命令模式
 const LONG_RUNNING_PATTERNS = [
@@ -52,13 +66,27 @@ async function main() {
   for (const pattern of LONG_RUNNING_PATTERNS) {
     if (pattern.test(command)) {
       log("");
-      log("⚠️  检测到长时间运行命令: " + command.slice(0, 60));
+      log("[LongRunning] 检测到长时间运行命令 Long-running command detected:");
+      log("  " + command.slice(0, 60) + (command.length > 60 ? "..." : ""));
       log("");
-      log("建议:");
+      log("[LongRunning] 建议 Suggestions:");
       log("  - 使用 run_in_background: true 在后台运行");
+      log("    Use run_in_background: true to run in background");
       log("  - 或在单独的终端窗口中手动启动");
-      log("");
-      log("如果需要在前台运行，请确保设置合适的 timeout");
+      log("    Or start manually in a separate terminal");
+
+      // tmux 提醒（仅在支持的环境且不在 tmux 中时）
+      if (tmuxAvailable && !inTmux) {
+        log("");
+        log("[LongRunning] tmux 建议 tmux suggestion:");
+        log("  考虑使用 tmux 保持会话持久化：");
+        log("  Consider using tmux for session persistence:");
+        log("");
+        log("    tmux new -s dev        # 创建新会话 Create new session");
+        log("    tmux attach -t dev     # 连接会话 Attach to session");
+        log("    Ctrl+B, D              # 分离会话 Detach from session");
+      }
+
       log("");
       // 不阻止，只是警告
       break;

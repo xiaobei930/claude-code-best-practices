@@ -49,12 +49,13 @@ cp .claude/settings.local.json.example .claude/settings.local.json
 
 ### 会话生命周期
 
-| 钩子         | 脚本 (Node.js)     | 触发时机       |
-| ------------ | ------------------ | -------------- |
-| SessionStart | `session-check.js` | 新会话启动     |
-| SessionStart | `session-start.js` | 加载上次上下文 |
-| PreCompact   | `pre-compact.js`   | 上下文压缩前   |
-| SessionEnd   | `session-end.js`   | 会话终止       |
+| 钩子         | 脚本 (Node.js)        | 触发时机         |
+| ------------ | --------------------- | ---------------- |
+| SessionStart | `session-check.js`    | 新会话启动       |
+| SessionStart | `session-start.js`    | 加载上次上下文   |
+| PreCompact   | `pre-compact.js`      | 上下文压缩前     |
+| SessionEnd   | `session-end.js`      | 会话终止         |
+| SessionEnd   | `evaluate-session.js` | 自动学习模式提取 |
 
 ### 策略性钩子
 
