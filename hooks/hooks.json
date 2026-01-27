@@ -42,6 +42,16 @@
             "timeout": 60
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/auto-archive.js\"",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "SessionStart": [

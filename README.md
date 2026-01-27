@@ -304,7 +304,7 @@ your-project/
 │       │   └── package-manager.js
 │       ├── verify-hooks.js     # Hook configuration verifier
 │       ├── archive-progress.js # Progress file archiver
-│       └── hooks/              # 13 lifecycle hooks
+│       └── hooks/              # 14 lifecycle hooks
 │           ├── validate-command.js, protect-files.js
 │           ├── session-start.js, session-end.js
 │           └── format-file.js, typescript-check.js

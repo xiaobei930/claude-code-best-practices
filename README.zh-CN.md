@@ -296,7 +296,7 @@ your-project/
 │       │   └── package-manager.js
 │       ├── verify-hooks.js     # Hooks 配置验证器
 │       ├── archive-progress.js # 进度文件归档器
-│       └── hooks/              # 13 个生命周期钩子
+│       └── hooks/              # 14 个生命周期钩子
 │           ├── validate-command.js, protect-files.js
 │           ├── session-start.js, session-end.js
 │           └── format-file.js, typescript-check.js

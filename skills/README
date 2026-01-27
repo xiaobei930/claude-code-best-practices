@@ -2,6 +2,57 @@
 
 Claude Code 技能系统允许你定义可复用的专业知识、工作流和自动化。
 
+## 按场景快速选择技能
+
+### 我要写代码
+
+| 场景              | 推荐技能               | 调用方式                   |
+| ----------------- | ---------------------- | -------------------------- |
+| 后端开发 (Python) | `backend` → python.md  | `/backend` 然后选 Python   |
+| 后端开发 (Java)   | `backend` → java.md    | `/backend` 然后选 Java     |
+| 前端开发 (Vue)    | `frontend` → vue.md    | `/frontend` 然后选 Vue     |
+| 前端开发 (React)  | `frontend` → react.md  | `/frontend` 然后选 React   |
+| iOS/macOS 开发    | `native` → ios.md      | `/native` 然后选 iOS       |
+| API 设计          | `api`                  | `/api`                     |
+| 数据库设计        | `database`             | `/database`                |
+
+### 我要测试
+
+| 场景          | 推荐技能                  | 调用方式               |
+| ------------- | ------------------------- | ---------------------- |
+| 测试驱动开发  | `testing` → tdd.md        | `/testing` 然后选 TDD  |
+| E2E 端到端    | `testing` → e2e.md        | `/testing` 然后选 E2E  |
+| 查看测试示例  | `testing` → tdd-example.md| 读取 tdd-example.md    |
+
+### 我要审查/调试
+
+| 场景          | 推荐技能               | 调用方式                            |
+| ------------- | ---------------------- | ----------------------------------- |
+| 安全审查      | `security`             | `/security` 或调用 security-reviewer agent |
+| 代码审查      | `code-reviewer` agent  | 让 Claude 调用 code-reviewer agent  |
+| 系统化调试    | `debug`                | `/debug`                            |
+| 第二意见      | `second-opinion`       | `/second-opinion`                   |
+
+### 我要管理会话
+
+| 场景            | 推荐技能       | 调用方式         |
+| --------------- | -------------- | ---------------- |
+| 压缩上下文      | `compact`      | `/compact`       |
+| 提取学习内容    | `learning`     | `/learning`      |
+| 探索代码库      | `exploration`  | `/exploration`   |
+
+### 命令与技能映射
+
+```
+开始新功能：/pm → /lead → /designer → /dev → /qa
+代码审查：  完成编码 → 调用 code-reviewer agent
+调试问题：  /debug → 系统化排查
+提交代码：  /commit
+压缩上下文：/compact
+```
+
+---
+
 ## 什么是 Skill？
 
 Skill 是一个包含 `SKILL.md` 文件的文件夹，可以包含：

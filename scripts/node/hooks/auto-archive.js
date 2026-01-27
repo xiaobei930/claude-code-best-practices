@@ -1,0 +1,102 @@
+#!/usr/bin/env node
+/**
+ * Claude Code Hook: Memory Bank 自动归档
+ *
+ * 在 progress.md 被修改后检查行数，超过阈值时提醒归档。
+ * 作为 PostToolUse 异步钩子运行，不阻塞主流程。
+ *
+ * 触发条件：Write|Edit 操作后，目标文件包含 progress.md
+ *
+ * Exit codes:
+ * - 0: 正常退出
+ */
+
+const fs = require("fs");
+const path = require("path");
+const { readStdinJson, log } = require("../lib/utils");
+
+const MAX_LINES = 300;
+
+/**
+ * 查找 progress.md 文件
+ * 支持不同位置：memory-bank/progress.md 或 progress.md
+ */
+function findProgressFile(workingDir) {
+  const candidates = [
+    path.join(workingDir, "memory-bank", "progress.md"),
+    path.join(workingDir, "progress.md"),
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+  return null;
+}
+
+/**
+ * 检查 progress.md 行数并输出提醒
+ */
+function checkAndWarn(progressFile) {
+  try {
+    const content = fs.readFileSync(progressFile, "utf8");
+    const lines = content.split("\n");
+    const lineCount = lines.length;
+
+    if (lineCount > MAX_LINES) {
+      // 输出到 stderr，用户可见
+      log(
+        `\n[Auto-Archive] ⚠️ progress.md 已有 ${lineCount} 行 (阈值: ${MAX_LINES})`,
+      );
+      log(`[Auto-Archive] 建议运行 /checkpoint --archive 进行归档`);
+      log(`[Auto-Archive] 或手动将历史记录移至 memory-bank/archive/\n`);
+
+      // 输出到 stdout，返回给 Claude
+      console.log(
+        JSON.stringify({
+          warning: `progress.md 超过 ${MAX_LINES} 行 (当前 ${lineCount} 行)，建议归档`,
+          suggestion: "运行 /checkpoint --archive 或手动归档历史记录",
+        }),
+      );
+    }
+  } catch (err) {
+    // 读取失败时静默退出，不影响主流程
+  }
+}
+
+async function main() {
+  let input;
+  try {
+    input = await readStdinJson();
+  } catch {
+    process.exit(0);
+  }
+
+  // 检查是否是 Write 或 Edit 操作
+  const toolName = input?.tool_name;
+  if (toolName !== "Write" && toolName !== "Edit") {
+    process.exit(0);
+  }
+
+  // 获取操作的文件路径
+  const filePath = input?.tool_input?.file_path || "";
+
+  // 只在 progress.md 被修改时触发
+  if (!filePath.includes("progress.md") && !filePath.includes("progress")) {
+    process.exit(0);
+  }
+
+  // 获取工作目录
+  const workingDir = input?.working_directory || process.cwd();
+
+  // 查找并检查 progress.md
+  const progressFile = findProgressFile(workingDir);
+  if (progressFile) {
+    checkAndWarn(progressFile);
+  }
+
+  process.exit(0);
+}
+
+main().catch(() => process.exit(0));

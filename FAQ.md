@@ -456,6 +456,113 @@ alias python3=python
 
 ---
 
+## Windows 专用问题 / Windows Specific Issues
+
+### Q: Windows 下出现 "ENOENT: no such file or directory" 错误
+
+**原因**: 路径分隔符或路径中包含空格
+
+**解决方案**:
+
+1. **使用 Git Bash 而非 CMD/PowerShell**
+
+   Git Bash 对 Unix 风格路径的处理更可靠。
+
+2. **确保 Node.js 已安装并在 PATH 中**
+
+   ```bash
+   node --version
+   ```
+
+   应显示 v16 或更高版本。如未安装，从 https://nodejs.org 下载 LTS 版本。
+
+### Q: Windows 下 Python 脚本编码错误 (UnicodeEncodeError: 'gbk')
+
+**原因**: Windows 默认使用 GBK 编码，与 UTF-8 不兼容
+
+**解决方案**:
+
+**方法 1: 设置环境变量（推荐）**
+
+PowerShell:
+
+```powershell
+$env:PYTHONUTF8="1"
+```
+
+CMD:
+
+```cmd
+set PYTHONUTF8=1
+```
+
+**方法 2: 永久设置**
+
+在系统环境变量中添加：
+
+- 变量名: `PYTHONUTF8`
+- 变量值: `1`
+
+**方法 3: 使用 Node.js 脚本**
+
+本项目的 hooks 默认使用 Node.js 版本（`scripts/node/hooks/`），无编码问题。
+
+### Q: Windows 下 SessionStart hook 显示 "hook error"
+
+**原因**: SessionStart hook 有特殊要求
+
+**解决方案**:
+
+1. **检查 hook 输出是否为 JSON 格式**
+
+   SessionStart hook 必须输出 JSON，纯文本会报错。参考: [claude-code#12671](https://github.com/anthropics/claude-code/issues/12671)
+
+2. **检查路径是否加引号**
+
+   ```json
+   // ✅ 正确
+   "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/session-check.js\""
+
+   // ❌ 可能出错
+   "command": "node ${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/session-check.js"
+   ```
+
+   参考: [claude-code#16152](https://github.com/anthropics/claude-code/issues/16152)
+
+3. **检查是否有其他插件冲突**
+
+   如果安装了多个插件，其他插件的 SessionStart hook 失败也会导致错误。使用 `claude --debug` 查看详细日志。
+
+### Q: Windows 下 Git Bash 找不到命令
+
+**原因**: Git 未安装或未添加到 PATH
+
+**解决方案**:
+
+1. 从 https://git-scm.com/download/win 下载安装 Git
+2. 安装时勾选:
+   - "Git Bash Here"
+   - "Add Git to PATH"
+3. 验证安装:
+   ```bash
+   git --version
+   ```
+
+### Q: ralph-loop 插件在 Windows 上不工作
+
+**原因**: ralph-loop 的 Stop hook 使用 `.sh` 脚本，Windows 路径处理存在问题
+
+**解决方案**:
+
+这是上游问题，已报告: [claude-plugins-official#288](https://github.com/anthropics/claude-plugins-official/issues/288)
+
+临时替代方案:
+
+- 使用 `/iterate` 命令进行自主循环（cc-best 内置，无需 ralph-loop）
+- 使用 WSL (Windows Subsystem for Linux)
+
+---
+
 ## Still Have Questions? / 还有问题？
 
 - [Open an Issue](https://github.com/xiaobei930/claude-code-best-practices/issues/new)

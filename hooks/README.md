@@ -40,11 +40,12 @@ cp .claude/settings.local.json.example .claude/settings.local.json
 
 ### 代码质量 (PostToolUse)
 
-| 脚本 (Node.js)         | 功能                | 触发条件               |
-| ---------------------- | ------------------- | ---------------------- |
-| `format-file.js`       | 自动格式化代码      | Write/Edit             |
-| `check-console-log.js` | 检查 console.log    | Edit                   |
-| `typescript-check.js`  | TypeScript 类型检查 | Write/Edit on .ts/.tsx |
+| 脚本 (Node.js)         | 功能                 | 触发条件               |
+| ---------------------- | -------------------- | ---------------------- |
+| `format-file.js`       | 自动格式化代码       | Write/Edit             |
+| `check-console-log.js` | 检查 console.log     | Edit                   |
+| `typescript-check.js`  | TypeScript 类型检查  | Write/Edit on .ts/.tsx |
+| `auto-archive.js`      | Memory Bank 归档提醒 | Write/Edit progress.md |
 
 ### 会话生命周期
 
@@ -270,7 +271,7 @@ echo $?  # 检查退出码
 │       ├── lib/
 │       │   ├── utils.js                         # 27 个辅助函数
 │       │   └── package-manager.js               # 包管理器检测
-│       └── hooks/                               # 13 个生命周期钩子
+│       └── hooks/                               # 14 个生命周期钩子
 │           ├── validate-command.js              # 命令验证
 │           ├── protect-files.js                 # 文件保护
 │           ├── format-file.js                   # 自动格式化
@@ -279,6 +280,7 @@ echo $?  # 检查退出码
 │           ├── pause-before-push.js             # Push 前确认
 │           ├── block-random-md.js               # 阻止随机 .md
 │           ├── long-running-warning.js          # 长时间运行警告
+│           ├── auto-archive.js                  # Memory Bank 归档提醒
 │           ├── session-check.js                 # 会话检查
 │           ├── session-start.js                 # 会话启动
 │           ├── session-end.js                   # 会话结束
