@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added / 新增
 
+- **架构文档** - `.claude-plugin/ARCHITECTURE.md`
+  - 完整的组件关系图（Commands → Agents → Skills → Hooks）
+  - 工作流架构说明
+  - 引用关系映射表
+  - 扩展指南
+- **竞品对比表** - README 新增 "CC-Best vs Superpowers" 章节
+  - 明确团队协作 vs 个人开发者的定位差异
+  - 功能互补说明，建议共存使用
+- **`/status --full`** - 增强状态检查命令
+  - `--full` 参数：显示 CC-Best 组件统计
+  - `--conflicts` 参数：检测与其他插件的潜在冲突
 - **`/mode` 命令** - 工作模式切换，支持 4 种模式
   - `dev` - 开发模式：先写代码再解释，偏好可工作方案
   - `research` - 研究模式：先理解再行动，边探索边记录
@@ -27,9 +38,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 平台检测（Windows/macOS/Linux/WSL）
   - 在支持 tmux 的环境中提供会话持久化建议
   - 仅在非 tmux 环境中显示提醒
+- **命令参考文档** - `.claude-plugin/COMMANDS.md`
+  - 33 个命令的完整参考（参数、用法、示例）
+  - 按类别分组：角色、模式、工具、配置
+  - 命令组合示例和工作流指南
+- **并行执行指南** - `agents/README` 新增章节
+  - 并行执行条件和最佳实践
+  - 资源竞争注意事项
+  - 结果合并和错误处理
+- **微任务分解** - `agents/planner.md` 增强
+  - 2-5 分钟粒度的原子任务标准
+  - 并行/依赖标注语法
+  - 任务粒度参考表
 
 ### Changed / 变更
 
+- **README FAQ 精简** - 从 ~230 行精简到 ~35 行
+  - 保留最常见问题的快速解答
+  - 完整 FAQ 引用到 `FAQ.md`
+- **README.zh-CN.md** - 同步更新竞品对比表和 FAQ 精简
 - **hooks/README.md** - 更新钩子脚本列表，新增 `evaluate-session.js` 说明
 - **hooks/hooks.json** - 添加 SessionEnd 生命周期钩子配置
 

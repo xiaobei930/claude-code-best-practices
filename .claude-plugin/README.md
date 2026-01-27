@@ -1,6 +1,7 @@
-# Claude Code Plugin Structure
+# CC-Best Plugin Structure | 插件结构
 
 This directory contains metadata for Claude Code Plugin Marketplace compatibility.
+此目录包含 Claude Code 插件市场兼容性所需的元数据。
 
 ## Files
 
@@ -8,7 +9,7 @@ This directory contains metadata for Claude Code Plugin Marketplace compatibilit
 | ----------------------- | ------------------------------------------- |
 | `plugin.json`           | Plugin metadata (name, version, components) |
 | `marketplace.json`      | Marketplace listing information             |
-| `plugin-integration.md` | Local components & official plugins guide   |
+| `PLUGIN-INTEGRATION.md` | Local components & official plugins guide   |
 
 ## Plugin Components
 

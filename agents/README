@@ -6,27 +6,27 @@
 
 > **重要**：理解 Skill 和 Agent 的区别是正确使用本插件的关键。
 
-| 维度 | Skill（技能） | Agent（代理） |
-|------|--------------|---------------|
-| **本质** | 知识库 / 参考文档 | 执行者 / 独立助手 |
-| **作用** | 提供清单、模式、最佳实践 | 主动分析、产出报告 |
-| **上下文** | 注入到当前对话 | 独立上下文窗口 |
-| **调用方式** | 自动加载或 `/skill-name` | `Task` 工具委派 |
-| **消耗** | 不额外消耗 token | 独立 token 消耗 |
-| **适用场景** | 需要参考指南时 | 需要独立执行任务时 |
+| 维度         | Skill（技能）            | Agent（代理）      |
+| ------------ | ------------------------ | ------------------ |
+| **本质**     | 知识库 / 参考文档        | 执行者 / 独立助手  |
+| **作用**     | 提供清单、模式、最佳实践 | 主动分析、产出报告 |
+| **上下文**   | 注入到当前对话           | 独立上下文窗口     |
+| **调用方式** | 自动加载或 `/skill-name` | `Task` 工具委派    |
+| **消耗**     | 不额外消耗 token         | 独立 token 消耗    |
+| **适用场景** | 需要参考指南时           | 需要独立执行任务时 |
 
 ### 配对关系与架构模式
 
 本插件中存在功能相关的 Skill-Agent 配对。**推荐架构**：Agent 通过 `skills:` 字段预加载相关 Skill，避免内容重复。
 
-| Skill | Agent | 架构模式 |
-|-------|-------|----------|
-| `security` | `security-reviewer` | ✅ Agent 预加载 Skill（`skills: [security]`） |
-| `testing` | `tdd-guide` | ✅ Agent 预加载 Skill（`skills: [testing]`） |
-| - | `code-reviewer` | 独立 Agent，无对应 Skill |
-| - | `code-simplifier` | 独立 Agent，无对应 Skill |
-| - | `planner` | 独立 Agent，与 `/lead` 命令配合 |
-| - | `requirement-validator` | 独立 Agent，与 `/pm` 命令配合 |
+| Skill      | Agent                   | 架构模式                                      |
+| ---------- | ----------------------- | --------------------------------------------- |
+| `security` | `security-reviewer`     | ✅ Agent 预加载 Skill（`skills: [security]`） |
+| `testing`  | `tdd-guide`             | ✅ Agent 预加载 Skill（`skills: [testing]`）  |
+| -          | `code-reviewer`         | 独立 Agent，无对应 Skill                      |
+| -          | `code-simplifier`       | 独立 Agent，无对应 Skill                      |
+| -          | `planner`               | 独立 Agent，与 `/lead` 命令配合               |
+| -          | `requirement-validator` | 独立 Agent，与 `/pm` 命令配合                 |
 
 #### 架构优势
 
@@ -35,7 +35,7 @@
 ---
 name: security-reviewer
 skills:
-  - security  # Skill 内容自动注入到 Agent 上下文
+  - security # Skill 内容自动注入到 Agent 上下文
 ---
 # Agent 只定义：行为准则 + 核心职责 + 输出格式
 # Skill 提供：详细知识库 + 代码示例 + 检查清单
@@ -273,6 +273,45 @@ hooks:
 [Claude 恢复相同子代理，保留上下文]
 ```
 
+## 并行执行 | Parallel Execution
+
+多个独立任务可以并行执行，显著提升效率。
+
+### 并行执行条件
+
+任务满足以下条件时可以并行：
+
+- **独立性**: 任务之间无数据依赖
+- **无共享状态**: 不修改相同文件
+- **无顺序要求**: 执行顺序不影响结果
+
+### 并行执行示例
+
+```
+# 单消息发起多个并行 Agent
+Task: code-reviewer  → 审查模块 A
+Task: code-reviewer  → 审查模块 B
+Task: security-reviewer → 安全扫描
+
+# Claude 会在单次响应中发起所有任务
+```
+
+### 最佳实践
+
+| 场景                | 推荐方式                   |
+| ------------------- | -------------------------- |
+| 多模块代码审查      | 并行启动多个 code-reviewer |
+| 代码审查 + 安全扫描 | 并行（独立任务）           |
+| 规划 → 实现         | 串行（有依赖）             |
+| 测试 → 提交         | 串行（需要测试通过）       |
+
+### 注意事项
+
+1. **并行数量限制**: 建议同时不超过 3-5 个 Agent
+2. **资源竞争**: 避免多个 Agent 同时修改同一文件
+3. **结果合并**: 并行任务完成后，主会话负责合并结果
+4. **错误处理**: 单个 Agent 失败不影响其他并行任务
+
 ## 何时使用子代理
 
 **使用主对话**：
@@ -293,14 +332,14 @@ hooks:
 
 ## 模板中的代理
 
-| 代理                    | 模型   | 工具 | 用途               |
-| ----------------------- | ------ | ---- | ------------------ |
+| 代理                    | 模型   | 工具 | 用途                                                                   |
+| ----------------------- | ------ | ---- | ---------------------------------------------------------------------- |
 | `code-reviewer`         | Opus   | 只读 | 深度代码审查 + 多语言专项检查 (Go/Python/Java/TS/C#/React/Vue/Angular) |
-| `security-reviewer`     | Opus   | 只读 | 安全漏洞检查       |
-| `code-simplifier`       | Opus   | 读写 | 代码简化和重构     |
-| `planner`               | Opus   | 只读 | 任务规划和分解     |
-| `tdd-guide`             | Sonnet | 读写 | TDD 指导和测试编写 |
-| `requirement-validator` | Sonnet | 只读 | 需求文档验证       |
+| `security-reviewer`     | Opus   | 只读 | 安全漏洞检查                                                           |
+| `code-simplifier`       | Opus   | 读写 | 代码简化和重构                                                         |
+| `planner`               | Opus   | 只读 | 任务规划和分解                                                         |
+| `tdd-guide`             | Sonnet | 读写 | TDD 指导和测试编写                                                     |
+| `requirement-validator` | Sonnet | 只读 | 需求文档验证                                                           |
 
 ## 调用方式
 
@@ -355,7 +394,7 @@ Task:
 }
 ```
 
-详细说明见 `.claude-plugin/plugin-integration.md`
+详细说明见 `.claude-plugin/PLUGIN-INTEGRATION.md`
 
 ## /agents 命令
 

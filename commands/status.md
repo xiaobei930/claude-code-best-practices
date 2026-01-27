@@ -6,6 +6,14 @@ allowed-tools: Read, Glob, Grep, Bash
 
 检查项目整体状态，提供健康诊断和改进建议。
 
+## 参数
+
+| 参数          | 说明                            |
+| ------------- | ------------------------------- |
+| (无参数)      | 基本状态检查                    |
+| `--full`      | 完整诊断，包括 CC-Best 组件统计 |
+| `--conflicts` | 检测与其他插件的冲突            |
+
 ## 检查项目
 
 执行以下检查并生成状态报告：
@@ -33,6 +41,38 @@ allowed-tools: Read, Glob, Grep, Bash
 
 - 必要的环境变量是否已设置
 - `.env` 文件是否存在
+
+### 5. CC-Best 组件统计（--full）
+
+扫描并统计项目组件：
+
+```
+📊 CC-Best 组件统计
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Commands:  33 个 (commands/*.md)
+Skills:    17 个 (skills/*/SKILL.md)
+Agents:     6 个 (agents/*.md)
+Hooks:     27 个 (scripts/node/hooks/*.js)
+Rules:     13 个 (rules/*.md)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### 6. 插件冲突检测（--conflicts）
+
+检查是否存在与其他插件的潜在冲突：
+
+```
+⚠️ 潜在冲突检测
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+检测到 Superpowers 插件：
+  - SessionStart hooks 可能冲突
+  - 建议：CC-Best 用于团队工作流，Superpowers 用于 git 自动化
+
+检测到 code-review 插件：
+  - 与 code-reviewer agent 功能重叠
+  - 建议：可共存，agent 做快速检查，插件做深度分析
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
 
 ## 输出格式
 
@@ -65,3 +105,4 @@ allowed-tools: Read, Glob, Grep, Bash
 - 排查问题时快速了解环境
 - 确认部署前的准备状态
 - 诊断配置问题
+- 检测插件冲突（`--conflicts`）

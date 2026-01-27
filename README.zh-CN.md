@@ -55,6 +55,21 @@ Claude Code 插件 & 模板，支持 **Python / Vue / TypeScript / C++ / Java / 
 | ❌ 危险命令风险         | ✅ 安全钩子保护系统          |
 | ❌ 会话间上下文丢失     | ✅ 记忆库持久化进度          |
 
+### CC-Best vs Superpowers
+
+两者都是优秀的 Claude Code 增强工具，根据需求选择：
+
+| 场景                | 推荐        | 原因                        |
+| ------------------- | ----------- | --------------------------- |
+| **个人开发者**      | Superpowers | 更轻量，git 工作树自动化    |
+| **团队协作**        | CC-Best     | 角色工作流 (PM→Lead→Dev→QA) |
+| **多语言技术栈**    | CC-Best     | 7+ 语言编码规范             |
+| **中文团队**        | CC-Best     | 双语文档，中文内部文件      |
+| **需要 git 工作树** | Superpowers | 自动创建隔离分支            |
+| **需要记忆库**      | CC-Best     | progress.md 跨会话持久化    |
+
+> 💡 **可以共存！** 同时安装两个，CC-Best 用于团队工作流，Superpowers 用于 git 自动化。
+
 ### 演示
 
 <p align="center">
@@ -261,7 +276,7 @@ your-project/
 │   ├── architecture.md         # 架构文档
 │   └── tech-stack.md           # 技术选型
 │
-├── commands/                   # Slash 命令（32）
+├── commands/                   # Slash 命令（35）
 │   ├── pm.md, lead.md          # 角色命令
 │   ├── iterate.md, pair.md     # 模式命令
 │   └── build.md, test.md       # 工具命令
@@ -349,163 +364,53 @@ flowchart LR
 
 ## 📋 命令速查
 
-### 角色命令
+**35 个命令**，按类别组织：
 
-| 命令        | 角色       | 职责                         |
-| ----------- | ---------- | ---------------------------- |
-| `/pm`       | 产品经理   | 需求分析、用户故事、验收标准 |
-| `/lead`     | 技术负责人 | 技术方案、任务分解、架构决策 |
-| `/dev`      | 开发工程师 | 代码实现、单元测试           |
-| `/qa`       | 质量工程师 | 功能验证、测试用例           |
-| `/designer` | UI 设计师  | 设计指导、界面规范           |
-| `/clarify`  | 澄清专家   | 需求澄清、边界确认           |
+| 类别       | 命令                                                              | 用途           |
+| ---------- | ----------------------------------------------------------------- | -------------- |
+| **角色**   | `/pm`, `/lead`, `/dev`, `/qa`, `/designer`, `/clarify`, `/verify` | 开发工作流角色 |
+| **模式**   | `/iterate`, `/pair`, `/cc-ralph`, `/mode`                         | 自主/结对模式  |
+| **构建**   | `/build`, `/test`, `/run`, `/fix`                                 | 构建测试自动化 |
+| **Git**    | `/commit`, `/pr`, `/git`                                          | 版本控制       |
+| **上下文** | `/compact`, `/checkpoint`, `/catchup`, `/context`, `/memory`      | 会话管理       |
+| **质量**   | `/cleanup`, `/docs`, `/learn`, `/analyze`, `/evolve`              | 代码质量&知识  |
+| **配置**   | `/setup`, `/setup-pm`, `/status`, `/self-check`                   | 配置诊断       |
 
-### 模式命令
-
-| 命令        | 说明                                                                                        |
-| ----------- | ------------------------------------------------------------------------------------------- |
-| `/iterate`  | 自主迭代循环，读取 progress.md 自动执行任务                                                 |
-| `/pair`     | 结对编程模式 - 每步人工确认。用法：`/pair [任务]` 或 `/pair --learn [主题]`                 |
-| `/cc-ralph` | 使用 cc-best 工作流启动 Ralph Loop（需安装 ralph-loop 插件）。支持 `--mode`、`--setup` 选项 |
-
-### 工具命令
-
-| 命令          | 功能                                |
-| ------------- | ----------------------------------- |
-| `/build`      | 构建项目                            |
-| `/test`       | 运行测试                            |
-| `/run`        | 启动开发服务器                      |
-| `/commit`     | Git 提交                            |
-| `/pr`         | 创建 Pull Request                   |
-| `/git`        | Git 提交规范                        |
-| `/status`     | 查看项目状态                        |
-| `/checkpoint` | 创建检查点                          |
-| `/compact`    | 压缩上下文                          |
-| `/context`    | 上下文管理                          |
-| `/memory`     | 项目记忆管理                        |
-| `/verify`     | 验证代码质量                        |
-| `/setup`      | 项目初始化（`--verify` 诊断 hooks） |
-| `/fix`        | 修复构建错误                        |
-| `/docs`       | 同步文档                            |
-
-### 辅助命令
-
-| 命令          | 功能           |
-| ------------- | -------------- |
-| `/catchup`    | 快速恢复上下文 |
-| `/cleanup`    | 死代码清理     |
-| `/learn`      | 会话学习       |
-| `/self-check` | 自我检查验证   |
-| `/task`       | 任务粒度管理   |
-| `/infer`      | 模型推理       |
-| `/train`      | 模型训练       |
-| `/setup-pm`   | 包管理器设置   |
+> 📖 **完整参考**: 查看 [COMMANDS.md](.claude-plugin/COMMANDS.md) 了解所有参数和用法示例。
 
 ---
 
 ## 🛠️ 技能说明
 
-| 技能             | 用途            | 主要内容                                    |
-| ---------------- | --------------- | ------------------------------------------- |
-| `backend`        | 后端开发        | 通用模式 + Python/TS/Java/Go/C#/Rust 子文件 |
-| `frontend`       | 前端开发        | 通用模式 + Vue/React/Svelte/Angular 子文件  |
-| `devops`         | DevOps 实践     | CI/CD 流水线、Docker、部署策略              |
-| `testing`        | 测试（TDD+E2E） | Red-Green-Refactor、E2E 测试                |
-| `api`            | API 开发        | RESTful 设计、响应格式、认证                |
-| `database`       | 数据库设计      | PostgreSQL/MySQL/Oracle/SQLite 特定模式     |
-| `security`       | 安全审查        | OWASP 检查清单、漏洞防护、云安全            |
-| `architecture`   | 架构设计        | ADR 模板、设计检查清单、架构模式            |
-| `debug`          | 系统化调试      | 问题定位、日志分析、性能剖析                |
-| `git`            | Git 工作流      | 分支策略、提交规范、冲突解决                |
-| `native`         | 原生开发        | iOS/macOS: Swift 并发、SwiftUI 性能         |
-| `exploration`    | 代码探索        | 隔离研究 + 迭代检索策略                     |
-| `second-opinion` | 交叉验证        | 多模型验证架构决策                          |
-| `learning`       | 持续学习        | 会话评估、知识提取                          |
-| `compact`        | 策略性压缩      | 压缩时机、最佳实践                          |
-| `quality`        | 代码质量（父）  | security 和 debug 的父技能                  |
-| `session`        | 会话管理（父）  | learning 和 compact 的父技能                |
+**17 个开发技能**，按领域组织：
+
+| 领域     | 技能                                 | 覆盖范围                       |
+| -------- | ------------------------------------ | ------------------------------ |
+| **后端** | `backend`, `api`, `database`         | Python, TS, Java, Go, C#, Rust |
+| **前端** | `frontend`                           | Vue, React, Svelte, Angular    |
+| **质量** | `testing`, `security`, `debug`       | TDD, OWASP, 性能分析           |
+| **架构** | `architecture`, `devops`, `git`      | ADR, CI/CD, 分支策略           |
+| **会话** | `learning`, `compact`, `exploration` | 知识管理                       |
+
+> 📖 **完整参考**: 查看 [skills/README](skills/README) 了解技能详细文档。
 
 ---
 
-## 🏗️ 分层架构：Commands / Skills / Agents
+## 🏗️ 架构概览
 
-本模板采用三层架构，各层有不同职责和触发方式：
+本模板采用**三层架构**：
 
-### 分层对比
+| 层级         | 触发方式        | 用途                     |
+| ------------ | --------------- | ------------------------ |
+| **Commands** | 用户输入 `/xxx` | 角色工作流，用户主动操作 |
+| **Skills**   | 自动注入        | 最佳实践，编码规范       |
+| **Agents**   | Task 工具委派   | 专业子任务（审查、规划） |
 
-| 层级         | 目录        | 触发方式            | 职责                             | 详细程度 |
-| ------------ | ----------- | ------------------- | -------------------------------- | -------- |
-| **Commands** | `commands/` | 用户主动调用 `/xxx` | 角色扮演、完整工作流、上下文交接 | 完整     |
-| **Skills**   | `skills/`   | 自动注入或手动引用  | 参考文档、最佳实践、代码示例     | 详细     |
-| **Agents**   | `agents/`   | Task 工具自动委派   | 子代理执行、独立上下文           | 简洁     |
+**6 个专业智能体**: `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide`
 
-### 触发条件
-
-#### Commands（用户主动调用）
-
-用户输入 `/command` 时触发，适用于：
-
-- **角色切换**：`/pm`、`/lead`、`/dev`、`/qa`、`/designer`
-- **工作流启动**：`/iterate`、`/pair`
-- **工具执行**：`/build`、`/test`、`/commit`
-
-#### Skills（上下文注入）
-
-Claude 根据任务自动加载相关技能，或在 agent frontmatter 中预加载：
-
-- **自动加载**：实现 API 时加载 `api`
-- **显式引用**：agent 中 `skills: [testing]`
-- **用户请求**：`参考 security 技能检查代码`
-
-#### Agents（Task 工具委派）
-
-由 Claude 判断并通过 Task 工具自动委派：
-
-- **代码审查**：修改代码后 → `code-reviewer`
-- **安全检查**：涉及认证/输入 → `security-reviewer`
-- **TDD 指导**：需要测试 → `tdd-guide`
-- **任务规划**：复杂功能 → `planner`
-
-### 使用示例
-
-```
-用户: 实现用户登录功能
-
-Claude 行为:
-1. /lead 角色 → 设计方案
-2. 加载 api + security 技能
-3. /dev 角色 → 编码实现
-4. 委派 tdd-guide agent → 编写测试
-5. 委派 security-reviewer agent → 安全检查
-6. /qa 角色 → 验收测试
-```
-
----
-
-## 🤖 智能体
-
-用于专门任务的子智能体，由 Task 工具自动调用。
-
-| 智能体                  | 用途     | 自动触发条件                   |
-| ----------------------- | -------- | ------------------------------ |
-| `code-reviewer`         | 代码审查 | 代码修改后进行质量/架构检查    |
-| `code-simplifier`       | 代码简化 | 功能完成后清理、消除冗余       |
-| `planner`               | 任务规划 | 复杂功能实现、架构变更         |
-| `requirement-validator` | 需求验证 | 设计阶段前验证需求文档         |
-| `security-reviewer`     | 安全审查 | 涉及认证、用户输入、密钥、API  |
-| `tdd-guide`             | TDD 指导 | 新功能、Bug 修复、测试优先方法 |
-
-### 智能体调用
-
-通过 Task 工具或命令 handoffs 调用：
-
-```
-Task:
-  subagent_type: "code-reviewer"
-  prompt: "审查代码质量"
-```
-
-> **说明**：直接使用 agent 名称（如 `code-simplifier`），插件安装和 Clone 安装均适用。
+> 📐 **完整文档**: 查看 [ARCHITECTURE.md](.claude-plugin/ARCHITECTURE.md) 了解组件关系和调用链路。
+>
+> 🤖 **智能体详情**: 查看 [agents/README](agents/README) 了解智能体能力和调用方式。
 
 ---
 
@@ -698,152 +603,22 @@ bash scripts/shell/cleanup.sh --all
 
 ## ❓ 常见问题
 
-### 快速开始
+> 📖 **完整 FAQ**：查看 [FAQ.md](FAQ.md) 获取详细故障排查指南。
+
+### 快速解答
 
 <details>
-<summary><strong>Q: 可以删除不需要的文件吗？</strong></summary>
+<summary><strong>钩子不工作？</strong></summary>
 
-可以！常见可删除文件：
+运行 `/setup --verify` 诊断。常见修复：
 
-- `.github/` - 如果不需要贡献模板
-- `CONTRIBUTING.md`, `CHANGELOG.md`, `FAQ.md` - 模板专用文档
-- 不使用的语言规则（如 Python 项目删除 `cpp-style.md`）
-
-最少保留：
-
-- `CLAUDE.md` - 核心配置
-- `.claude/settings.json` - 权限设置
-- 你使用的语言规则
+- Clone 用户：`cp .claude/settings.local.json.example .claude/settings.local.json`
+- 插件用户：运行 `/setup --hooks` 配置绝对路径
+- Windows：查看 [FAQ.md](FAQ.md#钩子问题) 了解 `${CLAUDE_PLUGIN_ROOT}` 解决方案
 </details>
 
 <details>
-<summary><strong>Q: 需要保留 Git 历史吗？</strong></summary>
-
-不需要。全新开始：
-
-```bash
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit from Claude Code template"
-```
-
-</details>
-
-### 钩子问题
-
-<details>
-<summary><strong>Q: 钩子不工作怎么办？（Clone 用户）</strong></summary>
-
-1. 检查 `settings.local.json` 是否存在：
-
-   ```bash
-   ls .claude/settings.local.json
-   ```
-
-   如果不存在：
-
-   ```bash
-   cp .claude/settings.local.json.example .claude/settings.local.json
-   ```
-
-2. 检查脚本权限（Linux/Mac）：
-
-   ```bash
-   chmod +x scripts/*.sh
-   chmod +x scripts/*.py
-   ```
-
-3. 检查 Claude Code 版本 - 钩子需要较新版本
-
-4. 运行 `/setup --verify` 诊断 hooks 配置问题
-</details>
-
-<details>
-<summary><strong>Q: 如何诊断 hooks 配置问题？</strong></summary>
-
-运行 hooks 验证命令：
-
-```bash
-/setup --verify
-```
-
-这会检查：
-
-- 脚本路径是否存在
-- timeout 值是否有效（1s - 600s）
-- matcher 语法是否正确
-- 生命周期事件是否有效
-
-输出包含诊断报告和修复建议。
-
-</details>
-
-<details>
-<summary><strong>Q: 钩子报 "Cannot find module" 错误（插件用户）</strong></summary>
-
-这是一个 [Claude Code 已知问题](https://github.com/anthropics/claude-code/issues/9354)。`${CLAUDE_PLUGIN_ROOT}` 环境变量可能无法正确展开。
-
-**解决方案：**
-
-1. **运行 `/setup --hooks`（推荐）**：此命令会自动检测环境并配置使用绝对路径的 hooks
-
-   ```bash
-   /setup --hooks --global  # 配置到全局设置
-   /setup --hooks --project # 配置到项目设置
-   ```
-
-2. **改用 Clone 方式**：Clone 本仓库并复制文件到你的项目
-
-3. **等待官方修复**：跟踪 [Issue #9354](https://github.com/anthropics/claude-code/issues/9354) 获取更新
-</details>
-
-<details>
-<summary><strong>Q: Windows 上出现 "SessionStart:startup hook error"</strong></summary>
-
-此错误通常由**官方插件**（superpowers、learning-output-style 等）引起，它们也使用 `${CLAUDE_PLUGIN_ROOT}` 环境变量。
-
-**解决方案：**
-
-1. **清理问题插件的 hooks**（在 Git Bash 中运行）：
-
-   ```bash
-   # 清理 superpowers 的 SessionStart hooks
-   find ~/.claude/plugins/cache/claude-plugins-official/superpowers -name "hooks.json" \
-     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
-
-   # 清理 learning-output-style 的 SessionStart hooks
-   find ~/.claude/plugins/cache/claude-plugins-official/learning-output-style -name "hooks.json" \
-     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
-   ```
-
-2. **清理 cc-best 旧版本缓存**（如果错误持续）：
-
-   ```bash
-   # 清理旧版本 hooks
-   find ~/.claude/plugins/cache/claude-code-best-practices -name "hooks.json" \
-     -exec sh -c 'echo "{\"hooks\":{}}" > {}' \;
-   ```
-
-3. **验证修复**：重启 Claude Code，错误应该消失
-
-> **注意**：插件更新时这些更改可能会被覆盖，如果错误再次出现请重新执行。
-
-</details>
-
-<details>
-<summary><strong>Q: format_file.py 报编码错误</strong></summary>
-
-Windows 常见问题。解决方案：
-
-1. 确保安装 Python 3.8+
-2. 设置环境变量：`PYTHONUTF8=1`
-</details>
-
-### 命令问题
-
-<details>
-<summary><strong>Q: /iterate 和 /pair 有什么区别？</strong></summary>
+<summary><strong>/iterate vs /pair？</strong></summary>
 
 | 模式       | 控制方式 | 适用场景       |
 | ---------- | -------- | -------------- |
@@ -853,77 +628,16 @@ Windows 常见问题。解决方案：
 </details>
 
 <details>
-<summary><strong>Q: /iterate 意外停止了</strong></summary>
-
-检查停止条件：
-
-- 用户中断（Ctrl+C）
-- `progress.md` 任务全部完成
-- 发生致命错误
-- 需要用户决策
-
-恢复：再次运行 `/iterate`
-
-</details>
-
-<details>
-<summary><strong>Q: 命令找不到</strong></summary>
-
-- 确认文件在 `commands/` 目录
-- 确认扩展名是 `.md`
-- 重启 Claude Code
-</details>
-
-### MCP 问题
-
-<details>
-<summary><strong>Q: 如何配置 MCP 服务器？</strong></summary>
+<summary><strong>MCP 配置？</strong></summary>
 
 编辑 `.claude/settings.local.json`：
 
 ```json
-{
-  "enabledMcpjsonServers": ["memory", "sequential-thinking"]
-}
+{ "enabledMcpjsonServers": ["memory", "sequential-thinking"] }
 ```
 
-然后重启 Claude Code。
+最佳实践：每个项目启用 ≤10 个 MCP 服务器。
 
-</details>
-
-<details>
-<summary><strong>Q: MCP 工具太多导致问题</strong></summary>
-
-最佳实践：每个项目启用不超过 10 个。
-
-```json
-{
-  "disabledMcpServers": ["github", "vercel"]
-}
-```
-
-</details>
-
-### 故障排查
-
-<details>
-<summary><strong>Q: "Permission denied" 错误</strong></summary>
-
-```bash
-# Linux/Mac
-chmod +x scripts/*.sh
-chmod +x scripts/*.py
-
-# Windows：以管理员身份运行
-```
-
-</details>
-
-<details>
-<summary><strong>Q: 修改规则后不生效</strong></summary>
-
-- Claude Code 在会话开始时缓存规则
-- 修改后重启会话或使用 `/clear`
 </details>
 
 ---

@@ -1,6 +1,7 @@
-# 本地组件与官方插件联动指南
+# CC-Best Plugin Integration | 插件联动指南
 
-本文档记录本地 agents/commands/skills 与官方 Claude Code 插件的联动关系和使用策略。
+> 本文档记录本地 agents/commands/skills 与官方 Claude Code 插件的联动关系和使用策略。
+> This document covers integration between local components and official Claude Code plugins.
 
 ## 组件目录结构
 

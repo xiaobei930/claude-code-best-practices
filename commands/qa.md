@@ -407,7 +407,7 @@ code-reviewer (深度审查)  ←── Agent 独立上下文
 | 需求 | 选择 |
 |------|------|
 | 需要安全检查清单参考 | `security` skill |
-| 需要自动扫描代码安全 | `securityer` agent |
+| 需要自动扫描代码安全 | `security-reviewer` agent |
 | 需要代码质量深度分析 | `code-reviewer` agent |
 
 ---

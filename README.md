@@ -24,7 +24,7 @@
 
 > **Install as plugin and start coding with Claude in minutes, not hours.**
 
-A production-ready Claude Code plugin & template for development teams. Includes **33 commands**, **17 skills**, **6 agents**, and **safety hooks** with support for **Python / Vue / TypeScript / C++ / Java / C# / Go / Swift**.
+A production-ready Claude Code plugin & template for development teams. Includes **35 commands**, **17 skills**, **6 agents**, and **safety hooks** with support for **Python / Vue / TypeScript / C++ / Java / C# / Go / Swift**.
 
 ### ✨ Highlights
 
@@ -62,6 +62,21 @@ A production-ready Claude Code plugin & template for development teams. Includes
 | ❌ Manual repetitive workflows        | ✅ Role-based automation (PM→Dev→QA) |
 | ❌ Risk of dangerous commands         | ✅ Safety hooks protect your system  |
 | ❌ Context lost between sessions      | ✅ Memory bank persists progress     |
+
+### CC-Best vs Superpowers
+
+Both are excellent Claude Code enhancement tools. Choose based on your needs:
+
+| Scenario                 | Recommended | Why                                    |
+| ------------------------ | ----------- | -------------------------------------- |
+| **Solo developer**       | Superpowers | Lighter, git worktree automation       |
+| **Team collaboration**   | CC-Best     | Role workflow (PM→Lead→Dev→QA)         |
+| **Multi-language stack** | CC-Best     | 7+ language coding standards           |
+| **Chinese team**         | CC-Best     | Bilingual docs, Chinese internal files |
+| **Need git worktree**    | Superpowers | Auto-creates isolated branches         |
+| **Need Memory Bank**     | CC-Best     | progress.md persists across sessions   |
+
+> 💡 **They can coexist!** Install both and use CC-Best for team workflows, Superpowers for git automation.
 
 ### Demo
 
@@ -269,7 +284,7 @@ your-project/
 │   ├── architecture.md         # Architecture documentation
 │   └── tech-stack.md           # Technology choices
 │
-├── commands/                   # Slash commands (32)
+├── commands/                   # Slash commands (35)
 │   ├── pm.md, lead.md          # Role commands
 │   ├── iterate.md, pair.md     # Mode commands
 │   └── build.md, test.md       # Tool commands
@@ -357,163 +372,53 @@ flowchart LR
 
 ## 📋 Command Reference
 
-### Role Commands
+**35 commands** organized into categories:
 
-| Command     | Role                 | Responsibilities                                         |
-| ----------- | -------------------- | -------------------------------------------------------- |
-| `/pm`       | Product Manager      | Requirement analysis, user stories, acceptance criteria  |
-| `/lead`     | Tech Lead            | Technical design, task breakdown, architecture decisions |
-| `/dev`      | Developer            | Code implementation, unit tests                          |
-| `/qa`       | QA Engineer          | Functional verification, test cases                      |
-| `/designer` | UI Designer          | Design guidance, interface specifications                |
-| `/clarify`  | Clarification Expert | Requirement clarification, boundary confirmation         |
+| Category    | Commands                                                          | Purpose                           |
+| ----------- | ----------------------------------------------------------------- | --------------------------------- |
+| **Role**    | `/pm`, `/lead`, `/dev`, `/qa`, `/designer`, `/clarify`, `/verify` | Development workflow roles        |
+| **Mode**    | `/iterate`, `/pair`, `/cc-ralph`, `/mode`                         | Autonomous/pair programming modes |
+| **Build**   | `/build`, `/test`, `/run`, `/fix`                                 | Build and test automation         |
+| **Git**     | `/commit`, `/pr`, `/git`                                          | Version control                   |
+| **Context** | `/compact`, `/checkpoint`, `/catchup`, `/context`, `/memory`      | Session management                |
+| **Quality** | `/cleanup`, `/docs`, `/learn`, `/analyze`, `/evolve`              | Code quality & knowledge          |
+| **Setup**   | `/setup`, `/setup-pm`, `/status`, `/self-check`                   | Configuration                     |
 
-### Mode Commands
-
-| Command     | Description                                                                                               |
-| ----------- | --------------------------------------------------------------------------------------------------------- |
-| `/iterate`  | Autonomous iteration loop, reads progress.md and executes tasks automatically                             |
-| `/pair`     | Pair programming mode - human confirms each step. Use: `/pair [task]` or `/pair --learn [topic]`          |
-| `/cc-ralph` | Start Ralph Loop with cc-best workflow (requires ralph-loop plugin). Supports `--mode`, `--setup` options |
-
-### Tool Commands
-
-| Command       | Function                                              |
-| ------------- | ----------------------------------------------------- |
-| `/build`      | Build project                                         |
-| `/test`       | Run tests                                             |
-| `/run`        | Start development server                              |
-| `/commit`     | Git commit                                            |
-| `/pr`         | Create Pull Request                                   |
-| `/git`        | Git commit conventions                                |
-| `/status`     | View project status                                   |
-| `/checkpoint` | Create checkpoint                                     |
-| `/compact`    | Compress context                                      |
-| `/context`    | Context management                                    |
-| `/memory`     | Project memory management                             |
-| `/verify`     | Verify code quality                                   |
-| `/setup`      | Project initialization (`--verify` to diagnose hooks) |
-| `/fix`        | Fix build errors                                      |
-| `/docs`       | Sync documentation                                    |
-
-### Auxiliary Commands
-
-| Command       | Function                    |
-| ------------- | --------------------------- |
-| `/catchup`    | Quick context recovery      |
-| `/cleanup`    | Dead code cleanup           |
-| `/learn`      | Session learning            |
-| `/self-check` | Self-check validation       |
-| `/task`       | Task granularity management |
-| `/infer`      | Model inference             |
-| `/train`      | Model training              |
-| `/setup-pm`   | Package manager setup       |
+> 📖 **Full reference**: See [COMMANDS.md](.claude-plugin/COMMANDS.md) for all parameters and usage examples.
 
 ---
 
 ## 🛠️ Skills
 
-| Skill            | Purpose               | Key Contents                                             |
-| ---------------- | --------------------- | -------------------------------------------------------- |
-| `backend`        | Backend development   | Generic patterns + Python/TS/Java/Go/C#/Rust subfiles    |
-| `frontend`       | Frontend development  | Generic patterns + Vue/React/Svelte/Angular subfiles     |
-| `devops`         | DevOps practices      | CI/CD pipelines, Docker, deployment strategies           |
-| `testing`        | Testing (TDD + E2E)   | TDD workflow, E2E testing, framework configs             |
-| `api`            | API development       | RESTful design, response formats, authentication         |
-| `database`       | Database design       | PostgreSQL/MySQL/Oracle/SQLite specific patterns         |
-| `security`       | Security review       | OWASP checklist + cloud security (IAM, secrets)          |
-| `architecture`   | Architecture design   | ADR templates, design checklists, architecture patterns  |
-| `debug`          | Systematic debugging  | Problem localization, log analysis, profiling            |
-| `git`            | Git workflow          | Branch strategy, commit conventions, conflict resolution |
-| `native`         | Native development    | iOS/macOS: Swift concurrency, SwiftUI performance        |
-| `exploration`    | Code exploration      | Isolated research, iterative retrieval                   |
-| `second-opinion` | Cross-validation      | Multi-model verification for architecture decisions      |
-| `learning`       | Continuous learning   | Session evaluation, knowledge extraction                 |
-| `compact`        | Strategic compression | Compression timing, best practices                       |
-| `quality`        | Code quality (parent) | Parent skill for security and debug                      |
-| `session`        | Session management    | Parent skill for learning and compact                    |
+**17 development skills** organized by domain:
+
+| Domain           | Skills                               | Coverage                       |
+| ---------------- | ------------------------------------ | ------------------------------ |
+| **Backend**      | `backend`, `api`, `database`         | Python, TS, Java, Go, C#, Rust |
+| **Frontend**     | `frontend`                           | Vue, React, Svelte, Angular    |
+| **Quality**      | `testing`, `security`, `debug`       | TDD, OWASP, profiling          |
+| **Architecture** | `architecture`, `devops`, `git`      | ADR, CI/CD, branching          |
+| **Session**      | `learning`, `compact`, `exploration` | Knowledge management           |
+
+> 📖 **Full reference**: See [skills/README](skills/README) for detailed skill documentation.
 
 ---
 
-## 🏗️ Layered Architecture: Commands / Skills / Agents
+## 🏗️ Architecture Overview
 
-This template uses a three-tier architecture, each with different responsibilities and triggers:
+This template uses a **three-tier architecture**:
 
-### Layer Comparison
+| Layer        | Trigger              | Purpose                                  |
+| ------------ | -------------------- | ---------------------------------------- |
+| **Commands** | User types `/xxx`    | Role workflow, user-initiated actions    |
+| **Skills**   | Auto-injected        | Best practices, coding standards         |
+| **Agents**   | Task tool delegation | Specialized sub-tasks (review, planning) |
 
-| Layer        | Directory   | Trigger Method           | Responsibility                                | Detail Level |
-| ------------ | ----------- | ------------------------ | --------------------------------------------- | ------------ |
-| **Commands** | `commands/` | User invokes `/xxx`      | Role-playing, full workflow, context handoff  | Complete     |
-| **Skills**   | `skills/`   | Auto-inject or reference | Reference docs, best practices, code examples | Detailed     |
-| **Agents**   | `agents/`   | Task tool delegation     | Sub-agent execution, isolated context         | Concise      |
+**6 specialized agents**: `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide`
 
-### Trigger Conditions
-
-#### Commands (User-Initiated)
-
-Triggered when user types `/command`:
-
-- **Role switch**: `/pm`, `/lead`, `/dev`, `/qa`, `/designer`
-- **Workflow start**: `/iterate`, `/pair`
-- **Tool execution**: `/build`, `/test`, `/commit`
-
-#### Skills (Context Injection)
-
-Claude auto-loads relevant skills, or pre-loads via agent frontmatter:
-
-- **Auto-load**: Load `api` when implementing APIs
-- **Explicit reference**: `skills: [testing]` in agent
-- **User request**: `Check code using security skill`
-
-#### Agents (Task Tool Delegation)
-
-Delegated by Claude via Task tool when appropriate:
-
-- **Code review**: After code changes → `code-reviewer`
-- **Security check**: Auth/input involved → `security-reviewer`
-- **TDD guidance**: Tests needed → `tdd-guide`
-- **Task planning**: Complex features → `planner`
-
-### Usage Example
-
-```
-User: Implement user login feature
-
-Claude behavior:
-1. /lead role → Design solution
-2. Load api + security skills
-3. /dev role → Coding implementation
-4. Delegate tdd-guide agent → Write tests
-5. Delegate security-reviewer agent → Security check
-6. /qa role → Acceptance testing
-```
-
----
-
-## 🤖 Agents
-
-Sub-agents for specialized tasks, automatically invoked by the Task tool.
-
-| Agent                   | Purpose                | Auto-Trigger Condition                                |
-| ----------------------- | ---------------------- | ----------------------------------------------------- |
-| `code-reviewer`         | Code review            | After code changes for quality/architecture checks    |
-| `code-simplifier`       | Code simplification    | Post-feature cleanup, dead code removal               |
-| `planner`               | Task planning          | Complex feature implementation, architectural changes |
-| `requirement-validator` | Requirement validation | Validate requirement docs before design phase         |
-| `security-reviewer`     | Security review        | Auth, user input, secrets, API endpoints involved     |
-| `tdd-guide`             | TDD guidance           | New features, bug fixes, test-first methodology       |
-
-### Agent Invocation
-
-Agents are invoked via Task tool or through command handoffs:
-
-```
-Task:
-  subagent_type: "code-reviewer"
-  prompt: "Review code quality"
-```
-
-> **Note**: Use agent name directly (e.g., `code-simplifier`). Works for both plugin install and clone install.
+> 📐 **Full documentation**: See [ARCHITECTURE.md](.claude-plugin/ARCHITECTURE.md) for component relationships and call chains.
+>
+> 🤖 **Agent details**: See [agents/README](agents/README) for agent capabilities and invocation.
 
 ---
 
@@ -706,232 +611,41 @@ bash scripts/shell/cleanup.sh --all
 
 ## ❓ FAQ
 
-### Getting Started
+> 📖 **Full FAQ**: See [FAQ.md](FAQ.md) for comprehensive troubleshooting guides.
+
+### Quick Answers
 
 <details>
-<summary><strong>Q: Can I delete files I don't need?</strong></summary>
+<summary><strong>Hooks not working?</strong></summary>
 
-Yes! Commonly deletable files:
+Run `/setup --verify` to diagnose. Common fixes:
 
-- `.github/` - If you don't need contribution templates
-- `CONTRIBUTING.md`, `CHANGELOG.md`, `FAQ.md` - Template-specific docs
-- Unused language rules (e.g., Python projects can delete `cpp-style.md`)
-
-Minimum to keep:
-
-- `CLAUDE.md` - Core configuration
-- `.claude/settings.json` - Permission settings
-- Language rules you actually use
+- Clone users: `cp .claude/settings.local.json.example .claude/settings.local.json`
+- Plugin users: Run `/setup --hooks` to configure absolute paths
+- Windows: See [FAQ.md](FAQ.md#hook-issues) for `${CLAUDE_PLUGIN_ROOT}` workarounds
 </details>
 
 <details>
-<summary><strong>Q: Do I need to keep the Git history?</strong></summary>
+<summary><strong>/iterate vs /pair?</strong></summary>
 
-No. For a fresh start:
-
-```bash
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit from Claude Code template"
-```
-
-</details>
-
-### Hook Issues
-
-<details>
-<summary><strong>Q: Hooks not working? (Clone users)</strong></summary>
-
-1. Check if `settings.local.json` exists:
-
-   ```bash
-   ls .claude/settings.local.json
-   ```
-
-   If not:
-
-   ```bash
-   cp .claude/settings.local.json.example .claude/settings.local.json
-   ```
-
-2. Check script permissions (Linux/Mac):
-
-   ```bash
-   chmod +x scripts/*.sh
-   chmod +x scripts/*.py
-   ```
-
-3. Check Claude Code version - hooks require recent versions
-
-4. Run `/setup --verify` to diagnose hook configuration issues
-</details>
-
-<details>
-<summary><strong>Q: How to diagnose hook configuration issues?</strong></summary>
-
-Run the hook verification command:
-
-```bash
-/setup --verify
-```
-
-This will check:
-
-- Script paths exist
-- Timeout values are valid (1s - 600s)
-- Matcher syntax is correct
-- Lifecycle events are valid
-
-Output includes diagnostic report and fix suggestions.
+| Mode       | Control           | Use Case                |
+| ---------- | ----------------- | ----------------------- |
+| `/iterate` | Fully autonomous  | Clear task list         |
+| `/pair`    | Confirm each step | Learning, sensitive ops |
 
 </details>
 
 <details>
-<summary><strong>Q: Hooks error "Cannot find module" (Plugin users)</strong></summary>
-
-This is a [known Claude Code issue](https://github.com/anthropics/claude-code/issues/9354). The `${CLAUDE_PLUGIN_ROOT}` environment variable may not expand correctly.
-
-**Solutions:**
-
-1. **Run `/setup --hooks` (Recommended)**: This command automatically detects your environment and configures hooks with absolute paths
-
-   ```bash
-   /setup --hooks --global  # Configure to global settings
-   /setup --hooks --project # Configure to project settings
-   ```
-
-2. **Use Clone method instead**: Clone this repository and copy files to your project
-
-3. **Wait for official fix**: Track [Issue #9354](https://github.com/anthropics/claude-code/issues/9354) for updates
-</details>
-
-<details>
-<summary><strong>Q: "SessionStart:startup hook error" on Windows</strong></summary>
-
-This error is often caused by **official plugins** (superpowers, learning-output-style, etc.) that also use `${CLAUDE_PLUGIN_ROOT}`.
-
-**Solutions:**
-
-1. **Clear problematic plugin hooks** (run in Git Bash):
-
-   ```bash
-   # Clear superpowers SessionStart hooks
-   find ~/.claude/plugins/cache/claude-plugins-official/superpowers -name "hooks.json" \
-     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
-
-   # Clear learning-output-style SessionStart hooks
-   find ~/.claude/plugins/cache/claude-plugins-official/learning-output-style -name "hooks.json" \
-     -exec sh -c 'cat {} | jq ".hooks.SessionStart = []" > {}.tmp && mv {}.tmp {}' \;
-   ```
-
-2. **Clear old cc-best plugin cache** (if errors persist):
-
-   ```bash
-   # Clear old version hooks
-   find ~/.claude/plugins/cache/claude-code-best-practices -name "hooks.json" \
-     -exec sh -c 'echo "{\"hooks\":{}}" > {}' \;
-   ```
-
-3. **Verify fix**: Restart Claude Code - error should be gone
-
-> **Note**: These changes may be overwritten when plugins update. Re-run if errors return.
-
-</details>
-
-<details>
-<summary><strong>Q: format_file.py encoding error</strong></summary>
-
-Common Windows issue. Solutions:
-
-1. Ensure Python 3.8+ is installed
-2. Set environment variable: `PYTHONUTF8=1`
-</details>
-
-### Command Issues
-
-<details>
-<summary><strong>Q: What's the difference between /iterate and /pair?</strong></summary>
-
-| Mode       | Control           | Use Case                       |
-| ---------- | ----------------- | ------------------------------ |
-| `/iterate` | Fully autonomous  | Clear task list                |
-| `/pair`    | Confirm each step | Learning, sensitive operations |
-
-</details>
-
-<details>
-<summary><strong>Q: /iterate stopped unexpectedly</strong></summary>
-
-Check stop conditions:
-
-- User interrupt (Ctrl+C)
-- All tasks in `progress.md` completed
-- Fatal error occurred
-- User decision required
-
-Recovery: Run `/iterate` again
-
-</details>
-
-<details>
-<summary><strong>Q: Command not found</strong></summary>
-
-- Confirm file is in `commands/` directory
-- Confirm file extension is `.md`
-- Restart Claude Code
-</details>
-
-### MCP Issues
-
-<details>
-<summary><strong>Q: How to configure MCP servers?</strong></summary>
+<summary><strong>MCP configuration?</strong></summary>
 
 Edit `.claude/settings.local.json`:
 
 ```json
-{
-  "enabledMcpjsonServers": ["memory", "sequential-thinking"]
-}
+{ "enabledMcpjsonServers": ["memory", "sequential-thinking"] }
 ```
 
-Then restart Claude Code.
+Best practice: Enable ≤10 MCP servers per project.
 
-</details>
-
-<details>
-<summary><strong>Q: Too many MCP tools causing issues</strong></summary>
-
-Best practice: Enable no more than 10 per project.
-
-```json
-{
-  "disabledMcpServers": ["github", "vercel"]
-}
-```
-
-</details>
-
-### Troubleshooting
-
-<details>
-<summary><strong>Q: "Permission denied" error</strong></summary>
-
-```bash
-# Linux/Mac
-chmod +x scripts/*.sh
-chmod +x scripts/*.py
-
-# Windows: Run as Administrator
-```
-
-</details>
-
-<details>
-<summary><strong>Q: Rule changes not taking effect</strong></summary>
-
-- Claude Code caches rules at session start
-- Restart session or use `/clear` after modifications
 </details>
 
 ---
