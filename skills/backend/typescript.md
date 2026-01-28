@@ -5,6 +5,7 @@ TypeScript/Node.js 后端开发的专属模式，涵盖 Express、NestJS、Fasti
 ## 项目结构
 
 ### Express/Fastify 项目
+
 ```
 project/
 ├── src/
@@ -35,6 +36,7 @@ project/
 ```
 
 ### NestJS 项目
+
 ```
 project/
 ├── src/
@@ -69,35 +71,35 @@ export class AppError extends Error {
     public message: string,
     public statusCode: number = 500,
     public code?: string,
-    public isOperational: boolean = true
+    public isOperational: boolean = true,
   ) {
-    super(message)
-    this.name = this.constructor.name
-    Error.captureStackTrace(this, this.constructor)
+    super(message);
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 
 export class NotFoundError extends AppError {
   constructor(resource: string) {
-    super(`${resource} 未找到`, 404, 'NOT_FOUND')
+    super(`${resource} 未找到`, 404, "NOT_FOUND");
   }
 }
 
 export class ValidationError extends AppError {
   constructor(message: string) {
-    super(message, 400, 'VALIDATION_ERROR')
+    super(message, 400, "VALIDATION_ERROR");
   }
 }
 
 export class UnauthorizedError extends AppError {
-  constructor(message = '未授权') {
-    super(message, 401, 'UNAUTHORIZED')
+  constructor(message = "未授权") {
+    super(message, 401, "UNAUTHORIZED");
   }
 }
 
 export class ForbiddenError extends AppError {
-  constructor(message = '禁止访问') {
-    super(message, 403, 'FORBIDDEN')
+  constructor(message = "禁止访问") {
+    super(message, 403, "FORBIDDEN");
   }
 }
 ```
@@ -106,15 +108,15 @@ export class ForbiddenError extends AppError {
 
 ```typescript
 // middlewares/error.middleware.ts
-import { Request, Response, NextFunction } from 'express'
-import { AppError } from '../errors/app-error'
-import { logger } from '../utils/logger'
+import { Request, Response, NextFunction } from "express";
+import { AppError } from "../errors/app-error";
+import { logger } from "../utils/logger";
 
 export function errorHandler(
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   // 记录错误
   logger.error({
@@ -122,27 +124,27 @@ export function errorHandler(
     stack: err.stack,
     path: req.path,
     method: req.method,
-    requestId: req.requestId
-  })
+    requestId: req.requestId,
+  });
 
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
       success: false,
       error: {
         code: err.code,
-        message: err.message
-      }
-    })
+        message: err.message,
+      },
+    });
   }
 
   // 未知错误，不暴露详情
   return res.status(500).json({
     success: false,
     error: {
-      code: 'INTERNAL_ERROR',
-      message: '服务器内部错误'
-    }
-  })
+      code: "INTERNAL_ERROR",
+      message: "服务器内部错误",
+    },
+  });
 }
 ```
 
@@ -152,46 +154,42 @@ export function errorHandler(
 
 ```typescript
 // utils/logger.ts
-import pino from 'pino'
+import pino from "pino";
 
 export const logger = pino({
-  level: process.env.LOG_LEVEL || 'info',
+  level: process.env.LOG_LEVEL || "info",
   formatters: {
-    level: (label) => ({ level: label })
+    level: (label) => ({ level: label }),
   },
   timestamp: pino.stdTimeFunctions.isoTime,
-  ...(process.env.NODE_ENV === 'development' && {
+  ...(process.env.NODE_ENV === "development" && {
     transport: {
-      target: 'pino-pretty',
-      options: { colorize: true }
-    }
-  })
-})
+      target: "pino-pretty",
+      options: { colorize: true },
+    },
+  }),
+});
 
 // 请求日志中间件
-export function requestLogger(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const start = Date.now()
-  const requestId = crypto.randomUUID()
+export function requestLogger(req: Request, res: Response, next: NextFunction) {
+  const start = Date.now();
+  const requestId = crypto.randomUUID();
 
-  req.requestId = requestId
-  res.setHeader('X-Request-ID', requestId)
+  req.requestId = requestId;
+  res.setHeader("X-Request-ID", requestId);
 
-  res.on('finish', () => {
+  res.on("finish", () => {
     logger.info({
       requestId,
       method: req.method,
       path: req.path,
       statusCode: res.statusCode,
       duration: Date.now() - start,
-      userAgent: req.get('user-agent')
-    })
-  })
+      userAgent: req.get("user-agent"),
+    });
+  });
 
-  next()
+  next();
 }
 ```
 
@@ -201,12 +199,14 @@ export function requestLogger(
 
 ```typescript
 // config/index.ts
-import { z } from 'zod'
+import { z } from "zod";
 
 const configSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z
+    .enum(["development", "production", "test"])
+    .default("development"),
   PORT: z.coerce.number().default(3000),
-  HOST: z.string().default('0.0.0.0'),
+  HOST: z.string().default("0.0.0.0"),
 
   // 数据库
   DATABASE_URL: z.string(),
@@ -216,27 +216,29 @@ const configSchema = z.object({
 
   // JWT
   JWT_SECRET: z.string().min(32),
-  JWT_EXPIRES_IN: z.string().default('7d'),
+  JWT_EXPIRES_IN: z.string().default("7d"),
 
   // 日志
-  LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info')
-})
+  LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
+});
 
-export type Config = z.infer<typeof configSchema>
+export type Config = z.infer<typeof configSchema>;
 
 function loadConfig(): Config {
   try {
-    return configSchema.parse(process.env)
+    return configSchema.parse(process.env);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const issues = error.issues.map(i => `${i.path.join('.')}: ${i.message}`)
-      throw new Error(`配置验证失败:\n${issues.join('\n')}`)
+      const issues = error.issues.map(
+        (i) => `${i.path.join(".")}: ${i.message}`,
+      );
+      throw new Error(`配置验证失败:\n${issues.join("\n")}`);
     }
-    throw error
+    throw error;
   }
 }
 
-export const config = loadConfig()
+export const config = loadConfig();
 ```
 
 ---
@@ -245,64 +247,64 @@ export const config = loadConfig()
 
 ```typescript
 // controllers/user.controller.ts
-import { Router, Request, Response, NextFunction } from 'express'
-import { z } from 'zod'
-import { UserService } from '../services/user.service'
-import { NotFoundError, ValidationError } from '../errors/app-error'
+import { Router, Request, Response, NextFunction } from "express";
+import { z } from "zod";
+import { UserService } from "../services/user.service";
+import { NotFoundError, ValidationError } from "../errors/app-error";
 
-const router = Router()
+const router = Router();
 
 // Validation schemas
 const createUserSchema = z.object({
   email: z.string().email(),
   name: z.string().min(2).max(50),
-  password: z.string().min(8)
-})
+  password: z.string().min(8),
+});
 
 const querySchema = z.object({
   page: z.coerce.number().min(1).default(1),
-  limit: z.coerce.number().min(1).max(100).default(20)
-})
+  limit: z.coerce.number().min(1).max(100).default(20),
+});
 
 // Endpoints
-router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = createUserSchema.parse(req.body)
-    const user = await UserService.create(data)
+    const data = createUserSchema.parse(req.body);
+    const user = await UserService.create(data);
 
     res.status(201).json({
       success: true,
-      data: user
-    })
+      data: user,
+    });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return next(new ValidationError(error.errors[0].message))
+      return next(new ValidationError(error.errors[0].message));
     }
-    next(error)
+    next(error);
   }
-})
+});
 
-router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await UserService.findById(req.params.id)
+    const user = await UserService.findById(req.params.id);
 
     if (!user) {
-      throw new NotFoundError('用户')
+      throw new NotFoundError("用户");
     }
 
     res.json({
       success: true,
-      data: user
-    })
+      data: user,
+    });
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { page, limit } = querySchema.parse(req.query)
-    const { users, total } = await UserService.findAll({ page, limit })
+    const { page, limit } = querySchema.parse(req.query);
+    const { users, total } = await UserService.findAll({ page, limit });
 
     res.json({
       success: true,
@@ -311,15 +313,15 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit)
-      }
-    })
+        totalPages: Math.ceil(total / limit),
+      },
+    });
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-export default router
+export default router;
 ```
 
 ---
@@ -328,92 +330,92 @@ export default router
 
 ```typescript
 // services/cache.service.ts
-import Redis from 'ioredis'
-import { config } from '../config'
+import Redis from "ioredis";
+import { config } from "../config";
 
 class CacheService {
-  private redis: Redis | null = null
+  private redis: Redis | null = null;
 
   constructor() {
     if (config.REDIS_URL) {
-      this.redis = new Redis(config.REDIS_URL)
+      this.redis = new Redis(config.REDIS_URL);
     }
   }
 
   async get<T>(key: string): Promise<T | null> {
-    if (!this.redis) return null
+    if (!this.redis) return null;
 
-    const data = await this.redis.get(key)
-    return data ? JSON.parse(data) : null
+    const data = await this.redis.get(key);
+    return data ? JSON.parse(data) : null;
   }
 
   async set(key: string, value: unknown, ttlSeconds?: number): Promise<void> {
-    if (!this.redis) return
+    if (!this.redis) return;
 
-    const data = JSON.stringify(value)
+    const data = JSON.stringify(value);
     if (ttlSeconds) {
-      await this.redis.setex(key, ttlSeconds, data)
+      await this.redis.setex(key, ttlSeconds, data);
     } else {
-      await this.redis.set(key, data)
+      await this.redis.set(key, data);
     }
   }
 
   async delete(key: string): Promise<void> {
-    if (!this.redis) return
-    await this.redis.del(key)
+    if (!this.redis) return;
+    await this.redis.del(key);
   }
 
   async invalidatePattern(pattern: string): Promise<void> {
-    if (!this.redis) return
+    if (!this.redis) return;
 
-    const keys = await this.redis.keys(pattern)
+    const keys = await this.redis.keys(pattern);
     if (keys.length > 0) {
-      await this.redis.del(...keys)
+      await this.redis.del(...keys);
     }
   }
 }
 
-export const cache = new CacheService()
+export const cache = new CacheService();
 ```
 
 ### 缓存装饰器
 
 ```typescript
 // decorators/cache.decorator.ts
-import { cache } from '../services/cache.service'
+import { cache } from "../services/cache.service";
 
 export function Cacheable(ttlSeconds: number, keyPrefix?: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
-    const originalMethod = descriptor.value
+    const originalMethod = descriptor.value;
 
     descriptor.value = async function (...args: any[]) {
-      const prefix = keyPrefix || `${target.constructor.name}:${propertyKey}`
-      const key = `${prefix}:${JSON.stringify(args)}`
+      const prefix = keyPrefix || `${target.constructor.name}:${propertyKey}`;
+      const key = `${prefix}:${JSON.stringify(args)}`;
 
-      const cached = await cache.get(key)
+      const cached = await cache.get(key);
       if (cached !== null) {
-        return cached
+        return cached;
       }
 
-      const result = await originalMethod.apply(this, args)
-      await cache.set(key, result, ttlSeconds)
+      const result = await originalMethod.apply(this, args);
+      await cache.set(key, result, ttlSeconds);
 
-      return result
-    }
+      return result;
+    };
 
-    return descriptor
-  }
+    return descriptor;
+  };
 }
 
 // 使用
 class UserService {
-  @Cacheable(300, 'user')
+  @Cacheable(300, "user")
   async findById(id: string) {
-    return await prisma.user.findUnique({ where: { id } })
+    return await prisma.user.findUnique({ where: { id } });
   }
 }
 ```
@@ -426,34 +428,34 @@ class UserService {
 // Prisma 事务
 async function createOrderWithItems(
   orderData: CreateOrderDTO,
-  items: CreateOrderItemDTO[]
+  items: CreateOrderItemDTO[],
 ): Promise<Order> {
   return await prisma.$transaction(async (tx) => {
     // 创建订单
     const order = await tx.order.create({
-      data: orderData
-    })
+      data: orderData,
+    });
 
     // 创建订单项
     await tx.orderItem.createMany({
-      data: items.map(item => ({
+      data: items.map((item) => ({
         ...item,
-        orderId: order.id
-      }))
-    })
+        orderId: order.id,
+      })),
+    });
 
     // 更新库存
     for (const item of items) {
       await tx.product.update({
         where: { id: item.productId },
         data: {
-          stock: { decrement: item.quantity }
-        }
-      })
+          stock: { decrement: item.quantity },
+        },
+      });
     }
 
-    return order
-  })
+    return order;
+  });
 }
 ```
 
@@ -463,48 +465,49 @@ async function createOrderWithItems(
 
 ```typescript
 // routes/health.ts
-import { Router } from 'express'
-import { prisma } from '../db'
-import { cache } from '../services/cache.service'
+import { Router } from "express";
+import { prisma } from "../db";
+import { cache } from "../services/cache.service";
 
-const router = Router()
+const router = Router();
 
-router.get('/health', async (req, res) => {
+router.get("/health", async (req, res) => {
   const health = {
-    status: 'ok',
+    status: "ok",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     services: {
       database: await checkDatabase(),
-      redis: await checkRedis()
-    }
-  }
+      redis: await checkRedis(),
+    },
+  };
 
-  const allHealthy = Object.values(health.services)
-    .every(s => s.status === 'ok')
+  const allHealthy = Object.values(health.services).every(
+    (s) => s.status === "ok",
+  );
 
-  res.status(allHealthy ? 200 : 503).json(health)
-})
+  res.status(allHealthy ? 200 : 503).json(health);
+});
 
 async function checkDatabase() {
   try {
-    await prisma.$queryRaw`SELECT 1`
-    return { status: 'ok' }
+    await prisma.$queryRaw`SELECT 1`;
+    return { status: "ok" };
   } catch (error: any) {
-    return { status: 'error', message: error.message }
+    return { status: "error", message: error.message };
   }
 }
 
 async function checkRedis() {
   try {
-    await cache.set('health-check', 'ok', 1)
-    return { status: 'ok' }
+    await cache.set("health-check", "ok", 1);
+    return { status: "ok" };
   } catch (error: any) {
-    return { status: 'error', message: error.message }
+    return { status: "error", message: error.message };
   }
 }
 
-export default router
+export default router;
 ```
 
 ---
@@ -513,43 +516,43 @@ export default router
 
 ```typescript
 // index.ts
-import { createServer } from 'http'
-import { app } from './app'
-import { prisma } from './db'
-import { logger } from './utils/logger'
+import { createServer } from "http";
+import { app } from "./app";
+import { prisma } from "./db";
+import { logger } from "./utils/logger";
 
-const server = createServer(app)
+const server = createServer(app);
 
 server.listen(config.PORT, config.HOST, () => {
-  logger.info(`Server running on http://${config.HOST}:${config.PORT}`)
-})
+  logger.info(`Server running on http://${config.HOST}:${config.PORT}`);
+});
 
 // 优雅关闭
 async function gracefulShutdown(signal: string) {
-  logger.info(`Received ${signal}, starting graceful shutdown...`)
+  logger.info(`Received ${signal}, starting graceful shutdown...`);
 
   server.close(async () => {
-    logger.info('HTTP server closed')
+    logger.info("HTTP server closed");
 
     try {
-      await prisma.$disconnect()
-      logger.info('Database connection closed')
+      await prisma.$disconnect();
+      logger.info("Database connection closed");
     } catch (error) {
-      logger.error('Error closing database connection', error)
+      logger.error("Error closing database connection", error);
     }
 
-    process.exit(0)
-  })
+    process.exit(0);
+  });
 
   // 强制退出超时
   setTimeout(() => {
-    logger.error('Forced shutdown after timeout')
-    process.exit(1)
-  }, 10000)
+    logger.error("Forced shutdown after timeout");
+    process.exit(1);
+  }, 10000);
 }
 
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'))
-process.on('SIGINT', () => gracefulShutdown('SIGINT'))
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 ```
 
 ---
@@ -557,57 +560,52 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'))
 ## 测试模板
 
 ```typescript
-import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest'
-import request from 'supertest'
-import { app } from '../src/app'
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
+import request from "supertest";
+import { app } from "../src/app";
 
-describe('User API', () => {
+describe("User API", () => {
   beforeAll(async () => {
     // 设置测试数据库
-  })
+  });
 
   afterAll(async () => {
     // 清理
-  })
+  });
 
-  describe('POST /api/users', () => {
-    it('should create a new user', async () => {
-      const response = await request(app)
-        .post('/api/users')
-        .send({
-          email: 'test@example.com',
-          name: 'Test User',
-          password: 'password123'
-        })
+  describe("POST /api/users", () => {
+    it("should create a new user", async () => {
+      const response = await request(app).post("/api/users").send({
+        email: "test@example.com",
+        name: "Test User",
+        password: "password123",
+      });
 
-      expect(response.status).toBe(201)
-      expect(response.body.success).toBe(true)
-      expect(response.body.data.email).toBe('test@example.com')
-    })
+      expect(response.status).toBe(201);
+      expect(response.body.success).toBe(true);
+      expect(response.body.data.email).toBe("test@example.com");
+    });
 
-    it('should return 400 for invalid email', async () => {
-      const response = await request(app)
-        .post('/api/users')
-        .send({
-          email: 'invalid-email',
-          name: 'Test',
-          password: 'password123'
-        })
+    it("should return 400 for invalid email", async () => {
+      const response = await request(app).post("/api/users").send({
+        email: "invalid-email",
+        name: "Test",
+        password: "password123",
+      });
 
-      expect(response.status).toBe(400)
-      expect(response.body.success).toBe(false)
-    })
-  })
+      expect(response.status).toBe(400);
+      expect(response.body.success).toBe(false);
+    });
+  });
 
-  describe('GET /api/users/:id', () => {
-    it('should return 404 for non-existent user', async () => {
-      const response = await request(app)
-        .get('/api/users/non-existent-id')
+  describe("GET /api/users/:id", () => {
+    it("should return 404 for non-existent user", async () => {
+      const response = await request(app).get("/api/users/non-existent-id");
 
-      expect(response.status).toBe(404)
-    })
-  })
-})
+      expect(response.status).toBe(404);
+    });
+  });
+});
 ```
 
 ---
@@ -640,3 +638,202 @@ npx prisma generate
 npx prisma migrate dev
 npx prisma studio
 ```
+
+---
+
+## 示例对比
+
+### 错误处理
+
+#### ❌ DON'T - 忽略或静默处理异常
+
+```typescript
+async function getUser(id: string) {
+  try {
+    return await db.user.findUnique({ where: { id } });
+  } catch (error) {
+    return null; // 静默失败，丢失错误信息
+  }
+}
+```
+
+**问题**: 异常被吞掉，调用者无法知道是"用户不存在"还是"数据库错误"
+
+#### ✅ DO - 明确区分错误类型
+
+```typescript
+async function getUser(id: string): Promise<User | null> {
+  try {
+    return await db.user.findUnique({ where: { id } });
+  } catch (error) {
+    logger.error("获取用户失败", { userId: id, error });
+    throw new DatabaseError("数据库查询失败");
+  }
+}
+```
+
+**原因**: 错误被记录并向上传播，便于调试和监控
+
+---
+
+### 类型安全
+
+#### ❌ DON'T - 使用 any 或类型断言绕过检查
+
+```typescript
+function processData(data: any) {
+  return data.items.map((item: any) => item.value);
+}
+
+const result = response as UserResponse; // 无验证的类型断言
+```
+
+**问题**: 类型安全形同虚设，运行时可能崩溃
+
+#### ✅ DO - 使用泛型和运行时验证
+
+```typescript
+import { z } from "zod";
+
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+});
+
+type User = z.infer<typeof UserSchema>;
+
+function processData<T extends { value: number }>(items: T[]): number[] {
+  return items.map((item) => item.value);
+}
+
+const user = UserSchema.parse(response); // 运行时验证
+```
+
+**原因**: 编译时类型检查 + 运行时验证 = 真正的类型安全
+
+---
+
+### 异步处理
+
+#### ❌ DON'T - 忘记 await 或串行执行独立任务
+
+```typescript
+// 忘记 await
+async function saveUser(user: User) {
+  db.user.create({ data: user }); // 没有 await，可能静默失败
+}
+
+// 串行执行独立任务
+async function loadDashboard() {
+  const users = await getUsers();
+  const orders = await getOrders(); // 等待 users 完成才开始
+  const stats = await getStats(); // 等待 orders 完成才开始
+  return { users, orders, stats };
+}
+```
+
+**问题**: 静默失败或性能差
+
+#### ✅ DO - 正确使用 await 和并发
+
+```typescript
+async function saveUser(user: User): Promise<User> {
+  return await db.user.create({ data: user }); // 明确 await
+}
+
+async function loadDashboard() {
+  const [users, orders, stats] = await Promise.all([
+    getUsers(),
+    getOrders(),
+    getStats(),
+  ]);
+  return { users, orders, stats };
+}
+```
+
+**原因**: 明确的错误处理 + 并发执行独立任务
+
+---
+
+### 配置和环境变量
+
+#### ❌ DON'T - 直接使用 process.env
+
+```typescript
+const apiKey = process.env.API_KEY; // 可能是 undefined
+const port = process.env.PORT; // 类型是 string | undefined
+
+fetch(`${process.env.API_URL}/users`); // 可能拼接 undefined
+```
+
+**问题**: 类型不安全，缺失配置时运行时才发现
+
+#### ✅ DO - 使用验证过的配置对象
+
+```typescript
+import { z } from "zod";
+
+const envSchema = z.object({
+  API_KEY: z.string().min(1),
+  PORT: z.coerce.number().default(3000),
+  API_URL: z.string().url(),
+});
+
+export const env = envSchema.parse(process.env);
+
+// 使用时类型安全
+fetch(`${env.API_URL}/users`); // env.API_URL 一定是 string
+```
+
+**原因**: 启动时验证，运行时类型安全
+
+---
+
+### 依赖注入
+
+#### ❌ DON'T - 硬编码依赖
+
+```typescript
+class UserService {
+  private db = new PrismaClient(); // 硬编码，无法测试
+  private cache = new Redis(); // 紧耦合
+
+  async getUser(id: string) {
+    return this.db.user.findUnique({ where: { id } });
+  }
+}
+```
+
+**问题**: 无法进行单元测试，紧耦合
+
+#### ✅ DO - 构造函数注入
+
+```typescript
+interface IDatabase {
+  user: { findUnique(args: any): Promise<User | null> };
+}
+
+interface ICache {
+  get(key: string): Promise<string | null>;
+  set(key: string, value: string, ttl?: number): Promise<void>;
+}
+
+class UserService {
+  constructor(
+    private db: IDatabase,
+    private cache: ICache,
+  ) {}
+
+  async getUser(id: string): Promise<User | null> {
+    const cached = await this.cache.get(`user:${id}`);
+    if (cached) return JSON.parse(cached);
+    return this.db.user.findUnique({ where: { id } });
+  }
+}
+
+// 测试时可注入 mock
+const service = new UserService(mockDb, mockCache);
+```
+
+**原因**: 便于测试，支持替换实现

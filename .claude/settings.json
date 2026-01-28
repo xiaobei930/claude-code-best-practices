@@ -54,8 +54,7 @@
       "Bash(cat *)",
       "Bash(type *)",
       "Bash(echo *)",
-      "WebSearch",
-      "mcp__filesystem__create_directory"
+      "WebSearch"
     ],
     "deny": [
       "Bash(rm -rf /)",

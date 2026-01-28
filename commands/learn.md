@@ -462,23 +462,80 @@ learnings:
 
 ---
 
-## 输出格式
+## 输出规范
 
-学习完成后，输出：
+遵循 `rules/output-style.md`，核心信息 ≤ 5 行。
+
+### 简洁输出（默认）
 
 ```markdown
+✅ 会话学习完成
+
+📊 学习成果:
+
+- 新知识: N 条
+- 高置信度: M 条
+- 已存储: K 个文件
+
+➡️ 下一步: 使用 `/learn --status` 查看详情
+```
+
+### 详细报告（/learn --verbose）
+
+````markdown
 ## 会话学习报告
 
 **学习日期**: YYYY-MM-DD
 **会话主题**: [简要描述]
 
-### 学到的知识
+### 观察与直觉（带置信度）
 
-| 类型 | 知识点                     | 置信度 | 存储位置                  |
-| ---- | -------------------------- | ------ | ------------------------- |
-| 模式 | API 调用必须经过 apiClient | 90%    | rules/api-style.md        |
-| 陷阱 | config.ts 是自动生成的     | 95%    | CLAUDE.md                 |
-| 偏好 | 类型定义放 types/ 目录     | 75%    | rules/typescript-style.md |
+#### 观察 1 [置信度: 高 92%]
+
+> **上下文**: 在实现 API 调用时，用户明确指示使用 apiClient
+>
+> **触发**: 调用 API 时
+> **行为**: 使用 `apiClient` 而非 `fetch`
+> **来源**: 用户明确指示
+
+#### 观察 2 [置信度: 中 75%]
+
+> **上下文**: 发现项目中类型定义统一放在 types/ 目录
+>
+> **触发**: 创建 TypeScript 类型时
+> **行为**: 公共类型放在 `src/types/` 目录
+> **来源**: 会话观察
+
+### 原子直觉（结构化）
+
+```yaml
+learnings:
+  - id: api-client-required
+    domain: coding-style
+    trigger: "调用 API 时"
+    action: "使用 apiClient 而非 fetch"
+    confidence: 0.92
+    source: user-instruction
+    updated: "YYYY-MM-DD"
+
+  - id: types-in-directory
+    domain: coding-style
+    trigger: "创建 TypeScript 类型时"
+    action: "公共类型放在 src/types/ 目录"
+    confidence: 0.75
+    source: session-observation
+    updated: "YYYY-MM-DD"
+```
+````
+
+### 建议动作
+
+| 类型 | 动作              | 目标位置               | 优先级 |
+| ---- | ----------------- | ---------------------- | ------ |
+| 规则 | 添加 API 调用规范 | `rules/api-style.md`   | 高     |
+| 约束 | 添加禁止操作项    | `CLAUDE.md`            | 高     |
+| 技能 | 可演化为新技能    | `/evolve`              | 中     |
+| 钩子 | 创建自动检测规则  | `.claude/hookify.*.md` | 低     |
 
 ### 更新的文件
 
@@ -486,21 +543,24 @@ learnings:
 2. `CLAUDE.md` - 新增禁止操作项
 3. `.claude/hookify.config-warning.local.md` - 新增自动检测规则
 
-### 建议
+### 后续建议
 
 - 考虑为 apiClient 规范创建 hookify 规则
 - 建议整理项目的完整命名规范
 - 使用 `/learn --export` 分享给团队成员
+
 ```
 
 ## 与其他命令的配合
 
 ```
+
 日常开发循环:
 /dev → /qa → /commit → /learn（可选）→ /clear
 
 复杂任务后:
 完成任务 → /learn（总结经验）→ /compact 或 /clear
+
 ```
 
 ## 注意事项
@@ -526,3 +586,4 @@ learnings:
 ---
 
 > **记住**：学习的目的是让未来的工作更高效，而不是记录每一个细节。质量胜过数量。
+```

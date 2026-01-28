@@ -295,6 +295,53 @@ Summary:
 
 ---
 
+## 输出规范
+
+遵循 `rules/output-style.md`，采用结构化报告格式。
+
+### 验证通过输出
+
+```
+══════════════════════════════════
+     VERIFICATION: PASS ✅
+══════════════════════════════════
+
+Phase 1 Build:    [PASS]
+Phase 2 Type:     [PASS]
+Phase 3 Lint:     [PASS] (2 warnings)
+Phase 4 Test:     [PASS] 42/42
+Phase 5 Security: [PASS]
+Phase 6 Git:      [INFO] 3 files modified
+
+➡️ 下一步: /commit 提交代码
+```
+
+### 验证失败输出
+
+```
+══════════════════════════════════
+     VERIFICATION: FAIL ❌
+══════════════════════════════════
+
+Phase 1 Build:    [PASS]
+Phase 2 Type:     [FAIL] 3 errors
+Phase 3 Lint:     [SKIP]
+Phase 4 Test:     [SKIP]
+Phase 5 Security: [SKIP]
+
+<details>
+<summary>错误详情</summary>
+
+src/user.ts:42 - Type 'string' is not assignable to 'number'
+...
+
+</details>
+
+➡️ 下一步: 修复类型错误后重新 /verify
+```
+
+---
+
 ## 执行检查清单
 
 开始验证前，确认：

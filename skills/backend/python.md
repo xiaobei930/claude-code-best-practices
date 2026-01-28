@@ -5,6 +5,7 @@ Python 后端开发的专属模式，涵盖 FastAPI、Django、Flask 等框架�
 ## 项目结构
 
 ### FastAPI 项目
+
 ```
 project/
 ├── src/
@@ -419,6 +420,122 @@ class TestUserEndpoints:
     def test_email_validation(self, email, expected_valid):
         # ...
 ```
+
+---
+
+## 示例对比
+
+### 错误处理
+
+#### ❌ DON'T - 静默忽略异常
+
+```python
+def get_user(user_id: int):
+    try:
+        return db.users.get(user_id)
+    except Exception:
+        pass  # 静默失败，调用者不知道发生了什么
+```
+
+**问题**: 异常被吞掉，调用者无法知道操作是否成功
+
+#### ✅ DO - 明确的错误处理
+
+```python
+def get_user(user_id: int) -> User | None:
+    try:
+        return db.users.get(user_id)
+    except DatabaseError as e:
+        logger.error("获取用户失败", user_id=user_id, error=str(e))
+        raise ServiceError("数据库查询失败") from e
+```
+
+**原因**: 错误被记录并向上传播，便于调试和监控
+
+---
+
+### 依赖注入
+
+#### ❌ DON'T - 硬编码依赖
+
+```python
+class UserService:
+    def __init__(self):
+        self.db = Database()  # 硬编码依赖
+        self.cache = Redis()  # 无法替换，无法测试
+```
+
+**问题**: 无法进行单元测试，紧耦合
+
+#### ✅ DO - 注入依赖
+
+```python
+class UserService:
+    def __init__(
+        self,
+        db: AsyncSession,
+        cache: CacheService,
+    ):
+        self.db = db
+        self.cache = cache
+```
+
+**原因**: 便于测试，支持替换实现
+
+---
+
+### 异步编程
+
+#### ❌ DON'T - 阻塞异步循环
+
+```python
+async def fetch_all_users():
+    users = []
+    for user_id in user_ids:
+        user = await fetch_user(user_id)  # 串行执行
+        users.append(user)
+    return users
+```
+
+**问题**: 串行等待，性能差
+
+#### ✅ DO - 并发执行
+
+```python
+async def fetch_all_users():
+    tasks = [fetch_user(user_id) for user_id in user_ids]
+    return await asyncio.gather(*tasks)
+```
+
+**原因**: 并发执行，充分利用异步优势
+
+---
+
+### 配置管理
+
+#### ❌ DON'T - 硬编码配置
+
+```python
+DATABASE_URL = "postgresql://user:pass@localhost/db"
+JWT_SECRET = "my-secret-key"  # 敏感信息硬编码
+```
+
+**问题**: 安全风险，环境切换困难
+
+#### ✅ DO - 环境变量配置
+
+```python
+class Settings(BaseSettings):
+    DATABASE_URL: str
+    JWT_SECRET: str
+
+    class Config:
+        env_file = ".env"
+
+settings = Settings()
+```
+
+**原因**: 安全，支持多环境部署
 
 ---
 

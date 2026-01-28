@@ -86,63 +86,186 @@ REPEAT:   下一个场景
 
 ---
 
-## 测试反模式
+## 示例对比
 
-### ❌ 测试实现细节
+### TDD 循环实践
+
+#### ❌ DON'T - 跳过 RED 阶段
+
+```typescript
+// 错误：直接写实现，然后补测试
+function calculateTotal(items: Item[]): number {
+  return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+}
+
+// 事后补的测试，可能遗漏边界情况
+test("计算总价", () => {
+  expect(calculateTotal([{ price: 10, quantity: 2 }])).toBe(20);
+});
+```
+
+**问题**: 测试可能只覆盖已实现的路径，遗漏边界情况
+
+#### ✅ DO - 完整 TDD 循环
+
+```typescript
+// 1. RED: 先写失败测试
+describe("calculateTotal", () => {
+  test("空数组返回0", () => {
+    expect(calculateTotal([])).toBe(0);
+  });
+
+  test("单个商品计算正确", () => {
+    expect(calculateTotal([{ price: 10, quantity: 2 }])).toBe(20);
+  });
+
+  test("多个商品累加正确", () => {
+    expect(
+      calculateTotal([
+        { price: 10, quantity: 2 },
+        { price: 5, quantity: 3 },
+      ]),
+    ).toBe(35);
+  });
+});
+
+// 2. GREEN: 写最少代码使测试通过
+// 3. REFACTOR: 优化代码
+```
+
+**原因**: 测试先行确保覆盖所有场景，驱动出更好的设计
+
+---
+
+### 测试粒度
+
+#### ❌ DON'T - 测试实现细节
 
 ```typescript
 // 错误：测试内部状态
-expect(component.state.count).toBe(5);
+test("点击后状态更新", () => {
+  const component = render(<Counter />);
+  fireEvent.click(screen.getByRole("button"));
+  expect(component.state.count).toBe(1); // 依赖内部实现
+});
 ```
 
-### ✅ 测试用户可见行为
+**问题**: 内部重构会导致测试失败，但功能没变
+
+#### ✅ DO - 测试用户可见行为
 
 ```typescript
-// 正确：测试用户看到的内容
-expect(screen.getByText("计数: 5")).toBeInTheDocument();
+// 正确：测试用户看到的结果
+test("点击后显示更新的计数", () => {
+  render(<Counter />);
+  fireEvent.click(screen.getByRole("button"));
+  expect(screen.getByText("计数: 1")).toBeInTheDocument();
+});
 ```
 
-### ❌ 测试相互依赖
+**原因**: 测试用户关心的行为，重构时测试稳定
+
+---
+
+### 测试独立性
+
+#### ❌ DON'T - 测试相互依赖
 
 ```typescript
 // 错误：依赖前一个测试的状态
-test("创建用户", () => {
-  /* ... */
+let userId: string;
+
+test("创建用户", async () => {
+  const result = await createUser({ name: "Test" });
+  userId = result.id; // 共享状态
 });
-test("更新同一用户", () => {
-  /* 依赖上一个测试 */
+
+test("更新用户", async () => {
+  await updateUser(userId, { name: "Updated" }); // 依赖上一个测试
 });
 ```
 
-### ✅ 测试相互独立
+**问题**: 测试顺序依赖，单独运行会失败
+
+#### ✅ DO - 测试相互独立
 
 ```typescript
 // 正确：每个测试独立设置数据
-test("创建用户", () => {
-  const user = createTestUser();
-  // 测试逻辑
+test("创建用户", async () => {
+  const result = await createUser({ name: "Test" });
+  expect(result.id).toBeDefined();
 });
 
-test("更新用户", () => {
-  const user = createTestUser();
-  // 独立的测试数据
+test("更新用户", async () => {
+  // 独立创建测试数据
+  const user = await createUser({ name: "Test" });
+  const result = await updateUser(user.id, { name: "Updated" });
+  expect(result.name).toBe("Updated");
 });
 ```
 
-### ❌ 脆弱的选择器
+**原因**: 每个测试可独立运行，并行执行更快
+
+---
+
+### 选择器策略
+
+#### ❌ DON'T - 脆弱的选择器
 
 ```typescript
-// 错误：依赖 CSS 类名
-await page.click(".css-class-xyz");
+// 错误：依赖 CSS 类名或结构
+await page.click(".btn-primary");
+await page.click("div > form > button:nth-child(2)");
 ```
 
-### ✅ 语义化选择器
+**问题**: CSS 或 DOM 结构变化导致测试失败
+
+#### ✅ DO - 语义化选择器
 
 ```typescript
 // 正确：使用语义化选择器
 await page.click('button:has-text("提交")');
 await page.click('[data-testid="submit-button"]');
+await page.getByRole("button", { name: "提交" }).click();
 ```
+
+**原因**: 基于语义选择，UI 重构时更稳定
+
+---
+
+### Mock 策略
+
+#### ❌ DON'T - 过度 Mock
+
+```typescript
+// 错误：Mock 了所有东西，测试没有意义
+jest.mock("./utils");
+jest.mock("./validators");
+jest.mock("./formatters");
+
+test("处理数据", () => {
+  // 全是 mock，没有测试真实逻辑
+});
+```
+
+**问题**: 没有测试真实行为，只测试了 mock 的配置
+
+#### ✅ DO - 只 Mock 外部依赖
+
+```typescript
+// 正确：只 mock 外部依赖
+jest.mock("./api"); // 只 mock API 调用
+
+test("处理数据", () => {
+  mockApi.fetchData.mockResolvedValue(testData);
+
+  const result = processData(testData); // 真实的处理逻辑
+
+  expect(result).toEqual(expectedResult);
+});
+```
+
+**原因**: 测试真实业务逻辑，只隔离外部依赖
 
 ---
 

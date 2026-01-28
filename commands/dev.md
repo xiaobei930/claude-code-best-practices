@@ -238,7 +238,7 @@ def process_data(data):
 
 ```
 使用 Task 工具调用 code-simplifier:
-- subagent_type: "code-simplifier"
+- subagent_type: "cc-best:code-simplifier"
 - prompt: "简化和优化 [文件路径] 中的代码"
 ```
 
@@ -257,7 +257,7 @@ def process_data(data):
 
 ```
 使用 Task 工具调用 tdd-guide agent:
-- subagent_type: "tdd-guide"
+- subagent_type: "cc-best:tdd-guide"
 - prompt: "为 [功能描述] 编写测试用例并指导 TDD 流程"
 ```
 
@@ -276,7 +276,7 @@ def process_data(data):
 
 ```
 使用 Task 工具调用 code-reviewer agent:
-- subagent_type: "code-reviewer"
+- subagent_type: "cc-best:code-reviewer"
 - prompt: "审查 [文件路径] 的代码质量和安全问题"
 ```
 
@@ -297,6 +297,37 @@ def process_data(data):
 | 代码复杂度高 | 完成后调用 `code-simplifier`      |
 | 重要代码     | 完成后 `code-reviewer` 审查       |
 | 简单修改     | 不需要插件                        |
+
+---
+
+## 输出规范
+
+遵循 `rules/output-style.md`，核心信息 ≤ 5 行。
+
+### 标准输出格式
+
+```
+✅ 代码实现完成
+
+📝 TSK-XXX: [任务名称]
+📁 修改: N 个文件
+✅ 自测: 通过
+📋 决策: [重要实现决策，如有]
+
+➡️ 下一步: /qa 测试验证
+```
+
+### 遇到问题输出
+
+```
+⚠️ 实现遇到问题
+
+📝 TSK-XXX: [任务名称]
+❌ 问题: [简明描述]
+🔧 处理: [已跳过/已替代方案/需协助]
+
+➡️ 下一步: [基于问题的建议]
+```
 
 ---
 
