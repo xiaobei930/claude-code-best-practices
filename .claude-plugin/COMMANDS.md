@@ -1,6 +1,6 @@
 # CC-Best Commands Reference | 命令参考
 
-> Version: 0.5.4 | 35 Commands
+> Version: 0.5.7 | 35 Commands
 
 快速查阅所有命令的参数和用法。
 
@@ -224,9 +224,40 @@
 
 ---
 
+## 功能边界说明 | Functionality Boundaries
+
+### /verify vs /qa
+
+| 命令      | 层面     | 职责                             | 触发方式 |
+| --------- | -------- | -------------------------------- | -------- |
+| `/verify` | 技术层面 | 构建、类型、Lint、测试、安全扫描 | 自动执行 |
+| `/qa`     | 业务层面 | 基于需求验收标准测试，问题分类   | 智能判断 |
+
+> `/verify` = CI/CD 自动化检查，`/qa` = 测试工程师角色验证
+
+### /build vs /test
+
+| 命令     | 阶段 | 职责                   | 输出              |
+| -------- | ---- | ---------------------- | ----------------- |
+| `/build` | 编译 | 构建项目，检查编译错误 | 构建产物/错误日志 |
+| `/test`  | 测试 | 运行测试套件           | 测试报告/覆盖率   |
+
+> `/build` 在前，`/test` 在后，顺序不可颠倒
+
+### /memory vs /context
+
+| 命令       | 范围     | 职责                  | 存储位置          |
+| ---------- | -------- | --------------------- | ----------------- |
+| `/memory`  | 持久化   | 维护 memory-bank 文件 | memory-bank/\*.md |
+| `/context` | 会话层面 | 加载/管理对话上下文   | 当前会话          |
+
+> `/memory` = 项目长期记忆，`/context` = 会话信息加载
+
+---
+
 ## 相关文档 | Related Docs
 
 - [架构文档](ARCHITECTURE.md) - 组件关系和调用链
 - [Skills 指南](../skills/README) - 17 个开发技能
-- [Agents 指南](../agents/README) - 6 个专业代理
+- [Agents 指南](../agents/README) - 8 个专业代理
 - [Hooks 指南](../hooks/README.md) - 安全钩子配置

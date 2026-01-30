@@ -1,4 +1,5 @@
 ---
+description: 代码库分析，从 Git 历史和代码结构提取编码模式
 allowed-tools: Bash, Read, Write, Grep, Glob, TodoWrite
 ---
 

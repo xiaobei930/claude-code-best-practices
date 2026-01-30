@@ -1,0 +1,67 @@
+name: Validate Components
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "agents/**"
+      - "skills/**"
+      - "commands/**"
+      - "hooks/**"
+      - "scripts/ci/**"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "agents/**"
+      - "skills/**"
+      - "commands/**"
+      - "hooks/**"
+      - "scripts/ci/**"
+
+jobs:
+  validate:
+    name: Validate Plugin Components
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate Agents
+        run: node scripts/ci/validate-agents.js
+        continue-on-error: false
+
+      - name: Validate Skills
+        run: node scripts/ci/validate-skills.js
+        continue-on-error: false
+
+      - name: Validate Commands
+        run: node scripts/ci/validate-commands.js
+        continue-on-error: false
+
+      - name: Validate Hooks
+        run: node scripts/ci/validate-hooks.js
+        continue-on-error: false
+
+  # 可选：运行完整验证（汇总报告）
+  validate-summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: validate
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run Full Validation
+        run: node scripts/ci/validate-all.js

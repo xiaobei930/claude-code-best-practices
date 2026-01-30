@@ -1,4 +1,5 @@
 ---
+description: Git 提交命令，生成规范的 commit message
 allowed-tools: Read, Glob, Grep, Bash
 ---
 
@@ -28,18 +29,20 @@ allowed-tools: Read, Glob, Grep, Bash
 ## Conventional Commits 规范
 
 ### 类型前缀
-| 类型 | 说明 | 示例 |
-|------|------|------|
-| `feat` | 新功能 | `feat: 添加用户登录功能` |
-| `fix` | Bug 修复 | `fix: 修复音频播放崩溃问题` |
-| `docs` | 文档更新 | `docs: 更新 API 文档` |
-| `style` | 代码格式 | `style: 格式化代码` |
-| `refactor` | 重构 | `refactor: 重构音频处理模块` |
-| `test` | 测试 | `test: 添加用户服务单元测试` |
-| `chore` | 构建/工具 | `chore: 更新依赖版本` |
-| `perf` | 性能优化 | `perf: 优化图片加载速度` |
+
+| 类型       | 说明      | 示例                         |
+| ---------- | --------- | ---------------------------- |
+| `feat`     | 新功能    | `feat: 添加用户登录功能`     |
+| `fix`      | Bug 修复  | `fix: 修复音频播放崩溃问题`  |
+| `docs`     | 文档更新  | `docs: 更新 API 文档`        |
+| `style`    | 代码格式  | `style: 格式化代码`          |
+| `refactor` | 重构      | `refactor: 重构音频处理模块` |
+| `test`     | 测试      | `test: 添加用户服务单元测试` |
+| `chore`    | 构建/工具 | `chore: 更新依赖版本`        |
+| `perf`     | 性能优化  | `perf: 优化图片加载速度`     |
 
 ### 提交信息格式
+
 ```
 <type>(<scope>): <subject>
 
@@ -49,6 +52,7 @@ allowed-tools: Read, Glob, Grep, Bash
 ```
 
 ### 示例
+
 ```bash
 # 简单提交
 git commit -m "feat: 添加语音识别功能"

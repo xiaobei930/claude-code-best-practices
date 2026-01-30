@@ -106,7 +106,7 @@ refactor(scripts): simplify timeout configuration
 commands/your-command.md
 ```
 
-- Include YAML frontmatter with `allowed_tools`
+- Include YAML frontmatter with `allowed-tools`
 - Define clear role and responsibilities
 - Add usage examples
 
@@ -242,7 +242,7 @@ refactor(scripts): simplify timeout configuration
 commands/your-command.md
 ```
 
-- 包含 YAML frontmatter，指定 `allowed_tools`
+- 包含 YAML frontmatter，指定 `allowed-tools`
 - 定义清晰的角色和职责
 - 添加使用示例
 

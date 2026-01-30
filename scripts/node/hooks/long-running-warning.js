@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 /**
- * 长时间运行命令提醒
+ * Long Running Warning: 长时间运行命令提醒
  *
- * 检测 dev server、watch 等可能长时间运行的命令
- * 跨平台支持（Windows/macOS/Linux）
- *
- * 功能：
+ * 检测 dev server、watch 等可能长时间运行的命令：
  * 1. 警告长时间运行命令
  * 2. 在 Linux/macOS/WSL 环境下提醒使用 tmux
+ * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PreToolUse
+ * 匹配工具: Bash
+ *
+ * Exit codes:
+ * - 0: 检测完成（不阻止执行）
  */
 
 const { readStdinJson, log } = require("../lib/utils");

@@ -1,5 +1,6 @@
 ---
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
+description: 快速修复构建/类型/编译错误，最小化 diff
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite, Task
 ---
 
 # /fix - 构建错误修复
@@ -7,6 +8,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 专注于快速修复构建/类型/编译错误。**核心原则：最小化 diff，只修错误，不重构。**
 
 ## 角色定位
+
 - **身份**: 构建错误修复专家
 - **目标**: 让构建通过，以最小改动修复错误
 - **原则**: 精准、快速、不引入新问题
@@ -16,6 +18,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 > **只修复错误，不改其他任何东西**
 
 ### 做什么
+
 ✅ 添加缺失的类型注解
 ✅ 修复导入/导出错误
 ✅ 添加空值检查
@@ -23,6 +26,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ✅ 安装缺失的依赖
 
 ### 不做什么
+
 ❌ 重构代码
 ❌ 改变架构
 ❌ 重命名变量
@@ -61,12 +65,13 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ```typescript
 // ❌ 错误: Parameter 'x' implicitly has 'any' type
 function process(data) {
-  return data.value
+  return data.value;
 }
 
 // ✅ 修复: 添加类型注解（最小改动）
-function process(data: any) {  // 或更具体的类型
-  return data.value
+function process(data: any) {
+  // 或更具体的类型
+  return data.value;
 }
 ```
 
@@ -74,23 +79,25 @@ function process(data: any) {  // 或更具体的类型
 
 ```typescript
 // ❌ 错误: Object is possibly 'undefined'
-const name = user.profile.name
+const name = user.profile.name;
 
 // ✅ 修复: 添加可选链
-const name = user?.profile?.name
+const name = user?.profile?.name;
 ```
 
 ### 3. 缺少属性
 
 ```typescript
 // ❌ 错误: Property 'age' does not exist on type 'User'
-interface User { name: string }
-const user: User = { name: 'Tom', age: 20 }
+interface User {
+  name: string;
+}
+const user: User = { name: "Tom", age: 20 };
 
 // ✅ 修复: 添加缺失属性
 interface User {
-  name: string
-  age?: number  // 可选属性
+  name: string;
+  age?: number; // 可选属性
 }
 ```
 
@@ -101,7 +108,7 @@ interface User {
 
 // ✅ 修复方案 1: 检查 tsconfig paths
 // ✅ 修复方案 2: 使用相对路径
-import { util } from '../lib/utils'
+import { util } from "../lib/utils";
 
 // ✅ 修复方案 3: 安装缺失的包
 // npm install @/lib/utils
@@ -112,12 +119,12 @@ import { util } from '../lib/utils'
 ```typescript
 // ❌ 错误: 'await' is only valid in async function
 function getData() {
-  const data = await fetch('/api')
+  const data = await fetch("/api");
 }
 
 // ✅ 修复: 添加 async
 async function getData() {
-  const data = await fetch('/api')
+  const data = await fetch("/api");
 }
 ```
 
@@ -126,11 +133,11 @@ async function getData() {
 ```typescript
 // ❌ 错误: Hooks can only be called inside function component
 if (condition) {
-  const [state, setState] = useState(0)
+  const [state, setState] = useState(0);
 }
 
 // ✅ 修复: 移到顶层
-const [state, setState] = useState(0)
+const [state, setState] = useState(0);
 if (condition) {
   // 使用 state
 }
@@ -161,16 +168,19 @@ rm -rf .next node_modules/.cache && npm run build
 ## 修复优先级
 
 ### 🔴 立即修复（阻塞构建）
+
 - 编译完全失败
 - 模块无法解析
 - 语法错误
 
 ### 🟡 尽快修复（类型错误）
+
 - 类型推断失败
 - 属性不存在
 - 参数类型不匹配
 
 ### 🟢 有空修复（警告）
+
 - ESLint 警告
 - 未使用的变量
 - 弃用的 API
@@ -204,29 +214,62 @@ rm -rf .next node_modules/.cache && npm run build
 
 ### 修复记录
 
-| 文件 | 错误 | 修复方式 | 改动行数 |
-|------|------|----------|----------|
-| src/a.ts:45 | 类型推断 | 添加类型注解 | 1 |
-| src/b.ts:12 | 空值错误 | 添加可选链 | 1 |
+| 文件        | 错误     | 修复方式     | 改动行数 |
+| ----------- | -------- | ------------ | -------- |
+| src/a.ts:45 | 类型推断 | 添加类型注解 | 1        |
+| src/b.ts:12 | 空值错误 | 添加可选链   | 1        |
 
 ### 验证命令
+
 \`\`\`bash
-npx tsc --noEmit  # ✅ 通过
-npm run build     # ✅ 通过
+npx tsc --noEmit # ✅ 通过
+npm run build # ✅ 通过
 \`\`\`
 ```
 
 ## 何时使用 /fix
 
-| 场景 | 使用 |
-|------|------|
-| `npm run build` 失败 | ✅ |
-| `tsc --noEmit` 报错 | ✅ |
-| 类型错误阻塞开发 | ✅ |
-| 代码需要重构 | ❌ 用 /dev |
-| 功能有 Bug | ❌ 用 /dev |
-| 测试失败 | ❌ 用 /qa |
+| 场景                 | 使用       |
+| -------------------- | ---------- |
+| `npm run build` 失败 | ✅         |
+| `tsc --noEmit` 报错  | ✅         |
+| 类型错误阻塞开发     | ✅         |
+| 代码需要重构         | ❌ 用 /dev |
+| 功能有 Bug           | ❌ 用 /dev |
+| 测试失败             | ❌ 用 /qa  |
 
 ---
 
 > **记住**: 修复的目标是让构建通过，不是让代码完美。速度和精准比优雅更重要。
+
+## Agent 集成
+
+### build-error-resolver - 复杂错误分析
+
+**何时使用**:
+
+- 错误数量较多（>5 个）
+- 错误根因不明确
+- 涉及跨文件的类型问题
+
+**调用方式**:
+
+```
+使用 Task 工具调用 build-error-resolver agent:
+- subagent_type: "cc-best:build-error-resolver"
+- prompt: "分析构建错误并提供最小化修复方案"
+```
+
+**工作流**:
+
+```
+/fix 开始修复
+    ↓
+  错误复杂？
+    ├─ 否 → 直接修复
+    └─ 是 → build-error-resolver agent
+              ↓
+           返回修复方案
+              ↓
+  /fix 执行修复
+```

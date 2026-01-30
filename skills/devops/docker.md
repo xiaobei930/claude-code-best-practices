@@ -1,6 +1,6 @@
-# Docker 最佳实践
+# Docker 容器化开发模式
 
-本文档提供 Docker 容器化的最佳实践和模式。
+Docker 容器化的最佳实践和模式指南。
 
 ## Dockerfile 最佳实践
 
@@ -191,7 +191,7 @@ build
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -202,7 +202,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
-      - /app/node_modules  # 排除 node_modules
+      - /app/node_modules # 排除 node_modules
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/myapp
@@ -245,7 +245,7 @@ volumes:
 
 ```yaml
 # docker-compose.prod.yml
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -261,10 +261,10 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 512M
         reservations:
-          cpus: '0.25'
+          cpus: "0.25"
           memory: 256M
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
@@ -310,29 +310,29 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
 
 ```typescript
 // Node.js 健康检查端点
-app.get('/health', async (req, res) => {
+app.get("/health", async (req, res) => {
   try {
     // 检查数据库连接
-    await db.$queryRaw`SELECT 1`
+    await db.$queryRaw`SELECT 1`;
 
     // 检查 Redis 连接
-    await redis.ping()
+    await redis.ping();
 
     res.json({
-      status: 'ok',
+      status: "ok",
       timestamp: new Date().toISOString(),
       checks: {
-        database: 'ok',
-        redis: 'ok'
-      }
-    })
+        database: "ok",
+        redis: "ok",
+      },
+    });
   } catch (error) {
     res.status(503).json({
-      status: 'error',
-      error: error.message
-    })
+      status: "error",
+      error: error.message,
+    });
   }
-})
+});
 ```
 
 ---
@@ -391,8 +391,8 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "10m"    # 单个日志文件最大 10MB
-        max-file: "3"      # 最多保留 3 个文件
+        max-size: "10m" # 单个日志文件最大 10MB
+        max-file: "3" # 最多保留 3 个文件
         labels: "app,env"
         env: "NODE_ENV"
 ```
@@ -401,11 +401,13 @@ services:
 
 ```typescript
 // ✅ 日志输出到 stdout/stderr
-console.log(JSON.stringify({
-  level: 'info',
-  message: '应用启动',
-  timestamp: new Date().toISOString()
-}))
+console.log(
+  JSON.stringify({
+    level: "info",
+    message: "应用启动",
+    timestamp: new Date().toISOString(),
+  }),
+);
 
 // ❌ 不要写入文件
 // fs.appendFileSync('/var/log/app.log', message)
@@ -419,7 +421,7 @@ console.log(JSON.stringify({
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   frontend:
@@ -440,7 +442,7 @@ networks:
     driver: bridge
   backend-net:
     driver: bridge
-    internal: true  # 内部网络，无法访问外部
+    internal: true # 内部网络，无法访问外部
 ```
 
 ### 网络别名

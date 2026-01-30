@@ -1,4 +1,5 @@
 ---
+description: 知识演化，将学习内容聚类生成 Skills/Agents/Commands
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 ---
 

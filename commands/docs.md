@@ -1,4 +1,5 @@
 ---
+description: 文档同步，更新项目文档
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---
 
@@ -7,6 +8,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 专注于保持代码和文档的一致性。**核心原则：文档反映代码，代码决定文档。**
 
 ## 角色定位
+
 - **身份**: 文档同步专家
 - **目标**: 确保文档与代码实现保持一致
 - **原则**: 准确、及时、简洁
@@ -16,6 +18,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 > **文档是代码的镜子，代码变更必须反映到文档中**
 
 ### 做什么
+
 - 检测代码变更涉及的文档
 - 更新 API 文档
 - 同步 README 功能说明
@@ -23,6 +26,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 - 维护 CHANGELOG
 
 ### 不做什么
+
 - 创建不必要的文档
 - 编写营销文案
 - 大规模重写文档
@@ -57,14 +61,14 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 
 ### 代码变更 → 文档更新
 
-| 代码变更 | 需要更新的文档 |
-|----------|----------------|
-| API 接口变更 | API 文档、README |
-| 新增功能 | README、CHANGELOG |
-| 配置项变更 | 配置文档、README |
-| 依赖变更 | 安装指南、package.json 说明 |
-| 架构调整 | architecture.md |
-| 数据模型变更 | 数据模型文档 |
+| 代码变更     | 需要更新的文档              |
+| ------------ | --------------------------- |
+| API 接口变更 | API 文档、README            |
+| 新增功能     | README、CHANGELOG           |
+| 配置项变更   | 配置文档、README            |
+| 依赖变更     | 安装指南、package.json 说明 |
+| 架构调整     | architecture.md             |
+| 数据模型变更 | 数据模型文档                |
 
 ### 文档位置约定
 
@@ -90,18 +94,18 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 
 ### API 端点文档
 
-```markdown
+````markdown
 ## `POST /api/users`
 
 创建新用户。
 
 ### 请求参数
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|------|------|
-| name | string | 是 | 用户名，2-50 字符 |
-| email | string | 是 | 邮箱地址 |
-| role | string | 否 | 角色，默认 "user" |
+| 参数  | 类型   | 必填 | 说明              |
+| ----- | ------ | ---- | ----------------- |
+| name  | string | 是   | 用户名，2-50 字符 |
+| email | string | 是   | 邮箱地址          |
+| role  | string | 否   | 角色，默认 "user" |
 
 ### 请求示例
 
@@ -112,6 +116,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
   "role": "admin"
 }
 ```
+````
 
 ### 响应示例
 
@@ -130,11 +135,12 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 
 ### 错误码
 
-| 状态码 | 错误 | 说明 |
-|--------|------|------|
-| 400 | VALIDATION_ERROR | 参数验证失败 |
-| 409 | EMAIL_EXISTS | 邮箱已存在 |
-```
+| 状态码 | 错误             | 说明         |
+| ------ | ---------------- | ------------ |
+| 400    | VALIDATION_ERROR | 参数验证失败 |
+| 409    | EMAIL_EXISTS     | 邮箱已存在   |
+
+````
 
 ### CHANGELOG 条目
 
@@ -157,11 +163,11 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 
 ### Security
 - 升级依赖修复 CVE-2026-XXXX
-```
+````
 
 ### 函数文档（JSDoc）
 
-```typescript
+````typescript
 /**
  * 根据条件搜索用户
  *
@@ -188,25 +194,28 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
  */
 export async function searchUsers(
   query: UserQuery,
-  options: PaginationOptions
-): Promise<PaginatedResult<User>>
-```
+  options: PaginationOptions,
+): Promise<PaginatedResult<User>>;
+````
 
 ## 同步检查清单
 
 ### 代码提交前
+
 - [ ] 新增的公共 API 是否有文档？
 - [ ] 修改的参数是否更新了文档？
 - [ ] 删除的功能是否标记为废弃或从文档移除？
 - [ ] 示例代码是否仍然有效？
 
 ### 功能发布前
+
 - [ ] CHANGELOG 是否更新？
 - [ ] README 功能列表是否更新？
 - [ ] 安装/升级指南是否需要更新？
 - [ ] 版本号是否一致？
 
 ### 定期维护
+
 - [ ] 文档中的链接是否有效？
 - [ ] 截图是否是最新的？
 - [ ] 外部依赖版本是否需要更新？
@@ -301,11 +310,11 @@ npm run doctest
 
 ### 更新的文档
 
-| 文件 | 更新类型 | 说明 |
-|------|----------|------|
-| docs/api/users.md | 修改 | 更新 createUser 参数说明 |
-| README.md | 新增 | 添加批量导入功能说明 |
-| CHANGELOG.md | 新增 | 添加 v1.2.0 变更记录 |
+| 文件              | 更新类型 | 说明                     |
+| ----------------- | -------- | ------------------------ |
+| docs/api/users.md | 修改     | 更新 createUser 参数说明 |
+| README.md         | 新增     | 添加批量导入功能说明     |
+| CHANGELOG.md      | 新增     | 添加 v1.2.0 变更记录     |
 
 ### 检查结果
 
@@ -321,14 +330,14 @@ npm run doctest
 
 ## 何时使用 /docs
 
-| 场景 | 使用 |
-|------|------|
-| 完成功能开发后 | ✅ |
-| 发布新版本前 | ✅ |
-| 修复 Bug 后（如影响用户） | ✅ |
-| 重构后（如接口变更） | ✅ |
-| 纯内部重构（无接口变更） | ❌ |
-| 代码格式化 | ❌ |
+| 场景                      | 使用 |
+| ------------------------- | ---- |
+| 完成功能开发后            | ✅   |
+| 发布新版本前              | ✅   |
+| 修复 Bug 后（如影响用户） | ✅   |
+| 重构后（如接口变更）      | ✅   |
+| 纯内部重构（无接口变更）  | ❌   |
+| 代码格式化                | ❌   |
 
 ## 与其他命令的配合
 

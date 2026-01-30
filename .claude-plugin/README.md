@@ -15,10 +15,10 @@ This directory contains metadata for Claude Code Plugin Marketplace compatibilit
 
 ```
 /                    # Plugin root
-├── commands/        # 32 slash commands
+├── commands/        # 35 slash commands
 ├── skills/          # 17 development skills
-├── agents/          # 6 sub-agents
-├── rules/           # 13 coding standards
+├── agents/          # 8 sub-agents
+├── rules/           # 14 coding standards
 ├── scripts/         # 35+ automation scripts
 ├── hooks/           # Hook configuration and scripts
 └── memory-bank/     # Progress persistence

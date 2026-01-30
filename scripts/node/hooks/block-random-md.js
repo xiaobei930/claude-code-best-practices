@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /**
- * 阻止随机创建 .md 文件
+ * Block Random MD: 阻止随机创建 .md 文件
  *
- * 在 PreToolUse Write hook 中运行，防止意外创建不必要的 markdown 文件
- *
+ * 防止意外创建不必要的 markdown 文件，文档应放在指定目录下。
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PreToolUse
+ * 匹配工具: Write
  *
  * Exit codes:
  * - 0: 允许执行

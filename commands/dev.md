@@ -1,18 +1,6 @@
 ---
+description: 研发工程师智能体，负责功能编码实现
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot, mcp__plugin_playwright_playwright__browser_console_messages, mcp__plugin_playwright_playwright__browser_click, mcp__plugin_playwright_playwright__browser_type, mcp__plugin_playwright_playwright__browser_wait_for
-handoffs:
-  - label: 测试验证
-    command: /qa
-    prompt: 代码实现完成，进行测试验证
-  - label: TDD 指导
-    agent: tdd-guide
-    prompt: 需要测试驱动开发指导
-  - label: 代码简化
-    agent: code-simplifier
-    prompt: 代码完成后进行简化优化
-  - label: 代码审查
-    agent: code-reviewer
-    prompt: 进行代码审查
 ---
 
 # /dev - 研发智能体
@@ -210,7 +198,7 @@ def process_data(data):
 
 ## Agent 集成
 
-> Agent 通过 handoffs 自动触发，也可手动调用。
+> Agent 可通过 Task 工具手动调用，在适当场景下增强开发能力。
 
 ### 前端开发：/frontend-design
 

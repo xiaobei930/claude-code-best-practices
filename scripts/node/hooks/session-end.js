@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 /**
- * SessionEnd Hook - 会话结束时保存状态
+ * Session End: 会话结束时保存状态
  *
+ * 记录会话结束时间并保存会话统计信息。
  * 跨平台支持（Windows/macOS/Linux）
  *
- * 功能：
- * - 记录会话结束时间
- * - 保存会话统计信息（可选）
+ * 触发时机: SessionEnd
+ * 匹配工具: *
+ *
+ * Exit codes:
+ * - 0: 正常结束，状态已保存
  */
 
 const path = require("path");

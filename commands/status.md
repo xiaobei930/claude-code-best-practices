@@ -1,4 +1,5 @@
 ---
+description: 项目状态与诊断信息
 allowed-tools: Read, Glob, Grep, Bash
 ---
 

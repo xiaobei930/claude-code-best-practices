@@ -312,6 +312,44 @@ jobs:
 
           echo "✅ README links checked"
 
+      - name: Check Version Sync
+        run: |
+          echo "🔍 Checking version synchronization..."
+
+          # Get plugin version
+          PLUGIN_VERSION=$(python -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+          echo "📦 Plugin version: $PLUGIN_VERSION"
+
+          # Check COMMANDS.md version matches
+          if grep -q "Version: $PLUGIN_VERSION" .claude-plugin/COMMANDS.md; then
+            echo "✅ COMMANDS.md version matches"
+          else
+            COMMANDS_VERSION=$(grep -oP 'Version: \K[0-9]+\.[0-9]+\.[0-9]+' .claude-plugin/COMMANDS.md || echo "not found")
+            echo "⚠️ COMMANDS.md version ($COMMANDS_VERSION) differs from plugin.json ($PLUGIN_VERSION)"
+          fi
+
+          # Check component counts
+          ACTUAL_COMMANDS=$(ls -1 commands/*.md 2>/dev/null | wc -l | tr -d ' ')
+          ACTUAL_SKILLS=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+          ACTUAL_AGENTS=$(ls -1 agents/*.md 2>/dev/null | grep -v README | wc -l | tr -d ' ')
+          ACTUAL_RULES=$(ls -1 rules/*.md 2>/dev/null | wc -l | tr -d ' ')
+
+          echo "📊 Component counts:"
+          echo "   Commands: $ACTUAL_COMMANDS"
+          echo "   Skills: $ACTUAL_SKILLS"
+          echo "   Agents: $ACTUAL_AGENTS"
+          echo "   Rules: $ACTUAL_RULES"
+
+          # Verify plugin.json description matches
+          EXPECTED_DESC="35 commands, 17 skills, 8 agents"
+          if grep -q "$EXPECTED_DESC" .claude-plugin/plugin.json; then
+            echo "✅ plugin.json description matches component counts"
+          else
+            echo "⚠️ plugin.json description may be outdated (expected: $ACTUAL_COMMANDS commands, $ACTUAL_SKILLS skills, $ACTUAL_AGENTS agents)"
+          fi
+
+          echo "✅ Version sync check completed"
+
       - name: Summary
         run: |
           echo "## 📊 Plugin Validation Summary" >> $GITHUB_STEP_SUMMARY

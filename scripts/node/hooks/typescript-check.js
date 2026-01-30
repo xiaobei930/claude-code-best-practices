@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 /**
- * TypeScript 类型检查
+ * TypeScript Check: TypeScript 类型检查
  *
- * 在 PostToolUse Edit|Write hook 中运行
+ * 在文件编辑/写入后检查 TypeScript 类型错误。
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PostToolUse
+ * 匹配工具: Edit, Write
+ *
+ * Exit codes:
+ * - 0: 检查完成（无论是否有类型错误）
  */
 
 const path = require("path");

@@ -21,7 +21,7 @@
 > 从产品需求到代码审查 — 一个插件，完整工作流。
 
 <p align="center">
-  <code>35 命令</code> · <code>17 技能</code> · <code>6 智能体</code> · <code>7 语言规范</code>
+  <code>35 命令</code> · <code>17 技能</code> · <code>8 智能体</code> · <code>7 语言规范</code>
 </p>
 
 <p align="center">
@@ -152,7 +152,7 @@ your-project/
 ├── CLAUDE.md          # 项目宪法
 ├── commands/          # 35 个命令
 ├── skills/            # 17 个技能
-├── agents/            # 6 个智能体
+├── agents/            # 8 个智能体
 ├── rules/             # 编码规范
 ├── hooks/             # 安全钩子
 ├── scripts/           # 自动化脚本 (node/python/shell)
@@ -277,7 +277,7 @@ flowchart TB
 | **Skills**   | 自动注入        | 最佳实践，编码规范       |
 | **Agents**   | Task 工具委派   | 专业子任务（审查、规划） |
 
-**6 个专业智能体**: `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide`
+**8 个专业智能体**: `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide`
 
 > 📐 **完整文档**: 查看 [ARCHITECTURE.md](.claude-plugin/ARCHITECTURE.md) 了解组件关系和调用链路。
 >

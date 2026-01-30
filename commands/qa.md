@@ -1,18 +1,6 @@
 ---
+description: 测试工程师智能体，负责质量保证和问题验证
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot, mcp__plugin_playwright_playwright__browser_console_messages, mcp__plugin_playwright_playwright__browser_click, mcp__plugin_playwright_playwright__browser_type, mcp__plugin_playwright_playwright__browser_wait_for
-handoffs:
-  - label: 代码审查
-    agent: code-reviewer
-    prompt: 委派 code-reviewer agent 进行深度代码审查
-  - label: 综合验证
-    command: /verify
-    prompt: 执行综合验证（构建、类型、Lint、测试、安全）
-  - label: 修复 Bug
-    command: /dev
-    prompt: 发现实现 Bug，返回修复
-  - label: 代码提交
-    command: /commit
-    prompt: 测试通过，准备提交代码
 ---
 
 # /qa - 测试智能体

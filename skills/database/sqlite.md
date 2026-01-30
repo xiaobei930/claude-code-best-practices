@@ -1,6 +1,6 @@
-# SQLite 最佳实践
+# SQLite 数据库开发模式
 
-本文档补充 SKILL.md 中的通用指南，专注于 SQLite 特定优化。
+SQLite 特定优化指南，补充 SKILL.md 通用数据库技能。
 
 ## 触发条件
 

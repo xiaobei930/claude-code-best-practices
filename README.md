@@ -21,7 +21,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>35 commands</code> · <code>17 skills</code> · <code>6 agents</code> · <code>7 language standards</code>
+  <code>35 commands</code> · <code>17 skills</code> · <code>8 agents</code> · <code>7 language standards</code>
 </p>
 
 <p align="center">
@@ -158,7 +158,7 @@ your-project/
 ├── CLAUDE.md          # Project constitution
 ├── commands/          # 35 slash commands
 ├── skills/            # 17 development skills
-├── agents/            # 6 specialized agents
+├── agents/            # 8 specialized agents
 ├── rules/             # Coding standards
 ├── hooks/             # Safety hooks
 ├── scripts/           # Automation (node/python/shell)
@@ -283,7 +283,7 @@ flowchart TB
 | **Skills**   | Auto-injected        | Best practices, coding standards         |
 | **Agents**   | Task tool delegation | Specialized sub-tasks (review, planning) |
 
-**6 specialized agents**: `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide`
+**8 specialized agents**: `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide`
 
 > 📐 **Full documentation**: See [ARCHITECTURE.md](.claude-plugin/ARCHITECTURE.md) for component relationships and call chains.
 >

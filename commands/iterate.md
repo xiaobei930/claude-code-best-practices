@@ -1,4 +1,5 @@
 ---
+description: 自主迭代循环，自动完成任务序列
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, WebFetch, Skill, mcp__*
 ---
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /**
- * Claude Code Hook: 敏感文件保护
+ * Protect Files: 敏感文件保护
  *
- * 在 Edit/Write 操作前检查目标文件：
- * - 阻止修改 .env 和密钥文件
- * - 阻止修改锁定文件（package-lock.json 等）
- * - 阻止修改 .git 目录
- *
+ * 在文件编辑/写入前检查目标文件：
+ * 1. 阻止修改 .env 和密钥文件
+ * 2. 阻止修改 .git 目录内容
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PreToolUse
+ * 匹配工具: Edit, Write
  *
  * Exit codes:
  * - 0: 允许执行

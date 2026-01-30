@@ -1,4 +1,5 @@
 ---
+description: 会话学习，从会话中提取可复用模式
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---
 

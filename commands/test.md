@@ -1,4 +1,5 @@
 ---
+description: 运行项目测试套件
 allowed-tools: Read, Glob, Grep, Bash
 ---
 
@@ -10,19 +11,20 @@ allowed-tools: Read, Glob, Grep, Bash
 
 根据项目类型自动选择测试命令：
 
-| 项目类型 | 检测文件 | 测试命令 |
-|----------|----------|----------|
-| Python | `pytest.ini`, `pyproject.toml` | `pytest` |
-| Node.js | `package.json` | `npm test` |
-| Java Maven | `pom.xml` | `mvn test` |
-| Java Gradle | `build.gradle` | `gradle test` |
-| .NET | `*.csproj`, `*.sln` | `dotnet test` |
-| Go | `go.mod` | `go test ./...` |
-| Rust | `Cargo.toml` | `cargo test` |
+| 项目类型    | 检测文件                       | 测试命令        |
+| ----------- | ------------------------------ | --------------- |
+| Python      | `pytest.ini`, `pyproject.toml` | `pytest`        |
+| Node.js     | `package.json`                 | `npm test`      |
+| Java Maven  | `pom.xml`                      | `mvn test`      |
+| Java Gradle | `build.gradle`                 | `gradle test`   |
+| .NET        | `*.csproj`, `*.sln`            | `dotnet test`   |
+| Go          | `go.mod`                       | `go test ./...` |
+| Rust        | `Cargo.toml`                   | `cargo test`    |
 
 ## 常用选项
 
 ### Python (pytest)
+
 ```bash
 pytest                      # 运行所有测试
 pytest tests/unit/          # 运行指定目录
@@ -33,6 +35,7 @@ pytest --cov=src            # 覆盖率报告
 ```
 
 ### Node.js
+
 ```bash
 npm test                    # 运行所有测试
 npm test -- --watch         # 监听模式
@@ -41,6 +44,7 @@ npm test -- --grep "user"   # 按名称过滤
 ```
 
 ### Java
+
 ```bash
 mvn test                              # Maven
 mvn test -Dtest=UserServiceTest       # 指定类
@@ -49,6 +53,7 @@ gradle test --tests "UserServiceTest" # 指定类
 ```
 
 ### .NET
+
 ```bash
 dotnet test                                    # 运行所有测试
 dotnet test --filter "FullyQualifiedName~User" # 过滤
@@ -72,6 +77,7 @@ dotnet test --collect:"XPlat Code Coverage"    # 覆盖率
 ## 失败处理
 
 如果测试失败：
+
 1. 分析失败原因
 2. 如果是代码问题，调用 `/dev` 修复
 3. 如果是测试问题，更新测试用例

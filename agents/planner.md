@@ -3,6 +3,9 @@ name: planner
 description: "Analyzes task complexity, creates implementation plans, and breaks down into minimal executable units. Use PROACTIVELY when users request feature implementation, architectural changes, or complex refactoring. Automatically activated for planning tasks."
 model: opus
 tools: Read, Grep, Glob
+skills:
+  - architecture
+color: cyan
 ---
 
 # Planner Agent
@@ -17,6 +20,24 @@ tools: Read, Grep, Glob
 - 明确识别依赖和风险
 - 计划要具体可执行，不要空泛
 - 宁可过度规划，也不要盲目开始
+
+## 与其他组件的关系
+
+### 配合使用
+
+| 组件                  | 关系 | 场景                          |
+| --------------------- | ---- | ----------------------------- |
+| architect             | 上游 | 架构确定后由 planner 分解任务 |
+| tdd-guide             | 下游 | 任务分解后指导 TDD 开发       |
+| requirement-validator | 上游 | 需求验证后开始规划            |
+
+### 调用链
+
+```
+requirement-validator(需求验证) → architect(架构) → planner(规划) → tdd-guide(TDD) → dev(实现)
+```
+
+---
 
 ## 规划流程
 

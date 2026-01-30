@@ -2,7 +2,7 @@
 name: compact
 description: "Strategic compaction skill: suggests context compression at logical breakpoints. Use to suggest compaction at logical intervals during development sessions."
 allowed-tools: Read, Bash
-parent-skill: session
+parent: session
 ---
 
 # 策略性压缩技能

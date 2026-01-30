@@ -1,4 +1,5 @@
 ---
+description: 检查点管理，保存和恢复进度
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite
 ---
 

@@ -1,15 +1,6 @@
 ---
+description: 产品经理智能体，负责需求分析和产品规划
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFetch, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot
-handoffs:
-  - label: 需求验证
-    agent: requirement-validator
-    prompt: 委派 requirement-validator agent 验证需求文档质量
-  - label: 技术设计
-    command: /lead
-    prompt: 进行技术评审和任务分解
-  - label: 需求澄清
-    command: /clarify
-    prompt: 澄清待确认项（如有）
 ---
 
 # /pm - 产品经理智能体

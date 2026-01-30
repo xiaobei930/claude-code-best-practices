@@ -2,7 +2,7 @@
 name: learning
 description: "Extracts reusable patterns from sessions. Use at session end to capture debugging insights and project-specific knowledge."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
-parent-skill: session
+parent: session
 ---
 
 # 持续学习技能

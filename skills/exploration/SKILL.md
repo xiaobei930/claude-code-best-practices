@@ -2,6 +2,8 @@
 name: exploration
 description: "Code exploration strategies for understanding unfamiliar codebases. Use when exploring unknown code, debugging, or analyzing architecture."
 allowed-tools: Read, Grep, Glob, Task
+context: fork
+agent: Explore
 ---
 
 # 代码库探索

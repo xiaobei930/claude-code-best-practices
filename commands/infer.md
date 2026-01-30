@@ -1,4 +1,5 @@
 ---
+description: 模型推理和测试
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
@@ -7,6 +8,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 运行机器学习/深度学习模型推理。
 
 ## 适用场景
+
 - 模型预测
 - 批量推理
 - 实时服务
@@ -14,6 +16,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ## 通用推理流程
 
 ### 1. 环境检查
+
 ```bash
 # GPU 检查
 python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}')"
@@ -26,6 +29,7 @@ pip list | grep -E "torch|onnx|tensorrt"
 ```
 
 ### 2. 模型加载
+
 ```python
 # PyTorch 示例
 model = torch.load("models/model.pt")
@@ -37,6 +41,7 @@ model = AutoModel.from_pretrained("models/my-model")
 ```
 
 ### 3. 推理执行
+
 ```bash
 # 单文件推理
 python infer.py --input data/input.txt --output results/
@@ -51,14 +56,16 @@ python serve.py --model models/model.pt --port 8000
 ## 性能优化
 
 ### 加速选项
-| 方法 | 命令/配置 |
-|------|----------|
+
+| 方法       | 命令/配置                   |
+| ---------- | --------------------------- |
 | 半精度推理 | `--fp16` 或 `torch.float16` |
-| 批量处理 | `--batch-size 32` |
-| ONNX 转换 | `torch.onnx.export()` |
-| TensorRT | `trtexec --onnx=model.onnx` |
+| 批量处理   | `--batch-size 32`           |
+| ONNX 转换  | `torch.onnx.export()`       |
+| TensorRT   | `trtexec --onnx=model.onnx` |
 
 ### 显存优化
+
 ```python
 # 梯度检查点
 torch.cuda.empty_cache()
@@ -70,16 +77,17 @@ with torch.no_grad():
 
 ## 常用框架
 
-| 框架 | 推理命令 |
-|------|----------|
-| PyTorch | `python infer.py` |
+| 框架         | 推理命令                           |
+| ------------ | ---------------------------------- |
+| PyTorch      | `python infer.py`                  |
 | Hugging Face | `python -m transformers.pipelines` |
-| ONNX Runtime | `python onnx_infer.py` |
-| TensorRT | `trtexec --loadEngine=model.trt` |
+| ONNX Runtime | `python onnx_infer.py`             |
+| TensorRT     | `trtexec --loadEngine=model.trt`   |
 
 ## 输出格式
 
 ### 保存结果
+
 ```python
 # JSON 格式
 import json
@@ -101,6 +109,7 @@ df.to_csv("results.csv", index=False)
 ## 项目定制
 
 > 根据项目需要修改此文件，添加具体的：
+>
 > - 模型路径和类型
 > - 输入/输出格式
 > - 推理参数

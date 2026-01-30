@@ -1,9 +1,17 @@
 #!/usr/bin/env node
 /**
- * Git push 前暂停确认
+ * Pause Before Push: Git push 前暂停确认
  *
- * 在 PreToolUse Bash hook 中运行，检测 git push 命令
+ * 在执行 git push 命令前进行安全检查：
+ * 1. 检测是否推送到主分支，给出警告提示
+ * 2. 检查是否有未暂存或未提交的更改
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PreToolUse
+ * 匹配工具: Bash
+ *
+ * Exit codes:
+ * - 0: 允许推送，继续执行
  */
 
 const { readStdinJson, log, runCommand } = require("../lib/utils");

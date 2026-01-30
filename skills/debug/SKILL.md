@@ -2,7 +2,7 @@
 name: debug
 description: "Systematic debugging methods, log analysis, and performance diagnostics. Use when debugging issues, analyzing errors, or troubleshooting incidents."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
-parent-skill: quality
+parent: quality
 ---
 
 # 调试技能

@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.5.4 | Last Updated: 2026-01-27
+> Version: 0.5.7 | Last Updated: 2026-01-30
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -12,8 +12,8 @@
 | ------------ | ---- | --------------------- | ----------------------- |
 | **Commands** | 35   | `commands/`           | 用户输入 `/xxx`         |
 | **Skills**   | 17   | `skills/`             | Agent 预加载 / 自动注入 |
-| **Agents**   | 6    | `agents/`             | Task tool 委派          |
-| **Hooks**    | 27   | `scripts/node/hooks/` | 生命周期自动触发        |
+| **Agents**   | 8    | `agents/`             | Task tool 委派          |
+| **Hooks**    | 28   | `scripts/node/hooks/` | 生命周期自动触发        |
 
 ---
 
@@ -30,7 +30,7 @@
                        │ 调用
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                       Agents (6)                            │
+│                       Agents (8)                            │
 │  ┌─────────────────┐  ┌─────────────────┐                   │
 │  │ code-reviewer   │  │ code-simplifier │                   │
 │  └─────────────────┘  └─────────────────┘                   │
@@ -40,6 +40,10 @@
 │  ┌────────────────────────┐  ┌────────────────────────┐     │
 │  │ security-reviewer      │  │ tdd-guide              │     │
 │  │   └──▶ skill:security │  │   └──▶ skill:testing  │     │
+│  └────────────────────────┘  └────────────────────────┘     │
+│  ┌────────────────────────┐  ┌────────────────────────┐     │
+│  │ build-error-resolver   │  │ architect              │     │
+│  │   └──▶ skill:debug    │  │   └──▶ skill:arch     │     │
 │  └────────────────────────┘  └────────────────────────┘     │
 └──────────────────────┬──────────────────────────────────────┘
                        │ 预加载
@@ -76,6 +80,7 @@
 /clarify (澄清)
     ↓
 /lead (研发经理)
+    ├─ agent: architect (架构设计) ← NEW
     ├─ agent: planner (任务规划)
     ↓
     ├─→ /designer (UI/UX 设计)
@@ -88,6 +93,9 @@
     └─→ /qa (质量保证)
         └─ agent: code-reviewer
 
+/build (构建)
+    └─ agent: build-error-resolver + skills: debug ← NEW
+
 /verify (最终验证)
     └─ agent: security-reviewer + skills: security
 ```
@@ -96,31 +104,35 @@
 
 ## 4. Commands → Agents/Skills 引用关系
 
-| Command     | Agent(s)                                  | Skills   | 用途                     |
-| ----------- | ----------------------------------------- | -------- | ------------------------ |
-| `/pm`       | requirement-validator                     | -        | 需求文档质量验证         |
-| `/clarify`  | (可选)                                    | -        | 需求澄清                 |
-| `/lead`     | planner                                   | -        | 任务分解和规划           |
-| `/designer` | -                                         | -        | UI/UX 设计               |
-| `/dev`      | tdd-guide, code-simplifier, code-reviewer | -        | 开发实现                 |
-| `/qa`       | code-reviewer                             | -        | 代码审查                 |
-| `/verify`   | security-reviewer                         | security | 安全审查                 |
-| `/learn`    | -                                         | learning | 会话知识提取             |
-| `/analyze`  | -                                         | learning | 代码库模式分析           |
-| `/evolve`   | -                                         | learning | 知识演化为 skills/agents |
+| Command     | Agent(s)                                  | Skills       | 用途                     |
+| ----------- | ----------------------------------------- | ------------ | ------------------------ |
+| `/pm`       | requirement-validator                     | -            | 需求文档质量验证         |
+| `/clarify`  | (可选)                                    | -            | 需求澄清                 |
+| `/lead`     | architect, planner                        | architecture | 架构设计和任务规划       |
+| `/designer` | -                                         | -            | UI/UX 设计               |
+| `/dev`      | tdd-guide, code-simplifier, code-reviewer | -            | 开发实现                 |
+| `/build`    | build-error-resolver                      | debug        | 构建错误修复             |
+| `/qa`       | code-reviewer                             | -            | 代码审查                 |
+| `/verify`   | security-reviewer                         | security     | 安全审查                 |
+| `/fix`      | build-error-resolver                      | debug        | 修复编译/类型错误        |
+| `/learn`    | -                                         | learning     | 会话知识提取             |
+| `/analyze`  | -                                         | learning     | 代码库模式分析           |
+| `/evolve`   | -                                         | learning     | 知识演化为 skills/agents |
 
 ---
 
 ## 5. Agents → Skills 预加载关系
 
-| Agent                 | 预加载 Skills | 说明                 |
-| --------------------- | ------------- | -------------------- |
-| security-reviewer     | `security`    | OWASP 安全检查清单   |
-| tdd-guide             | `testing`     | TDD 工作流和测试框架 |
-| code-reviewer         | -             | 独立运行             |
-| code-simplifier       | -             | 独立运行             |
-| planner               | -             | 独立运行             |
-| requirement-validator | -             | 独立运行             |
+| Agent                 | 预加载 Skills                | 说明                 |
+| --------------------- | ---------------------------- | -------------------- |
+| security-reviewer     | `security`                   | OWASP 安全检查清单   |
+| tdd-guide             | `testing`                    | TDD 工作流和测试框架 |
+| build-error-resolver  | `debug`                      | 构建错误诊断和修复   |
+| architect             | `architecture` `exploration` | 架构设计和代码库探索 |
+| code-reviewer         | -                            | 独立运行             |
+| code-simplifier       | -                            | 独立运行             |
+| planner               | -                            | 独立运行             |
+| requirement-validator | -                            | 独立运行             |
 
 ---
 
@@ -174,7 +186,8 @@ Session 生命周期:
 │
 ├─ PostToolUse
 │  ├─ format-file.js      (Write|Edit) [代码格式化]
-│  ├─ check-console-log.js (Edit)      [检查日志]
+│  ├─ check-console-log.js (Edit)      [检查日志+生产分支保护]
+│  ├─ check-secrets.js    (Bash)       [密钥泄露检测 30+提供商]
 │  ├─ typescript-check.js  (Edit|Write) [TS 类型检查]
 │  └─ auto-archive.js      (Write|Edit) [自动存档]
 │
@@ -217,7 +230,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.5.4**
+当前版本: **0.5.7**
 
 ---
 
@@ -226,8 +239,16 @@ hooks/
 ### 添加新 Command
 
 1. 创建 `commands/your-command.md`
-2. 添加 frontmatter (`allowed_tools`)
-3. 定义职责和执行步骤
+2. 添加 frontmatter（官方支持字段）：
+   ```yaml
+   ---
+   description: 命令描述，简要说明用途
+   allowed-tools: Read, Write, Edit, Bash, ...
+   argument-hint: [可选] 参数提示
+   ---
+   ```
+3. 在 body 中使用自然语言描述调用流程（包括委派 agents）
+4. 定义职责和执行步骤
 
 ### 添加新 Skill
 
@@ -238,8 +259,18 @@ hooks/
 ### 添加新 Agent
 
 1. 创建 `agents/your-agent.md`
-2. 配置 `model`, `tools`, `skills`
-3. 在相关 Command 中引用
+2. 添加 frontmatter（官方支持字段）：
+   ```yaml
+   ---
+   name: your-agent
+   description: 代理描述
+   model: sonnet | opus | haiku
+   tools: Read, Grep, Glob, ...
+   skills: [skill-name] # 可选，预加载 skills
+   color: red | blue | green | ... # 可选，UI 颜色
+   ---
+   ```
+3. 在相关 Command body 中用自然语言引用
 
 ### 添加新 Hook
 
@@ -249,15 +280,80 @@ hooks/
 
 ---
 
-## 11. 统计数据 | Statistics
+## 11. Agent 相互调用关系 | Agent Interactions
+
+### 调用关系图
+
+```
+                    ┌───────────────────────┐
+                    │ requirement-validator │
+                    └───────────┬───────────┘
+                                │ 需求验证后
+                                ▼
+                    ┌───────────────────────┐
+                    │      architect        │
+                    │  └──▶ architecture    │
+                    │  └──▶ exploration     │
+                    └───────────┬───────────┘
+                                │ 架构确定后
+                                ▼
+                    ┌───────────────────────┐
+                    │       planner         │
+                    └───────────┬───────────┘
+                                │ 任务分解后
+                ┌───────────────┼───────────────┐
+                ▼               ▼               ▼
+        ┌───────────┐   ┌───────────────┐  ┌────────────────┐
+        │ tdd-guide │   │code-simplifier│  │ code-reviewer  │
+        └─────┬─────┘   └───────┬───────┘  └───────┬────────┘
+              │                 │                  │
+              └─────────────────┼──────────────────┘
+                                │ 构建失败时
+                                ▼
+                    ┌───────────────────────┐
+                    │  build-error-resolver │
+                    │  └──▶ debug           │
+                    └───────────┬───────────┘
+                                │ 修复后
+                                ▼
+                    ┌───────────────────────┐
+                    │   security-reviewer   │
+                    │   └──▶ security       │
+                    └───────────────────────┘
+```
+
+### Agent 协作模式
+
+| 上游 Agent            | 下游 Agent           | 协作场景               |
+| --------------------- | -------------------- | ---------------------- |
+| requirement-validator | architect            | 需求明确后架构设计     |
+| architect             | planner              | 架构确定后任务分解     |
+| planner               | tdd-guide            | 任务分解后 TDD 开发    |
+| tdd-guide             | code-reviewer        | 代码完成后审查         |
+| code-reviewer         | code-simplifier      | 审查后简化重构         |
+| code-simplifier       | build-error-resolver | 重构后修复构建错误     |
+| build-error-resolver  | code-reviewer        | 修复后再次审查（可选） |
+| code-reviewer         | security-reviewer    | 最终安全审查           |
+
+### 并行调用场景
+
+| 触发 Command | 并行 Agents                       | 场景       |
+| ------------ | --------------------------------- | ---------- |
+| `/dev`       | tdd-guide + code-simplifier       | 开发实现   |
+| `/qa`        | code-reviewer + security-reviewer | 质量审查   |
+| `/lead`      | architect + planner               | 设计和规划 |
+
+---
+
+## 12. 统计数据 | Statistics
 
 | 类别                 | 数量                                        |
 | -------------------- | ------------------------------------------- |
 | Commands             | 35                                          |
 | Skills               | 17                                          |
-| Agents               | 6                                           |
-| Hooks Scripts        | 27                                          |
+| Agents               | 8                                           |
+| Hooks Scripts        | 28                                          |
 | Language Support     | 5 (Python, TS, Java, Go, C#)                |
 | Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...) |
 | Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)       |
-| Total Markdown Lines | ~21,000                                     |
+| Total Markdown Lines | ~22,000                                     |

@@ -1,6 +1,6 @@
-# PostgreSQL 最佳实践
+# PostgreSQL 数据库开发模式
 
-本文档补充 SKILL.md，专注于 PostgreSQL 特有的最佳实践和性能优化。
+PostgreSQL 特有的最佳实践和性能优化指南，补充 SKILL.md 通用数据库技能。
 
 ## 触发条件
 

@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 /**
- * Claude Code Hook: 自动格式化代码文件
+ * Format File: 自动格式化代码文件
  *
- * 在 Write/Edit 操作后自动运行，根据文件类型选择对应的格式化工具：
- * - Python (.py): black + isort
- * - TypeScript/JavaScript (.ts, .tsx, .js, .jsx): prettier
- * - Vue (.vue): prettier
- * - C/C++ (.c, .cpp, .h, .hpp, .cc, .cxx): clang-format
- * - Java (.java): google-java-format
- * - C# (.cs): dotnet format
- *
+ * 在文件写入/编辑后自动运行格式化工具：
+ * - Python: black + isort
+ * - TypeScript/JavaScript/Vue: prettier
+ * - C/C++: clang-format
+ * - Java: google-java-format
+ * - C#: dotnet format
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PostToolUse
+ * 匹配工具: Write, Edit
+ *
+ * Exit codes:
+ * - 0: 格式化完成（无论成功与否）
  */
 
 const path = require("path");

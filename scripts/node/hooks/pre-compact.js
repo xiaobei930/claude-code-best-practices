@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 /**
- * PreCompact Hook - 上下文压缩前保存状态
+ * Pre Compact: 上下文压缩前保存状态
  *
- * 在 Claude Code 执行上下文压缩前触发，
- * 保存当前工作状态以便压缩后恢复上下文。
- *
- * 保存内容：
- * - 当前 git 状态（分支、未提交更改）
- * - 未完成的任务（从 progress.md 提取）
- * - 最近修改的文件列表
- *
+ * 在执行上下文压缩前保存工作状态以便恢复：
+ * 1. 当前 git 状态（分支、未提交更改）
+ * 2. 未完成的任务（从 progress.md 提取）
+ * 3. 最近修改的文件列表
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PreCompact
+ * 匹配工具: *
+ *
+ * Exit codes:
+ * - 0: 状态保存完成
  */
 
 const path = require("path");

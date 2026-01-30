@@ -2,7 +2,7 @@
 name: security
 description: "Security review skill: comprehensive security checklist and patterns. Use when adding authentication, handling user input, working with secrets, or creating API endpoints."
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
-parent-skill: quality
+parent: quality
 ---
 
 # 安全审查技能

@@ -1,4 +1,4 @@
-# Svelte/SvelteKit 模式
+# Svelte/SvelteKit 前端开发模式
 
 本文档提供 Svelte 5 和 SvelteKit 的最佳实践。
 
@@ -222,36 +222,36 @@ src/
 ```typescript
 // lib/stores/user.svelte.ts
 interface User {
-  id: string
-  name: string
-  email: string
+  id: string;
+  name: string;
+  email: string;
 }
 
 class UserStore {
-  user = $state<User | null>(null)
-  isLoading = $state(false)
+  user = $state<User | null>(null);
+  isLoading = $state(false);
 
-  isLoggedIn = $derived(this.user !== null)
+  isLoggedIn = $derived(this.user !== null);
 
   async login(email: string, password: string) {
-    this.isLoading = true
+    this.isLoading = true;
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({ email, password })
-      })
-      this.user = await response.json()
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+      this.user = await response.json();
     } finally {
-      this.isLoading = false
+      this.isLoading = false;
     }
   }
 
   logout() {
-    this.user = null
+    this.user = null;
   }
 }
 
-export const userStore = new UserStore()
+export const userStore = new UserStore();
 ```
 
 ```svelte
@@ -339,19 +339,19 @@ export const userStore = new UserStore()
 
 ```typescript
 // routes/users/+page.server.ts
-import type { PageServerLoad } from './$types'
-import { error } from '@sveltejs/kit'
+import type { PageServerLoad } from "./$types";
+import { error } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ fetch, params }) => {
-  const response = await fetch('/api/users')
+  const response = await fetch("/api/users");
 
   if (!response.ok) {
-    throw error(response.status, '获取用户失败')
+    throw error(response.status, "获取用户失败");
   }
 
-  const users = await response.json()
-  return { users }
-}
+  const users = await response.json();
+  return { users };
+};
 ```
 
 ```svelte
@@ -374,69 +374,69 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
 
 ```typescript
 // routes/api/users/+server.ts
-import { json, error } from '@sveltejs/kit'
-import type { RequestHandler } from './$types'
+import { json, error } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ url }) => {
-  const page = Number(url.searchParams.get('page')) || 1
-  const limit = Number(url.searchParams.get('limit')) || 10
+  const page = Number(url.searchParams.get("page")) || 1;
+  const limit = Number(url.searchParams.get("limit")) || 10;
 
   const users = await db.users.findMany({
     skip: (page - 1) * limit,
-    take: limit
-  })
+    take: limit,
+  });
 
-  return json({ data: users, page, limit })
-}
+  return json({ data: users, page, limit });
+};
 
 export const POST: RequestHandler = async ({ request }) => {
-  const body = await request.json()
+  const body = await request.json();
 
   // 验证
   if (!body.email || !body.name) {
-    throw error(400, '缺少必填字段')
+    throw error(400, "缺少必填字段");
   }
 
-  const user = await db.users.create({ data: body })
-  return json(user, { status: 201 })
-}
+  const user = await db.users.create({ data: body });
+  return json(user, { status: 201 });
+};
 ```
 
 ### 表单操作
 
 ```typescript
 // routes/login/+page.server.ts
-import type { Actions } from './$types'
-import { fail, redirect } from '@sveltejs/kit'
+import type { Actions } from "./$types";
+import { fail, redirect } from "@sveltejs/kit";
 
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
-    const data = await request.formData()
-    const email = data.get('email') as string
-    const password = data.get('password') as string
+    const data = await request.formData();
+    const email = data.get("email") as string;
+    const password = data.get("password") as string;
 
     // 验证
     if (!email || !password) {
-      return fail(400, { email, missing: true })
+      return fail(400, { email, missing: true });
     }
 
     // 登录逻辑
-    const user = await authenticate(email, password)
+    const user = await authenticate(email, password);
     if (!user) {
-      return fail(401, { email, incorrect: true })
+      return fail(401, { email, incorrect: true });
     }
 
     // 设置 Cookie
-    cookies.set('session', user.sessionId, {
-      path: '/',
+    cookies.set("session", user.sessionId, {
+      path: "/",
       httpOnly: true,
       secure: true,
-      sameSite: 'strict'
-    })
+      sameSite: "strict",
+    });
 
-    throw redirect(303, '/dashboard')
-  }
-}
+    throw redirect(303, "/dashboard");
+  },
+};
 ```
 
 ```svelte
@@ -516,29 +516,29 @@ export const actions: Actions = {
 
 ```typescript
 // Button.test.ts
-import { render, screen, fireEvent } from '@testing-library/svelte'
-import { describe, it, expect, vi } from 'vitest'
-import Button from './Button.svelte'
+import { render, screen, fireEvent } from "@testing-library/svelte";
+import { describe, it, expect, vi } from "vitest";
+import Button from "./Button.svelte";
 
-describe('Button', () => {
-  it('渲染正确的文本', () => {
-    render(Button, { props: { children: '点击我' } })
-    expect(screen.getByText('点击我')).toBeInTheDocument()
-  })
+describe("Button", () => {
+  it("渲染正确的文本", () => {
+    render(Button, { props: { children: "点击我" } });
+    expect(screen.getByText("点击我")).toBeInTheDocument();
+  });
 
-  it('点击时调用 onclick', async () => {
-    const onclick = vi.fn()
-    render(Button, { props: { onclick, children: '点击' } })
+  it("点击时调用 onclick", async () => {
+    const onclick = vi.fn();
+    render(Button, { props: { onclick, children: "点击" } });
 
-    await fireEvent.click(screen.getByRole('button'))
-    expect(onclick).toHaveBeenCalledOnce()
-  })
+    await fireEvent.click(screen.getByRole("button"));
+    expect(onclick).toHaveBeenCalledOnce();
+  });
 
-  it('disabled 时不可点击', () => {
-    render(Button, { props: { disabled: true, children: '禁用' } })
-    expect(screen.getByRole('button')).toBeDisabled()
-  })
-})
+  it("disabled 时不可点击", () => {
+    render(Button, { props: { disabled: true, children: "禁用" } });
+    expect(screen.getByRole("button")).toBeDisabled();
+  });
+});
 ```
 
 ---

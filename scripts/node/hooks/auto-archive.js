@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /**
- * Claude Code Hook: Memory Bank 自动归档
+ * Auto Archive: Memory Bank 自动归档提醒
  *
  * 在 progress.md 被修改后检查行数，超过阈值时提醒归档。
- * 作为 PostToolUse 异步钩子运行，不阻塞主流程。
+ * 跨平台支持（Windows/macOS/Linux）
  *
- * 触发条件：Write|Edit 操作后，目标文件包含 progress.md
+ * 触发时机: PostToolUse
+ * 匹配工具: Write, Edit
  *
  * Exit codes:
  * - 0: 正常退出

@@ -1,15 +1,6 @@
 ---
+description: 研发经理智能体，负责技术方案设计和任务分解
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch, WebFetch, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot
-handoffs:
-  - label: 复杂任务规划
-    agent: planner
-    prompt: 委派 planner agent 进行复杂任务的深度分析和分解
-  - label: UI 设计
-    command: /designer
-    prompt: 前端任务，进行 UI 设计审查
-  - label: 开始开发
-    command: /dev
-    prompt: 后端/纯逻辑任务，开始编码实现
 ---
 
 # /lead - 研发经理智能体
@@ -488,6 +479,45 @@ interface XxxEntity {
 - 可行性 < 60% 时，标注"待用户确认"，列出关键不确定点
 
 ## 本地 Agent 集成
+
+### architect - 系统架构设计
+
+**与 /lead 的关系**:
+| 角色 | 特点 |
+|------|------|
+| `/lead` 命令 | 完整的技术设计流程，包含评审、设计、任务分解 |
+| `architect` agent | 专注于架构设计和 ADR 创建，适合重大架构决策 |
+
+**何时使用 architect agent**:
+
+- 需要创建 ADR（架构决策记录）时
+- 涉及重大架构变更时
+- 需要评估多种架构方案时
+- 系统扩展性设计时
+
+**调用方式**:
+
+```
+使用 Task 工具调用 architect agent:
+- subagent_type: "cc-best:architect"
+- prompt: "为 [功能/系统] 进行架构设计，创建 ADR 记录"
+```
+
+**推荐工作流**:
+
+```
+/lead 开始技术设计
+    ↓
+  需要架构决策？
+    ├─ 否 → 继续设计流程
+    └─ 是 → architect agent ←── 独立架构分析
+              ↓
+           返回 ADR 和设计建议
+              ↓
+  /lead 整合到 DES-XXX
+```
+
+---
 
 ### planner - 复杂任务规划
 

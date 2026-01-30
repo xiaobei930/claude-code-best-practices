@@ -7,6 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.5.7] - 2026-01-29
+
+### Changed / 变更
+
+- **文档一致性审计** - 全仓库文档格式和内容审计
+  - 统一 Skills 子文件标题格式
+  - 统一 Hooks 脚本文件头部注释格式
+  - 修正模板分隔符说明（YAML frontmatter vs Markdown 正文）
+  - 修复 agents README 中缺失的 Skill-Agent 配对关系
+  - 补全 agents README 中的目录结构和代理表
+
+### Fixed / 修复
+
+- **交叉引用一致性** - 修复组件间引用不一致问题
+  - agents README 配对表添加 architect 和 build-error-resolver
+  - 更新官方插件配合表，补全所有 8 个 agents
+
+---
+
+## [0.5.6] - 2026-01-29
+
+### Added / 新增
+
+- **Rust/Tauri 开发支持** - 新增原生应用开发技能
+  - `skills/native/tauri.md` - Tauri 桌面应用开发模式
+  - `skills/backend/rust.md` - Rust 后端开发模式
+
+### Changed / 变更
+
+- **工作模式文档** - 添加 `.claude-plugin/MODES.md`
+  - 详细说明 dev/research/review/planning 四种模式
+  - 模式切换最佳实践
+
+---
+
 ## [0.5.5] - 2026-01-29
 
 ### Added / 新增
@@ -568,6 +603,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.5.7]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.6...v0.5.7
+[0.5.6]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.5...v0.5.6
+[0.5.5]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.4...v0.5.5
 [0.5.4]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/xiaobei930/claude-code-best-practices/compare/v0.5.1...v0.5.2

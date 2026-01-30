@@ -1,6 +1,6 @@
-# E2E 测试技能
+# E2E 测试开发模式
 
-本技能提供 Playwright 端到端测试的完整指南，包括测试结构、Page Object Model、Flaky Test 管理等最佳实践。
+Playwright 端到端测试的完整指南，包括测试结构、Page Object Model、Flaky Test 管理等最佳实践。
 
 ## 何时编写 E2E 测试
 

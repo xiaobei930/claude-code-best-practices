@@ -1,9 +1,6 @@
 ---
+description: 综合验证命令，执行构建、类型、Lint、测试、安全检查
 allowed-tools: Read, Glob, Grep, Bash, TodoWrite, Task
-handoffs:
-  - label: 深度安全审查
-    agent: security-reviewer
-    prompt: 委派 security-reviewer agent 进行深度安全漏洞检查
 ---
 
 # /verify - 综合验证命令

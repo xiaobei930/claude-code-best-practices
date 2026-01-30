@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 /**
- * Claude Code Hook: 会话启动检查
+ * Session Check: 会话启动健康检查
  *
  * 在每次会话开始时自动执行健康检查：
  * 1. 检查 CLAUDE.md 文件大小（过大会影响性能）
  * 2. 检查 memory-bank 文档是否过期
- * 3. 提醒未完成的任务
- *
- * 输出提示信息供 Claude 参考。
- *
+ * 3. 检查 Git 状态，提醒未提交的变更
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: SessionStart
+ * 匹配工具: *
+ *
+ * Exit codes:
+ * - 0: 检查完成，输出提示信息
  */
 
 const fs = require("fs");

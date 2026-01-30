@@ -1,6 +1,6 @@
-# CI/CD 最佳实践
+# CI/CD 流水线开发模式
 
-本文档提供 CI/CD 流水线的最佳实践，涵盖 GitHub Actions 和 GitLab CI。
+CI/CD 流水线的最佳实践指南，涵盖 GitHub Actions 和 GitLab CI。
 
 ## GitHub Actions
 
@@ -17,7 +17,7 @@ on:
     branches: [main]
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
 
 jobs:
   lint:
@@ -29,7 +29,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -70,7 +70,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -129,8 +129,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -156,7 +156,7 @@ name: Build and Push Docker Image
 on:
   push:
     branches: [main]
-    tags: ['v*']
+    tags: ["v*"]
 
 env:
   REGISTRY: ghcr.io
@@ -217,9 +217,9 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to deploy to'
+        description: "Environment to deploy to"
         required: true
-        default: 'staging'
+        default: "staging"
         type: choice
         options:
           - staging
@@ -279,7 +279,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -619,7 +619,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm ci
@@ -638,12 +638,12 @@ jobs:
 branches:
   - main
 plugins:
-  - '@semantic-release/commit-analyzer'
-  - '@semantic-release/release-notes-generator'
-  - '@semantic-release/changelog'
-  - '@semantic-release/npm'
-  - '@semantic-release/github'
-  - '@semantic-release/git'
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/changelog"
+  - "@semantic-release/npm"
+  - "@semantic-release/github"
+  - "@semantic-release/git"
 ```
 
 ---

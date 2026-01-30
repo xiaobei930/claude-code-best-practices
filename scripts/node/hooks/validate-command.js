@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 /**
- * 命令安全验证
+ * Validate Command: 命令安全验证
  *
  * 在 Bash 命令执行前检查危险模式：
- * - 阻止危险的删除命令
- * - 阻止敏感文件操作
- * - 记录所有命令到日志
- *
+ * 1. 阻止危险的删除命令（rm -rf 等）
+ * 2. 阻止敏感文件操作
+ * 3. 记录所有命令到日志
  * 跨平台支持（Windows/macOS/Linux）
+ *
+ * 触发时机: PreToolUse
+ * 匹配工具: Bash
  *
  * Exit codes:
  * - 0: 允许执行
@@ -67,8 +69,9 @@ function logCommand(command, blocked, reason = "") {
     };
 
     appendFile(logFile, JSON.stringify(entry) + "\n");
-  } catch {
-    // 忽略日志错误
+  } catch (err) {
+    // 日志错误不应阻断主流程，但记录以便调试
+    console.error("[validate-command] 日志写入失败:", err.message);
   }
 }
 

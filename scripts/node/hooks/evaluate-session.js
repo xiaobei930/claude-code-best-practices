@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 /**
- * evaluate-session.js - SessionEnd 自动学习钩子
+ * Evaluate Session: 会话结束自动学习评估
  *
- * 会话结束时自动评估是否有可提取的学习模式
- * 融入 memory-bank 体系，输出到 .claude/learned/
+ * 会话结束时评估是否有可提取的学习模式，
+ * 融入 memory-bank 体系，输出到 .claude/learned/。
+ * 跨平台支持（Windows/macOS/Linux）
  *
- * 触发条件: SessionEnd hook
- * 输出: stderr (用户可见的提示)
+ * 触发时机: SessionEnd
+ * 匹配工具: *
+ *
+ * Exit codes:
+ * - 0: 评估完成
  */
 
 const fs = require("fs");

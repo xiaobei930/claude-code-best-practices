@@ -1,8 +1,6 @@
-# iOS/macOS 原生开发
+# iOS/macOS 原生开发模式
 
-## 概述
-
-本文档涵盖 iOS/macOS 原生应用开发的核心知识：
+iOS/macOS 原生应用开发的核心知识：
 
 - Swift 6.x 并发模式
 - SwiftUI 性能优化

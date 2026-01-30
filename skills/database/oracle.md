@@ -1,6 +1,6 @@
-# Oracle 最佳实践
+# Oracle 数据库开发模式
 
-本文档补充 SKILL.md 中的通用指南，专注于 Oracle Database 特定优化。
+Oracle Database 特定优化指南，补充 SKILL.md 通用数据库技能。
 
 ## 触发条件
 

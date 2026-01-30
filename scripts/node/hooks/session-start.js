@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 /**
- * SessionStart Hook - 会话启动时加载上下文
+ * Session Start: 会话启动时加载上下文
  *
+ * 在会话启动时加载项目上下文：
+ * 1. 检查 memory-bank 中的进度文件
+ * 2. 显示待完成任务数量
+ * 3. 报告检测到的包管理器
  * 跨平台支持（Windows/macOS/Linux）
  *
- * 功能：
- * - 检查 memory-bank 中的进度文件
- * - 显示待完成任务数量
- * - 报告检测到的包管理器
+ * 触发时机: SessionStart
+ * 匹配工具: *
+ *
+ * Exit codes:
+ * - 0: 上下文加载完成
  */
 
 const path = require("path");
