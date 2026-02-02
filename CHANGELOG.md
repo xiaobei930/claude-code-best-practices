@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.5.8] - 2026-02-02
+
+### Added / 新增
+
+- **压缩提醒钩子** - 新增 `suggest-compact.js` 钩子
+  - 工具调用达到阈值（默认 40 次）时提醒用户压缩
+  - 作为官方 auto-compact bug 的 workaround
+  - 支持环境变量配置：`COMPACT_THRESHOLD`、`COMPACT_INTERVAL`
+
+### Changed / 变更
+
+- **hooks.json 增强** - 所有钩子添加 `description` 字段
+  - 提高配置文件可读性
+  - 方便用户理解每个钩子的作用
+
+- **iterate 模式优化** - 上下文阈值从 80% 降到 70%
+  - 避免触发官方 auto-compact bug
+  - 添加官方 bug 的说明和链接
+
+- **compact skill 更新** - 添加官方 bug 说明
+  - 记录相关 GitHub issues
+  - 说明问题根因和 workaround
+
+### Fixed / 修复
+
+- **Issue #1** - "不会自动压缩上下文" 问题
+  - 根因：官方 Claude Code auto-compact bug（#18211, #21853）
+  - 解决方案：主动提醒用户在 70% 时手动压缩
+
+---
+
 ## [0.5.7] - 2026-01-29
 
 ### Changed / 变更

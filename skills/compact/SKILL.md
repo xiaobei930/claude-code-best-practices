@@ -9,12 +9,37 @@ parent: session
 
 本技能用于在合适的时机建议上下文压缩，优化会话效率。
 
+> ⚠️ **重要提示**：Claude Code 官方的 auto-compact 有已知 bug（见下文），建议主动在 **70%** 时手动压缩。
+
+## 官方 Auto-Compact Bug
+
+Claude Code 官方的自动压缩功能存在已知问题：
+
+| Issue                                                            | 版本     | 状态     | 问题描述                            |
+| ---------------------------------------------------------------- | -------- | -------- | ----------------------------------- |
+| [#18211](https://github.com/anthropics/claude-code/issues/18211) | v2.1.7+  | 已关闭   | `/compact` 和 auto-compact 同时损坏 |
+| [#21853](https://github.com/anthropics/claude-code/issues/21853) | v2.1.23+ | **开放** | `/compact` 始终失败（回归 bug）     |
+| [#16349](https://github.com/anthropics/claude-code/issues/16349) | -        | -        | 警告和错误阈值相同，无预警          |
+
+**问题根因**：
+
+- 官方 auto-compact 设计在 **95%** 时触发，但压缩本身需要空间
+- 当上下文超过 **~85%** 时，压缩可能因空间不足而失败
+- 警告阈值和错误阈值相同，用户无预警就触发硬限制
+
+**本插件的 Workaround**：
+
+- 默认启用 `suggest-compact.js` 钩子
+- 每 40 次工具调用提醒一次
+- 建议在 **70%** 时主动压缩
+
 ## 触发条件
 
-- 工具调用次数达到阈值
+- 工具调用次数达到阈值（默认 40 次）
 - 从研究/探索阶段转向实现阶段
 - 完成一个里程碑后
 - 计划已最终确定
+- **上下文使用率 > 60%**（建议主动压缩）
 
 ## 为什么需要策略性压缩
 
@@ -23,6 +48,7 @@ parent: session
 - 发生在任意点，经常在任务中途
 - 可能丢失重要上下文
 - 打断思维连贯性
+- **官方有 bug，可能失败**
 
 ### 策略性压缩的优势
 
@@ -30,6 +56,7 @@ parent: session
 - 保留关键决策和上下文
 - 探索后、执行前压缩
 - 里程碑完成后压缩
+- **避免触发官方 bug**
 
 ## 压缩时机
 
@@ -78,15 +105,15 @@ parent: session
 ### 手动触发
 
 ```
-/compact
+/cc-best:compact
 ```
 
 ### 自动建议
 
 当达到以下条件时，系统会提示考虑压缩：
 
-1. **工具调用数达到阈值**（默认 50 次）
-2. **每隔一定间隔**（默认每 25 次工具调用后提醒）
+1. **工具调用数达到阈值**（默认 40 次）
+2. **每隔一定间隔**（默认每 20 次工具调用后提醒）
 
 ## 配置
 
@@ -94,29 +121,25 @@ parent: session
 
 ```bash
 # 环境变量
-export COMPACT_THRESHOLD=50  # 首次提醒的工具调用数
+export COMPACT_THRESHOLD=40  # 首次提醒的工具调用数
+export COMPACT_INTERVAL=20   # 后续提醒间隔
 ```
 
 ### Hook 配置
 
-在 `settings.local.json` 中：
+已在 `hooks/hooks.json` 中默认启用：
 
 ```json
 {
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash skills/compact/suggest-compact.sh"
-          }
-        ],
-        "description": "在逻辑间隔建议压缩"
-      }
-    ]
-  }
+  "matcher": ".*",
+  "hooks": [
+    {
+      "type": "command",
+      "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/suggest-compact.js\"",
+      "timeout": 3
+    }
+  ],
+  "description": "压缩提醒: 工具调用达到阈值时提醒压缩上下文"
 }
 ```
 
@@ -156,10 +179,19 @@ export COMPACT_THRESHOLD=50  # 首次提醒的工具调用数
 ## 与其他命令配合
 
 ```
-/compact          # 执行压缩
-/checkpoint       # 创建检查点（包含压缩）
-/memory           # 更新记忆文件
-/status           # 查看当前状态
+/cc-best:compact     # 保存状态 + 生成摘要
+/cc-best:checkpoint  # 创建检查点
+/cc-best:catchup     # 恢复上下文
+/cc-best:status      # 查看当前状态
+/clear               # 官方命令：清除上下文
+```
+
+### 推荐流程
+
+```
+1. /cc-best:compact    → 保存状态、生成摘要
+2. /clear              → 官方命令清除上下文
+3. /cc-best:catchup    → 恢复上下文继续工作
 ```
 
 ## 最佳实践

@@ -7,11 +7,15 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 
 智能压缩当前对话上下文，保留关键信息，释放 token 空间。
 
+> ⚠️ **重要提示**：官方 auto-compact 有已知 bug，建议在上下文 **70%** 时主动执行压缩。
+> 详见：[#18211](https://github.com/anthropics/claude-code/issues/18211)、[#21853](https://github.com/anthropics/claude-code/issues/21853)
+
 ## 使用场景
 
 - 对话过长，响应变慢
 - 完成一个大功能后，准备开始新功能
 - 上下文中有大量已完成任务的冗余讨论
+- **上下文使用率接近 70%**（避免触发官方 bug）
 
 ## 执行流程
 
@@ -76,12 +80,19 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 2. 输出压缩摘要
 3. 提示用户执行 `/clear`
 
-## 与 /clear 的区别
+## 与官方命令的区别
 
-| 命令       | 行为                   | 适用场景                     |
-| ---------- | ---------------------- | ---------------------------- |
-| `/clear`   | 完全清除上下文         | 任务完成，开始新任务         |
-| `/compact` | 智能压缩，保留关键信息 | 继续当前任务，但需要释放空间 |
+| 命令             | 来源   | 行为                   | 适用场景             |
+| ---------------- | ------ | ---------------------- | -------------------- |
+| `/clear`         | 官方   | 完全清除上下文         | 任务完成，开始新任务 |
+| 官方 `/compact`  | 官方   | 自动压缩（**有 bug**） | 不推荐使用           |
+| 本插件 `compact` | 本插件 | 保存状态 + 生成摘要    | 压缩前的准备工作     |
+| 本插件 `catchup` | 本插件 | 恢复上下文             | `/clear` 后恢复      |
+
+> **命令格式说明**：根据安装方式不同，命令格式也不同：
+>
+> - 通过 `/plugin install` 安装：使用 `/cc-best:compact`、`/cc-best:catchup`
+> - 直接 clone 到 `.claude/`：使用 `/compact`、`/catchup`
 
 ## 输出格式
 
@@ -97,7 +108,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 [摘要内容]
 
 ### 下一步
-执行 `/clear` 清除对话，然后执行 `/catchup` 恢复上下文。
+执行官方 `/clear` 清除对话，然后执行 `/cc-best:catchup` 恢复上下文。
 ```
 
 ## 注意事项

@@ -64,22 +64,29 @@
 <summary>📦 Alternative: Clone for full customization</summary>
 
 ```bash
-git clone https://github.com/xiaobei930/claude-code-best-practices.git my-project
-cd my-project && bash scripts/shell/init.sh
+git clone https://github.com/xiaobei930/claude-code-best-practices.git .claude
+cd .claude && bash scripts/shell/init.sh
+
+# Convert command format from /cc-best:xxx to /xxx
+node scripts/node/convert-to-local.js
 ```
 
 Use clone when you need to customize all files in your repo.
+
+> ⚠️ **Important**: All documentation uses plugin format (`/cc-best:xxx`).
+> Run the conversion script to update to local format (`/xxx`).
 
 </details>
 
 ### Plugin vs Clone: Command Format
 
-| Installation | Command format     | Example                          |
-| ------------ | ------------------ | -------------------------------- |
-| **Plugin**   | `/cc-best:command` | `/cc-best:iterate "add feature"` |
-| **Clone**    | `/command`         | `/iterate "add feature"`         |
+| Installation  | Command format     | Example                          |
+| ------------- | ------------------ | -------------------------------- |
+| **Plugin** ⭐ | `/cc-best:command` | `/cc-best:iterate "add feature"` |
+| **Clone**     | `/command`         | `/iterate "add feature"`         |
 
-> 💡 This README uses short format (`/iterate`) for readability. Plugin users: add `cc-best:` prefix.
+> 💡 **Recommended**: Install via plugin for automatic updates and easier management.
+> All documentation uses plugin format (`/cc-best:xxx`). Clone users: run `convert-to-local.js`.
 
 <details>
 <summary>🗑️ Uninstall</summary>

@@ -54,12 +54,13 @@
 
 ### 插件 vs Clone：命令格式
 
-| 安装方式  | 命令格式           | 示例                          |
-| --------- | ------------------ | ----------------------------- |
-| **插件**  | `/cc-best:command` | `/cc-best:iterate "添加功能"` |
-| **Clone** | `/command`         | `/iterate "添加功能"`         |
+| 安装方式    | 命令格式           | 示例                          |
+| ----------- | ------------------ | ----------------------------- |
+| **插件** ⭐ | `/cc-best:command` | `/cc-best:iterate "添加功能"` |
+| **Clone**   | `/command`         | `/iterate "添加功能"`         |
 
-> 💡 本文档使用短格式（`/iterate`）方便阅读。插件用户请添加 `cc-best:` 前缀。
+> 💡 **推荐**：通过插件安装，自动更新且易于管理。
+> 所有文档使用插件格式（`/cc-best:xxx`）。Clone 用户请运行 `convert-to-local.js`。
 
 <details>
 <summary>📹 演示效果</summary>
@@ -73,11 +74,17 @@
 <summary>📦 替代方案：克隆完整仓库</summary>
 
 ```bash
-git clone https://github.com/xiaobei930/claude-code-best-practices.git my-project
-cd my-project && bash scripts/shell/init.sh
+git clone https://github.com/xiaobei930/claude-code-best-practices.git .claude
+cd .claude && bash scripts/shell/init.sh
+
+# 将命令格式从 /cc-best:xxx 转换为 /xxx
+node scripts/node/convert-to-local.js
 ```
 
 当你需要完全自定义所有文件时使用克隆方式。
+
+> ⚠️ **重要**：所有文档使用插件格式（`/cc-best:xxx`）。
+> 运行转换脚本以更新为本地格式（`/xxx`）。
 
 </details>
 

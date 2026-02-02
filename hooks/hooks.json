@@ -9,7 +9,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/validate-command.js\"",
             "timeout": 5
           }
-        ]
+        ],
+        "description": "命令验证: 阻止危险命令 (rm -rf /, git push --force 等)"
       },
       {
         "matcher": "Bash",
@@ -19,7 +20,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/pause-before-push.js\"",
             "timeout": 5
           }
-        ]
+        ],
+        "description": "推送确认: git push 前暂停确认"
       },
       {
         "matcher": "Bash",
@@ -29,7 +31,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/check-secrets.js\"",
             "timeout": 10
           }
-        ]
+        ],
+        "description": "密钥检测: 检查命令中是否包含 API 密钥等敏感信息"
       },
       {
         "matcher": "Write|Edit",
@@ -39,7 +42,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/protect-files.js\"",
             "timeout": 3
           }
-        ]
+        ],
+        "description": "文件保护: 阻止修改敏感文件 (.env, .key, .git/ 等)"
       }
     ],
     "PostToolUse": [
@@ -51,7 +55,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/format-file.js\"",
             "timeout": 60
           }
-        ]
+        ],
+        "description": "自动格式化: 文件写入后自动格式化代码"
       },
       {
         "matcher": "Write|Edit",
@@ -61,7 +66,19 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/auto-archive.js\"",
             "timeout": 5
           }
-        ]
+        ],
+        "description": "自动归档: progress.md 超过 300 行时提醒归档"
+      },
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/suggest-compact.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "压缩提醒: 工具调用达到阈值时提醒压缩上下文 (官方 auto-compact bug 的 workaround)"
       }
     ],
     "SessionStart": [
@@ -72,7 +89,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/session-check.js\"",
             "timeout": 5
           }
-        ]
+        ],
+        "description": "会话检查: 启动时检查文件更新状态和项目配置"
       }
     ],
     "PreCompact": [
@@ -83,7 +101,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/pre-compact.js\"",
             "timeout": 10
           }
-        ]
+        ],
+        "description": "压缩前保存: 压缩前保存 git 状态、任务列表等到 .pre-compact-state.json"
       }
     ],
     "SessionEnd": [
@@ -94,7 +113,8 @@
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/evaluate-session.js\"",
             "timeout": 10
           }
-        ]
+        ],
+        "description": "会话评估: 会话结束时评估并提取可学习的模式"
       }
     ]
   }

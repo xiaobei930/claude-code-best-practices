@@ -49,14 +49,16 @@
 ## Workflow | 工作流程
 
 ```
-/pm → /clarify(if needed) → /lead → /designer(frontend) → /dev → /qa → /verify → /commit → /clear → loop
+/cc-best:pm → /cc-best:clarify(if needed) → /cc-best:lead → /cc-best:designer(frontend) → /cc-best:dev → /cc-best:qa → /cc-best:verify → /cc-best:commit → /clear → loop
 ```
 
-**Role Commands 角色命令**: `/pm` `/clarify` `/lead` `/designer` `/dev` `/qa`
-**Tool Commands 工具命令**: `/build` `/test` `/run` `/status` `/commit` `/compact` `/checkpoint`
-**Mode Commands 模式命令**: `/iterate` (autonomous) `/pair` (pair programming)
+**Role Commands 角色命令**: `/cc-best:pm` `/cc-best:clarify` `/cc-best:lead` `/cc-best:designer` `/cc-best:dev` `/cc-best:qa`
+**Tool Commands 工具命令**: `/cc-best:build` `/cc-best:test` `/cc-best:run` `/cc-best:status` `/cc-best:commit` `/cc-best:compact` `/cc-best:checkpoint`
+**Mode Commands 模式命令**: `/cc-best:iterate` (autonomous) `/cc-best:pair` (pair programming)
 
-### /iterate Mode Rules | 模式规则 (IMPORTANT)
+> 📝 Clone users: remove `cc-best:` prefix or run `scripts/node/convert-to-local.js`
+
+### /cc-best:iterate Mode Rules | 模式规则 (IMPORTANT)
 
 > **After completing a task, immediately execute the next one. NO summarizing and waiting.**
 > **任务完成后必须立即执行下一个任务，禁止输出总结后等待用户响应。**
@@ -113,13 +115,9 @@
 ## Quick Start | 快速开始
 
 ```bash
-
-/iterate      # Autonomous iteration 自主迭代循环
-/pair         # Pair programming 结对编程模式
-/cc-ralph     # Long-running loop 长时间循环（需安装插件）
-
-
-
+/cc-best:iterate      # Autonomous iteration 自主迭代循环
+/cc-best:pair         # Pair programming 结对编程模式
+/cc-best:cc-ralph     # Long-running loop 长时间循环（需安装 ralph-loop 插件）
 ```
 
 ---

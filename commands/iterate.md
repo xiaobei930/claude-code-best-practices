@@ -101,17 +101,24 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 **不主动 /clear**，除非：
 
-- 上下文使用率 > 80%（系统会提示）
+- 上下文使用率 > 70%（系统会提示）
 - 遇到严重阻塞需要重新开始
 
 **上下文过长时**：
 
 ```
-检测到上下文接近上限（>80%）
-├─ 保存当前状态到 progress.md
-├─ 提示用户：建议执行 /clear 后重新启动 /iterate
+检测到上下文接近上限（>70%）
+├─ 执行 /cc-best:compact 保存状态和生成摘要
+├─ 提示用户执行官方 /clear 清除上下文
+├─ 用户执行 /cc-best:catchup 恢复上下文
 └─ 等待用户决定（唯一允许等待的场景）
 ```
+
+> 📝 **命令格式说明**：本文档使用插件命令格式（`/cc-best:xxx`）。
+> 如果你是直接 clone 到 `.claude/` 目录使用，请去掉 `cc-best:` 前缀。
+
+> ⚠️ **重要提示**：官方 auto-compact 有已知 bug（见 [#18211](https://github.com/anthropics/claude-code/issues/18211)），
+> 当上下文超过 ~85% 时 `/compact` 可能失败。因此建议在 **70%** 时就执行压缩。
 
 ---
 
