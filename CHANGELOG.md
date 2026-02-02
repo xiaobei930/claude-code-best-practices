@@ -36,6 +36,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 根因：官方 Claude Code auto-compact bug（#18211, #21853）
   - 解决方案：主动提醒用户在 70% 时手动压缩
 
+- **命令引用规范化** - 全仓库命令引用格式统一
+  - 57 个文件的命令引用更新为 `/cc-best:xxx` 插件格式
+  - 添加 `fix-command-refs.js` 脚本用于批量更新
+  - 添加 `convert-to-local.js` 脚本供 clone 用户转换为短格式
+  - 文档说明插件格式 vs clone 格式的区别
+
 ---
 
 ## [0.5.7] - 2026-01-29

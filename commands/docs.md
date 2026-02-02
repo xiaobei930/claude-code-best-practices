@@ -328,7 +328,7 @@ npm run doctest
 - architecture.md 可能需要更新
 ```
 
-## 何时使用 /docs
+## 何时使用 /cc-best:docs
 
 | 场景                      | 使用 |
 | ------------------------- | ---- |
@@ -342,7 +342,7 @@ npm run doctest
 ## 与其他命令的配合
 
 ```
-/dev 完成功能 → /docs 同步文档 → /qa 验证 → /commit 提交
+/cc-best:dev 完成功能 → /cc-best:docs 同步文档 → /cc-best:qa 验证 → /cc-best:commit 提交
 ```
 
 ---

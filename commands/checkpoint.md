@@ -138,7 +138,7 @@ git commit -m "type(scope): description"
 ```
 检查点完成。文档已更新。
 
-建议执行 /clear 清除上下文，然后 /iterate 继续下一个任务。
+建议执行 /clear 清除上下文，然后 /cc-best:iterate 继续下一个任务。
 
 下一个任务: [具体任务名称]
 ```
@@ -177,11 +177,11 @@ git commit -m "type(scope): description"
 ## 使用方式
 
 ```bash
-/checkpoint          # 执行完整检查点流程
-/checkpoint verify   # 只验证，不提交
-/checkpoint docs     # 只更新文档
-/checkpoint restore  # 从上一个检查点恢复状态
-/checkpoint --archive  # 归档旧记录（当 progress.md 过大时）
+/cc-best:checkpoint          # 执行完整检查点流程
+/cc-best:checkpoint verify   # 只验证，不提交
+/cc-best:checkpoint docs     # 只更新文档
+/cc-best:checkpoint restore  # 从上一个检查点恢复状态
+/cc-best:checkpoint --archive  # 归档旧记录（当 progress.md 过大时）
 ```
 
 ---
@@ -197,7 +197,7 @@ git commit -m "type(scope): description"
 - "最近决策" 超过 **10 条**
 - "最近检查点" 超过 **5 个**
 
-### `/checkpoint --archive` 流程
+### `/cc-best:checkpoint --archive` 流程
 
 1. **检测文件大小**
 
@@ -229,7 +229,7 @@ git commit -m "type(scope): description"
 
 ```
 ❌ 问题场景:
-progress.md 累积 10000+ 行 → 无法一次读取 → /iterate 失败
+progress.md 累积 10000+ 行 → 无法一次读取 → /cc-best:iterate 失败
 
 ✅ 解决方案:
 滚动窗口 + 自动归档 → progress.md 始终 < 300 行 → 快速读取
@@ -239,7 +239,7 @@ progress.md 累积 10000+ 行 → 无法一次读取 → /iterate 失败
 
 ## 恢复功能
 
-### /checkpoint restore 流程
+### /cc-best:checkpoint restore 流程
 
 当上下文丢失或需要从检查点恢复时：
 
@@ -293,7 +293,7 @@ progress.md 累积 10000+ 行 → 无法一次读取 → /iterate 失败
 ```
 会话1: 完成任务A → 更新 progress.md → /clear
 
-会话2: /iterate → 读取 progress.md → 知道任务A已完成 → 继续任务B
+会话2: /cc-best:iterate → 读取 progress.md → 知道任务A已完成 → 继续任务B
 ```
 
 如果不更新文档：
@@ -301,7 +301,7 @@ progress.md 累积 10000+ 行 → 无法一次读取 → /iterate 失败
 ```
 会话1: 完成任务A → 没更新文档 → /clear
 
-会话2: /iterate → 读取 progress.md → 不知道任务A完成了 → 重复工作！
+会话2: /cc-best:iterate → 读取 progress.md → 不知道任务A完成了 → 重复工作！
 ```
 
 ---

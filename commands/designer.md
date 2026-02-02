@@ -7,7 +7,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFet
 
 作为 UI/UE 设计师，负责界面设计审查和用户体验优化。**核心能力是将技术方案转化为美观、独特、有记忆点的界面设计，确保产品的视觉质量和用户体验，避免"AI slop"通用审美。**
 
-> **重要**: 此角色集成 Anthropic 官方 `frontend-design` Skill。在输出设计指导后，/dev 阶段应调用 `/frontend-design` 来生成高质量前端代码。
+> **重要**: 此角色集成 Anthropic 官方 `frontend-design` Skill。在输出设计指导后，/cc-best:dev 阶段应调用 `/frontend-design` 来生成高质量前端代码。
 
 ## 角色定位
 
@@ -297,7 +297,7 @@ AI 被训练成"平均值"——默认设置、流行趋势快照、复制粘贴
 设计完成后，输出：
 ```
 
-UI 设计指导已完成，调用 /dev 进行开发实现
+UI 设计指导已完成，调用 /cc-best:dev 进行开发实现
 
 美学方向: [方向名称]
 设计理念: [一句话描述]
@@ -312,7 +312,7 @@ UI 设计指导已完成，调用 /dev 进行开发实现
 
 反模式检查: ✅ 已确认避免 AI 通用审美
 
-💡 提示: /dev 实现前端时，建议先调用 /frontend-design 获取高质量设计代码
+💡 提示: /cc-best:dev 实现前端时，建议先调用 /frontend-design 获取高质量设计代码
 
 ```
 
@@ -325,11 +325,11 @@ UI 设计指导已完成，调用 /dev 进行开发实现
 ### 工作流程
 ```
 
-/designer (设计审查)
+/cc-best:designer (设计审查)
 ↓
 输出设计指导
 ↓
-/dev (开发实现)
+/cc-best:dev (开发实现)
 ↓
 调用 /frontend-design (官方 Skill)
 ↓
@@ -344,7 +344,7 @@ UI 设计指导已完成，调用 /dev 进行开发实现
 - 精致的排版、配色、动画
 
 ### 调用方式
-在 /dev 阶段实现前端组件时：
+在 /cc-best:dev 阶段实现前端组件时：
 ```
 
 /frontend-design

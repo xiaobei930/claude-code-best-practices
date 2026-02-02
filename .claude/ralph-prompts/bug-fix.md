@@ -4,7 +4,7 @@
 
 分析并修复指定的 Bug，确保问题彻底解决且不引入新问题。
 
-整合项目的 `/dev` 和 `/qa` 角色，遵循 TDD 修复流程。
+整合项目的 `/cc-best:dev` 和 `/cc-best:qa` 角色，遵循 TDD 修复流程。
 
 ## 输入
 
@@ -19,14 +19,14 @@ Bug 描述: {{BUG_DESCRIPTION}}
 
 ## 修复流程（TDD 风格）
 
-### Phase 1: 复现与分析（/qa 角色）
+### Phase 1: 复现与分析（/cc-best:qa 角色）
 
 1. **验证 Bug 存在**
    - 按照复现步骤操作
    - 确认问题确实存在
    - 记录错误信息/日志
 
-2. **分类问题类型**（参考 /qa 问题分类框架）
+2. **分类问题类型**（参考 /cc-best:qa 问题分类框架）
 
    | 类型             | 定义                 | 处理方式   |
    | ---------------- | -------------------- | ---------- |
@@ -39,7 +39,7 @@ Bug 描述: {{BUG_DESCRIPTION}}
    - 检查数据依赖
    - 输出 `<promise>CANNOT_REPRODUCE</promise>`
 
-### Phase 2: 编写测试（/dev + TDD）
+### Phase 2: 编写测试（/cc-best:dev + TDD）
 
 1. **创建失败测试**（RED）
    - 编写能复现 Bug 的测试用例
@@ -49,7 +49,7 @@ Bug 描述: {{BUG_DESCRIPTION}}
    - 识别相关边界条件
    - 添加边界测试用例
 
-### Phase 3: 修复问题（/dev 角色）
+### Phase 3: 修复问题（/cc-best:dev 角色）
 
 1. **最小修改原则**（GREEN）
    - 只修改必要的代码
@@ -60,11 +60,11 @@ Bug 描述: {{BUG_DESCRIPTION}}
    - 运行完整测试套件
    - 前端 Bug 使用浏览器验证
 
-### Phase 4: 验证（/qa 角色）
+### Phase 4: 验证（/cc-best:qa 角色）
 
 1. **回归测试**
-   - 运行 `/test` 确保所有测试通过
-   - 运行 `/build` 确保构建成功
+   - 运行 `/cc-best:test` 确保所有测试通过
+   - 运行 `/cc-best:build` 确保构建成功
 
 2. **问题闭环验证**
    - 按原复现步骤验证已修复
@@ -72,7 +72,7 @@ Bug 描述: {{BUG_DESCRIPTION}}
 
 ### Phase 5: 提交
 
-使用 `/commit` 命令，格式：
+使用 `/cc-best:commit` 命令，格式：
 
 ```
 fix(scope): 简短描述
@@ -134,7 +134,7 @@ Closes #issue-number (如有)
 
 ### 角色
 
-[/qa | /dev]
+[/cc-best:qa | /cc-best:dev]
 
 ### 执行动作
 

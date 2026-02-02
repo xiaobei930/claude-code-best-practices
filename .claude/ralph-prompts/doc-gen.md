@@ -4,13 +4,13 @@
 
 分析代码库，自动生成完整的项目文档。
 
-整合项目的 `/lead` 角色（架构分析）和 `/dev` 角色（技术文档），遵循项目文档结构。
+整合项目的 `/cc-best:lead` 角色（架构分析）和 `/cc-best:dev` 角色（技术文档），遵循项目文档结构。
 
 ---
 
 ## 执行流程
 
-### Phase 1: 分析（/lead 角色思维）
+### Phase 1: 分析（/cc-best:lead 角色思维）
 
 1. **扫描项目结构**
    - 识别主要模块和入口文件
@@ -28,7 +28,7 @@
    | 部署文档 | `docs/deployment/`            | 需要部署的项目 |
    | 用户指南 | `docs/guides/`                | 面向用户的项目 |
 
-### Phase 2: 生成循环（/dev 角色）
+### Phase 2: 生成循环（/cc-best:dev 角色）
 
 按优先级生成：
 
@@ -63,7 +63,7 @@
 
 ### Phase 4: 提交
 
-使用 `/commit` 命令：
+使用 `/cc-best:commit` 命令：
 
 ```
 docs(scope): 生成/更新 [文档类型]
@@ -142,7 +142,7 @@ your-project/
 
 ### 角色
 
-[/lead | /dev]
+[/cc-best:lead | /cc-best:dev]
 
 ### 分析结果
 

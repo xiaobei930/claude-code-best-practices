@@ -10,11 +10,11 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 ## 用法
 
 ```bash
-/evolve                    # 分析所有学习内容，建议演化
-/evolve --execute          # 执行演化，生成文件
-/evolve --domain testing   # 仅分析测试领域
-/evolve --threshold 5      # 要求 5+ 条相关知识才聚类
-/evolve --dry-run          # 预览不执行
+/cc-best:evolve                    # 分析所有学习内容，建议演化
+/cc-best:evolve --execute          # 执行演化，生成文件
+/cc-best:evolve --domain testing   # 仅分析测试领域
+/cc-best:evolve --threshold 5      # 要求 5+ 条相关知识才聚类
+/cc-best:evolve --dry-run          # 预览不执行
 ```
 
 ## 角色定位
@@ -109,7 +109,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 1. 知识收集
    ├─ 读取 memory-bank/*.md
    ├─ 读取 rules/*.md 中的规则
-   ├─ 读取 /learn --status 的内容
+   ├─ 读取 /cc-best:learn --status 的内容
    └─ 统计每条知识的置信度和使用频率
 
 2. 聚类分析
@@ -174,8 +174,8 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 文件: agents/debugger.md
 
 ---
-运行 `/evolve --execute` 生成以上文件
-运行 `/evolve --dry-run` 预览生成内容
+运行 `/cc-best:evolve --execute` 生成以上文件
+运行 `/cc-best:evolve --dry-run` 预览生成内容
 ```
 
 ---
@@ -284,13 +284,13 @@ evolved-from:
 
 ```
 知识积累循环:
-/learn → 积累知识 → /evolve → 生成能力 → 更高效的工作
+/cc-best:learn → 积累知识 → /cc-best:evolve → 生成能力 → 更高效的工作
 
 代码库分析后:
-/analyze → 提取模式 → /evolve → 生成项目专属 skills
+/cc-best:analyze → 提取模式 → /cc-best:evolve → 生成项目专属 skills
 
 团队知识共享:
-/learn --export → 分享 → /learn --import → /evolve → 统一团队能力
+/cc-best:learn --export → 分享 → /cc-best:learn --import → /cc-best:evolve → 统一团队能力
 ```
 
 ---

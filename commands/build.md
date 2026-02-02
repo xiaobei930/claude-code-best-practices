@@ -90,7 +90,7 @@ cmake --build .
 
 1. 分析错误信息
 2. 定位问题文件和行号
-3. 调用 `/fix` 修复构建错误
+3. 调用 `/cc-best:fix` 修复构建错误
 4. 重新构建验证
 
 ## Agent 集成
@@ -114,15 +114,15 @@ cmake --build .
 **工作流**:
 
 ```
-/build 执行构建
+/cc-best:build 执行构建
     ↓
   构建失败？
     ├─ 否 → 完成
     └─ 是 → 错误复杂？
-              ├─ 否 → /fix 快速修复
+              ├─ 否 → /cc-best:fix 快速修复
               └─ 是 → build-error-resolver agent
                         ↓
                      返回修复方案
                         ↓
-              /fix 执行修复
+              /cc-best:fix 执行修复
 ```

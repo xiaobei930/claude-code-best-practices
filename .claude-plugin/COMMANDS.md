@@ -1,6 +1,6 @@
 # CC-Best Commands Reference | 命令参考
 
-> Version: 0.5.7 | 35 Commands
+> Version: 0.5.8 | 35 Commands
 
 快速查阅所有命令的参数和用法。
 
@@ -8,39 +8,39 @@
 
 ## 角色命令 | Role Commands
 
-| 命令        | 用途                         | 参数         |
-| ----------- | ---------------------------- | ------------ |
-| `/pm`       | 产品经理，需求分析和规划     | `<需求描述>` |
-| `/clarify`  | 需求澄清，解决待确认项       | -            |
-| `/lead`     | 研发经理，技术方案和任务分解 | -            |
-| `/designer` | UI 设计师，界面设计审查      | -            |
-| `/dev`      | 开发工程师，编码实现         | `<任务描述>` |
-| `/qa`       | 测试工程师，质量验证         | -            |
-| `/verify`   | 综合验证（构建、测试、安全） | -            |
+| 命令                | 用途                         | 参数         |
+| ------------------- | ---------------------------- | ------------ |
+| `/cc-best:pm`       | 产品经理，需求分析和规划     | `<需求描述>` |
+| `/cc-best:clarify`  | 需求澄清，解决待确认项       | -            |
+| `/cc-best:lead`     | 研发经理，技术方案和任务分解 | -            |
+| `/cc-best:designer` | UI 设计师，界面设计审查      | -            |
+| `/cc-best:dev`      | 开发工程师，编码实现         | `<任务描述>` |
+| `/cc-best:qa`       | 测试工程师，质量验证         | -            |
+| `/cc-best:verify`   | 综合验证（构建、测试、安全） | -            |
 
 ### 角色流程
 
 ```
-/pm → /clarify(可选) → /lead → /designer(前端) → /dev → /qa → /verify
+/cc-best:pm → /clarify(可选) → /cc-best:lead → /designer(前端) → /cc-best:dev → /cc-best:qa → /cc-best:verify
 ```
 
 ---
 
 ## 模式命令 | Mode Commands
 
-| 命令        | 用途                    | 参数                          |
-| ----------- | ----------------------- | ----------------------------- |
-| `/iterate`  | 自主迭代循环            | -                             |
-| `/pair`     | 结对编程模式            | -                             |
-| `/cc-ralph` | CC-Best Ralph Loop 集成 | -                             |
-| `/mode`     | 切换工作模式            | `dev` / `research` / `review` |
+| 命令                | 用途                    | 参数                          |
+| ------------------- | ----------------------- | ----------------------------- |
+| `/cc-best:iterate`  | 自主迭代循环            | -                             |
+| `/cc-best:pair`     | 结对编程模式            | -                             |
+| `/cc-best:cc-ralph` | CC-Best Ralph Loop 集成 | -                             |
+| `/cc-best:mode`     | 切换工作模式            | `dev` / `research` / `review` |
 
-### /mode 可用模式
+### /cc-best:mode 可用模式
 
 ```bash
-/mode dev      # 开发模式：先写后解释，工作方案优先
-/mode research # 研究模式：深度分析，全面探索
-/mode review   # 审查模式：严格检查，质量优先
+/cc-best:mode dev      # 开发模式：先写后解释，工作方案优先
+/cc-best:mode research # 研究模式：深度分析，全面探索
+/cc-best:mode review   # 审查模式：严格检查，质量优先
 ```
 
 ---
@@ -49,81 +49,81 @@
 
 ### 构建 & 测试
 
-| 命令     | 用途         | 参数                        |
-| -------- | ------------ | --------------------------- |
-| `/build` | 构建项目     | -                           |
-| `/test`  | 运行测试     | `<测试路径>` / `--coverage` |
-| `/run`   | 启动服务     | `api` / `frontend` / `all`  |
-| `/fix`   | 修复构建错误 | -                           |
+| 命令             | 用途         | 参数                        |
+| ---------------- | ------------ | --------------------------- |
+| `/cc-best:build` | 构建项目     | -                           |
+| `/cc-best:test`  | 运行测试     | `<测试路径>` / `--coverage` |
+| `/cc-best:run`   | 启动服务     | `api` / `frontend` / `all`  |
+| `/cc-best:fix`   | 修复构建错误 | -                           |
 
 ### Git & 提交
 
-| 命令      | 用途              | 参数         |
-| --------- | ----------------- | ------------ |
-| `/commit` | Git 提交          | `<提交信息>` |
-| `/pr`     | 创建 Pull Request | -            |
-| `/git`    | Git 操作指南      | -            |
+| 命令              | 用途              | 参数         |
+| ----------------- | ----------------- | ------------ |
+| `/cc-best:commit` | Git 提交          | `<提交信息>` |
+| `/cc-best:pr`     | 创建 Pull Request | -            |
+| `/cc-best:git`    | Git 操作指南      | -            |
 
 ### 状态 & 诊断
 
-| 命令          | 用途         | 参数                     |
-| ------------- | ------------ | ------------------------ |
-| `/status`     | 项目状态诊断 | `--full` / `--conflicts` |
-| `/self-check` | 自我检查     | -                        |
+| 命令                  | 用途         | 参数                     |
+| --------------------- | ------------ | ------------------------ |
+| `/cc-best:status`     | 项目状态诊断 | `--full` / `--conflicts` |
+| `/cc-best:self-check` | 自我检查     | -                        |
 
-#### /status 参数详解
+#### /cc-best:status 参数详解
 
 ```bash
-/status            # 基本状态：Git、Memory Bank、依赖
-/status --full     # 完整诊断 + CC-Best 组件统计
-/status --conflicts # 检测与其他插件的冲突
+/cc-best:status            # 基本状态：Git、Memory Bank、依赖
+/cc-best:status --full     # 完整诊断 + CC-Best 组件统计
+/cc-best:status --conflicts # 检测与其他插件的冲突
 ```
 
 ### 上下文管理
 
-| 命令          | 用途         | 参数 |
-| ------------- | ------------ | ---- |
-| `/compact`    | 上下文压缩   | -    |
-| `/checkpoint` | 检查点保存   | -    |
-| `/catchup`    | 恢复上下文   | -    |
-| `/context`    | 上下文管理   | -    |
-| `/memory`     | 项目记忆管理 | -    |
+| 命令                  | 用途         | 参数 |
+| --------------------- | ------------ | ---- |
+| `/cc-best:compact`    | 上下文压缩   | -    |
+| `/cc-best:checkpoint` | 检查点保存   | -    |
+| `/cc-best:catchup`    | 恢复上下文   | -    |
+| `/cc-best:context`    | 上下文管理   | -    |
+| `/cc-best:memory`     | 项目记忆管理 | -    |
 
 ### 代码质量
 
-| 命令       | 用途       | 参数                                        |
-| ---------- | ---------- | ------------------------------------------- |
-| `/cleanup` | 死代码清理 | -                                           |
-| `/docs`    | 文档同步   | -                                           |
-| `/learn`   | 会话学习   | `--status` / `--export` / `--import <file>` |
-| `/analyze` | 代码库分析 | `--commits <n>` / `--domain <name>`         |
-| `/evolve`  | 知识演化   | `--execute` / `--threshold <n>`             |
+| 命令               | 用途       | 参数                                        |
+| ------------------ | ---------- | ------------------------------------------- |
+| `/cc-best:cleanup` | 死代码清理 | -                                           |
+| `/cc-best:docs`    | 文档同步   | -                                           |
+| `/cc-best:learn`   | 会话学习   | `--status` / `--export` / `--import <file>` |
+| `/cc-best:analyze` | 代码库分析 | `--commits <n>` / `--domain <name>`         |
+| `/cc-best:evolve`  | 知识演化   | `--execute` / `--threshold <n>`             |
 
 ### 任务管理
 
-| 命令     | 用途         | 参数 |
-| -------- | ------------ | ---- |
-| `/task`  | 任务粒度管理 | -    |
-| `/infer` | 模型推理     | -    |
-| `/train` | 模型训练     | -    |
+| 命令             | 用途         | 参数 |
+| ---------------- | ------------ | ---- |
+| `/cc-best:task`  | 任务粒度管理 | -    |
+| `/cc-best:infer` | 模型推理     | -    |
+| `/cc-best:train` | 模型训练     | -    |
 
 ---
 
 ## 配置命令 | Setup Commands
 
-| 命令        | 用途         | 参数                                              |
-| ----------- | ------------ | ------------------------------------------------- |
-| `/setup`    | 项目初始化   | `--hooks` / `--verify` / `--global` / `--project` |
-| `/setup-pm` | 包管理器配置 | `npm` / `pnpm` / `yarn` / `bun`                   |
+| 命令                | 用途         | 参数                                              |
+| ------------------- | ------------ | ------------------------------------------------- |
+| `/cc-best:setup`    | 项目初始化   | `--hooks` / `--verify` / `--global` / `--project` |
+| `/cc-best:setup-pm` | 包管理器配置 | `npm` / `pnpm` / `yarn` / `bun`                   |
 
-### /setup 参数详解
+### /cc-best:setup 参数详解
 
 ```bash
-/setup              # 完整初始化
-/setup --hooks      # 仅配置 hooks
-/setup --hooks --global   # hooks 配置到全局
-/setup --hooks --project  # hooks 配置到项目
-/setup --verify     # 验证配置
+/cc-best:setup              # 完整初始化
+/cc-best:setup --hooks      # 仅配置 hooks
+/cc-best:setup --hooks --global   # hooks 配置到全局
+/cc-best:setup --hooks --project  # hooks 配置到项目
+/cc-best:setup --verify     # 验证配置
 ```
 
 ---
@@ -134,27 +134,27 @@
 
 **高频（每日使用）**
 
-- `/iterate`, `/dev`, `/commit`, `/test`
+- `/cc-best:iterate`, `/cc-best:dev`, `/cc-best:commit`, `/cc-best:test`
 
 **中频（功能开发）**
 
-- `/pm`, `/lead`, `/qa`, `/verify`, `/status`
+- `/cc-best:pm`, `/cc-best:lead`, `/cc-best:qa`, `/cc-best:verify`, `/cc-best:status`
 
 **低频（特定场景）**
 
-- `/setup`, `/compact`, `/cleanup`, `/train`
+- `/cc-best:setup`, `/cc-best:compact`, `/cc-best:cleanup`, `/cc-best:train`
 
 ### 按工作阶段
 
-| 阶段     | 命令                            |
-| -------- | ------------------------------- |
-| 需求分析 | `/pm`, `/clarify`               |
-| 技术设计 | `/lead`, `/designer`            |
-| 编码实现 | `/dev`, `/iterate`, `/pair`     |
-| 质量验证 | `/qa`, `/test`, `/verify`       |
-| 代码提交 | `/commit`, `/pr`                |
-| 维护清理 | `/cleanup`, `/docs`, `/compact` |
-| 知识管理 | `/learn`, `/analyze`, `/evolve` |
+| 阶段     | 命令                                                    |
+| -------- | ------------------------------------------------------- |
+| 需求分析 | `/cc-best:pm`, `/cc-best:clarify`                       |
+| 技术设计 | `/cc-best:lead`, `/cc-best:designer`                    |
+| 编码实现 | `/cc-best:dev`, `/cc-best:iterate`, `/cc-best:pair`     |
+| 质量验证 | `/cc-best:qa`, `/cc-best:test`, `/cc-best:verify`       |
+| 代码提交 | `/cc-best:commit`, `/cc-best:pr`                        |
+| 维护清理 | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:compact` |
+| 知识管理 | `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve` |
 
 ---
 
@@ -163,95 +163,95 @@
 ### 日常开发
 
 ```bash
-/iterate                    # 自主迭代，批量完成任务
-/status                     # 检查项目状态
-/commit                     # 提交变更
+/cc-best:iterate                    # 自主迭代，批量完成任务
+/cc-best:status                     # 检查项目状态
+/cc-best:commit                     # 提交变更
 ```
 
 ### 新功能开发
 
 ```bash
-/pm 实现用户登录功能         # 需求分析
-/lead                       # 技术方案
-/dev                        # 编码实现
-/qa                         # 测试验证
-/verify                     # 综合验证
-/commit                     # 提交代码
+/cc-best:pm 实现用户登录功能         # 需求分析
+/cc-best:lead                       # 技术方案
+/cc-best:dev                        # 编码实现
+/cc-best:qa                         # 测试验证
+/cc-best:verify                     # 综合验证
+/cc-best:commit                     # 提交代码
 ```
 
 ### 代码审查
 
 ```bash
-/status --full              # 完整项目状态
-/qa                         # 质量验证
-/verify                     # 综合检查
+/cc-best:status --full              # 完整项目状态
+/cc-best:qa                         # 质量验证
+/cc-best:verify                     # 综合检查
 ```
 
 ### 上下文管理
 
 ```bash
-/checkpoint                 # 保存当前状态
-/compact                    # 压缩上下文
-/catchup                    # 恢复上下文
+/cc-best:checkpoint                 # 保存当前状态
+/cc-best:compact                    # 压缩上下文
+/cc-best:catchup                    # 恢复上下文
 ```
 
 ### 知识管理
 
 ```bash
-/analyze                    # 分析代码库模式
-/learn                      # 从会话提取知识
-/learn --status             # 查看已学习内容
-/evolve                     # 将知识演化为 skills/agents
+/cc-best:analyze                    # 分析代码库模式
+/cc-best:learn                      # 从会话提取知识
+/cc-best:learn --status             # 查看已学习内容
+/cc-best:evolve                     # 将知识演化为 skills/agents
 ```
 
 ### 知识管理完整循环
 
 ```bash
 # 新项目启动
-/analyze --commits 200      # 分析代码库历史
-/learn --import team.yaml   # 导入团队知识
+/cc-best:analyze --commits 200      # 分析代码库历史
+/cc-best:learn --import team.yaml   # 导入团队知识
 
 # 日常积累
-/learn                      # 会话结束时提取知识
+/cc-best:learn                      # 会话结束时提取知识
 
 # 定期演化
-/evolve                     # 检查可演化的知识聚类
-/evolve --execute           # 生成新的 skills/agents
+/cc-best:evolve                     # 检查可演化的知识聚类
+/cc-best:evolve --execute           # 生成新的 skills/agents
 
 # 团队分享
-/learn --export             # 导出知识分享给团队
+/cc-best:learn --export             # 导出知识分享给团队
 ```
 
 ---
 
 ## 功能边界说明 | Functionality Boundaries
 
-### /verify vs /qa
+### /cc-best:verify vs /cc-best:qa
 
-| 命令      | 层面     | 职责                             | 触发方式 |
-| --------- | -------- | -------------------------------- | -------- |
-| `/verify` | 技术层面 | 构建、类型、Lint、测试、安全扫描 | 自动执行 |
-| `/qa`     | 业务层面 | 基于需求验收标准测试，问题分类   | 智能判断 |
+| 命令              | 层面     | 职责                             | 触发方式 |
+| ----------------- | -------- | -------------------------------- | -------- |
+| `/cc-best:verify` | 技术层面 | 构建、类型、Lint、测试、安全扫描 | 自动执行 |
+| `/cc-best:qa`     | 业务层面 | 基于需求验收标准测试，问题分类   | 智能判断 |
 
-> `/verify` = CI/CD 自动化检查，`/qa` = 测试工程师角色验证
+> `/cc-best:verify` = CI/CD 自动化检查，`/cc-best:qa` = 测试工程师角色验证
 
-### /build vs /test
+### /cc-best:build vs /cc-best:test
 
-| 命令     | 阶段 | 职责                   | 输出              |
-| -------- | ---- | ---------------------- | ----------------- |
-| `/build` | 编译 | 构建项目，检查编译错误 | 构建产物/错误日志 |
-| `/test`  | 测试 | 运行测试套件           | 测试报告/覆盖率   |
+| 命令             | 阶段 | 职责                   | 输出              |
+| ---------------- | ---- | ---------------------- | ----------------- |
+| `/cc-best:build` | 编译 | 构建项目，检查编译错误 | 构建产物/错误日志 |
+| `/cc-best:test`  | 测试 | 运行测试套件           | 测试报告/覆盖率   |
 
-> `/build` 在前，`/test` 在后，顺序不可颠倒
+> `/cc-best:build` 在前，`/cc-best:test` 在后，顺序不可颠倒
 
-### /memory vs /context
+### /cc-best:memory vs /cc-best:context
 
-| 命令       | 范围     | 职责                  | 存储位置          |
-| ---------- | -------- | --------------------- | ----------------- |
-| `/memory`  | 持久化   | 维护 memory-bank 文件 | memory-bank/\*.md |
-| `/context` | 会话层面 | 加载/管理对话上下文   | 当前会话          |
+| 命令               | 范围     | 职责                  | 存储位置          |
+| ------------------ | -------- | --------------------- | ----------------- |
+| `/cc-best:memory`  | 持久化   | 维护 memory-bank 文件 | memory-bank/\*.md |
+| `/cc-best:context` | 会话层面 | 加载/管理对话上下文   | 当前会话          |
 
-> `/memory` = 项目长期记忆，`/context` = 会话信息加载
+> `/cc-best:memory` = 项目长期记忆，`/cc-best:context` = 会话信息加载
 
 ---
 

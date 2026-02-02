@@ -69,7 +69,7 @@ describe("GET /api/users", () => {
 测试完整用户流程：
 
 ```typescript
-import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/cc-best:test";
 
 test("用户可以搜索和筛选", async ({ page }) => {
   await page.goto("/products");

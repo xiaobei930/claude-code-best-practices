@@ -371,7 +371,7 @@ e2e/
 
 ```typescript
 // pages/LoginPage.ts
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator } from "@playwright/cc-best:test";
 
 export class LoginPage {
   private readonly emailInput: Locator;
@@ -400,7 +400,7 @@ export class LoginPage {
 
 ```typescript
 // tests/auth.spec.ts
-import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/cc-best:test";
 import { LoginPage } from "../pages/LoginPage";
 
 test.describe("用户认证", () => {
@@ -449,7 +449,7 @@ await page.waitForTimeout(3000); // 不稳定
 
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/cc-best:test";
 
 export default defineConfig({
   testDir: "./e2e/tests",

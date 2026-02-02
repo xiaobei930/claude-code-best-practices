@@ -47,10 +47,10 @@ color: blue
 需求分析 → architect(架构设计) → planner(任务分解) → dev(实现) → code-reviewer(架构合规检查)
 ```
 
-### 与 /lead 角色的集成
+### 与 /cc-best:lead 角色的集成
 
 ```
-/lead 技术设计
+/cc-best:lead 技术设计
     ↓
   architect agent
     ├─ 分析现有架构
@@ -60,7 +60,7 @@ color: blue
     ↓
   planner agent
     ↓
-  /dev 开始实现
+  /cc-best:dev 开始实现
 ```
 
 ## 架构设计流程

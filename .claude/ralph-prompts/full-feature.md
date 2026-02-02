@@ -15,7 +15,7 @@
 
 ## 完整开发流程
 
-### Phase 1: 需求分析（/pm 角色）
+### Phase 1: 需求分析（/cc-best:pm 角色）
 
 1. **理解需求**
    - 读取需求描述
@@ -33,7 +33,7 @@
    - 参考 `memory-bank/architecture.md` 和 `tech-stack.md`
    - 无依据时采用 MVP 原则，标注"待确认"
 
-### Phase 2: 技术设计（/lead 角色）
+### Phase 2: 技术设计（/cc-best:lead 角色）
 
 1. **架构设计**
    - 分析技术可行性
@@ -50,7 +50,7 @@
    - 创建 `docs/tasks/TSK-XXX.md`（每个任务一个）
    - 更新 `memory-bank/progress.md`
 
-### Phase 3: 前端设计（/designer 角色，如涉及前端）
+### Phase 3: 前端设计（/cc-best:designer 角色，如涉及前端）
 
 1. **设计审查**
    - 确定美学方向
@@ -60,7 +60,7 @@
 2. **输出设计指导**
    - 在 DES 文档中补充 UI 设计章节
 
-### Phase 4: 编码实现（/dev 角色）
+### Phase 4: 编码实现（/cc-best:dev 角色）
 
 1. **按任务顺序执行**
    - 从 P1 (MVP) 任务开始
@@ -75,7 +75,7 @@
    - 编写单元测试
    - 前端: 浏览器验证
 
-### Phase 5: 测试验证（/qa 角色）
+### Phase 5: 测试验证（/cc-best:qa 角色）
 
 1. **验收测试**
    - 按 User Story 验收标准验证
@@ -171,7 +171,7 @@
 [Phase X: 阶段名称]
 
 ### 当前角色
-[/pm | /lead | /designer | /dev | /qa]
+[/cc-best:pm | /cc-best:lead | /cc-best:designer | /cc-best:dev | /cc-best:qa]
 
 ### 执行动作
 1. [动作1]

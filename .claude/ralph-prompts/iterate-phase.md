@@ -4,7 +4,7 @@
 
 你正在开发 {{PROJECT_NAME}}，{{PROJECT_DESCRIPTION}}。
 
-本模板与项目的 `/iterate` 命令逻辑一致，实现跨会话的 Phase 迭代。
+本模板与项目的 `/cc-best:iterate` 命令逻辑一致，实现跨会话的 Phase 迭代。
 
 ---
 
@@ -18,13 +18,13 @@
 
 | 当前状态         | 选择角色    | 动作                   |
 | ---------------- | ----------- | ---------------------- |
-| 无需求文档       | `/pm`       | 需求分析，创建 REQ-XXX |
-| REQ 有待澄清项   | `/clarify`  | 需求澄清               |
-| 有需求无设计     | `/lead`     | 技术设计，创建 DES-XXX |
-| 有设计，前端任务 | `/designer` | UI 设计指导            |
-| 有任务待开发     | `/dev`      | 编码实现               |
-| 有代码待测试     | `/qa`       | 验证测试               |
-| QA 发现 Bug      | `/dev`      | 修复后重新 `/qa`       |
+| 无需求文档       | `/cc-best:pm`       | 需求分析，创建 REQ-XXX |
+| REQ 有待澄清项   | `/cc-best:clarify`  | 需求澄清               |
+| 有需求无设计     | `/cc-best:lead`     | 技术设计，创建 DES-XXX |
+| 有设计，前端任务 | `/cc-best:designer` | UI 设计指导            |
+| 有任务待开发     | `/cc-best:dev`      | 编码实现               |
+| 有代码待测试     | `/cc-best:qa`       | 验证测试               |
+| QA 发现 Bug      | `/cc-best:dev`      | 修复后重新 `/cc-best:qa`       |
 
 ## 每次迭代执行步骤
 
@@ -41,12 +41,12 @@
    - 遵循编码规范和约束
 
 4. **验证结果**
-   - `/test` - 运行测试
-   - `/build` - 构建验证
+   - `/cc-best:test` - 运行测试
+   - `/cc-best:build` - 构建验证
    - 前端任务使用浏览器验证
 
 5. **提交和更新**
-   - `/commit` - Conventional Commits 格式
+   - `/cc-best:commit` - Conventional Commits 格式
    - 更新 `memory-bank/progress.md`
 
 6. **继续下一任务**（不等待用户）
@@ -95,7 +95,7 @@
 ### 当前状态
 
 - **Phase**: [Phase 名称]
-- **角色**: [/pm | /lead | /dev | /qa]
+- **角色**: [/cc-best:pm | /cc-best:lead | /cc-best:dev | /cc-best:qa]
 - **任务**: TSK-XXX [任务名称]
 
 ### 执行动作

@@ -78,6 +78,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 ## 命令
 
-- `/context load` - 加载项目上下文
-- `/context save` - 保存当前状态
-- `/context show` - 显示当前上下文范围
+- `/cc-best:context load` - 加载项目上下文
+- `/cc-best:context save` - 保存当前状态
+- `/cc-best:context show` - 显示当前上下文范围

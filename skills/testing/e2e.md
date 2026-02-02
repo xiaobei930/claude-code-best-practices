@@ -33,7 +33,7 @@ tests/
 
 ```typescript
 // pages/LoginPage.ts
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator } from "@playwright/cc-best:test";
 
 export class LoginPage {
   readonly page: Page;
@@ -65,7 +65,7 @@ export class LoginPage {
 
 ```typescript
 // tests/e2e/auth/login.spec.ts
-import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/cc-best:test";
 import { LoginPage } from "../../pages/LoginPage";
 
 test.describe("用户登录", () => {
@@ -190,7 +190,7 @@ npx playwright show-report
 
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/cc-best:test";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -232,15 +232,15 @@ export default defineConfig({
 6. **截图记录** - 失败时自动截图便于调试
 7. **并行执行** - 利用多 worker 加速测试
 
-## 与 /qa 角色的配合
+## 与 /cc-best:qa 角色的配合
 
 ```
-/qa 功能验收
+/cc-best:qa 功能验收
     ↓
   手动测试 + 单元测试
     ↓
 E2E 测试（核心流程）
     ↓
-  全部通过 → /commit
+  全部通过 → /cc-best:commit
   有失败 → 修复 → 重新测试
 ```

@@ -11,19 +11,19 @@ allowed-tools: Read, Write, Edit, Bash, Glob
 
 ```bash
 # 完整初始化（默认）
-/setup
+/cc-best:setup
 
 # 仅配置 hooks（修复插件 hooks 问题）
-/setup --hooks
+/cc-best:setup --hooks
 
 # 配置 hooks 到全局
-/setup --hooks --global
+/cc-best:setup --hooks --global
 
 # 配置 hooks 到项目
-/setup --hooks --project
+/cc-best:setup --hooks --project
 
 # 验证 hooks 配置是否正确
-/setup --verify
+/cc-best:setup --verify
 ```
 
 ---
@@ -102,7 +102,7 @@ fi
 
 ### 3. 清理旧版本 Hooks 配置
 
-> ⚠️ **v0.5.7 升级**: 如果从旧版本升级，全局 settings.json 可能有冗余的 hooks 配置需要清理。
+> ⚠️ **v0.5.8 升级**: 如果从旧版本升级，全局 settings.json 可能有冗余的 hooks 配置需要清理。
 
 **检查并清理**：
 
@@ -130,8 +130,8 @@ if (settings.hooks) {
 
 ### 4. 配置 Hooks（Plugin 模式）
 
-> ℹ️ **v0.5.7+**: Hooks 现在通过插件内置 `hooks/hooks.json` 自动生效，无需手动配置。
-> 如果需要自定义或覆盖，可以使用 `/setup --hooks` 手动配置。
+> ℹ️ **v0.5.8+**: Hooks 现在通过插件内置 `hooks/hooks.json` 自动生效，无需手动配置。
+> 如果需要自定义或覆盖，可以使用 `/cc-best:setup --hooks` 手动配置。
 
 **自动生效的 Hooks**：
 
@@ -147,7 +147,7 @@ if (settings.hooks) {
 
 **手动配置（可选）**：
 
-如果插件内置 hooks 不生效，可以运行 `/setup --hooks` 手动配置。
+如果插件内置 hooks 不生效，可以运行 `/cc-best:setup --hooks` 手动配置。
 
 配置位置选择：
 
@@ -162,15 +162,15 @@ const path = require("path");
 
 // 获取插件绝对路径
 const homeDir = os.homedir();
-const pluginVersion = "0.5.7"; // 当前版本
+const pluginVersion = "0.5.8"; // 当前版本
 const pluginPath = path.join(
   homeDir,
   ".claude/plugins/cache/claude-code-best-practices/cc-best",
   pluginVersion,
 );
-// Windows: C:\Users\<user>\.claude\plugins\cache\claude-code-best-practices\cc-best\0.5.7
-// macOS:   /Users/<user>/.claude/plugins/cache/claude-code-best-practices/cc-best/0.5.7
-// Linux:   /home/<user>/.claude/plugins/cache/claude-code-best-practices/cc-best/0.5.7
+// Windows: C:\Users\<user>\.claude\plugins\cache\claude-code-best-practices\cc-best\0.5.8
+// macOS:   /Users/<user>/.claude/plugins/cache/claude-code-best-practices/cc-best/0.5.8
+// Linux:   /home/<user>/.claude/plugins/cache/claude-code-best-practices/cc-best/0.5.8
 ```
 
 **Hooks 配置模板**：
@@ -230,7 +230,7 @@ Hooks 配置：
 下一步：
 1. 确认 CLAUDE.md 中的项目信息
 2. 编辑 memory-bank/tech-stack.md 定义技术栈
-3. 运行 /pm 开始第一个需求
+3. 运行 /cc-best:pm 开始第一个需求
 ```
 
 ---

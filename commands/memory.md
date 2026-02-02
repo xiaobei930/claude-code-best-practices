@@ -57,9 +57,9 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 ### 恢复命令
 
-- `/memory load` - 加载项目上下文
-- `/memory status` - 显示当前记忆状态
-- `/memory sync` - 同步所有记忆文件
+- `/cc-best:memory load` - 加载项目上下文
+- `/cc-best:memory status` - 显示当前记忆状态
+- `/cc-best:memory sync` - 同步所有记忆文件
 
 ## 关键文件索引
 

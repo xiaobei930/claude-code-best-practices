@@ -57,7 +57,7 @@
 | 安装方式    | 命令格式           | 示例                          |
 | ----------- | ------------------ | ----------------------------- |
 | **插件** ⭐ | `/cc-best:command` | `/cc-best:iterate "添加功能"` |
-| **Clone**   | `/command`         | `/iterate "添加功能"`         |
+| **Clone**   | `/command`         | `/cc-best:iterate "添加功能"`         |
 
 > 💡 **推荐**：通过插件安装，自动更新且易于管理。
 > 所有文档使用插件格式（`/cc-best:xxx`）。Clone 用户请运行 `convert-to-local.js`。
@@ -99,14 +99,14 @@ node scripts/node/convert-to-local.js
 
 ### 接下来会发生什么？
 
-运行 `/iterate "实现用户认证功能"` 后，Claude 会：
+运行 `/cc-best:iterate "实现用户认证功能"` 后，Claude 会：
 
 ```
-1. 📋 /pm     → 分析需求，创建任务分解
-2. 🏗️ /lead   → 设计技术方案
-3. 💻 /dev    → 编写代码，创建测试
-4. 🧪 /qa     → 运行测试，验证质量
-5. ✅ /commit → 提交代码，生成规范的提交信息
+1. 📋 /cc-best:pm     → 分析需求，创建任务分解
+2. 🏗️ /cc-best:lead   → 设计技术方案
+3. 💻 /cc-best:dev    → 编写代码，创建测试
+4. 🧪 /cc-best:qa     → 运行测试，验证质量
+5. ✅ /cc-best:commit → 提交代码，生成规范的提交信息
 ```
 
 你只需要看着，必要时介入即可。
@@ -115,19 +115,19 @@ node scripts/node/convert-to-local.js
 
 | 我想要...  | 命令                          | Claude 会做什么                     |
 | ---------- | ----------------------------- | ----------------------------------- |
-| 开发新功能 | `/iterate "添加暗黑模式切换"` | 完整流程：规划 → 编码 → 测试 → 提交 |
-| 修复 Bug   | `/iterate "修复登录超时问题"` | 排查 → 修复 → 验证 → 提交           |
-| 代码审查   | `/pm "审查最近的改动"`        | 分析代码，提出改进建议              |
-| 学习代码库 | `/pair`                       | 逐步探索，每步都有解释              |
+| 开发新功能 | `/cc-best:iterate "添加暗黑模式切换"` | 完整流程：规划 → 编码 → 测试 → 提交 |
+| 修复 Bug   | `/cc-best:iterate "修复登录超时问题"` | 排查 → 修复 → 验证 → 提交           |
+| 代码审查   | `/cc-best:pm "审查最近的改动"`        | 分析代码，提出改进建议              |
+| 学习代码库 | `/cc-best:pair`                       | 逐步探索，每步都有解释              |
 
 ### 适合谁？
 
 | 你是...              | 推荐模式   | 原因                                   |
 | -------------------- | ---------- | -------------------------------------- |
 | **多角色团队**       | 完整工作流 | PM → Lead → Dev → QA 映射你的流程      |
-| **独立开发者**       | `/iterate` | 让 Claude 处理繁琐工作                 |
-| **学习 Claude Code** | `/pair`    | 每一步都理解后再继续                   |
-| **快速修复**         | 直接命令   | `/dev "修复这个拼写错误"` 处理简单任务 |
+| **独立开发者**       | `/cc-best:iterate` | 让 Claude 处理繁琐工作                 |
+| **学习 Claude Code** | `/cc-best:pair`    | 每一步都理解后再继续                   |
+| **快速修复**         | 直接命令   | `/cc-best:dev "修复这个拼写错误"` 处理简单任务 |
 
 ---
 
@@ -136,14 +136,14 @@ node scripts/node/convert-to-local.js
 | 特性                | 说明                                              |
 | ------------------- | ------------------------------------------------- |
 | 🎭 **角色化工作流** | PM → Lead → Designer → Dev → QA — 完整开发循环    |
-| 🔄 **自主迭代模式** | `/iterate` 自动完成任务，无需干预                 |
+| 🔄 **自主迭代模式** | `/cc-best:iterate` 自动完成任务，无需干预                 |
 | 🛡️ **安全钩子**     | 阻止 `rm -rf /`、`git push --force` 等危险命令    |
 | 📐 **多语言规范**   | Python、Vue/TS、C++、Java、C#、Go、Swift 编码规范 |
 | 🧠 **记忆库**       | 跨会话持久化进度和决策                            |
 | 🌐 **跨平台**       | Windows、macOS、Linux — 自动检测包管理器          |
 
 <details>
-<summary>📹 查看 /iterate 运行演示</summary>
+<summary>📹 查看 /cc-best:iterate 运行演示</summary>
 <br>
 <p align="center">
   <img src="assets/iterate.gif" alt="迭代演示" width="80%">
@@ -204,9 +204,9 @@ flowchart LR
 
 | 模式         | 命令        | 适用场景       | 特点               |
 | ------------ | ----------- | -------------- | ------------------ |
-| **自主迭代** | `/iterate`  | 任务清单明确   | 完全自主，无需干预 |
-| **结对编程** | `/pair`     | 学习、敏感操作 | 每步确认，人机协作 |
-| **长时循环** | `/cc-ralph` | 小时级批量任务 | 需安装插件         |
+| **自主迭代** | `/cc-best:iterate`  | 任务清单明确   | 完全自主，无需干预 |
+| **结对编程** | `/cc-best:pair`     | 学习、敏感操作 | 每步确认，人机协作 |
+| **长时循环** | `/cc-best:cc-ralph` | 小时级批量任务 | 需安装插件         |
 
 > 📖 **详细使用指南**: 参见 [MODES.md](.claude-plugin/MODES.md)，包含各模式的使用场景、控制方法和最佳实践。
 
@@ -218,13 +218,13 @@ flowchart LR
 
 | 类别       | 命令                                                              | 用途           |
 | ---------- | ----------------------------------------------------------------- | -------------- |
-| **角色**   | `/pm`, `/lead`, `/dev`, `/qa`, `/designer`, `/clarify`, `/verify` | 开发工作流角色 |
-| **模式**   | `/iterate`, `/pair`, `/cc-ralph`, `/mode`                         | 自主/结对模式  |
-| **构建**   | `/build`, `/test`, `/run`, `/fix`                                 | 构建测试自动化 |
-| **Git**    | `/commit`, `/pr`, `/git`                                          | 版本控制       |
-| **上下文** | `/compact`, `/checkpoint`, `/catchup`, `/context`, `/memory`      | 会话管理       |
-| **质量**   | `/cleanup`, `/docs`, `/learn`, `/analyze`, `/evolve`              | 代码质量&知识  |
-| **配置**   | `/setup`, `/setup-pm`, `/status`, `/self-check`                   | 配置诊断       |
+| **角色**   | `/cc-best:pm`, `/cc-best:lead`, `/cc-best:dev`, `/cc-best:qa`, `/cc-best:designer`, `/cc-best:clarify`, `/cc-best:verify` | 开发工作流角色 |
+| **模式**   | `/cc-best:iterate`, `/cc-best:pair`, `/cc-best:cc-ralph`, `/cc-best:mode`                         | 自主/结对模式  |
+| **构建**   | `/cc-best:build`, `/cc-best:test`, `/cc-best:run`, `/cc-best:fix`                                 | 构建测试自动化 |
+| **Git**    | `/cc-best:commit`, `/cc-best:pr`, `/cc-best:git`                                          | 版本控制       |
+| **上下文** | `/cc-best:compact`, `/cc-best:checkpoint`, `/cc-best:catchup`, `/cc-best:context`, `/cc-best:memory`      | 会话管理       |
+| **质量**   | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve`              | 代码质量&知识  |
+| **配置**   | `/cc-best:setup`, `/cc-best:setup-pm`, `/cc-best:status`, `/cc-best:self-check`                   | 配置诊断       |
 
 > 📖 **完整参考**: 查看 [COMMANDS.md](.claude-plugin/COMMANDS.md) 了解所有参数和用法示例。
 
@@ -253,11 +253,11 @@ flowchart LR
 ```mermaid
 flowchart TB
     subgraph User["👤 你"]
-        CMD["/iterate '添加功能'"]
+        CMD["/cc-best:iterate '添加功能'"]
     end
 
     subgraph Commands["📋 命令 (35)"]
-        PM["/pm"] --> Lead["/lead"] --> Dev["/dev"] --> QA["/qa"]
+        PM["/cc-best:pm"] --> Lead["/cc-best:lead"] --> Dev["/cc-best:dev"] --> QA["/cc-best:qa"]
     end
 
     subgraph Skills["🛠️ 技能 (17)"]
@@ -303,7 +303,7 @@ flowchart TB
 | `code-reviewer` 智能体     | `code-review` 插件  | 模板：轻量级本地版；插件：功能更强大，自动触发 |
 | `security-reviewer` 智能体 | `security-guidance` | 模板：OWASP 检查清单；插件：自动安全分析       |
 | `code-simplifier` 智能体   | `code-simplifier`   | 功能相似；插件拥有更多上下文                   |
-| `/cc-ralph` 命令           | `ralph-loop` 插件   | CC-Best 封装；需插件支持跨会话持久化           |
+| `/cc-best:cc-ralph` 命令           | `ralph-loop` 插件   | CC-Best 封装；需插件支持跨会话持久化           |
 | `hookify` 示例             | `hookify` 插件      | 模板：示例配置；插件：完整钩子管理             |
 
 ### 推荐的插件配置
@@ -400,7 +400,7 @@ allowed_tools:
 > 由于 [Claude Code 已知问题](https://github.com/anthropics/claude-code/issues/9354)，插件 hooks **默认禁用**。要启用安全防护和自动化 hooks，请运行：
 >
 > ```bash
-> /setup --hooks
+> /cc-best:setup --hooks
 > ```
 >
 > 此命令会配置使用绝对路径的 hooks。详见 [FAQ](#钩子问题)。
@@ -438,7 +438,7 @@ allowed_tools:
 ### 3. 上下文管理
 
 - 普通模式：频繁 `/clear`，避免上下文过长
-- `/iterate` 模式：不主动 clear，保持循环连续性
+- `/cc-best:iterate` 模式：不主动 clear，保持循环连续性
 
 ### 4. MCP 不要贪多
 
@@ -488,20 +488,20 @@ bash scripts/shell/cleanup.sh --all
 <details>
 <summary><strong>钩子不工作？</strong></summary>
 
-运行 `/setup --verify` 诊断。常见修复：
+运行 `/cc-best:setup --verify` 诊断。常见修复：
 
 - Clone 用户：`cp .claude/settings.local.json.example .claude/settings.local.json`
-- 插件用户：运行 `/setup --hooks` 配置绝对路径
+- 插件用户：运行 `/cc-best:setup --hooks` 配置绝对路径
 - Windows：查看 [FAQ.md](FAQ.md#钩子问题) 了解 `${CLAUDE_PLUGIN_ROOT}` 解决方案
 </details>
 
 <details>
-<summary><strong>/iterate vs /pair？</strong></summary>
+<summary><strong>/cc-best:iterate vs /pair？</strong></summary>
 
 | 模式       | 控制方式 | 适用场景       |
 | ---------- | -------- | -------------- |
-| `/iterate` | 完全自主 | 任务清单明确   |
-| `/pair`    | 每步确认 | 学习、敏感操作 |
+| `/cc-best:iterate` | 完全自主 | 任务清单明确   |
+| `/cc-best:pair`    | 每步确认 | 学习、敏感操作 |
 
 </details>
 
@@ -510,18 +510,18 @@ bash scripts/shell/cleanup.sh --all
 
 - **Ctrl+C** 或 **Escape** — 立即中断当前操作
 - Claude 会保留 `memory-bank/progress.md` 中的进度
-- 之后输入 `/iterate` 可从断点继续
+- 之后输入 `/cc-best:iterate` 可从断点继续
 
 </details>
 
 <details>
-<summary><strong>如果 /qa 失败怎么办？</strong></summary>
+<summary><strong>如果 /cc-best:qa 失败怎么办？</strong></summary>
 
 Claude 会自动：
 
 1. 分析失败原因
-2. 回到 `/dev` 修复问题
-3. 重新运行 `/qa`
+2. 回到 `/cc-best:dev` 修复问题
+3. 重新运行 `/cc-best:qa`
 4. 循环直到通过或达到最大重试次数（默认 3 次）
 
 如果仍然失败，Claude 会暂停并请求你的输入。
@@ -575,8 +575,8 @@ Claude 会自动：
 
 | MCP 服务器 | 使用者                     | 用途                             |
 | ---------- | -------------------------- | -------------------------------- |
-| Playwright | `/designer`, `/dev`, `/pm` | 浏览器自动化，用于 UI 测试和截图 |
-| Firecrawl  | `/pm`, `/lead`             | 网页抓取，用于需求调研           |
+| Playwright | `/cc-best:designer`, `/cc-best:dev`, `/cc-best:pm` | 浏览器自动化，用于 UI 测试和截图 |
+| Firecrawl  | `/cc-best:pm`, `/cc-best:lead`             | 网页抓取，用于需求调研           |
 
 > **说明**：这些是可选的。没有 MCP 服务器命令也能工作，但功能会有所减少。
 > 安装方式：Claude Code 设置 > MCP Servers

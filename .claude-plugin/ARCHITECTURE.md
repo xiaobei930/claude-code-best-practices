@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.5.7 | Last Updated: 2026-01-30
+> Version: 0.5.8 | Last Updated: 2026-02-02
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -73,30 +73,30 @@
 ```
 用户需求
     ↓
-/pm (产品经理)
+/cc-best:pm (产品经理)
     ↓
     ├─ agent: requirement-validator (需求验证)
     ↓
-/clarify (澄清)
+/cc-best:clarify (澄清)
     ↓
-/lead (研发经理)
+/cc-best:lead (研发经理)
     ├─ agent: architect (架构设计) ← NEW
     ├─ agent: planner (任务规划)
     ↓
-    ├─→ /designer (UI/UX 设计)
+    ├─→ /cc-best:designer (UI/UX 设计)
     │
-    ├─→ /dev (开发)
+    ├─→ /cc-best:dev (开发)
     │   ├─ agent: tdd-guide + skills: testing
     │   ├─ agent: code-simplifier
     │   └─ agent: code-reviewer
     │
-    └─→ /qa (质量保证)
+    └─→ /cc-best:qa (质量保证)
         └─ agent: code-reviewer
 
-/build (构建)
+/cc-best:build (构建)
     └─ agent: build-error-resolver + skills: debug ← NEW
 
-/verify (最终验证)
+/cc-best:verify (最终验证)
     └─ agent: security-reviewer + skills: security
 ```
 
@@ -104,20 +104,20 @@
 
 ## 4. Commands → Agents/Skills 引用关系
 
-| Command     | Agent(s)                                  | Skills       | 用途                     |
-| ----------- | ----------------------------------------- | ------------ | ------------------------ |
-| `/pm`       | requirement-validator                     | -            | 需求文档质量验证         |
-| `/clarify`  | (可选)                                    | -            | 需求澄清                 |
-| `/lead`     | architect, planner                        | architecture | 架构设计和任务规划       |
-| `/designer` | -                                         | -            | UI/UX 设计               |
-| `/dev`      | tdd-guide, code-simplifier, code-reviewer | -            | 开发实现                 |
-| `/build`    | build-error-resolver                      | debug        | 构建错误修复             |
-| `/qa`       | code-reviewer                             | -            | 代码审查                 |
-| `/verify`   | security-reviewer                         | security     | 安全审查                 |
-| `/fix`      | build-error-resolver                      | debug        | 修复编译/类型错误        |
-| `/learn`    | -                                         | learning     | 会话知识提取             |
-| `/analyze`  | -                                         | learning     | 代码库模式分析           |
-| `/evolve`   | -                                         | learning     | 知识演化为 skills/agents |
+| Command             | Agent(s)                                  | Skills       | 用途                     |
+| ------------------- | ----------------------------------------- | ------------ | ------------------------ |
+| `/cc-best:pm`       | requirement-validator                     | -            | 需求文档质量验证         |
+| `/cc-best:clarify`  | (可选)                                    | -            | 需求澄清                 |
+| `/cc-best:lead`     | architect, planner                        | architecture | 架构设计和任务规划       |
+| `/cc-best:designer` | -                                         | -            | UI/UX 设计               |
+| `/cc-best:dev`      | tdd-guide, code-simplifier, code-reviewer | -            | 开发实现                 |
+| `/cc-best:build`    | build-error-resolver                      | debug        | 构建错误修复             |
+| `/cc-best:qa`       | code-reviewer                             | -            | 代码审查                 |
+| `/cc-best:verify`   | security-reviewer                         | security     | 安全审查                 |
+| `/cc-best:fix`      | build-error-resolver                      | debug        | 修复编译/类型错误        |
+| `/cc-best:learn`    | -                                         | learning     | 会话知识提取             |
+| `/cc-best:analyze`  | -                                         | learning     | 代码库模式分析           |
+| `/cc-best:evolve`   | -                                         | learning     | 知识演化为 skills/agents |
 
 ---
 
@@ -230,7 +230,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.5.7**
+当前版本: **0.5.8**
 
 ---
 
@@ -337,11 +337,11 @@ hooks/
 
 ### 并行调用场景
 
-| 触发 Command | 并行 Agents                       | 场景       |
-| ------------ | --------------------------------- | ---------- |
-| `/dev`       | tdd-guide + code-simplifier       | 开发实现   |
-| `/qa`        | code-reviewer + security-reviewer | 质量审查   |
-| `/lead`      | architect + planner               | 设计和规划 |
+| 触发 Command    | 并行 Agents                       | 场景       |
+| --------------- | --------------------------------- | ---------- |
+| `/cc-best:dev`  | tdd-guide + code-simplifier       | 开发实现   |
+| `/cc-best:qa`   | code-reviewer + security-reviewer | 质量审查   |
+| `/cc-best:lead` | architect + planner               | 设计和规划 |
 
 ---
 

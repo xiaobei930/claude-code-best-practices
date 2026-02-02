@@ -382,7 +382,7 @@ from unittest.mock import AsyncMock, patch
 
 @pytest.fixture
 async def client(app):
-    async with AsyncClient(app=app, base_url="http://test") as ac:
+    async with AsyncClient(app=app, base_url="http://cc-best:test") as ac:
         yield ac
 
 @pytest.fixture

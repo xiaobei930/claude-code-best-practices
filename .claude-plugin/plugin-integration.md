@@ -63,8 +63,8 @@
 
 | 本地命令    | 官方插件                          | 关系说明                             |
 | ----------- | --------------------------------- | ------------------------------------ |
-| `/iterate`  | `ralph-loop` (提供 `/ralph-loop`) | 本地：单会话循环；插件：跨会话持久化 |
-| `/designer` | `frontend-design`                 | 本地：设计指导；插件：设计系统集成   |
+| `/cc-best:iterate`  | `ralph-loop` (提供 `/ralph-loop`) | 本地：单会话循环；插件：跨会话持久化 |
+| `/cc-best:designer` | `frontend-design`                 | 本地：设计指导；插件：设计系统集成   |
 | hooks 配置  | `hookify`                         | 本地：示例配置；插件：完整 Hook 管理 |
 
 ---
@@ -156,7 +156,7 @@ Claude 委派 security-reviewer agent
 **无插件时**:
 
 ```
-/iterate 命令在单会话内循环执行
+/cc-best:iterate 命令在单会话内循环执行
 会话结束后需手动恢复上下文
 ```
 
@@ -189,9 +189,9 @@ Claude 会在适当时机自动委派：
 
 所有 `/xxx` 命令都是本地实现，无需插件：
 
-- `/pm`, `/lead`, `/dev`, `/qa` - 角色命令
-- `/iterate`, `/pair` - 模式命令
-- `/build`, `/test`, `/commit` - 工具命令
+- `/cc-best:pm`, `/cc-best:lead`, `/cc-best:dev`, `/cc-best:qa` - 角色命令
+- `/cc-best:iterate`, `/cc-best:pair` - 模式命令
+- `/cc-best:build`, `/cc-best:test`, `/cc-best:commit` - 工具命令
 
 ### Skills（自动加载）
 

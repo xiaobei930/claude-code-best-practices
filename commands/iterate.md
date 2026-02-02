@@ -40,31 +40,31 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ### Step 1: 确定角色
 
-| 当前状态                            | 选择角色    | 动作                                 |
-| ----------------------------------- | ----------- | ------------------------------------ |
-| 无需求文档                          | `/pm`       | 需求分析                             |
-| REQ 有待澄清项（≥1 个低置信度决策） | `/clarify`  | 需求澄清                             |
-| 有需求无设计                        | `/lead`     | 技术设计                             |
-| 有设计，前端任务未设计              | `/designer` | UI 设计指导                          |
-| 有任务待开发                        | `/dev`      | 编码实现                             |
-| 有代码待验证                        | `/verify`   | 综合验证（构建+类型+Lint+测试+安全） |
-| 验证通过，待功能验收                | `/qa`       | 功能验收                             |
-| QA 发现实现 Bug                     | `/dev`      | 修复后重新 `/verify`                 |
+| 当前状态                            | 选择角色            | 动作                                 |
+| ----------------------------------- | ------------------- | ------------------------------------ |
+| 无需求文档                          | `/cc-best:pm`       | 需求分析                             |
+| REQ 有待澄清项（≥1 个低置信度决策） | `/cc-best:clarify`  | 需求澄清                             |
+| 有需求无设计                        | `/cc-best:lead`     | 技术设计                             |
+| 有设计，前端任务未设计              | `/cc-best:designer` | UI 设计指导                          |
+| 有任务待开发                        | `/cc-best:dev`      | 编码实现                             |
+| 有代码待验证                        | `/cc-best:verify`   | 综合验证（构建+类型+Lint+测试+安全） |
+| 验证通过，待功能验收                | `/cc-best:qa`       | 功能验收                             |
+| QA 发现实现 Bug                     | `/cc-best:dev`      | 修复后重新 `/cc-best:verify`         |
 
 ### Step 2: 执行任务
 
 ```
 角色命令执行
-  ├─ /dev: 编码实现 + 单元测试
-  ├─ /verify: 构建 + 类型 + Lint + 测试 + 安全扫描
-  ├─ /qa: 功能验收 + E2E 测试
+  ├─ /cc-best:dev: 编码实现 + 单元测试
+  ├─ /cc-best:verify: 构建 + 类型 + Lint + 测试 + 安全扫描
+  ├─ /cc-best:qa: 功能验收 + E2E 测试
   └─ 前端：浏览器验证（Playwright 截图）
 ```
 
 ### Step 3: 完成任务
 
 ```
-/commit → 更新 progress.md → 读取下一任务 → 立即执行
+/cc-best:commit → 更新 progress.md → 读取下一任务 → 立即执行
 ```
 
 **不要停下来！继续下一个任务。**
@@ -118,7 +118,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 > 如果你是直接 clone 到 `.claude/` 目录使用，请去掉 `cc-best:` 前缀。
 
 > ⚠️ **重要提示**：官方 auto-compact 有已知 bug（见 [#18211](https://github.com/anthropics/claude-code/issues/18211)），
-> 当上下文超过 ~85% 时 `/compact` 可能失败。因此建议在 **70%** 时就执行压缩。
+> 当上下文超过 ~85% 时 `/cc-best:compact` 可能失败。因此建议在 **70%** 时就执行压缩。
 
 ---
 
@@ -144,9 +144,9 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ---
 
-## 与 /pair 的区别
+## 与 /cc-best:pair 的区别
 
-| 对比项   | `/iterate`         | `/pair`              |
+| 对比项   | `/cc-best:iterate` | `/cc-best:pair`      |
 | -------- | ------------------ | -------------------- |
 | 自主程度 | 完全自主           | 人机协作             |
 | 用户参与 | 仅在阻塞时         | 每步确认             |

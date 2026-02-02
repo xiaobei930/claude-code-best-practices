@@ -89,16 +89,16 @@ allowed-tools: Read, Glob, Grep, Bash
 
 | 场景         | 命令组合                           |
 | ------------ | ---------------------------------- |
-| 新会话开始   | `/catchup` → 了解状态 → 继续工作   |
-| 切换任务后   | `/clear` → `/catchup` → 开始新任务 |
-| 长时间中断后 | `/catchup` → 回顾进度 → 继续       |
-| 上下文压缩后 | `/catchup` → 恢复关键信息          |
+| 新会话开始   | `/cc-best:catchup` → 了解状态 → 继续工作   |
+| 切换任务后   | `/clear` → `/cc-best:catchup` → 开始新任务 |
+| 长时间中断后 | `/cc-best:catchup` → 回顾进度 → 继续       |
+| 上下文压缩后 | `/cc-best:catchup` → 恢复关键信息          |
 
 ---
 
 ## 深度恢复模式
 
-### /catchup deep
+### /cc-best:catchup deep
 
 当需要更深入的上下文恢复时：
 
@@ -122,7 +122,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 ## 快速恢复模式
 
-### /catchup quick
+### /cc-best:catchup quick
 
 只读取最关键的信息：
 
@@ -142,7 +142,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 ## 与 Memory Persistence 配合
 
-如果启用了 Memory Persistence hooks，/catchup 会自动检查：
+如果启用了 Memory Persistence hooks，/cc-best:catchup 会自动检查：
 
 ```bash
 # 检查最近的会话文件
@@ -169,7 +169,7 @@ allowed-tools: Read, Glob, Grep, Bash
         "hooks": [
           {
             "type": "command",
-            "command": "echo '[Session] 建议执行 /catchup 恢复上下文' && ls -la ~/.claude/sessions/*.tmp 2>/dev/null | tail -3"
+            "command": "echo '[Session] 建议执行 /cc-best:catchup 恢复上下文' && ls -la ~/.claude/sessions/*.tmp 2>/dev/null | tail -3"
           }
         ]
       }
@@ -182,7 +182,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 ## 恢复检查清单
 
-/catchup 执行后，确认：
+/cc-best:catchup 执行后，确认：
 
 - [ ] 了解项目的技术栈
 - [ ] 知道当前所处的阶段
@@ -196,7 +196,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 ### Q: progress.md 不存在怎么办？
 
-A: 提示用户执行 `/setup` 或 `/init` 初始化项目。
+A: 提示用户执行 `/cc-best:setup` 或 `/init` 初始化项目。
 
 ### Q: Git 仓库不存在怎么办？
 
@@ -212,7 +212,7 @@ A: 在输出中明确标注，建议优先处理。
 
 - 此命令**仅读取信息**，不修改任何文件
 - 如果 memory-bank 文档不存在，会提示需要先初始化
-- 配合 `/iterate` 使用效果最佳
+- 配合 `/cc-best:iterate` 使用效果最佳
 - 恢复后建议先确认理解正确，再开始工作
 
 ---

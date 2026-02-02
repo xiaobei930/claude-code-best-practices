@@ -13,7 +13,7 @@ allowed-tools: Read, Glob, Grep, Bash, TodoWrite, Task
 
 | 场景     | 触发时机                    |
 | -------- | --------------------------- |
-| 提交前   | `/dev` 完成后，`/commit` 前 |
+| 提交前   | `/cc-best:dev` 完成后，`/cc-best:commit` 前 |
 | 合并前   | PR 准备合并到主分支前       |
 | 发布前   | 版本发布前的最终检查        |
 | 问题排查 | 快速定位哪个环节有问题      |
@@ -22,7 +22,7 @@ allowed-tools: Read, Glob, Grep, Bash, TodoWrite, Task
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    /verify 验证流程                              │
+│                    /cc-best:verify 验证流程                              │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  Phase 1: 构建检查                                              │
@@ -208,17 +208,17 @@ Summary:
 
 ```bash
 # 完整验证（默认）
-/verify
+/cc-best:verify
 
 # 快速验证（跳过耗时步骤）
-/verify --quick
+/cc-best:verify --quick
 # 仅执行: build + type + lint
 
 # 仅测试
-/verify --test-only
+/cc-best:verify --test-only
 
 # 仅安全扫描
-/verify --security-only
+/cc-best:verify --security-only
 ```
 
 ## 项目类型自动检测
@@ -237,12 +237,12 @@ Summary:
 ## 与其他命令的关系
 
 ```
-/dev (开发完成)
+/cc-best:dev (开发完成)
     ↓
-/verify (综合验证)  ←── 本命令
+/cc-best:verify (综合验证)  ←── 本命令
     ↓
-    ├─ PASS → /qa (功能验收) → /commit
-    └─ FAIL → 修复问题 → 重新 /verify
+    ├─ PASS → /cc-best:qa (功能验收) → /cc-best:commit
+    └─ FAIL → 修复问题 → 重新 /cc-best:verify
 ```
 
 ## 失败后的处理
@@ -251,25 +251,25 @@ Summary:
 
 1. 检查错误信息
 2. 修复编译/构建错误
-3. 重新 `/verify`
+3. 重新 `/cc-best:verify`
 
 ### 类型检查失败
 
 1. 修复类型错误
 2. 确保类型注解完整
-3. 重新 `/verify`
+3. 重新 `/cc-best:verify`
 
 ### 测试失败
 
 1. 分析失败原因
 2. 修复代码或测试
-3. 重新 `/verify`
+3. 重新 `/cc-best:verify`
 
 ### 安全扫描失败
 
 1. 更新有漏洞的依赖
 2. 移除硬编码敏感信息
-3. 重新 `/verify`
+3. 重新 `/cc-best:verify`
 
 ## 自定义配置
 
@@ -310,7 +310,7 @@ Phase 4 Test:     [PASS] 42/42
 Phase 5 Security: [PASS]
 Phase 6 Git:      [INFO] 3 files modified
 
-➡️ 下一步: /commit 提交代码
+➡️ 下一步: /cc-best:commit 提交代码
 ```
 
 ### 验证失败输出
@@ -334,7 +334,7 @@ src/user.ts:42 - Type 'string' is not assignable to 'number'
 
 </details>
 
-➡️ 下一步: 修复类型错误后重新 /verify
+➡️ 下一步: 修复类型错误后重新 /cc-best:verify
 ```
 
 ---
@@ -382,7 +382,7 @@ src/user.ts:42 - Type 'string' is not assignable to 'number'
 **推荐工作流**:
 
 ```
-/verify Phase 5 (自动安全扫描)
+/cc-best:verify Phase 5 (自动安全扫描)
     ↓
   发现问题 or 敏感代码？
     ↓
@@ -390,7 +390,7 @@ security-reviewer (深度审查)  ←── Agent 补充检查
     ↓
   修复建议 + 风险评估
     ↓
-/commit
+/cc-best:commit
 ```
 
 **Skill vs Agent 选择**:

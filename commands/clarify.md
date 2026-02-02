@@ -17,13 +17,13 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, WebSearch, WebFetch, As
 
 ## 触发条件
 
-**需要 /clarify 的情况**（满足任一）:
+**需要 /cc-best:clarify 的情况**（满足任一）:
 
 1. REQ 文档中有"待澄清项" ≥ 1 个
 2. PM 决策置信度为"低"的项目 ≥ 1 个
 3. 用户主动调用
 
-**不需要 /clarify 的情况**:
+**不需要 /cc-best:clarify 的情况**:
 
 - 所有待澄清项都有合理默认值且影响小
 - PM 决策置信度都是"高"或"中"
@@ -95,7 +95,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, WebSearch, WebFetch, As
    └─ 记录澄清历史
 
 6. 交接下游
-   └─ 调用 /lead 进行技术设计
+   └─ 调用 /cc-best:lead 进行技术设计
 ```
 
 ## 输出格式
@@ -141,7 +141,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, WebSearch, WebFetch, As
 
 | 场景                 | 决策                             |
 | -------------------- | -------------------------------- |
-| 无待澄清项           | 直接通知，建议进入 /lead         |
+| 无待澄清项           | 直接通知，建议进入 /cc-best:lead         |
 | 待澄清项都有合理默认 | 询问是否需要确认，否则使用默认值 |
 | 用户拒绝回答某问题   | 使用推荐答案，标注为"默认值"     |
 | 问题 > 5 个          | 选择最重要的 5 个，其他用默认值  |
@@ -159,21 +159,21 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, WebSearch, WebFetch, As
 
 REQ-XXX 已更新，待澄清项已清除。
 
-调用 /lead 进行技术评审和任务分解
+调用 /cc-best:lead 进行技术评审和任务分解
 ```
 
 ---
 
-## 与 /pm 的协作
+## 与 /cc-best:pm 的协作
 
 ```
-/pm 输出 REQ
+/cc-best:pm 输出 REQ
     │
-    ├─ 无待澄清项 → 直接 /lead
+    ├─ 无待澄清项 → 直接 /cc-best:lead
     │
-    └─ 有待澄清项 → /clarify
+    └─ 有待澄清项 → /cc-best:clarify
                       │
-                      └─ 澄清完成 → /lead
+                      └─ 澄清完成 → /cc-best:lead
 ```
 
 **PM 的责任**:

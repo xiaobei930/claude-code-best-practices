@@ -13,9 +13,9 @@ allowed-tools: Read, Glob, Bash
 
 示例：
 
-- `/run` - 启动所有服务
-- `/run api` - 只启动后端 API
-- `/run frontend` - 只启动前端
+- `/cc-best:run` - 启动所有服务
+- `/cc-best:run api` - 只启动后端 API
+- `/cc-best:run frontend` - 只启动前端
 
 ## 任务
 

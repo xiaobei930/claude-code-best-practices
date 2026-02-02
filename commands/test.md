@@ -79,6 +79,6 @@ dotnet test --collect:"XPlat Code Coverage"    # 覆盖率
 如果测试失败：
 
 1. 分析失败原因
-2. 如果是代码问题，调用 `/dev` 修复
+2. 如果是代码问题，调用 `/cc-best:dev` 修复
 3. 如果是测试问题，更新测试用例
 4. 重新运行测试验证

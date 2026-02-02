@@ -123,7 +123,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFet
    └─ 更新 memory-bank/progress.md
 
 5. 交接下游
-   └─ 调用 /lead 进行技术评审
+   └─ 调用 /cc-best:lead 进行技术评审
 ```
 
 ## 需求编号规则
@@ -253,7 +253,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFet
 
 ## 关联设计
 
-- (待 /lead 创建后补充)
+- (待 /cc-best:lead 创建后补充)
 ```
 
 ## 决策置信度说明
@@ -306,13 +306,13 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFet
 **推荐工作流**:
 
 ```
-/pm 编写需求
+/cc-best:pm 编写需求
     ↓
   文档内自检清单 ←── 快速自查
     ↓
 requirement-validator ←── 重要需求用 Agent 再验证
     ↓
-/lead 技术设计
+/cc-best:lead 技术设计
 ```
 
 ---
@@ -331,7 +331,7 @@ requirement-validator ←── 重要需求用 Agent 再验证
 🎯 User Stories: N 个 (MVP: M 个)
 📝 决策: N 项 (高置信: X, 待确认: Y)
 
-➡️ 下一步: /lead 技术评审
+➡️ 下一步: /cc-best:lead 技术评审
 ```
 
 ### 待澄清输出
@@ -342,7 +342,7 @@ requirement-validator ←── 重要需求用 Agent 再验证
 📄 REQ-XXX: [需求名称]
 ❓ 待澄清: N 项 (影响: 范围/安全/UX)
 
-➡️ 建议: /clarify 澄清后继续
+➡️ 建议: /cc-best:clarify 澄清后继续
 ```
 
 ---
@@ -352,7 +352,7 @@ requirement-validator ←── 重要需求用 Agent 再验证
 完成需求定义后，输出：
 
 ```
-需求已定义，调用 /lead 进行技术评审和任务分解
+需求已定义，调用 /cc-best:lead 进行技术评审和任务分解
 
 💡 重要需求建议先调用 requirement-validator agent 验证质量
 ```

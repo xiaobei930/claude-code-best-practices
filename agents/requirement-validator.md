@@ -1,6 +1,6 @@
 ---
 name: requirement-validator
-description: "Performs 'unit tests for requirements': validates completeness, clarity, and consistency of requirement documents. Use after /pm completes REQ document or when validating requirement quality before design phase."
+description: "Performs 'unit tests for requirements': validates completeness, clarity, and consistency of requirement documents. Use after /cc-best:pm completes REQ document or when validating requirement quality before design phase."
 model: sonnet
 tools: Read, Grep, Glob
 skills: []
@@ -140,8 +140,8 @@ color: magenta
 
 ## 使用场景
 
-1. **/pm 完成后** - 验证 REQ 文档质量
-2. **/clarify 完成后** - 确认澄清是否解决了问题
+1. **/cc-best:pm 完成后** - 验证 REQ 文档质量
+2. **/cc-best:clarify 完成后** - 确认澄清是否解决了问题
 3. **设计评审前** - 确保需求足够清晰可设计
 
 ## 与其他组件的关系
@@ -156,7 +156,7 @@ color: magenta
 ### 调用链
 
 ```
-/pm → requirement-validator → /clarify（如需要）→ /lead → architect → planner
+/cc-best:pm → requirement-validator → /clarify（如需要）→ /cc-best:lead → architect → planner
 ```
 
 - **PM** 写需求，尽量自检

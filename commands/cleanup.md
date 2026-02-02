@@ -259,10 +259,10 @@ grep -r "require('package')" src/
 
 ### 下一步
 
-建议定期（每月）运行 /cleanup 保持代码库整洁
+建议定期（每月）运行 /cc-best:cleanup 保持代码库整洁
 ```
 
-## 何时使用 /cleanup
+## 何时使用 /cc-best:cleanup
 
 | 场景                   | 使用 |
 | ---------------------- | ---- |

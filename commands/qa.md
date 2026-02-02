@@ -52,7 +52,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
 测试失败时：
 
 1. 代码是否按设计实现？
-   └─ 否 → 实现 Bug → 返回 /dev
+   └─ 否 → 实现 Bug → 返回 /cc-best:dev
    └─ 是 → 继续
 
 2. 设计是否符合需求？
@@ -61,17 +61,17 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
 
 3. 需求假设是否合理？
    └─ 否 → 需求假设错误 → 记录问题，继续
-   └─ 是 → 边界情况遗漏 → 返回 /dev 补充
+   └─ 是 → 边界情况遗漏 → 返回 /cc-best:dev 补充
 ```
 
 ### 问题类型定义
 
 | 类型             | 定义                     | 处理方式           |
 | ---------------- | ------------------------ | ------------------ |
-| **实现 Bug**     | 代码未按设计实现         | 返回 /dev 修复     |
+| **实现 Bug**     | 代码未按设计实现         | 返回 /cc-best:dev 修复     |
 | **设计偏差**     | 设计与需求不符           | 记录，后续迭代处理 |
 | **需求假设错误** | PM/Lead 的假设不符合实际 | 记录，后续迭代调整 |
-| **边界遗漏**     | 未处理的边界情况         | 返回 /dev 补充     |
+| **边界遗漏**     | 未处理的边界情况         | 返回 /cc-best:dev 补充     |
 
 ### 决策假设验证
 
@@ -121,7 +121,7 @@ QA 需要关注 REQ 和 DES 中的决策记录：
    └─ 提供修复/调整建议
 
 6. 反馈结果
-   ├─ 有实现 Bug → 返回 /dev 修复
+   ├─ 有实现 Bug → 返回 /cc-best:dev 修复
    ├─ 仅有假设问题 → 记录后继续下一任务
    └─ 全部通过 → 更新进度，继续下一任务
 ```
@@ -183,17 +183,17 @@ QA 需要关注 REQ 和 DES 中的决策记录：
     └─ 安全失败 → 更新依赖/移除敏感信息 → 重新验证
 ```
 
-### 调用 /verify
+### 调用 /cc-best:verify
 
-复杂验证场景建议调用 `/verify` 命令执行综合验证：
+复杂验证场景建议调用 `/cc-best:verify` 命令执行综合验证：
 
 ```
-/qa 功能测试通过
+/cc-best:qa 功能测试通过
     ↓
-/verify 综合验证
+/cc-best:verify 综合验证
     ↓
-PASS → /commit
-FAIL → 修复 → 重新 /verify
+PASS → /cc-best:commit
+FAIL → 修复 → 重新 /cc-best:verify
 ```
 
 ## 测试类型
@@ -339,21 +339,21 @@ npx playwright codegen http://localhost:3000
 
 | 场景               | 决策                                        |
 | ------------------ | ------------------------------------------- |
-| 有实现 Bug         | 返回 /dev 修复，**修复后必须重新 /qa 验证** |
+| 有实现 Bug         | 返回 /cc-best:dev 修复，**修复后必须重新 /cc-best:qa 验证** |
 | 仅有假设问题       | 记录问题，继续下一任务                      |
-| Bug 和假设问题都有 | 先修复 Bug（/dev → /qa 循环），假设问题记录 |
+| Bug 和假设问题都有 | 先修复 Bug（/cc-best:dev → /cc-best:qa 循环），假设问题记录 |
 | 测试全部通过       | 更新进度，继续循环                          |
 
 ### Bug 修复闭环
 
 ```
-/qa 发现 Bug
+/cc-best:qa 发现 Bug
     ↓
-返回 /dev 修复
+返回 /cc-best:dev 修复
     ↓
-/dev 修复完成
+/cc-best:dev 修复完成
     ↓
-重新 /qa 验证  ←── 必须！不能跳过
+重新 /cc-best:qa 验证  ←── 必须！不能跳过
     ↓
 通过 → 继续下一任务
 失败 → 继续循环修复
@@ -377,10 +377,10 @@ npx playwright codegen http://localhost:3000
 - prompt: "审查 [文件/模块] 的代码质量和安全性"
 ```
 
-**与 /qa 的配合**:
+**与 /cc-best:qa 的配合**:
 
 ```
-/qa (功能验收)
+/cc-best:qa (功能验收)
     ↓
   手动测试 + 单元测试
     ↓
@@ -388,7 +388,7 @@ code-reviewer (深度审查)  ←── Agent 独立上下文
     ↓
   架构 + 质量 + 安全报告
     ↓
-/commit
+/cc-best:commit
 ```
 
 **Skill vs Agent 选择**:
@@ -429,10 +429,10 @@ code-reviewer (深度审查)  ←── Agent 独立上下文
 - 置信度评分系统（≥80 才报告）
 - 自动跳过已审查/草稿/已关闭 PR
 
-**与 /qa 的配合**:
+**与 /cc-best:qa 的配合**:
 
 ```
-/qa (功能验收)
+/cc-best:qa (功能验收)
     ↓
   手动测试 + 单元测试
     ↓
@@ -440,16 +440,16 @@ code-reviewer (深度审查)  ←── Agent 独立上下文
     ↓
   自动化 PR 分析
     ↓
-/commit
+/cc-best:commit
 ```
 
 ### 使用建议
 
 | 场景     | 推荐                         |
 | -------- | ---------------------------- |
-| 小型改动 | /qa 手动验证即可             |
-| 中型功能 | /qa + /code-review           |
-| 大型功能 | /qa + /code-review --comment |
+| 小型改动 | /cc-best:qa 手动验证即可             |
+| 中型功能 | /cc-best:qa + /code-review           |
+| 大型功能 | /cc-best:qa + /code-review --comment |
 | PR 审查  | /code-review --comment       |
 
 ---
@@ -468,7 +468,7 @@ code-reviewer (深度审查)  ←── Agent 独立上下文
 ✓ 验收标准: 全部满足
 ✓ 决策假设: 已验证
 
-➡️ 下一步: /verify 综合验证
+➡️ 下一步: /cc-best:verify 综合验证
 ```
 
 ### 发现 Bug 输出
@@ -487,7 +487,7 @@ code-reviewer (深度审查)  ←── Agent 独立上下文
 
 </details>
 
-➡️ 下一步: 返回 /dev 修复
+➡️ 下一步: 返回 /cc-best:dev 修复
 ```
 
 ### 假设问题输出
@@ -509,11 +509,11 @@ code-reviewer (深度审查)  ←── Agent 独立上下文
 - **有实现 Bug**:
 
   ```
-  发现 N 个实现 Bug，返回 /dev 修复：
+  发现 N 个实现 Bug，返回 /cc-best:dev 修复：
   1. [Bug1 描述]
   2. [Bug2 描述]
 
-  修复完成后请重新调用 /qa 验证
+  修复完成后请重新调用 /cc-best:qa 验证
   ```
 
 - **仅有假设问题或全部通过**:

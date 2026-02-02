@@ -15,7 +15,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  /cc-ralph (cc-best 插件)                                    │
+│  /cc-best:cc-ralph (cc-best 插件)                                    │
 │  ├── 读取项目状态 (progress.md, CLAUDE.md)                   │
 │  ├── 生成 cc-best 工作流 Prompt                              │
 │  │   (角色切换、迭代步骤、完成标准)                           │
@@ -35,7 +35,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 **为什么需要 cc-ralph？**
 直接用 `/ralph-loop:ralph-loop "任务描述"` 时，需要手动编写完整的 prompt。
-而 `/cc-ralph` 自动：
+而 `/cc-best:cc-ralph` 自动：
 
 1. 读取项目当前状态
 2. 注入 cc-best 的角色工作流（PM→Lead→Designer→Dev→QA）
@@ -63,7 +63,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 >
 > 1. **推荐**：使用 WSL (Windows Subsystem for Linux)
 > 2. **替代**：使用 Git Bash 运行 Claude Code
-> 3. **替代**：直接使用 `/iterate`（单会话版本，无需 ralph-loop）
+> 3. **替代**：直接使用 `/cc-best:iterate`（单会话版本，无需 ralph-loop）
 >
 > ralph-loop 插件还依赖 `jq` 工具，需提前安装。
 
@@ -75,42 +75,42 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ```bash
 # 自动读取 progress.md，继续当前任务
-/cc-ralph
+/cc-best:cc-ralph
 
 # 指定任务描述
-/cc-ralph "实现用户登录功能"
+/cc-best:cc-ralph "实现用户登录功能"
 
 # 指定最大迭代次数
-/cc-ralph "完成 Phase 2" --max-iterations 20
+/cc-best:cc-ralph "完成 Phase 2" --max-iterations 20
 ```
 
 ### 选择模式
 
 ```bash
 # 完整功能开发（默认）
-/cc-ralph --mode full-feature "实现用户认证"
+/cc-best:cc-ralph --mode full-feature "实现用户认证"
 
 # Phase 迭代（按 progress.md 推进）
-/cc-ralph --mode iterate
+/cc-best:cc-ralph --mode iterate
 
 # Bug 修复
-/cc-ralph --mode bug-fix "修复登录超时问题"
+/cc-best:cc-ralph --mode bug-fix "修复登录超时问题"
 
 # 代码重构
-/cc-ralph --mode refactor "重构认证模块"
+/cc-best:cc-ralph --mode refactor "重构认证模块"
 
 # 修复测试
-/cc-ralph --mode fix-tests
+/cc-best:cc-ralph --mode fix-tests
 
 # 文档生成
-/cc-ralph --mode doc-gen "生成 API 文档"
+/cc-best:cc-ralph --mode doc-gen "生成 API 文档"
 ```
 
 ### 复制模板到本地（可选）
 
 ```bash
 # 将模板复制到 .claude/ralph-prompts/（方便自定义）
-/cc-ralph --setup
+/cc-best:cc-ralph --setup
 ```
 
 ---
@@ -177,22 +177,22 @@ node scripts/node/archive-progress.js memory-bank
 
 | 当前状态             | 选择角色    | 动作                                 |
 | -------------------- | ----------- | ------------------------------------ |
-| 无需求文档           | `/pm`       | 需求分析，创建 REQ-XXX               |
-| REQ 有待澄清项       | `/clarify`  | 需求澄清                             |
-| 有需求无设计         | `/lead`     | 技术设计，创建 DES-XXX               |
-| 有设计，前端任务     | `/designer` | UI 设计指导                          |
-| 有任务待开发         | `/dev`      | 编码实现                             |
-| 有代码待验证         | `/verify`   | 综合验证（构建+类型+Lint+测试+安全） |
-| 验证通过，待功能验收 | `/qa`       | 功能验收                             |
-| QA 发现 Bug          | `/dev`      | 修复后重新 `/verify`                 |
+| 无需求文档           | `/cc-best:pm`       | 需求分析，创建 REQ-XXX               |
+| REQ 有待澄清项       | `/cc-best:clarify`  | 需求澄清                             |
+| 有需求无设计         | `/cc-best:lead`     | 技术设计，创建 DES-XXX               |
+| 有设计，前端任务     | `/cc-best:designer` | UI 设计指导                          |
+| 有任务待开发         | `/cc-best:dev`      | 编码实现                             |
+| 有代码待验证         | `/cc-best:verify`   | 综合验证（构建+类型+Lint+测试+安全） |
+| 验证通过，待功能验收 | `/cc-best:qa`       | 功能验收                             |
+| QA 发现 Bug          | `/cc-best:dev`      | 修复后重新 `/cc-best:verify`                 |
 
 ### 每次迭代步骤
 
 1. **读取上下文** - progress.md + CLAUDE.md
 2. **确定角色和任务** - 根据状态选择角色
 3. **执行任务** - 按角色职责执行
-4. **验证结果** - `/test` + `/build`
-5. **提交和更新** - `/commit` + 更新 progress.md
+4. **验证结果** - `/cc-best:test` + `/cc-best:build`
+5. **提交和更新** - `/cc-best:commit` + 更新 progress.md
 6. **检查归档** - 如果 progress.md 超过限制，自动归档
 7. **继续下一任务** - 不等待用户
 
@@ -244,14 +244,14 @@ node scripts/node/archive-progress.js memory-bank
    - .claude/ralph-prompts/fix-tests.md       (修复测试)
    - .claude/ralph-prompts/doc-gen.md         (文档生成)
 
-   现在可以编辑这些模板，然后使用 /cc-ralph 启动循环
+   现在可以编辑这些模板，然后使用 /cc-best:cc-ralph 启动循环
    ```
 
 ---
 
-## 与 /iterate 的区别
+## 与 /cc-best:iterate 的区别
 
-| 功能     | /iterate        | /cc-ralph          |
+| 功能     | /cc-best:iterate        | /cc-best:cc-ralph          |
 | -------- | --------------- | ------------------ |
 | 会话边界 | 单会话内        | 跨会话自动重启     |
 | 进度保存 | progress.md     | progress.md + 插件 |

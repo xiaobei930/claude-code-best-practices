@@ -10,26 +10,26 @@ This guide explains the different working modes available in CC-Best and helps y
 
 | Mode        | Purpose              | User Involvement            | Best For                          |
 | ----------- | -------------------- | --------------------------- | --------------------------------- |
-| `/iterate`  | Autonomous iteration | Minimal (only when blocked) | Clear task lists, batch execution |
-| `/pair`     | Pair programming     | Continuous collaboration    | Learning, sensitive operations    |
-| `/cc-ralph` | Long-running loop    | Minimal (cross-session)     | Hour-level projects               |
-| `/mode`     | Behavior adjustment  | N/A (modifier)              | Fine-tuning Claude's approach     |
+| `/cc-best:iterate`  | Autonomous iteration | Minimal (only when blocked) | Clear task lists, batch execution |
+| `/cc-best:pair`     | Pair programming     | Continuous collaboration    | Learning, sensitive operations    |
+| `/cc-best:cc-ralph` | Long-running loop    | Minimal (cross-session)     | Hour-level projects               |
+| `/cc-best:mode`     | Behavior adjustment  | N/A (modifier)              | Fine-tuning Claude's approach     |
 
 ### Quick Decision Guide
 
 ```
 Do you have a clear task list?
 ├─ YES → Are tasks relatively safe (no production DB, etc.)?
-│        ├─ YES → /iterate
-│        └─ NO  → /pair
+│        ├─ YES → /cc-best:iterate
+│        └─ NO  → /cc-best:pair
 └─ NO  → Do you need to learn or discuss?
-         ├─ YES → /pair
-         └─ NO  → /pm first, then /iterate
+         ├─ YES → /cc-best:pair
+         └─ NO  → /cc-best:pm first, then /cc-best:iterate
 ```
 
 ---
 
-## /iterate - Autonomous Iteration
+## /cc-best:iterate - Autonomous Iteration
 
 **What it does**: Claude works through tasks autonomously, moving from one to the next without waiting for your input.
 
@@ -53,10 +53,10 @@ Do you have a clear task list?
 
 ```bash
 # Basic: Claude reads progress.md and continues
-/iterate
+/cc-best:iterate
 
 # With specific goal
-/iterate "implement user authentication"
+/cc-best:iterate "implement user authentication"
 
 # Plugin users
 /cc-best:iterate "implement user authentication"
@@ -67,9 +67,9 @@ Do you have a clear task list?
 ```
 1. Claude reads memory-bank/progress.md
 2. Selects the next task
-3. Chooses appropriate role (/pm, /lead, /dev, /qa)
+3. Chooses appropriate role (/cc-best:pm, /cc-best:lead, /cc-best:dev, /cc-best:qa)
 4. Executes the task
-5. Runs verification (/verify)
+5. Runs verification (/cc-best:verify)
 6. Commits changes
 7. Updates progress.md
 8. IMMEDIATELY starts next task (no waiting)
@@ -81,7 +81,7 @@ Do you have a clear task list?
 | -------------------- | -------------------------------------- |
 | **Pause**            | Press `Ctrl+C` or `Esc`                |
 | **Interrupt**        | Type any message                       |
-| **Resume**           | Say "continue" or run `/iterate` again |
+| **Resume**           | Say "continue" or run `/cc-best:iterate` again |
 | **Stop permanently** | Press `Ctrl+C` and don't resume        |
 
 ### Stop Conditions
@@ -110,7 +110,7 @@ Claude stops automatically when:
 # - [ ] TSK-003: Add login endpoint
 # - [ ] TSK-004: Add logout endpoint
 
-/iterate
+/cc-best:iterate
 
 # Claude works through all 4 tasks automatically
 # ~30 minutes later, all tasks complete with commits
@@ -121,7 +121,7 @@ git log --oneline -10
 
 ---
 
-## /pair - Pair Programming
+## /cc-best:pair - Pair Programming
 
 **What it does**: Claude works WITH you, asking for confirmation at each key decision point.
 
@@ -146,13 +146,13 @@ git log --oneline -10
 
 ```bash
 # Basic
-/pair
+/cc-best:pair
 
 # With context
-/pair "help me implement user auth"
+/cc-best:pair "help me implement user auth"
 
 # Learning mode
-/pair --learn "teach me how to write unit tests"
+/cc-best:pair --learn "teach me how to write unit tests"
 
 # Plugin users
 /cc-best:pair "refactor this function with me"
@@ -192,7 +192,7 @@ Claude will:
 ### Example Session
 
 ```
-You: /pair help me refactor this function
+You: /cc-best:pair help me refactor this function
 
 Claude: Let me look at the function...
 
@@ -224,7 +224,7 @@ Look good? Continue with B?
 
 ---
 
-## /cc-ralph - Long-Running Loop
+## /cc-best:cc-ralph - Long-Running Loop
 
 **What it does**: Autonomous development that persists across sessions. Uses the `ralph-loop` plugin for cross-session continuity.
 
@@ -235,7 +235,7 @@ Look good? Continue with B?
 /plugin install ralph-loop@claude-plugins-official
 ```
 
-> ⚠️ **Windows users**: ralph-loop requires bash. Use WSL or Git Bash, or stick with `/iterate`.
+> ⚠️ **Windows users**: ralph-loop requires bash. Use WSL or Git Bash, or stick with `/cc-best:iterate`.
 
 ### When to Use
 
@@ -251,9 +251,9 @@ Look good? Continue with B?
 - When you want to watch progress
 - Learning or exploration
 
-### /cc-ralph vs /iterate
+### /cc-best:cc-ralph vs /cc-best:iterate
 
-| Aspect        | /iterate       | /cc-ralph           |
+| Aspect        | /cc-best:iterate       | /cc-best:cc-ralph           |
 | ------------- | -------------- | ------------------- |
 | Session scope | Single session | Cross-session       |
 | Resume        | Manual         | Automatic           |
@@ -264,18 +264,18 @@ Look good? Continue with B?
 
 ```bash
 # Auto-continue from progress.md
-/cc-ralph
+/cc-best:cc-ralph
 
 # Specific task
-/cc-ralph "implement user authentication"
+/cc-best:cc-ralph "implement user authentication"
 
 # With mode
-/cc-ralph --mode full-feature "implement user auth"
-/cc-ralph --mode bug-fix "fix login timeout"
-/cc-ralph --mode refactor "refactor auth module"
+/cc-best:cc-ralph --mode full-feature "implement user auth"
+/cc-best:cc-ralph --mode bug-fix "fix login timeout"
+/cc-best:cc-ralph --mode refactor "refactor auth module"
 
 # With iteration limit
-/cc-ralph "complete Phase 2" --max-iterations 20
+/cc-best:cc-ralph "complete Phase 2" --max-iterations 20
 
 # Plugin users
 /cc-best:cc-ralph "implement feature X"
@@ -302,14 +302,14 @@ Look good? Continue with B?
 
 ```bash
 # Copy templates for customization
-/cc-ralph --setup
+/cc-best:cc-ralph --setup
 
 # Templates created in .claude/ralph-prompts/
 ```
 
 ---
 
-## /mode - Behavior Adjustment
+## /cc-best:mode - Behavior Adjustment
 
 **What it does**: Adjusts Claude's working style without changing the task or role.
 
@@ -318,7 +318,7 @@ Look good? Continue with B?
 #### `dev` - Development Mode (Default)
 
 ```bash
-/mode dev
+/cc-best:mode dev
 ```
 
 **Behavior:**
@@ -333,7 +333,7 @@ Look good? Continue with B?
 #### `research` - Research Mode
 
 ```bash
-/mode research
+/cc-best:mode research
 ```
 
 **Behavior:**
@@ -348,7 +348,7 @@ Look good? Continue with B?
 #### `review` - Review Mode
 
 ```bash
-/mode review
+/cc-best:mode review
 ```
 
 **Behavior:**
@@ -363,7 +363,7 @@ Look good? Continue with B?
 #### `planning` - Planning Mode
 
 ```bash
-/mode planning
+/cc-best:mode planning
 ```
 
 **Behavior:**
@@ -381,29 +381,29 @@ Modes change HOW Claude works. Roles change WHAT Claude does.
 
 | Mode       | Best Combined With |
 | ---------- | ------------------ |
-| `dev`      | `/dev`             |
-| `research` | `/lead`, `/pm`     |
-| `review`   | `/qa`              |
-| `planning` | `/lead`, `/pm`     |
+| `dev`      | `/cc-best:dev`             |
+| `research` | `/cc-best:lead`, `/cc-best:pm`     |
+| `review`   | `/cc-best:qa`              |
+| `planning` | `/cc-best:lead`, `/cc-best:pm`     |
 
 ### Example Workflow
 
 ```bash
 # Planning phase
-/mode planning
-/pm "analyze user authentication requirements"
+/cc-best:mode planning
+/cc-best:pm "analyze user authentication requirements"
 
 # Development phase
-/mode dev
-/dev "implement JWT authentication"
+/cc-best:mode dev
+/cc-best:dev "implement JWT authentication"
 
 # Review phase
-/mode review
-/qa "review authentication module"
+/cc-best:mode review
+/cc-best:qa "review authentication module"
 
 # Research phase
-/mode research
-/lead "investigate OAuth 2.0 best practices"
+/cc-best:mode research
+/cc-best:lead "investigate OAuth 2.0 best practices"
 ```
 
 ---
@@ -412,7 +412,7 @@ Modes change HOW Claude works. Roles change WHAT Claude does.
 
 ### Which mode should I use as a beginner?
 
-Start with `/pair`. It helps you learn how Claude works and understand each decision.
+Start with `/cc-best:pair`. It helps you learn how Claude works and understand each decision.
 
 ### Can I switch modes mid-task?
 
@@ -420,10 +420,10 @@ Yes. Just run the new mode command:
 
 ```bash
 # Started with iterate, want to discuss something
-/pair  # Switches to pair mode
+/cc-best:pair  # Switches to pair mode
 ```
 
-### What if /iterate gets stuck?
+### What if /cc-best:iterate gets stuck?
 
 Claude will:
 
@@ -431,30 +431,30 @@ Claude will:
 2. Record the blocker in progress.md
 3. Ask for your input
 
-You can also interrupt with `Ctrl+C` and use `/pair` to debug together.
+You can also interrupt with `Ctrl+C` and use `/cc-best:pair` to debug together.
 
-### Can I combine /iterate with /mode?
+### Can I combine /cc-best:iterate with /mode?
 
-Yes! `/mode` affects how Claude works within any execution mode:
+Yes! `/cc-best:mode` affects how Claude works within any execution mode:
 
 ```bash
-/mode dev
-/iterate "implement features"
+/cc-best:mode dev
+/cc-best:iterate "implement features"
 ```
 
 ### How do I resume after interrupting /iterate?
 
-Just run `/iterate` again. Claude reads progress.md and continues from where it left off.
+Just run `/cc-best:iterate` again. Claude reads progress.md and continues from where it left off.
 
-### /cc-ralph vs just running /iterate multiple times?
+### /cc-best:cc-ralph vs just running /cc-best:iterate multiple times?
 
-`/cc-ralph` with ralph-loop plugin:
+`/cc-best:cc-ralph` with ralph-loop plugin:
 
 - Automatically resumes across terminal sessions
 - Better for overnight/multi-hour tasks
 - Tracks iteration count
 
-`/iterate`:
+`/cc-best:iterate`:
 
 - Simpler, no extra plugin needed
 - Good for tasks you'll complete in one sitting
@@ -471,26 +471,26 @@ Just run `/iterate` again. Claude reads progress.md and continues from where it 
 
 | 模式        | 用途       | 用户参与度       | 适用场景           |
 | ----------- | ---------- | ---------------- | ------------------ |
-| `/iterate`  | 自主迭代   | 最低（仅阻塞时） | 明确任务、批量执行 |
-| `/pair`     | 结对编程   | 持续协作         | 学习、敏感操作     |
-| `/cc-ralph` | 长时间循环 | 最低（跨会话）   | 小时级项目         |
-| `/mode`     | 行为调整   | N/A（修饰符）    | 微调工作风格       |
+| `/cc-best:iterate`  | 自主迭代   | 最低（仅阻塞时） | 明确任务、批量执行 |
+| `/cc-best:pair`     | 结对编程   | 持续协作         | 学习、敏感操作     |
+| `/cc-best:cc-ralph` | 长时间循环 | 最低（跨会话）   | 小时级项目         |
+| `/cc-best:mode`     | 行为调整   | N/A（修饰符）    | 微调工作风格       |
 
 ### 快速选择指南
 
 ```
 你有明确的任务清单吗？
 ├─ 有 → 任务相对安全吗？（无生产数据库操作等）
-│       ├─ 是 → /iterate
-│       └─ 否 → /pair
+│       ├─ 是 → /cc-best:iterate
+│       └─ 否 → /cc-best:pair
 └─ 没有 → 需要学习或讨论吗？
-          ├─ 是 → /pair
-          └─ 否 → 先 /pm，再 /iterate
+          ├─ 是 → /cc-best:pair
+          └─ 否 → 先 /pm，再 /cc-best:iterate
 ```
 
 ---
 
-## /iterate - 自主迭代
+## /cc-best:iterate - 自主迭代
 
 **作用**: Claude 自主执行任务，完成一个立即开始下一个，不等待你的输入。
 
@@ -514,10 +514,10 @@ Just run `/iterate` again. Claude reads progress.md and continues from where it 
 
 ```bash
 # 基本用法：Claude 读取 progress.md 继续执行
-/iterate
+/cc-best:iterate
 
 # 指定目标
-/iterate "实现用户认证功能"
+/cc-best:iterate "实现用户认证功能"
 
 # 插件用户
 /cc-best:iterate "实现用户认证功能"
@@ -528,7 +528,7 @@ Just run `/iterate` again. Claude reads progress.md and continues from where it 
 ```
 1. Claude 读取 memory-bank/progress.md
 2. 选择下一个任务
-3. 选择合适的角色（/pm, /lead, /dev, /qa）
+3. 选择合适的角色（/cc-best:pm, /cc-best:lead, /cc-best:dev, /qa）
 4. 执行任务
 5. 运行验证（/verify）
 6. 提交变更
@@ -542,7 +542,7 @@ Just run `/iterate` again. Claude reads progress.md and continues from where it 
 | ------------ | ----------------------------- |
 | **暂停**     | 按 `Ctrl+C` 或 `Esc`          |
 | **中断**     | 输入任何消息                  |
-| **恢复**     | 说"继续"或重新运行 `/iterate` |
+| **恢复**     | 说"继续"或重新运行 `/cc-best:iterate` |
 | **永久停止** | 按 `Ctrl+C` 后不恢复          |
 
 ### 停止条件
@@ -571,7 +571,7 @@ Claude 在以下情况自动停止：
 # - [ ] TSK-003: 添加登录接口
 # - [ ] TSK-004: 添加登出接口
 
-/iterate
+/cc-best:iterate
 
 # Claude 自动完成所有 4 个任务
 # ~30 分钟后，所有任务完成并提交
@@ -582,7 +582,7 @@ git log --oneline -10
 
 ---
 
-## /pair - 结对编程
+## /cc-best:pair - 结对编程
 
 **作用**: Claude 与你协作，在每个关键决策点询问确认。
 
@@ -607,13 +607,13 @@ git log --oneline -10
 
 ```bash
 # 基本用法
-/pair
+/cc-best:pair
 
 # 带上下文
-/pair "帮我实现用户认证"
+/cc-best:pair "帮我实现用户认证"
 
 # 学习模式
-/pair --learn "教我如何写单元测试"
+/cc-best:pair --learn "教我如何写单元测试"
 
 # 插件用户
 /cc-best:pair "和我一起重构这个函数"
@@ -644,7 +644,7 @@ Claude 会在以下节点询问你：
 ### 示例会话
 
 ```
-你: /pair 帮我重构这个函数
+你: /cc-best:pair 帮我重构这个函数
 
 Claude: 让我看看这个函数...
 
@@ -676,7 +676,7 @@ Claude: 好的，提取验证逻辑...
 
 ---
 
-## /cc-ralph - 长时间循环
+## /cc-best:cc-ralph - 长时间循环
 
 **作用**: 跨会话持续的自主开发。使用 `ralph-loop` 插件实现跨会话连续性。
 
@@ -687,7 +687,7 @@ Claude: 好的，提取验证逻辑...
 /plugin install ralph-loop@claude-plugins-official
 ```
 
-> ⚠️ **Windows 用户**: ralph-loop 需要 bash。使用 WSL 或 Git Bash，或者坚持使用 `/iterate`。
+> ⚠️ **Windows 用户**: ralph-loop 需要 bash。使用 WSL 或 Git Bash，或者坚持使用 `/cc-best:iterate`。
 
 ### 何时使用
 
@@ -703,9 +703,9 @@ Claude: 好的，提取验证逻辑...
 - 你想观察进度
 - 学习或探索
 
-### /cc-ralph vs /iterate
+### /cc-best:cc-ralph vs /cc-best:iterate
 
-| 方面     | /iterate   | /cc-ralph       |
+| 方面     | /cc-best:iterate   | /cc-best:cc-ralph       |
 | -------- | ---------- | --------------- |
 | 会话范围 | 单会话     | 跨会话          |
 | 恢复方式 | 手动       | 自动            |
@@ -716,18 +716,18 @@ Claude: 好的，提取验证逻辑...
 
 ```bash
 # 从 progress.md 自动继续
-/cc-ralph
+/cc-best:cc-ralph
 
 # 指定任务
-/cc-ralph "实现用户认证"
+/cc-best:cc-ralph "实现用户认证"
 
 # 指定模式
-/cc-ralph --mode full-feature "实现用户认证"
-/cc-ralph --mode bug-fix "修复登录超时"
-/cc-ralph --mode refactor "重构认证模块"
+/cc-best:cc-ralph --mode full-feature "实现用户认证"
+/cc-best:cc-ralph --mode bug-fix "修复登录超时"
+/cc-best:cc-ralph --mode refactor "重构认证模块"
 
 # 限制迭代次数
-/cc-ralph "完成 Phase 2" --max-iterations 20
+/cc-best:cc-ralph "完成 Phase 2" --max-iterations 20
 
 # 插件用户
 /cc-best:cc-ralph "实现功能 X"
@@ -752,7 +752,7 @@ Claude: 好的，提取验证逻辑...
 
 ---
 
-## /mode - 行为调整
+## /cc-best:mode - 行为调整
 
 **作用**: 调整 Claude 的工作风格，不改变任务或角色。
 
@@ -761,7 +761,7 @@ Claude: 好的，提取验证逻辑...
 #### `dev` - 开发模式（默认）
 
 ```bash
-/mode dev
+/cc-best:mode dev
 ```
 
 **行为:**
@@ -776,7 +776,7 @@ Claude: 好的，提取验证逻辑...
 #### `research` - 研究模式
 
 ```bash
-/mode research
+/cc-best:mode research
 ```
 
 **行为:**
@@ -791,7 +791,7 @@ Claude: 好的，提取验证逻辑...
 #### `review` - 审查模式
 
 ```bash
-/mode review
+/cc-best:mode review
 ```
 
 **行为:**
@@ -806,7 +806,7 @@ Claude: 好的，提取验证逻辑...
 #### `planning` - 规划模式
 
 ```bash
-/mode planning
+/cc-best:mode planning
 ```
 
 **行为:**
@@ -824,29 +824,29 @@ Claude: 好的，提取验证逻辑...
 
 | 模式       | 推荐组合       |
 | ---------- | -------------- |
-| `dev`      | `/dev`         |
-| `research` | `/lead`, `/pm` |
-| `review`   | `/qa`          |
-| `planning` | `/lead`, `/pm` |
+| `dev`      | `/cc-best:dev`         |
+| `research` | `/cc-best:lead`, `/cc-best:pm` |
+| `review`   | `/cc-best:qa`          |
+| `planning` | `/cc-best:lead`, `/cc-best:pm` |
 
 ### 示例工作流
 
 ```bash
 # 规划阶段
-/mode planning
-/pm "分析用户认证需求"
+/cc-best:mode planning
+/cc-best:pm "分析用户认证需求"
 
 # 开发阶段
-/mode dev
-/dev "实现 JWT 认证"
+/cc-best:mode dev
+/cc-best:dev "实现 JWT 认证"
 
 # 审查阶段
-/mode review
-/qa "审查认证模块"
+/cc-best:mode review
+/cc-best:qa "审查认证模块"
 
 # 研究阶段
-/mode research
-/lead "调研 OAuth 2.0 最佳实践"
+/cc-best:mode research
+/cc-best:lead "调研 OAuth 2.0 最佳实践"
 ```
 
 ---
@@ -855,7 +855,7 @@ Claude: 好的，提取验证逻辑...
 
 ### 初学者应该用哪个模式？
 
-从 `/pair` 开始。它帮助你了解 Claude 的工作方式，理解每个决策。
+从 `/cc-best:pair` 开始。它帮助你了解 Claude 的工作方式，理解每个决策。
 
 ### 可以中途切换模式吗？
 
@@ -863,10 +863,10 @@ Claude: 好的，提取验证逻辑...
 
 ```bash
 # 开始用 iterate，想讨论某事
-/pair  # 切换到结对模式
+/cc-best:pair  # 切换到结对模式
 ```
 
-### /iterate 卡住了怎么办？
+### /cc-best:iterate 卡住了怎么办？
 
 Claude 会：
 
@@ -874,30 +874,30 @@ Claude 会：
 2. 在 progress.md 记录阻塞原因
 3. 询问你的输入
 
-你也可以用 `Ctrl+C` 中断，然后用 `/pair` 一起调试。
+你也可以用 `Ctrl+C` 中断，然后用 `/cc-best:pair` 一起调试。
 
-### 可以组合 /iterate 和 /mode 吗？
+### 可以组合 /cc-best:iterate 和 /cc-best:mode 吗？
 
-可以！`/mode` 影响任何执行模式中的工作方式：
+可以！`/cc-best:mode` 影响任何执行模式中的工作方式：
 
 ```bash
-/mode dev
-/iterate "实现功能"
+/cc-best:mode dev
+/cc-best:iterate "实现功能"
 ```
 
-### 中断 /iterate 后如何恢复？
+### 中断 /cc-best:iterate 后如何恢复？
 
-重新运行 `/iterate`。Claude 读取 progress.md，从中断处继续。
+重新运行 `/cc-best:iterate`。Claude 读取 progress.md，从中断处继续。
 
-### /cc-ralph 和多次运行 /iterate 有什么区别？
+### /cc-best:cc-ralph 和多次运行 /cc-best:iterate 有什么区别？
 
-`/cc-ralph` 配合 ralph-loop 插件：
+`/cc-best:cc-ralph` 配合 ralph-loop 插件：
 
 - 自动跨终端会话恢复
 - 适合过夜/多小时任务
 - 跟踪迭代次数
 
-`/iterate`：
+`/cc-best:iterate`：
 
 - 更简单，无需额外插件
 - 适合一次会话内完成的任务

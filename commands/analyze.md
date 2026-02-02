@@ -10,10 +10,10 @@ allowed-tools: Bash, Read, Write, Grep, Glob, TodoWrite
 ## 用法
 
 ```bash
-/analyze                    # 分析当前代码库
-/analyze --commits 100      # 分析最近 100 次提交
-/analyze --output ./docs    # 指定输出目录
-/analyze --domain api       # 仅分析特定领域
+/cc-best:analyze                    # 分析当前代码库
+/cc-best:analyze --commits 100      # 分析最近 100 次提交
+/cc-best:analyze --output ./docs    # 指定输出目录
+/cc-best:analyze --domain api       # 仅分析特定领域
 ```
 
 ## 角色定位
@@ -285,13 +285,13 @@ confidence: 0.85
 
 ```
 新项目初始化:
-克隆仓库 → /analyze → /setup → /status
+克隆仓库 → /cc-best:analyze → /cc-best:setup → /cc-best:status
 
 团队知识沉淀:
-/analyze → /learn --export → 分享给团队
+/cc-best:analyze → /cc-best:learn --export → 分享给团队
 
 持续改进:
-/analyze → /evolve → 生成新的 skills/agents
+/cc-best:analyze → /cc-best:evolve → 生成新的 skills/agents
 ```
 
 ---

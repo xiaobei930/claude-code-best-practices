@@ -85,7 +85,7 @@ alwaysApply: true
 | **Build Failure 编译失败** | Rollback → Incremental change → Verify 回滚到上一个工作状态 → 增量修改 → 验证编译 |
 | **Assumption Error 假设错误** | Record in progress.md → Continue → Fix in next iteration 记录 → 继续当前任务 → 后续迭代修正 |
 | **Missing Dependency 依赖缺失** | Mark blocked → Record → Try mock or skip 标记阻塞 → 记录依赖项 → 尝试 Mock |
-| **Context Lost 上下文丢失** | Execute `/catchup` → Read progress.md → Restore state 执行 `/catchup` → 恢复状态 |
+| **Context Lost 上下文丢失** | Execute `/cc-best:catchup` → Read progress.md → Restore state 执行 `/cc-best:catchup` → 恢复状态 |
 | **Frontend Render Failure 前端渲染失败** | Check console → Screenshot → Locate component → Fix 检查 Console → 截图 → 定位组件 → 修复 |
 
 ---
@@ -112,29 +112,29 @@ Do one thing at a time 每次只做一件事：
 ### Role Collaboration Flow | 角色协作流程
 
 ```
-/pm  → Analyze requirements autonomously, output REQ (with decision records + confidence)
+/cc-best:pm  → Analyze requirements autonomously, output REQ (with decision records + confidence)
        自主分析需求，输出 REQ（含决策记录+置信度）
   ↓
-/clarify → Clarify pending items (if needed, when pending items ≥ 1 or low confidence decisions ≥ 1)
+/cc-best:clarify → Clarify pending items (if needed, when pending items ≥ 1 or low confidence decisions ≥ 1)
            澄清待确认项（如需，待澄清项≥1 或 低置信度决策≥1 时触发）
   ↓
-/lead → Review PM decisions, can adjust, output DES + TSK (organized by User Story)
+/cc-best:lead → Review PM decisions, can adjust, output DES + TSK (organized by User Story)
         评审 PM 决策，可调整，输出 DES + TSK（按 User Story 组织）
   ↓
-/designer → [Frontend tasks] UI design review, output design guidance (optional)
+/cc-best:designer → [Frontend tasks] UI design review, output design guidance (optional)
             【前端任务】UI 设计审查，输出设计指导（可选）
   ↓
-/dev  → Implement autonomously, record implementation decisions
+/cc-best:dev  → Implement autonomously, record implementation decisions
         自主实现，记录实现决策
   ↓
-/qa   → Distinguish issue types (implementation bug vs assumption error)
+/cc-best:qa   → Distinguish issue types (implementation bug vs assumption error)
         区分问题类型（实现bug vs 假设错误）
   ↓
-/commit → /clear → Next task 下一任务
+/cc-best:commit → /clear → Next task 下一任务
 ```
 
-> **Note**: `/designer` role intervenes for frontend UI tasks, pure backend tasks can skip.
-> **注意**: `/designer` 角色在涉及前端 UI 的任务时介入，纯后端任务可跳过。
+> **Note**: `/cc-best:designer` role intervenes for frontend UI tasks, pure backend tasks can skip.
+> **注意**: `/cc-best:designer` 角色在涉及前端 UI 的任务时介入，纯后端任务可跳过。
 
 ---
 
@@ -186,11 +186,11 @@ Execute before important changes 重要变更前执行：
 **Normal Development Mode 普通开发模式**:
 - **Use `/clear` frequently** 频繁使用 `/clear` - Clear context after completing a feature 完成一个功能后清除上下文
 
-**`/iterate` Autonomous Loop Mode 自主循环模式**:
+**`/cc-best:iterate` Autonomous Loop Mode 自主循环模式**:
 - **Don't `/clear` proactively** 不主动 `/clear` - Maintain loop continuity 保持循环连续性，unless context usage > 80%
 - Save state to progress.md before clear when approaching limit 上下文接近上限时，保存状态后再 clear
 
-**`/pair` Pair Programming Mode 结对编程模式**:
+**`/cc-best:pair` Pair Programming Mode 结对编程模式**:
 - Maintain conversation continuity, don't `/clear` proactively 保持对话连贯性，不主动 `/clear`
 - User decides when to clear context 用户决定何时清理上下文
 
@@ -250,7 +250,7 @@ Add in `settings.local.json` (refer to `settings.local.json.example`)
 | **Directory 存放目录** | `.claude/screenshots/` |
 | **Git ignore** | Configured in `.gitignore` 已在 `.gitignore` 中配置 |
 | **Naming convention 命名规范** | `{page-name}-{timestamp}.png` |
-| **Cleanup timing 清理时机** | After `/clear` or `/checkpoint` |
+| **Cleanup timing 清理时机** | After `/clear` or `/cc-best:checkpoint` |
 
 Example 截图示例：
 ```bash

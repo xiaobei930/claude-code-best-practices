@@ -643,7 +643,7 @@ plugins:
   - "@semantic-release/changelog"
   - "@semantic-release/npm"
   - "@semantic-release/github"
-  - "@semantic-release/git"
+  - "@semantic-release/cc-best:git"
 ```
 
 ---

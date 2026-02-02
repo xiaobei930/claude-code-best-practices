@@ -12,7 +12,7 @@ allowed-tools: Read, Glob, Grep
 ### dev - 开发模式
 
 ```
-/mode dev
+/cc-best:mode dev
 ```
 
 **行为特点:**
@@ -35,7 +35,7 @@ allowed-tools: Read, Glob, Grep
 ### research - 研究模式
 
 ```
-/mode research
+/cc-best:mode research
 ```
 
 **行为特点:**
@@ -60,7 +60,7 @@ allowed-tools: Read, Glob, Grep
 ### review - 审查模式
 
 ```
-/mode review
+/cc-best:mode review
 ```
 
 **行为特点:**
@@ -87,7 +87,7 @@ allowed-tools: Read, Glob, Grep
 ### planning - 规划模式
 
 ```
-/mode planning
+/cc-best:mode planning
 ```
 
 **行为特点:**
@@ -114,35 +114,35 @@ allowed-tools: Read, Glob, Grep
 
 | 模式     | 推荐角色      |
 | -------- | ------------- |
-| dev      | `/dev`        |
-| research | `/lead` `/pm` |
-| review   | `/qa`         |
-| planning | `/lead` `/pm` |
+| dev      | `/cc-best:dev`        |
+| research | `/cc-best:lead` `/cc-best:pm` |
+| review   | `/cc-best:qa`         |
+| planning | `/cc-best:lead` `/cc-best:pm` |
 
 ## 示例用法
 
 ```bash
 # 开始功能开发前
-/mode planning
-/pm "分析用户认证需求"
+/cc-best:mode planning
+/cc-best:pm "分析用户认证需求"
 
 # 进入开发阶段
-/mode dev
-/dev "实现 JWT 认证"
+/cc-best:mode dev
+/cc-best:dev "实现 JWT 认证"
 
 # 代码审查
-/mode review
-/qa "审查认证模块"
+/cc-best:mode review
+/cc-best:qa "审查认证模块"
 
 # 技术调研
-/mode research
-/lead "调研 OAuth 2.0 最佳实践"
+/cc-best:mode research
+/cc-best:lead "调研 OAuth 2.0 最佳实践"
 ```
 
 ---
 
 ## 当前模式
 
-执行 `/mode` 不带参数可查看当前模式。
+执行 `/cc-best:mode` 不带参数可查看当前模式。
 
 当前模式状态保存在 `memory-bank/current-mode.md` 中。

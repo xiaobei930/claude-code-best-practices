@@ -15,20 +15,20 @@
 
 | 角色    | TDD 使用场景                  |
 | ------- | ----------------------------- |
-| `/lead` | 定义测试策略、审查测试覆盖率  |
-| `/dev`  | 执行 TDD 循环、编写测试和实现 |
-| `/qa`   | 补充边界测试、E2E 测试        |
+| `/cc-best:lead` | 定义测试策略、审查测试覆盖率  |
+| `/cc-best:dev`  | 执行 TDD 循环、编写测试和实现 |
+| `/cc-best:qa`   | 补充边界测试、E2E 测试        |
 
 **典型流程**：
 
 ```
-/lead → 定义接口和测试策略
+/cc-best:lead → 定义接口和测试策略
   ↓
-/dev → TDD 循环（RED → GREEN → REFACTOR）
+/cc-best:dev → TDD 循环（RED → GREEN → REFACTOR）
   ↓
-/qa → 验证覆盖率、补充边界测试
+/cc-best:qa → 验证覆盖率、补充边界测试
   ↓
-/commit → 提交代码和测试
+/cc-best:commit → 提交代码和测试
 ```
 
 ---

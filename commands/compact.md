@@ -85,14 +85,14 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 | 命令             | 来源   | 行为                   | 适用场景             |
 | ---------------- | ------ | ---------------------- | -------------------- |
 | `/clear`         | 官方   | 完全清除上下文         | 任务完成，开始新任务 |
-| 官方 `/compact`  | 官方   | 自动压缩（**有 bug**） | 不推荐使用           |
+| 官方 `/cc-best:compact`  | 官方   | 自动压缩（**有 bug**） | 不推荐使用           |
 | 本插件 `compact` | 本插件 | 保存状态 + 生成摘要    | 压缩前的准备工作     |
 | 本插件 `catchup` | 本插件 | 恢复上下文             | `/clear` 后恢复      |
 
 > **命令格式说明**：根据安装方式不同，命令格式也不同：
 >
 > - 通过 `/plugin install` 安装：使用 `/cc-best:compact`、`/cc-best:catchup`
-> - 直接 clone 到 `.claude/`：使用 `/compact`、`/catchup`
+> - 直接 clone 到 `.claude/`：使用 `/cc-best:compact`、`/cc-best:catchup`
 
 ## 输出格式
 

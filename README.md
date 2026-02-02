@@ -83,7 +83,7 @@ Use clone when you need to customize all files in your repo.
 | Installation  | Command format     | Example                          |
 | ------------- | ------------------ | -------------------------------- |
 | **Plugin** ⭐ | `/cc-best:command` | `/cc-best:iterate "add feature"` |
-| **Clone**     | `/command`         | `/iterate "add feature"`         |
+| **Clone**     | `/command`         | `/cc-best:iterate "add feature"`         |
 
 > 💡 **Recommended**: Install via plugin for automatic updates and easier management.
 > All documentation uses plugin format (`/cc-best:xxx`). Clone users: run `convert-to-local.js`.
@@ -105,14 +105,14 @@ No files are left behind.
 
 ### What Happens Next?
 
-After running `/iterate "implement user authentication"`, Claude will:
+After running `/cc-best:iterate "implement user authentication"`, Claude will:
 
 ```
-1. 📋 /pm     → Analyze requirements, create task breakdown
-2. 🏗️ /lead   → Design technical solution
-3. 💻 /dev    → Write code, create tests
-4. 🧪 /qa     → Run tests, verify quality
-5. ✅ /commit → Commit changes with proper message
+1. 📋 /cc-best:pm     → Analyze requirements, create task breakdown
+2. 🏗️ /cc-best:lead   → Design technical solution
+3. 💻 /cc-best:dev    → Write code, create tests
+4. 🧪 /cc-best:qa     → Run tests, verify quality
+5. ✅ /cc-best:commit → Commit changes with proper message
 ```
 
 You just watch. Intervene only when needed.
@@ -121,19 +121,19 @@ You just watch. Intervene only when needed.
 
 | I want to...       | Command                              | What Claude does                           |
 | ------------------ | ------------------------------------ | ------------------------------------------ |
-| Build a feature    | `/iterate "add dark mode toggle"`    | Full cycle: plan → code → test → commit    |
-| Fix a bug          | `/iterate "fix login timeout issue"` | Investigate → fix → verify → commit        |
-| Review code        | `/pm "review recent changes"`        | Analyze code, suggest improvements         |
-| Learn the codebase | `/pair`                              | Step-by-step exploration with explanations |
+| Build a feature    | `/cc-best:iterate "add dark mode toggle"`    | Full cycle: plan → code → test → commit    |
+| Fix a bug          | `/cc-best:iterate "fix login timeout issue"` | Investigate → fix → verify → commit        |
+| Review code        | `/cc-best:pm "review recent changes"`        | Analyze code, suggest improvements         |
+| Learn the codebase | `/cc-best:pair`                              | Step-by-step exploration with explanations |
 
 ### Who Is This For?
 
 | You are...                   | Recommended mode | Why                                       |
 | ---------------------------- | ---------------- | ----------------------------------------- |
 | **Team with multiple roles** | Full workflow    | PM → Lead → Dev → QA mirrors your process |
-| **Solo developer**           | `/iterate`       | Let Claude handle the boring parts        |
-| **Learning Claude Code**     | `/pair`          | Understand each step before proceeding    |
-| **Need quick fixes**         | Direct commands  | `/dev "fix the typo"` for simple tasks    |
+| **Solo developer**           | `/cc-best:iterate`       | Let Claude handle the boring parts        |
+| **Learning Claude Code**     | `/cc-best:pair`          | Understand each step before proceeding    |
+| **Need quick fixes**         | Direct commands  | `/cc-best:dev "fix the typo"` for simple tasks    |
 
 ---
 
@@ -142,14 +142,14 @@ You just watch. Intervene only when needed.
 | Feature                         | What it does                                                    |
 | ------------------------------- | --------------------------------------------------------------- |
 | 🎭 **Role-Based Workflow**      | PM → Lead → Designer → Dev → QA — complete development cycle    |
-| 🔄 **Autonomous Mode**          | `/iterate` runs tasks without intervention until completion     |
+| 🔄 **Autonomous Mode**          | `/cc-best:iterate` runs tasks without intervention until completion     |
 | 🛡️ **Safety Hooks**             | Blocks `rm -rf /`, `git push --force`, and other risky commands |
 | 📐 **Multi-Language Standards** | Coding conventions for Python, Vue/TS, C++, Java, C#, Go, Swift |
 | 🧠 **Memory Bank**              | Persists progress and decisions across sessions                 |
 | 🌐 **Cross-Platform**           | Windows, macOS, Linux — auto-detects package manager            |
 
 <details>
-<summary>📹 See /iterate in action</summary>
+<summary>📹 See /cc-best:iterate in action</summary>
 <br>
 <p align="center">
   <img src="assets/iterate.gif" alt="Iterate Demo" width="80%">
@@ -210,9 +210,9 @@ flowchart LR
 
 | Mode                     | Command     | Use Case                       | Characteristics                                |
 | ------------------------ | ----------- | ------------------------------ | ---------------------------------------------- |
-| **Autonomous Iteration** | `/iterate`  | Clear task list                | Fully autonomous, no intervention needed       |
-| **Pair Programming**     | `/pair`     | Learning, sensitive operations | Confirm each step, human-machine collaboration |
-| **Long-Running Loop**    | `/cc-ralph` | Hour-level batch tasks         | Requires ralph-loop plugin                     |
+| **Autonomous Iteration** | `/cc-best:iterate`  | Clear task list                | Fully autonomous, no intervention needed       |
+| **Pair Programming**     | `/cc-best:pair`     | Learning, sensitive operations | Confirm each step, human-machine collaboration |
+| **Long-Running Loop**    | `/cc-best:cc-ralph` | Hour-level batch tasks         | Requires ralph-loop plugin                     |
 
 > 📖 **Detailed usage guide**: See [MODES.md](.claude-plugin/MODES.md) for comprehensive documentation on each mode, including when to use, how to control, and best practices.
 
@@ -224,13 +224,13 @@ flowchart LR
 
 | Category    | Commands                                                          | Purpose                           |
 | ----------- | ----------------------------------------------------------------- | --------------------------------- |
-| **Role**    | `/pm`, `/lead`, `/dev`, `/qa`, `/designer`, `/clarify`, `/verify` | Development workflow roles        |
-| **Mode**    | `/iterate`, `/pair`, `/cc-ralph`, `/mode`                         | Autonomous/pair programming modes |
-| **Build**   | `/build`, `/test`, `/run`, `/fix`                                 | Build and test automation         |
-| **Git**     | `/commit`, `/pr`, `/git`                                          | Version control                   |
-| **Context** | `/compact`, `/checkpoint`, `/catchup`, `/context`, `/memory`      | Session management                |
-| **Quality** | `/cleanup`, `/docs`, `/learn`, `/analyze`, `/evolve`              | Code quality & knowledge          |
-| **Setup**   | `/setup`, `/setup-pm`, `/status`, `/self-check`                   | Configuration                     |
+| **Role**    | `/cc-best:pm`, `/cc-best:lead`, `/cc-best:dev`, `/cc-best:qa`, `/cc-best:designer`, `/cc-best:clarify`, `/cc-best:verify` | Development workflow roles        |
+| **Mode**    | `/cc-best:iterate`, `/cc-best:pair`, `/cc-best:cc-ralph`, `/cc-best:mode`                         | Autonomous/cc-best:pair programming modes |
+| **Build**   | `/cc-best:build`, `/cc-best:test`, `/cc-best:run`, `/cc-best:fix`                                 | Build and test automation         |
+| **Git**     | `/cc-best:commit`, `/cc-best:pr`, `/cc-best:git`                                          | Version control                   |
+| **Context** | `/cc-best:compact`, `/cc-best:checkpoint`, `/cc-best:catchup`, `/cc-best:context`, `/cc-best:memory`      | Session management                |
+| **Quality** | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve`              | Code quality & knowledge          |
+| **Setup**   | `/cc-best:setup`, `/cc-best:setup-pm`, `/cc-best:status`, `/cc-best:self-check`                   | Configuration                     |
 
 > 📖 **Full reference**: See [COMMANDS.md](.claude-plugin/COMMANDS.md) for all parameters and usage examples.
 
@@ -259,11 +259,11 @@ This template uses a **three-tier architecture**:
 ```mermaid
 flowchart TB
     subgraph User["👤 You"]
-        CMD["/iterate 'add feature'"]
+        CMD["/cc-best:iterate 'add feature'"]
     end
 
     subgraph Commands["📋 Commands (35)"]
-        PM["/pm"] --> Lead["/lead"] --> Dev["/dev"] --> QA["/qa"]
+        PM["/cc-best:pm"] --> Lead["/cc-best:lead"] --> Dev["/cc-best:dev"] --> QA["/cc-best:qa"]
     end
 
     subgraph Skills["🛠️ Skills (17)"]
@@ -309,7 +309,7 @@ This template is designed to work seamlessly with official Claude Code plugins. 
 | `code-reviewer` agent     | `code-review` plugin | Template: lightweight local version; Plugin: more powerful with auto-trigger |
 | `security-reviewer` agent | `security-guidance`  | Template: OWASP checklist; Plugin: automatic security analysis               |
 | `code-simplifier` agent   | `code-simplifier`    | Similar function; plugin has more context                                    |
-| `/cc-ralph` command       | `ralph-loop` plugin  | CC-Best wrapper; requires plugin for cross-session persistence               |
+| `/cc-best:cc-ralph` command       | `ralph-loop` plugin  | CC-Best wrapper; requires plugin for cross-session persistence               |
 | `hookify` examples        | `hookify` plugin     | Template: examples; Plugin: full hook management                             |
 
 ### Recommended Plugin Configuration
@@ -406,7 +406,7 @@ Edit `.claude/settings.local.json`:
 > Due to a [known Claude Code issue](https://github.com/anthropics/claude-code/issues/9354), plugin hooks are **disabled by default**. To enable the safety guards and automation hooks, run:
 >
 > ```bash
-> /setup --hooks
+> /cc-best:setup --hooks
 > ```
 >
 > This command configures hooks with absolute paths. See the [FAQ](#hook-issues) for more details.
@@ -444,7 +444,7 @@ All hooks default to Node.js for cross-platform compatibility. Python/Bash alter
 ### 3. Context Management
 
 - Normal mode: Use `/clear` frequently to avoid context overflow
-- `/iterate` mode: Don't clear manually, maintain loop continuity
+- `/cc-best:iterate` mode: Don't clear manually, maintain loop continuity
 
 ### 4. Don't Overload MCP
 
@@ -494,20 +494,20 @@ bash scripts/shell/cleanup.sh --all
 <details>
 <summary><strong>Hooks not working?</strong></summary>
 
-Run `/setup --verify` to diagnose. Common fixes:
+Run `/cc-best:setup --verify` to diagnose. Common fixes:
 
 - Clone users: `cp .claude/settings.local.json.example .claude/settings.local.json`
-- Plugin users: Run `/setup --hooks` to configure absolute paths
+- Plugin users: Run `/cc-best:setup --hooks` to configure absolute paths
 - Windows: See [FAQ.md](FAQ.md#hook-issues) for `${CLAUDE_PLUGIN_ROOT}` workarounds
 </details>
 
 <details>
-<summary><strong>/iterate vs /pair?</strong></summary>
+<summary><strong>/cc-best:iterate vs /pair?</strong></summary>
 
 | Mode       | Control           | Use Case                |
 | ---------- | ----------------- | ----------------------- |
-| `/iterate` | Fully autonomous  | Clear task list         |
-| `/pair`    | Confirm each step | Learning, sensitive ops |
+| `/cc-best:iterate` | Fully autonomous  | Clear task list         |
+| `/cc-best:pair`    | Confirm each step | Learning, sensitive ops |
 
 </details>
 
@@ -523,13 +523,13 @@ Claude saves progress to `memory-bank/progress.md`, so you can always resume lat
 </details>
 
 <details>
-<summary><strong>What if /qa fails?</strong></summary>
+<summary><strong>What if /cc-best:qa fails?</strong></summary>
 
 Claude will:
 
 1. Analyze the failure
-2. Return to `/dev` to fix the issue
-3. Re-run `/qa` to verify
+2. Return to `/cc-best:dev` to fix the issue
+3. Re-run `/cc-best:qa` to verify
 
 If stuck after 3 attempts, Claude will ask for your input. You can:
 
@@ -586,8 +586,8 @@ Some commands use MCP (Model Context Protocol) tools for enhanced functionality:
 
 | MCP Server | Used By                    | Purpose                                           |
 | ---------- | -------------------------- | ------------------------------------------------- |
-| Playwright | `/designer`, `/dev`, `/pm` | Browser automation for UI testing and screenshots |
-| Firecrawl  | `/pm`, `/lead`             | Web scraping for requirement research             |
+| Playwright | `/cc-best:designer`, `/cc-best:dev`, `/cc-best:pm` | Browser automation for UI testing and screenshots |
+| Firecrawl  | `/cc-best:pm`, `/cc-best:lead`             | Web scraping for requirement research             |
 
 > **Note**: These are optional. Commands work without MCP servers but with reduced functionality.
 > Install via Claude Code settings: `Settings > MCP Servers`

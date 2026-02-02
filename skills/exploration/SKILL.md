@@ -131,10 +131,10 @@ agent: Explore
 
 | 角色     | 探索场景           | 推荐策略            |
 | -------- | ------------------ | ------------------- |
-| `/pm`    | 理解现有功能       | isolated-research   |
-| `/lead`  | 架构分析、技术设计 | iterative-retrieval |
-| `/dev`   | 实现前了解相关代码 | isolated-research   |
-| `/qa`    | 理解测试范围       | isolated-research   |
+| `/cc-best:pm`    | 理解现有功能       | isolated-research   |
+| `/cc-best:lead`  | 架构分析、技术设计 | iterative-retrieval |
+| `/cc-best:dev`   | 实现前了解相关代码 | isolated-research   |
+| `/cc-best:qa`    | 理解测试范围       | isolated-research   |
 | `/debug` | 追踪 Bug 根因      | iterative-retrieval |
 
 ---

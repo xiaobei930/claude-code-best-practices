@@ -17,8 +17,8 @@ Claude Code 官方的自动压缩功能存在已知问题：
 
 | Issue                                                            | 版本     | 状态     | 问题描述                            |
 | ---------------------------------------------------------------- | -------- | -------- | ----------------------------------- |
-| [#18211](https://github.com/anthropics/claude-code/issues/18211) | v2.1.7+  | 已关闭   | `/compact` 和 auto-compact 同时损坏 |
-| [#21853](https://github.com/anthropics/claude-code/issues/21853) | v2.1.23+ | **开放** | `/compact` 始终失败（回归 bug）     |
+| [#18211](https://github.com/anthropics/claude-code/issues/18211) | v2.1.7+  | 已关闭   | `/cc-best:compact` 和 auto-compact 同时损坏 |
+| [#21853](https://github.com/anthropics/claude-code/issues/21853) | v2.1.23+ | **开放** | `/cc-best:compact` 始终失败（回归 bug）     |
 | [#16349](https://github.com/anthropics/claude-code/issues/16349) | -        | -        | 警告和错误阈值相同，无预警          |
 
 **问题根因**：

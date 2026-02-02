@@ -1,6 +1,6 @@
 ---
 name: build-error-resolver
-description: "Analyzes build/compile errors and provides minimal targeted fixes. Use PROACTIVELY when build fails, type errors occur, or compilation issues arise. Integrates with /verify and /fix commands."
+description: "Analyzes build/compile errors and provides minimal targeted fixes. Use PROACTIVELY when build fails, type errors occur, or compilation issues arise. Integrates with /cc-best:verify and /cc-best:fix commands."
 model: sonnet
 tools: Read, Edit, Grep, Glob, Bash
 skills:

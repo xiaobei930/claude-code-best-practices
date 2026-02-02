@@ -4,7 +4,7 @@
 
 按照重构计划逐步重构代码，确保每一步测试都通过。
 
-整合项目的 `/dev` 和 `/qa` 角色，遵循安全重构原则。
+整合项目的 `/cc-best:dev` 和 `/cc-best:qa` 角色，遵循安全重构原则。
 
 ## 重构计划
 
@@ -19,7 +19,7 @@
 
 ## 执行流程
 
-### Phase 1: 分析（/lead 角色思维）
+### Phase 1: 分析（/cc-best:lead 角色思维）
 
 1. **理解现状**
    - 读取相关代码
@@ -31,7 +31,7 @@
    - 确定执行顺序
    - 识别风险点
 
-### Phase 2: 重构循环（/dev 角色）
+### Phase 2: 重构循环（/cc-best:dev 角色）
 
 每个重构目标执行：
 
@@ -47,11 +47,11 @@
    - 失败 → 回退 → 分析
 ```
 
-### Phase 3: 验证（/qa 角色）
+### Phase 3: 验证（/cc-best:qa 角色）
 
 1. **回归测试**
-   - `/test` - 运行所有测试
-   - `/build` - 构建验证
+   - `/cc-best:test` - 运行所有测试
+   - `/cc-best:build` - 构建验证
 
 2. **代码审查**
    - 委派 `code-reviewer` agent 检查
@@ -59,7 +59,7 @@
 
 ### Phase 4: 提交
 
-使用 `/commit` 命令：
+使用 `/cc-best:commit` 命令：
 
 ```
 refactor(scope): 简短描述
@@ -132,7 +132,7 @@ refactor(scope): 简短描述
 
 ### 角色
 
-[/lead | /dev | /qa]
+[/cc-best:lead | /cc-best:dev | /cc-best:qa]
 
 ### 重构目标
 

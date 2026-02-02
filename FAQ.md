@@ -23,7 +23,7 @@ bash scripts/shell/init.sh
 # 4. Replace template placeholders (see next question)
 
 # 5. Start using
-/pm  # Begin with product manager role
+/cc-best:pm  # Begin with product manager role
 ```
 
 #### Q: What placeholders need to be replaced?
@@ -134,7 +134,7 @@ This usually happens on Windows. Solutions:
 
 ### Commands
 
-#### Q: /iterate stops unexpectedly
+#### Q: /cc-best:iterate stops unexpectedly
 
 Check these stop conditions:
 
@@ -143,14 +143,14 @@ Check these stop conditions:
 - Fatal error occurred
 - External dependency needs user decision
 
-To resume: Run `/iterate` again, it reads from `progress.md`.
+To resume: Run `/cc-best:iterate` again, it reads from `progress.md`.
 
-#### Q: What's the difference between /iterate and /pair?
+#### Q: What's the difference between /cc-best:iterate and /pair?
 
 | Mode       | Control                   | Use Case                        |
 | ---------- | ------------------------- | ------------------------------- |
-| `/iterate` | Fully autonomous          | Clear task list, single session |
-| `/pair`    | Step-by-step confirmation | Learning, sensitive operations  |
+| `/cc-best:iterate` | Fully autonomous          | Clear task list, single session |
+| `/cc-best:pair`    | Step-by-step confirmation | Learning, sensitive operations  |
 
 #### Q: Commands not found
 
@@ -166,7 +166,7 @@ Check these locations:
 
 - After completing each task
 - When making important decisions
-- Before context compression (`/compact`)
+- Before context compression (`/cc-best:compact`)
 - At session end
 
 #### Q: memory-bank files are empty
@@ -249,7 +249,7 @@ bash scripts/shell/init.sh
 # 4. 替换模板占位符（见下一个问题）
 
 # 5. 开始使用
-/pm  # 从产品经理角色开始
+/cc-best:pm  # 从产品经理角色开始
 ```
 
 #### Q: 需要替换哪些占位符？
@@ -360,7 +360,7 @@ git commit -m "Initial commit from Claude Code template"
 
 ### 命令相关
 
-#### Q: /iterate 意外停止了
+#### Q: /cc-best:iterate 意外停止了
 
 检查这些停止条件：
 
@@ -369,14 +369,14 @@ git commit -m "Initial commit from Claude Code template"
 - 发生致命错误
 - 需要用户决策的外部依赖
 
-恢复方法：再次运行 `/iterate`，它会读取 `progress.md` 继续。
+恢复方法：再次运行 `/cc-best:iterate`，它会读取 `progress.md` 继续。
 
-#### Q: /iterate 和 /pair 有什么区别？
+#### Q: /cc-best:iterate 和 /cc-best:pair 有什么区别？
 
 | 模式       | 控制方式 | 适用场景                 |
 | ---------- | -------- | ------------------------ |
-| `/iterate` | 完全自主 | 任务清单明确，单 session |
-| `/pair`    | 每步确认 | 学习新技术、敏感操作     |
+| `/cc-best:iterate` | 完全自主 | 任务清单明确，单 session |
+| `/cc-best:pair`    | 每步确认 | 学习新技术、敏感操作     |
 
 #### Q: 命令找不到
 
@@ -392,7 +392,7 @@ git commit -m "Initial commit from Claude Code template"
 
 - 每个任务完成后
 - 做出重要决策时
-- 上下文压缩前（`/compact`）
+- 上下文压缩前（`/cc-best:compact`）
 - 会话结束时
 
 #### Q: memory-bank 文件是空的
@@ -558,7 +558,7 @@ set PYTHONUTF8=1
 
 临时替代方案:
 
-- 使用 `/iterate` 命令进行自主循环（cc-best 内置，无需 ralph-loop）
+- 使用 `/cc-best:iterate` 命令进行自主循环（cc-best 内置，无需 ralph-loop）
 - 使用 WSL (Windows Subsystem for Linux)
 
 ---
