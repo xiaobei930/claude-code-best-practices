@@ -349,7 +349,8 @@ spec:
 
 - **Docker**: [docker.md](./docker.md) - 容器化、Compose、镜像优化
 - **CI/CD**: [ci-cd.md](./ci-cd.md) - GitHub Actions、GitLab CI
-- **Kubernetes**: [kubernetes.md](./kubernetes.md) - K8s 部署和配置
+
+> 💡 Kubernetes 基础概念已包含在本文件中（部署策略、网络策略等），如需深入学习请参考官方文档。
 
 ---
 

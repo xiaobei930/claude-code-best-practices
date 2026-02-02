@@ -5,6 +5,7 @@ model: sonnet
 tools: Read, Edit, Grep, Glob, Bash
 skills:
   - debug
+  - devops
 color: yellow
 ---
 

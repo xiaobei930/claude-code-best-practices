@@ -6,6 +6,7 @@ tools: Read, Grep, Glob
 skills:
   - security
   - quality
+  - architecture
 color: yellow
 ---
 
@@ -374,3 +375,20 @@ dotnet build /warnaserror
 ⚠️ 建议:
    - [主要改进建议]
 ```
+
+---
+
+## 二次审查（可选）
+
+对于关键代码变更，建议使用 `second-opinion` 技能进行交叉验证：
+
+**触发场景**：
+
+- 安全敏感功能（认证、授权、加密）
+- 核心业务逻辑变更
+- 复杂的跨模块重构
+
+**使用方式**：
+
+- 参考 `skills/second-opinion/SKILL.md`
+- 或使用 Oracle CLI: `npx -y @steipete/oracle --engine browser -p "安全审查" --file "src/auth/**"`

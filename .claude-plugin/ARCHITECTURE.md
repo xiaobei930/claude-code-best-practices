@@ -13,7 +13,7 @@
 | **Commands** | 35   | `commands/`           | 用户输入 `/xxx`         |
 | **Skills**   | 17   | `skills/`             | Agent 预加载 / 自动注入 |
 | **Agents**   | 8    | `agents/`             | Task tool 委派          |
-| **Hooks**    | 28   | `scripts/node/hooks/` | 生命周期自动触发        |
+| **Hooks**    | 17   | `scripts/node/hooks/` | 生命周期自动触发        |
 
 ---
 
@@ -58,7 +58,7 @@
                        │ 触发
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                       Hooks (27)                            │
+│                       Hooks (17)                            │
 │  SessionStart  → session-check, session-start               │
 │  PreToolUse    → validate-command, protect-files...         │
 │  PostToolUse   → format-file, typescript-check...           │
@@ -123,16 +123,16 @@
 
 ## 5. Agents → Skills 预加载关系
 
-| Agent                 | 预加载 Skills                | 说明                 |
-| --------------------- | ---------------------------- | -------------------- |
-| security-reviewer     | `security`                   | OWASP 安全检查清单   |
-| tdd-guide             | `testing`                    | TDD 工作流和测试框架 |
-| build-error-resolver  | `debug`                      | 构建错误诊断和修复   |
-| architect             | `architecture` `exploration` | 架构设计和代码库探索 |
-| code-reviewer         | -                            | 独立运行             |
-| code-simplifier       | -                            | 独立运行             |
-| planner               | -                            | 独立运行             |
-| requirement-validator | -                            | 独立运行             |
+| Agent                 | 预加载 Skills                       | 说明                       |
+| --------------------- | ----------------------------------- | -------------------------- |
+| security-reviewer     | `security`                          | OWASP 安全检查清单         |
+| tdd-guide             | `testing` `security`                | TDD 工作流 + 安全测试      |
+| build-error-resolver  | `debug` `devops`                    | 构建诊断 + CI/CD 问题      |
+| architect             | `architecture` `exploration` `api`  | 架构设计 + 探索 + API 设计 |
+| code-reviewer         | `security` `quality` `architecture` | 安全 + 质量 + 架构合规检查 |
+| code-simplifier       | `quality` `architecture`            | 质量 + 架构感知简化        |
+| planner               | `architecture`                      | 任务分解时参考架构         |
+| requirement-validator | -                                   | 独立运行                   |
 
 ---
 
@@ -278,6 +278,32 @@ hooks/
 2. 在 `.claude/settings.local.json` 中注册
 3. 指定触发条件 (`matcher`)
 
+### 何时使用 Subagent
+
+**Subagent** 是独立上下文的专业化代理，支持并发执行。
+
+**适用场景**：
+
+- 真正独立的并行任务（无相互依赖）
+- 需要上下文隔离（如敏感操作）
+- 任务间无信息共享需求
+
+**不适用场景**（当前 agent 设计已覆盖）：
+
+- 检查结果相互关联（如代码审查的安全/质量/架构检查）
+- 顺序工作流（如 TDD 的 红→绿→重构）
+- 失败诊断需要完整上下文
+
+**创建方式**（如需要）：
+
+```yaml
+---
+name: style-checker
+description: "独立的代码风格检查，可与其他检查并发运行"
+tools: Read, Grep, Glob
+---
+```
+
 ---
 
 ## 11. Agent 相互调用关系 | Agent Interactions
@@ -352,7 +378,7 @@ hooks/
 | Commands             | 35                                          |
 | Skills               | 17                                          |
 | Agents               | 8                                           |
-| Hooks Scripts        | 28                                          |
+| Hooks Scripts        | 17                                          |
 | Language Support     | 5 (Python, TS, Java, Go, C#)                |
 | Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...) |
 | Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)       |

@@ -15,6 +15,7 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 - 实现业务逻辑层
 - 配置中间件
 - 处理错误和日志
+- 性能优化（数据库、缓存、并发）
 
 ## 语言专属模式
 
@@ -209,6 +210,10 @@ GET /health
 - **Java**: [java.md](./java.md) - Spring Boot
 - **Go**: [go.md](./go.md) - Gin/Echo
 - **C#**: [csharp.md](./csharp.md) - ASP.NET Core
+
+## 专项优化
+
+- **性能优化**: [performance.md](./performance.md) - 数据库、缓存、并发优化
 
 ---
 

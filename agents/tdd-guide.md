@@ -5,6 +5,7 @@ model: sonnet
 tools: Read, Write, Edit, Grep, Glob, Bash
 skills:
   - testing
+  - security
 color: green
 ---
 

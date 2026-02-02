@@ -39,3 +39,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 - 需要 GitHub CLI (gh) 已安装并认证
 - 默认目标分支为 main/master
+
+## 参考
+
+- 完整 Git 工作流规范请参考 `skills/git/SKILL.md`

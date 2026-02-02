@@ -5,6 +5,7 @@ model: opus
 tools: Read, Edit, Grep, Glob
 skills:
   - quality
+  - architecture
 color: green
 ---
 

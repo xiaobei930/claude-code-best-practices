@@ -6,6 +6,7 @@ tools: Read, Write, Edit, Grep, Glob
 skills:
   - architecture
   - exploration
+  - api
 color: blue
 ---
 
@@ -258,3 +259,20 @@ cat package.json | jq '.dependencies'
    - 交给 planner 进行任务分解
    - 开始原型验证（如需要）
 ```
+
+---
+
+## 二次审查（可选）
+
+对于重大架构决策，建议使用 `second-opinion` 技能进行交叉验证：
+
+**触发场景**：
+
+- 技术选型影响面广
+- 架构方案存在争议
+- 高风险的系统重构
+
+**使用方式**：
+
+- 参考 `skills/second-opinion/SKILL.md`
+- 或使用 Oracle CLI: `npx -y @steipete/oracle --engine browser -p "审查架构决策" --file "docs/designs/**"`
