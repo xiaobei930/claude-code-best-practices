@@ -383,3 +383,48 @@ tools: Read, Grep, Glob
 | Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...) |
 | Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)       |
 | Total Markdown Lines | ~22,000                                     |
+
+---
+
+## 13. 官方特性兼容性 | Official Feature Compatibility
+
+> 基于 Claude Code v2.1.31 评估（2026-02-05）
+
+### 已采用特性 | Adopted Features
+
+| 官方特性                | 本仓库实现                  | 状态 |
+| ----------------------- | --------------------------- | ---- |
+| YAML Frontmatter        | 全部 agents/commands/skills | ✅   |
+| Agent `model` 字段      | 8 个 agents                 | ✅   |
+| Agent `skills` 预加载   | 6 个 agents                 | ✅   |
+| Wildcard Permissions    | `Skill(*)`                  | ✅   |
+| SessionEnd Lifecycle    | hooks                       | ✅   |
+| `${CLAUDE_PLUGIN_ROOT}` | hooks 路径                  | ✅   |
+
+### 兼容但未采用 | Compatible but Not Adopted
+
+| 官方特性          | 说明                      | 计划     |
+| ----------------- | ------------------------- | -------- |
+| Skill Hot Reload  | 开发时自动重载 skill 文件 | 自动支持 |
+| `context: fork`   | agent 运行在独立上下文    | v0.6.x   |
+| Frontmatter Hooks | 在 YAML 中声明 hooks      | 评估中   |
+| Async Hooks       | `async: true` 非阻塞执行  | 部分采用 |
+| `$ARGUMENTS` 变量 | 命令参数传递              | v0.6.x   |
+
+### 不适用特性 | Not Applicable
+
+| 官方特性        | 原因                   |
+| --------------- | ---------------------- |
+| Agent Teams     | 需要高级订阅计划       |
+| Remote Sessions | 云端功能，本地插件无需 |
+
+### 模型配置策略 | Model Configuration Strategy
+
+**当前策略: 质量优先**
+
+| 模型   | 使用场景                   | 当前 Agents                                                                                  |
+| ------ | -------------------------- | -------------------------------------------------------------------------------------------- |
+| opus   | 需要深度理解和创造性的任务 | architect, planner, code-reviewer, code-simplifier, security-reviewer, requirement-validator |
+| sonnet | 执行性任务和快速响应       | tdd-guide, build-error-resolver                                                              |
+
+> 模型策略配置（质量/速度/均衡）计划在 v0.6.x 版本实现
