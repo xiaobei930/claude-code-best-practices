@@ -1,6 +1,6 @@
 # CC-Best Commands Reference | 命令参考
 
-> Version: 0.6.0 | 35 Commands
+> Version: 0.6.0 | 38 Commands
 
 快速查阅所有命令的参数和用法。
 
@@ -49,20 +49,23 @@
 
 ### 构建 & 测试
 
-| 命令             | 用途         | 参数                        |
-| ---------------- | ------------ | --------------------------- |
-| `/cc-best:build` | 构建项目     | -                           |
-| `/cc-best:test`  | 运行测试     | `<测试路径>` / `--coverage` |
-| `/cc-best:run`   | 启动服务     | `api` / `frontend` / `all`  |
-| `/cc-best:fix`   | 修复构建错误 | -                           |
+| 命令               | 用途         | 参数                                         |
+| ------------------ | ------------ | -------------------------------------------- |
+| `/cc-best:build`   | 构建项目     | -                                            |
+| `/cc-best:test`    | 运行测试     | `<测试路径>` / `--coverage`                  |
+| `/cc-best:run`     | 启动服务     | `api` / `frontend` / `all`                   |
+| `/cc-best:fix`     | 修复构建错误 | -                                            |
+| `/cc-best:service` | 开发服务管理 | `--stop` / `--restart` / `--logs` / `--list` |
 
 ### Git & 提交
 
-| 命令              | 用途              | 参数         |
-| ----------------- | ----------------- | ------------ |
-| `/cc-best:commit` | Git 提交          | `<提交信息>` |
-| `/cc-best:pr`     | 创建 Pull Request | -            |
-| `/cc-best:git`    | Git 操作指南      | -            |
+| 命令                 | 用途              | 参数                                      |
+| -------------------- | ----------------- | ----------------------------------------- |
+| `/cc-best:commit`    | Git 提交          | `<提交信息>`                              |
+| `/cc-best:pr`        | 创建 Pull Request | -                                         |
+| `/cc-best:git`       | Git 操作指南      | -                                         |
+| `/cc-best:fix-issue` | Issue 修复闭环    | `#<number>` / `--no-close`                |
+| `/cc-best:release`   | 版本发布管理      | `patch` / `minor` / `major` / `--dry-run` |
 
 ### 状态 & 诊断
 
@@ -138,23 +141,23 @@
 
 **中频（功能开发）**
 
-- `/cc-best:pm`, `/cc-best:lead`, `/cc-best:qa`, `/cc-best:verify`, `/cc-best:status`
+- `/cc-best:pm`, `/cc-best:lead`, `/cc-best:qa`, `/cc-best:verify`, `/cc-best:status`, `/cc-best:fix-issue`, `/cc-best:release`
 
 **低频（特定场景）**
 
-- `/cc-best:setup`, `/cc-best:compact`, `/cc-best:cleanup`, `/cc-best:train`
+- `/cc-best:setup`, `/cc-best:compact`, `/cc-best:cleanup`, `/cc-best:train`, `/cc-best:service`
 
 ### 按工作阶段
 
-| 阶段     | 命令                                                    |
-| -------- | ------------------------------------------------------- |
-| 需求分析 | `/cc-best:pm`, `/cc-best:clarify`                       |
-| 技术设计 | `/cc-best:lead`, `/cc-best:designer`                    |
-| 编码实现 | `/cc-best:dev`, `/cc-best:iterate`, `/cc-best:pair`     |
-| 质量验证 | `/cc-best:qa`, `/cc-best:test`, `/cc-best:verify`       |
-| 代码提交 | `/cc-best:commit`, `/cc-best:pr`                        |
-| 维护清理 | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:compact` |
-| 知识管理 | `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve` |
+| 阶段     | 命令                                                                      |
+| -------- | ------------------------------------------------------------------------- |
+| 需求分析 | `/cc-best:pm`, `/cc-best:clarify`                                         |
+| 技术设计 | `/cc-best:lead`, `/cc-best:designer`                                      |
+| 编码实现 | `/cc-best:dev`, `/cc-best:iterate`, `/cc-best:pair`, `/cc-best:fix-issue` |
+| 质量验证 | `/cc-best:qa`, `/cc-best:test`, `/cc-best:verify`                         |
+| 代码提交 | `/cc-best:commit`, `/cc-best:pr`, `/cc-best:release`                      |
+| 维护清理 | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:compact`                   |
+| 知识管理 | `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve`                   |
 
 ---
 
@@ -252,6 +255,24 @@
 | `/cc-best:context` | 会话层面 | 加载/管理对话上下文   | 当前会话          |
 
 > `/cc-best:memory` = 项目长期记忆，`/cc-best:context` = 会话信息加载
+
+### /cc-best:fix-issue vs /cc-best:dev
+
+| 命令                 | 触发源       | 职责                                  | 自动化程度 |
+| -------------------- | ------------ | ------------------------------------- | ---------- |
+| `/cc-best:fix-issue` | GitHub Issue | 分析→修复→测试→提交→关闭 Issue 全闭环 | 全自动     |
+| `/cc-best:dev`       | 任务描述     | 通用编码实现                          | 半自动     |
+
+> `/cc-best:fix-issue` = 从 Issue 驱动的端到端修复，`/cc-best:dev` = 通用开发任务
+
+### /cc-best:run vs /cc-best:service
+
+| 命令               | 粒度     | 职责                                | 运行时检测 |
+| ------------------ | -------- | ----------------------------------- | ---------- |
+| `/cc-best:run`     | 简单启动 | 按参数启动 api/frontend/all         | 否         |
+| `/cc-best:service` | 完整管理 | 自动检测运行时，启动/停止/重启/日志 | 6 种语言   |
+
+> `/cc-best:run` = 快速启动，`/cc-best:service` = 智能服务管理
 
 ---
 
