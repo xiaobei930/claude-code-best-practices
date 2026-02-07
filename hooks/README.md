@@ -46,6 +46,7 @@ cp .claude/settings.local.json.example .claude/settings.local.json
 | `format-file.js`       | 自动格式化代码       | Write/Edit             | ✅     |
 | `auto-archive.js`      | Memory Bank 归档提醒 | Write/Edit progress.md | ✅     |
 | `suggest-compact.js`   | 建议压缩时机         | 工具调用达阈值         | ✅     |
+| `observe-patterns.js`  | 自动观察工具调用模式 | Write/Edit/Bash        | ✅     |
 | `check-console-log.js` | 检查 console.log     | Edit                   | 可选   |
 | `typescript-check.js`  | TypeScript 类型检查  | Write/Edit on .ts/.tsx | 可选   |
 
@@ -277,7 +278,7 @@ echo $?  # 检查退出码
 │       ├── lib/
 │       │   ├── utils.js                         # 27 个辅助函数
 │       │   └── package-manager.js               # 包管理器检测
-│       └── hooks/                               # 17 个生命周期钩子
+│       └── hooks/                               # 18 个生命周期钩子
 │           ├── validate-command.js              # 命令验证
 │           ├── protect-files.js                 # 文件保护
 │           ├── format-file.js                   # 自动格式化
@@ -294,7 +295,8 @@ echo $?  # 检查退出码
 │           ├── init.js                          # 项目初始化
 │           ├── user-prompt-submit.js            # 用户提交时上下文注入
 │           ├── stop-check.js                    # 响应完成时遗漏检查
-│           └── subagent-stop.js                 # 子代理完成追踪
+│           ├── subagent-stop.js                 # 子代理完成追踪
+│           └── observe-patterns.js              # 模式观察（学习管线）
 │
 └── hooks/
     ├── hooks.json                               # 插件兼容配置

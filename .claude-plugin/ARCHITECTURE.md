@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.5.9 | Last Updated: 2026-02-06
+> Version: 0.6.0 | Last Updated: 2026-02-08
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -13,8 +13,8 @@
 | **Commands** | 38    | `commands/`           | 用户输入 `/xxx`                    |
 | **Skills**   | 17    | `skills/`             | Agent 预加载 / 自动注入            |
 | **Agents**   | 8     | `agents/`             | Task tool 委派                     |
-| **Rules**    | 30    | `rules/`              | 路径匹配自动注入 (7 目录分层)      |
-| **Hooks**    | 20/13 | `scripts/node/hooks/` | 生命周期自动触发 (20 脚本/13 配置) |
+| **Rules**    | 30    | `rules/`              | 路径匹配自动注入 (8 目录分层)      |
+| **Hooks**    | 21/14 | `scripts/node/hooks/` | 生命周期自动触发 (21 脚本/14 配置) |
 
 ---
 
@@ -417,17 +417,17 @@ tools: Read, Grep, Glob
 
 ## 12. 统计数据 | Statistics
 
-| 类别                 | 数量                                                     |
-| -------------------- | -------------------------------------------------------- |
-| Commands             | 38                                                       |
-| Skills               | 17                                                       |
-| Agents               | 8                                                        |
-| Rules                | 30 (7 目录: common/frontend/java/csharp/cpp/embedded/ui) |
-| Hooks Scripts        | 20 脚本 / 13 已配置                                      |
-| Language Support     | 6 (Python, TS, Java, Go, C#, Rust)                       |
-| Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...)              |
-| Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)                    |
-| Total Markdown Lines | ~25,000                                                  |
+| 类别                 | 数量                                                            |
+| -------------------- | --------------------------------------------------------------- |
+| Commands             | 38                                                              |
+| Skills               | 17                                                              |
+| Agents               | 8                                                               |
+| Rules                | 30 (8 目录: common/python/frontend/java/csharp/cpp/embedded/ui) |
+| Hooks Scripts        | 21 脚本 / 14 已配置                                             |
+| Language Support     | 6 (Python, TS, Java, Go, C#, Rust)                              |
+| Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...)                     |
+| Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)                           |
+| Total Markdown Lines | ~25,000                                                         |
 
 ---
 

@@ -1,7 +1,6 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.java"
 ---
 
 # Java 安全规范 | Java Security Rules

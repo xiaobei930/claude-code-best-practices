@@ -22,7 +22,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] 文档审计与一致性修复
 - [ ] ~~核心命令英文版~~ → 等待官方 i18n 支持 (#7233)
 
-### v0.6.0 (Planned) - 易用性与配置化
+### v0.6.x ✅ (Released 2026-02-08) - 审计修复 + 学习管线 + 架构增强
+
+**核心目标**: 修复已知 bug + 自动学习闭环 + CI 自动发布
+
+- [x] 修复 16 个 rules frontmatter `alwaysApply` bug
+- [x] 学习管线闭环（observe-patterns.js → observations.jsonl → /learn）
+- [x] CI 自动发布（tag push → GitHub Release）
+- [x] Agent 能力增强（exploration/learning 技能扩展）
+- [x] 脚本黑盒化（5 个 hook 脚本 --help 支持）
+
+### v0.7.0 (Planned) - 易用性与配置化
 
 **核心目标**: 降低上手门槛 + 灵活配置
 
@@ -32,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] 常见错误诊断与修复建议
 - [ ] 示例项目（完整工作流演示）
 
-### v0.7.0 (Planned) - 多模型协作
+### v0.8.0 (Planned) - 多模型协作
 
 **核心目标**: 发挥不同模型优势
 
@@ -53,6 +63,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Recent Changes / 近期变更
+
+### [0.6.0] - 2026-02-08
+
+#### Fixed / 修复
+
+- **Rules frontmatter bug**: 修复 16 个语言专属 rules 误用 `alwaysApply: true`，现在仅对匹配的语言文件生效
+- **code-style.md 错位**: 从 `rules/common/` 移至 `rules/python/python-style.md`
+- **frontend-style.md 引用**: 修正错误的 Python 文件引用
+
+#### Added / 新增
+
+- **学习管线闭环**: 新增 `observe-patterns.js` PostToolUse hook，自动捕获 error_fix、repeated_search、multi_file_edit、test_after_edit 四种模式
+- **CI 自动发布**: 新增 `auto-release.yml`，tag push 触发自动创建 GitHub Release
+- **脚本黑盒化**: 5 个高频 hook 脚本支持 `--help`，减少 agent 读源码浪费 context
+- **Python rules 目录**: 新增 `rules/python/` 目录
+
+#### Changed / 变更
+
+- **Agent 能力增强**: code-reviewer、security-reviewer、build-error-resolver 添加 `exploration` 技能
+- **code-reviewer 学习能力**: 添加 `learning` 技能，审查中发现的模式可记录
+- **build-error-resolver 模型优化**: sonnet → haiku，适配"最小修复"快速模式
+- **/learn 命令增强**: 新增 Step 0 自动读取 observations.jsonl 作为分析输入
+- **learning skill 更新**: 自动观察 Hook 从代码草图升级为实际脚本引用
 
 ### [0.5.9] - 2026-02-06
 

@@ -1,7 +1,10 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.cpp"
+  - "**/*.hpp"
+  - "**/*.h"
+  - "**/*.cc"
+  - "**/*.cxx"
 ---
 
 # C++ 测试规范 | C++ Testing Rules

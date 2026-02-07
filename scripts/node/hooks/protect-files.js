@@ -15,6 +15,24 @@
  * - 2: 阻止执行
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`protect-files.js - 敏感文件保护
+
+用途: PreToolUse hook，阻止修改敏感文件
+触发: Edit, Write 工具调用前
+
+保护范围:
+  - .env / .env.local / .env.production
+  - *.key / *.pem / credentials.json / secrets.json
+  - .git/ 目录内容
+
+Exit codes:
+  0  允许执行
+  2  阻止执行（反馈给 Claude）`);
+  process.exit(0);
+}
+
 const path = require("path");
 const { readStdinJson, log } = require("../lib/utils");
 

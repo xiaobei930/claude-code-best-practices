@@ -1,7 +1,10 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.js"
+  - "**/*.jsx"
+  - "**/*.vue"
 ---
 
 # 前端测试规范 | Frontend Testing Rules

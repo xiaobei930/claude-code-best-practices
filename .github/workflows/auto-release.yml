@@ -1,0 +1,82 @@
+name: Auto Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate Plugin
+        run: node scripts/ci/validate-all.js
+
+      - name: Get Version Info
+        id: version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+          # 获取上一个 tag
+          PREV_TAG=$(git tag --sort=-creatordate | grep '^v' | sed -n '2p' || echo "")
+          echo "prev_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+
+      - name: Generate Release Notes
+        id: notes
+        run: |
+          TAG="${{ steps.version.outputs.tag }}"
+          PREV_TAG="${{ steps.version.outputs.prev_tag }}"
+
+          # 生成 release notes
+          if [ -n "$PREV_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- %s (%h)" "${PREV_TAG}..${TAG}" 2>/dev/null || echo "- Initial release")
+          else
+            COMMITS=$(git log --pretty=format:"- %s (%h)" "${TAG}" 2>/dev/null || echo "- Initial release")
+          fi
+
+          # 统计组件数量
+          COMMANDS=$(ls -1 commands/*.md 2>/dev/null | wc -l | tr -d ' ')
+          SKILLS=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+          AGENTS=$(ls -1 agents/*.md 2>/dev/null | grep -v README | wc -l | tr -d ' ')
+          RULES=$(find rules -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+
+          # 写入 release notes 文件
+          cat > /tmp/release-notes.md << NOTES_EOF
+          ## Changes
+
+          ${COMMITS}
+
+          ## Plugin Stats
+
+          | Component | Count |
+          |-----------|-------|
+          | Commands | ${COMMANDS} |
+          | Skills | ${SKILLS} |
+          | Agents | ${AGENTS} |
+          | Rules | ${RULES} |
+          NOTES_EOF
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
+          body_path: /tmp/release-notes.md
+          draft: false
+          prerelease: false

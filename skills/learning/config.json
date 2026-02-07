@@ -10,9 +10,7 @@
     "debugging_techniques",
     "project_specific"
   ],
-  "ignore_patterns": [
-    "simple_typos",
-    "one_time_fixes",
-    "external_api_issues"
-  ]
+  "ignore_patterns": ["simple_typos", "one_time_fixes", "external_api_issues"],
+  "observations_path": "memory-bank/observations.jsonl",
+  "max_observations": 200
 }

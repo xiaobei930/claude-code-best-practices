@@ -1,7 +1,9 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/components/**/*.c"
+  - "**/components/**/*.h"
+  - "**/main/**/*.c"
+  - "**/main/**/*.h"
 ---
 
 # 嵌入式性能优化规范 | Embedded Performance Rules

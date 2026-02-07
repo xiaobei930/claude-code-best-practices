@@ -70,6 +70,17 @@
         "description": "自动归档: progress.md 超过 300 行时提醒归档"
       },
       {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/observe-patterns.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "模式观察: 追踪工具调用模式，写入 memory-bank/observations.jsonl 供 /learn 消费"
+      },
+      {
         "matcher": ".*",
         "hooks": [
           {

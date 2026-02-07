@@ -1,7 +1,6 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.java"
 ---
 
 # Java 测试规范 | Java Testing Rules

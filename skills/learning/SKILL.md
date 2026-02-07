@@ -322,33 +322,15 @@ echo "[Learning] 保存位置: $LEARNED_PATH" >&2
 - [ ] 写入 CLAUDE.md
 ```
 
-### 自动观察 Hook（可选）
+### 自动观察 Hook
 
-```javascript
-// hooks/observe-patterns.js
-const {
-  appendFile,
-  getSessionIdShort,
-  getDateTimeString,
-} = require("./lib/utils");
+通过 PostToolUse hook 自动捕获工具调用模式，无需手动触发。
 
-async function observePattern(input) {
-  const observation = {
-    sessionId: getSessionIdShort(),
-    timestamp: getDateTimeString(),
-    tool: input.tool_name,
-    pattern: detectPattern(input),
-    context: summarizeContext(input),
-  };
-
-  if (observation.pattern) {
-    appendFile(
-      ".claude/learned/observations.jsonl",
-      JSON.stringify(observation) + "\n",
-    );
-  }
-}
-```
+- **脚本**: `scripts/node/hooks/observe-patterns.js`（运行 `--help` 查看详情）
+- **输出**: `memory-bank/observations.jsonl`（JSONL 格式，自动轮转）
+- **触发**: Write、Edit、Bash 操作后自动运行
+- **检测模式**: error_fix、repeated_search、multi_file_edit、test_after_edit
+- **与 /learn 配合**: `/learn` 命令在 Step 0 自动读取观察数据作为分析输入
 
 ---
 

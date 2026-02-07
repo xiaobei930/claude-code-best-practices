@@ -6,6 +6,7 @@ tools: Read, Grep, Glob
 skills:
   - security
   - quality
+  - exploration
 color: red
 ---
 

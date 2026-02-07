@@ -1,7 +1,11 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.vue"
+  - "**/*.tsx"
+  - "**/*.jsx"
+  - "**/*.css"
+  - "**/*.scss"
+  - "**/*.less"
 ---
 
 # UI 可访问性规范 | UI Accessibility Rules

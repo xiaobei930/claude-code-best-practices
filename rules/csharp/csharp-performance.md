@@ -1,7 +1,6 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.cs"
 ---
 
 # C# 性能优化规范 | C# Performance Rules

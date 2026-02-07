@@ -139,14 +139,14 @@ node scripts/node/convert-to-local.js
 
 ## ✨ 核心特性
 
-| 特性                | 说明                                               |
-| ------------------- | -------------------------------------------------- |
-| 🎭 **角色化工作流** | PM → Lead → Designer → Dev → QA — 完整开发循环     |
-| 🔄 **自主迭代模式** | `/cc-best:iterate` 自动完成任务，无需干预          |
-| 🛡️ **安全钩子**     | 阻止 `rm -rf /`、`git push --force` 等危险命令     |
-| 📐 **多语言规范**   | 7 目录分层：通用 + 前端/Java/C#/C++/嵌入式/UI 规范 |
-| 🧠 **记忆库**       | 跨会话持久化进度和决策                             |
-| 🌐 **跨平台**       | Windows、macOS、Linux — 自动检测包管理器           |
+| 特性                | 说明                                                      |
+| ------------------- | --------------------------------------------------------- |
+| 🎭 **角色化工作流** | PM → Lead → Designer → Dev → QA — 完整开发循环            |
+| 🔄 **自主迭代模式** | `/cc-best:iterate` 自动完成任务，无需干预                 |
+| 🛡️ **安全钩子**     | 阻止 `rm -rf /`、`git push --force` 等危险命令            |
+| 📐 **多语言规范**   | 8 目录分层：通用 + Python/前端/Java/C#/C++/嵌入式/UI 规范 |
+| 🧠 **记忆库**       | 跨会话持久化进度和决策                                    |
+| 🌐 **跨平台**       | Windows、macOS、Linux — 自动检测包管理器                  |
 
 <details>
 <summary>📹 查看 /cc-best:iterate 运行演示</summary>
@@ -166,7 +166,7 @@ your-project/
 ├── commands/          # 38 个命令
 ├── skills/            # 17 个技能
 ├── agents/            # 8 个智能体
-├── rules/             # 30 条编码规范 (7 目录分层)
+├── rules/             # 30 条编码规范 (8 目录分层)
 ├── hooks/             # 安全钩子
 ├── scripts/           # 自动化脚本 (node/python/shell)
 ├── memory-bank/       # 进度 & 架构文档
@@ -181,7 +181,7 @@ your-project/
 | `commands/`    | 角色命令 (`pm`, `lead`, `dev`, `qa`)，模式命令 (`iterate`, `pair`)，工具命令 (`build`, `test`, `commit`)                                      |
 | `skills/`      | 后端、前端、测试、安全、DevOps、架构、Git                                                                                                     |
 | `agents/`      | `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide` |
-| `rules/`       | 30 条规则，7 目录: `common/` + `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                                    |
+| `rules/`       | 30 条规则，8 目录: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                         |
 | `scripts/`     | Node.js 跨平台钩子（默认），Python/Bash 备选                                                                                                  |
 | `memory-bank/` | `progress.md`（滚动窗口），`architecture.md`，`tech-stack.md`                                                                                 |
 
@@ -598,7 +598,7 @@ Claude 会自动：
 
 | 语言      | 规则文件            | 格式化工具         | 测试框架    |
 | --------- | ------------------- | ------------------ | ----------- |
-| Python    | `code-style.md`     | Black + isort      | pytest      |
+| Python    | `python-style.md`   | Black + isort      | pytest      |
 | Vue/TS/JS | `frontend-style.md` | Prettier           | Vitest      |
 | C++       | `cpp-style.md`      | clang-format       | Google Test |
 | Java      | `java-style.md`     | google-java-format | JUnit       |

@@ -1,7 +1,6 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.cs"
 ---
 
 # C# 安全规范 | C# Security Rules

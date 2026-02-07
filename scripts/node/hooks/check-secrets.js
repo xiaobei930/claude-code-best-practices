@@ -13,6 +13,23 @@
  * - 0: 检查完成（警告但不阻止）
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`check-secrets.js - 密钥泄露检测
+
+用途: PreToolUse hook，在 git commit 前扫描硬编码密钥
+触发: Bash 工具调用前（检测 git commit 命令）
+
+检测范围:
+  - 30+ 云服务商 API Key（Anthropic, OpenAI, AWS, GCP 等）
+  - SSH 私钥、JWT Token、数据库连接字符串
+  - 通用密钥模式（password=, secret=, token= 等）
+
+Exit codes:
+  0  检查完成（警告但不阻止）`);
+  process.exit(0);
+}
+
 const fs = require("fs");
 const path = require("path");
 const { readStdinJson, log } = require("../lib/utils");

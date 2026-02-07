@@ -1,7 +1,6 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.cs"
 ---
 
 # C# 测试规范 | C# Testing Rules

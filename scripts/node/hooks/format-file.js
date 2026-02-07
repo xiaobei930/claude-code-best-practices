@@ -17,6 +17,25 @@
  * - 0: 格式化完成（无论成功与否）
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`format-file.js - 自动格式化代码文件
+
+用途: PostToolUse hook，文件写入/编辑后自动格式化
+触发: Write, Edit 工具调用后
+
+支持的格式化工具:
+  Python       black + isort
+  TS/JS/Vue    prettier
+  C/C++        clang-format
+  Java         google-java-format
+  C#           dotnet format
+
+Exit codes:
+  0  格式化完成（无论成功与否，不阻止操作）`);
+  process.exit(0);
+}
+
 const path = require("path");
 const { execSync } = require("child_process");
 const fs = require("fs");

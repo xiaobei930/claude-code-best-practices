@@ -139,14 +139,14 @@ You just watch. Intervene only when needed.
 
 ## ✨ Core Features
 
-| Feature                         | What it does                                                             |
-| ------------------------------- | ------------------------------------------------------------------------ |
-| 🎭 **Role-Based Workflow**      | PM → Lead → Designer → Dev → QA — complete development cycle             |
-| 🔄 **Autonomous Mode**          | `/cc-best:iterate` runs tasks without intervention until completion      |
-| 🛡️ **Safety Hooks**             | Blocks `rm -rf /`, `git push --force`, and other risky commands          |
-| 📐 **Multi-Language Standards** | 7-dir layered structure: common + frontend/Java/C#/C++/embedded/UI rules |
-| 🧠 **Memory Bank**              | Persists progress and decisions across sessions                          |
-| 🌐 **Cross-Platform**           | Windows, macOS, Linux — auto-detects package manager                     |
+| Feature                         | What it does                                                                    |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| 🎭 **Role-Based Workflow**      | PM → Lead → Designer → Dev → QA — complete development cycle                    |
+| 🔄 **Autonomous Mode**          | `/cc-best:iterate` runs tasks without intervention until completion             |
+| 🛡️ **Safety Hooks**             | Blocks `rm -rf /`, `git push --force`, and other risky commands                 |
+| 📐 **Multi-Language Standards** | 8-dir layered structure: common + Python/frontend/Java/C#/C++/embedded/UI rules |
+| 🧠 **Memory Bank**              | Persists progress and decisions across sessions                                 |
+| 🌐 **Cross-Platform**           | Windows, macOS, Linux — auto-detects package manager                            |
 
 <details>
 <summary>📹 See /cc-best:iterate in action</summary>
@@ -166,7 +166,7 @@ your-project/
 ├── commands/          # 38 slash commands
 ├── skills/            # 17 development skills
 ├── agents/            # 8 specialized agents
-├── rules/             # 30 coding standards (7 dirs)
+├── rules/             # 30 coding standards (8 dirs)
 ├── hooks/             # Safety hooks
 ├── scripts/           # Automation (node/python/shell)
 ├── memory-bank/       # Progress & architecture docs
@@ -181,7 +181,7 @@ your-project/
 | `commands/`    | Role commands (`pm`, `lead`, `dev`, `qa`), Mode commands (`iterate`, `pair`), Tool commands (`build`, `test`, `commit`)                       |
 | `skills/`      | Backend, Frontend, Testing, Security, DevOps, Architecture, Git                                                                               |
 | `agents/`      | `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide` |
-| `rules/`       | 30 rules in 7 dirs: `common/` + `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                                   |
+| `rules/`       | 30 rules in 8 dirs: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                        |
 | `scripts/`     | Cross-platform hooks in Node.js (default), with Python/Bash alternatives                                                                      |
 | `memory-bank/` | `progress.md` (rolling window), `architecture.md`, `tech-stack.md`                                                                            |
 
@@ -598,7 +598,7 @@ Some commands use MCP (Model Context Protocol) tools for enhanced functionality:
 
 | Language  | Rule File           | Formatter          | Test Framework |
 | --------- | ------------------- | ------------------ | -------------- |
-| Python    | `code-style.md`     | Black + isort      | pytest         |
+| Python    | `python-style.md`   | Black + isort      | pytest         |
 | Vue/TS/JS | `frontend-style.md` | Prettier           | Vitest         |
 | C++       | `cpp-style.md`      | clang-format       | Google Test    |
 | Java      | `java-style.md`     | google-java-format | JUnit          |

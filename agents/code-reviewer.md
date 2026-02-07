@@ -8,6 +8,8 @@ skills:
   - quality
   - architecture
   - testing
+  - exploration
+  - learning
 color: yellow
 ---
 

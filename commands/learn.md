@@ -44,8 +44,15 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ## 工作流程
 
 ```
+0. 观察数据预加载
+   ├─ 读取 memory-bank/observations.jsonl（如存在）
+   ├─ 按 pattern 分组：error_fix / repeated_search / multi_file_edit / test_after_edit
+   ├─ 筛选 confidence ≥ 0.3 且当前会话的观察
+   └─ 作为会话分析的补充输入（自动捕获 + 人工回顾 = 完整画面）
+
 1. 会话分析
    ├─ 回顾当前会话的关键交互
+   ├─ 结合 Step 0 的自动观察数据
    ├─ 识别有价值的知识点
    └─ 分类：模式/约定/偏好/陷阱
 
@@ -535,7 +542,7 @@ learnings:
 | ---- | ----------------- | ---------------------- | ------ |
 | 规则 | 添加 API 调用规范 | `rules/api-style.md`   | 高     |
 | 约束 | 添加禁止操作项    | `CLAUDE.md`            | 高     |
-| 技能 | 可演化为新技能    | `/cc-best:evolve`              | 中     |
+| 技能 | 可演化为新技能    | `/cc-best:evolve`      | 中     |
 | 钩子 | 创建自动检测规则  | `.claude/hookify.*.md` | 低     |
 
 ### 更新的文件

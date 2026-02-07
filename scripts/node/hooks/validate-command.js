@@ -16,6 +16,24 @@
  * - 2: 阻止执行（会反馈给 Claude）
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`validate-command.js - 命令安全验证
+
+用途: PreToolUse hook，在 Bash 命令执行前检查危险模式
+触发: Bash 工具调用前
+
+检查项:
+  - 阻止 rm -rf 等危险删除命令
+  - 阻止修改敏感系统文件
+  - 记录所有命令到日志
+
+Exit codes:
+  0  允许执行
+  2  阻止执行（反馈给 Claude）`);
+  process.exit(0);
+}
+
 const path = require("path");
 const {
   readStdinJson,

@@ -1,7 +1,6 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.java"
 ---
 
 # Java 性能优化规范 | Java Performance Rules

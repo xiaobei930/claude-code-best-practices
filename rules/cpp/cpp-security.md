@@ -1,7 +1,10 @@
 ---
 paths:
-  - "**/*"
-alwaysApply: true
+  - "**/*.cpp"
+  - "**/*.hpp"
+  - "**/*.h"
+  - "**/*.cc"
+  - "**/*.cxx"
 ---
 
 # C++ 安全编码规范 | C++ Security Rules

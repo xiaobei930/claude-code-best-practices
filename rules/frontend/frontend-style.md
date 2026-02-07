@@ -9,7 +9,7 @@ paths:
 
 # 前端代码风格规则
 
-> 本文件扩展 [common/code-style.md](../common/code-style.md)，提供前端特定代码风格规范
+> 本文件扩展 [common/coding-standards.md](../common/coding-standards.md)，提供前端特定代码风格规范
 
 ## 格式化
 
