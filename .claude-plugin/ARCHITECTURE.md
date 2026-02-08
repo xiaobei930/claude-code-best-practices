@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.6.0 | Last Updated: 2026-02-08
+> Version: 0.6.1 | Last Updated: 2026-02-09
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 

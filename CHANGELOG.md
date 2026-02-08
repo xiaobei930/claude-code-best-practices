@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] 文档审计与一致性修复
 - [ ] ~~核心命令英文版~~ → 等待官方 i18n 支持 (#7233)
 
-### v0.6.x ✅ (Released 2026-02-08) - 审计修复 + 学习管线 + 架构增强
+### v0.6.x ✅ (Released 2026-02-08 ~ 2026-02-09) - 审计修复 + 学习管线 + 架构增强
 
 **核心目标**: 修复已知 bug + 自动学习闭环 + CI 自动发布
 
@@ -64,7 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Recent Changes / 近期变更
 
-### [Unreleased]
+### [0.6.1] - 2026-02-09
 
 #### Changed / 变更
 
