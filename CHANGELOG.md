@@ -64,6 +64,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Recent Changes / 近期变更
 
+### [Unreleased]
+
+#### Changed / 变更
+
+- **Rules Token 优化**: 精简 3 个 alwaysApply 规则内容（performance 111→33 行、output-style 152→43 行、git-workflow 101→42 行），总计减少约 1700 Token/会话
+- **角色交接增强**: Lead/Dev/QA 新增 Step 0 上下文恢复步骤，支持跨会话无缝交接
+- **PM 进度输出**: 完成时自动将 REQ 文档路径写入 progress.md "进行中"列表
+- **观察管线扩展**: observe-patterns.js 新增 `fix_retry` 检测器（同文件 Edit 3+ 次），共 5 个检测器
+- **COMMANDS.md 补全**: 修正命令数量 35→38，补录 fix-issue、release、service 三个命令
+
+#### Fixed / 修复
+
+- **GitHub 仓库元数据**: 更新描述（38 commands + 8 agents + 30 rules）、优化 topics、设置 homepage
+- **.gitignore**: 添加 `memory-bank/observations.jsonl` 排除运行时数据
+
 ### [0.6.0] - 2026-02-08
 
 #### Fixed / 修复
