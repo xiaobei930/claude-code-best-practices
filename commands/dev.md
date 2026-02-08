@@ -87,6 +87,11 @@ def process_data(data):
 ## 工作流程
 
 ```
+0. 上下文恢复（跨会话支持）
+   ├─ 读取 memory-bank/progress.md
+   ├─ 从"进行中"列表找到当前 TSK/DES 文档路径
+   └─ 如已在同一会话中由 Lead 交接，跳过此步
+
 1. 领取任务
    ├─ 读取当前 TSK-XXX 文档
    ├─ 读取关联的 DES-XXX 设计文档

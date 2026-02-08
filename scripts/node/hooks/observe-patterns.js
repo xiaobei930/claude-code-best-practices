@@ -13,6 +13,7 @@
  * - repeated_search: 同模式 Grep 3+ 次（反复搜索）
  * - multi_file_edit: 同目录 3+ 文件编辑（批量修改）
  * - test_after_edit: 源文件编辑后改测试文件（TDD 行为）
+ * - fix_retry: 同一文件 Edit 3+ 次（反复修改，可能需重构）
  *
  * Exit codes:
  * - 0: 正常（不阻止操作）
@@ -45,6 +46,7 @@ if (process.argv.includes("--help")) {
   repeated_search  同模式 Grep 3+ 次
   multi_file_edit  同目录 3+ 文件编辑
   test_after_edit  源文件编辑后改测试文件
+  fix_retry        同一文件 Edit 3+ 次
 
 环境变量:
   MAX_HISTORY       保留的最近工具调用数 (默认: 10)
@@ -200,6 +202,28 @@ function detectTestAfterEdit(history, current) {
 }
 
 /**
+ * 检测 fix_retry 模式：同一文件 Edit 3+ 次（反复修改，可能需要重构）
+ */
+function detectFixRetry(history, current) {
+  if (current.tool !== "Edit") return null;
+  const currentFile = current.file;
+  if (!currentFile) return null;
+
+  const sameFileEdits = history.filter(
+    (h) => h.tool === "Edit" && h.file === currentFile,
+  );
+  if (sameFileEdits.length >= 2) {
+    // 加上 current = 3+ 次
+    return {
+      pattern: "fix_retry",
+      context: `${path.basename(currentFile)} 已编辑 ${sameFileEdits.length + 1} 次`,
+      confidence: 0.4,
+    };
+  }
+  return null;
+}
+
+/**
  * 写入观察结果到 JSONL
  */
 function writeObservation(observation) {
@@ -249,6 +273,7 @@ async function main() {
       detectRepeatedSearch,
       detectMultiFileEdit,
       detectTestAfterEdit,
+      detectFixRetry,
     ];
 
     for (const detect of detectors) {

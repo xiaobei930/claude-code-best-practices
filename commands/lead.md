@@ -90,6 +90,11 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
 ## 工作流程
 
 ```
+0. 上下文恢复（跨会话支持）
+   ├─ 读取 memory-bank/progress.md
+   ├─ 从"进行中"列表找到当前 REQ 文档路径
+   └─ 如已在同一会话中由 PM 交接，跳过此步
+
 1. 加载上下文
    ├─ 读取关联的需求文档 (REQ-XXX)
    ├─ **重点读取 REQ 的"决策记录"部分**
@@ -123,7 +128,8 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
    └─ 在 DES-XXX 中添加关联任务
 
 6. 更新进度
-   └─ 更新 memory-bank/progress.md
+   ├─ 更新 memory-bank/progress.md
+   └─ 在"进行中"写入: `DES-XXX: [名称] + TSK 列表 → 待 Dev 实现`
 
 7. 交接下游
    └─ 调用 /cc-best:dev 开始实现 TSK-XXX
