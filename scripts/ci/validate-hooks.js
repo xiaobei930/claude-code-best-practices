@@ -12,10 +12,14 @@ const path = require("path");
 const HOOKS_JSON_PATH = path.join(__dirname, "../../hooks/hooks.json");
 const SCRIPTS_DIR = path.join(__dirname, "../../scripts/node/hooks");
 
-// 有效的生命周期钩子
+// 有效的生命周期钩子（官方 10 种事件）
 const VALID_LIFECYCLES = [
   "PreToolUse",
   "PostToolUse",
+  "Notification",
+  "UserPromptSubmit",
+  "Stop",
+  "SubagentStop",
   "SessionStart",
   "SessionEnd",
   "PreCompact",
