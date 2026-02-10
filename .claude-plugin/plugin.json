@@ -32,6 +32,15 @@
   ],
   "commands": ["./commands/"],
   "skills": ["./skills/"],
-  "agents": ["./agents/"],
+  "agents": [
+    "./agents/architect.md",
+    "./agents/build-error-resolver.md",
+    "./agents/code-reviewer.md",
+    "./agents/code-simplifier.md",
+    "./agents/planner.md",
+    "./agents/requirement-validator.md",
+    "./agents/security-reviewer.md",
+    "./agents/tdd-guide.md"
+  ],
   "hooks": "./hooks/hooks.json"
 }
