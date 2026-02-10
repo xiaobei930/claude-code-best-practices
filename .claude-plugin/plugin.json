@@ -41,6 +41,5 @@
     "./agents/requirement-validator.md",
     "./agents/security-reviewer.md",
     "./agents/tdd-guide.md"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }
