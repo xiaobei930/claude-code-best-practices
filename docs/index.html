@@ -1060,7 +1060,7 @@
                     </circle>
                 </svg>
             </div>
-            <h1 class="hero-title">CC-Best <span class="hero-badge">v0.6.3</span></h1>
+            <h1 class="hero-title">CC-Best <span class="hero-badge" id="version-badge">v0.6.3</span></h1>
             <p class="hero-subtitle">Turn Claude Code into a full development team.<br>One plugin. Full workflow. Autonomous.</p>
             <div class="hero-cta-group">
                 <a href="https://github.com/xiaobei930/cc-best/blob/main/docs/guides/quickstart.md" class="hero-cta" target="_blank">
@@ -1412,8 +1412,23 @@
             }, 80);
         }
 
+        // 从 GitHub API 动态获取最新版本号
+        function fetchLatestVersion() {
+            var badge = document.getElementById('version-badge');
+            if (!badge) return;
+            fetch('https://api.github.com/repos/xiaobei930/cc-best/releases/latest')
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    if (data && data.tag_name) {
+                        badge.textContent = data.tag_name;
+                    }
+                })
+                .catch(function() { /* 失败时保持 fallback 版本号 */ });
+        }
+
         createParticles();
         createMatrixRain();
+        fetchLatestVersion();
     </script>
 </body>
 </html>
