@@ -78,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed / 变更
 
 - **README 核心特色强化（双语）**: 新增 "What Makes CC-Best Different" 章节（角色驱动管线、自主迭代引擎、知识自进化管线）、iterate 角色选择表 + pair 确认节点折叠块、架构图修正（Agents 6→8、新增 Safety Hooks 层）
-- **CI 防护增强**: `validate-agents.js` 新增 plugin.json agents 字段格式验证（数组检查、.md 后缀、文件存在、数量一致）；`validate-template.yml` 新增 agents/hooks 交叉验证
+- **CI 防护增强**: `validate-agents.js` 新增 plugin.json agents 字段格式验证（数组检查、.md 后缀、文件存在、数量一致）；`validate-plugin.yml` 新增 agents/hooks 交叉验证
 - **CONTRIBUTING.md 增强（双语）**: 新增本地测试指南、新增语言规则 4 步模板、新增命令/技能/智能体添加规范、Hook 脚本编写约定
 
 #### Fixed / 修复

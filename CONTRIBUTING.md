@@ -1,4 +1,4 @@
-# Contributing to Claude Code Best Practices Template
+# Contributing to CC-Best
 
 [English](#english) | [中文](#中文)
 
