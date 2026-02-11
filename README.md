@@ -752,3 +752,15 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 <p align="center">
   <strong>If this template helps you, please give it a ⭐ Star!</strong>
 </p>
+
+## Star History
+
+<p align="center">
+  <a href="https://star-history.com/#xiaobei930/cc-best&Date">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=xiaobei930/cc-best&type=Date&theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=xiaobei930/cc-best&type=Date" />
+      <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=xiaobei930/cc-best&type=Date" width="600" />
+    </picture>
+  </a>
+</p>

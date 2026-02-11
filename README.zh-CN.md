@@ -740,3 +740,15 @@ Claude 会自动：
 <p align="center">
   <strong>如果这个模板对你有帮助，请给它一个 ⭐ Star！</strong>
 </p>
+
+## Star History
+
+<p align="center">
+  <a href="https://star-history.com/#xiaobei930/cc-best&Date">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=xiaobei930/cc-best&type=Date&theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=xiaobei930/cc-best&type=Date" />
+      <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=xiaobei930/cc-best&type=Date" width="600" />
+    </picture>
+  </a>
+</p>
