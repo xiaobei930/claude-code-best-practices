@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC-Best - Turn Claude Code into a Full Development Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #f5f5f7;
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #f5f5f7;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-brand svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: #86868b;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #f5f5f7;
+        }
+
+        .nav-github {
+            display: flex;
+            align-items: center;
+            color: #86868b;
+            transition: color 0.3s ease;
+        }
+
+        .nav-github:hover {
+            color: #f5f5f7;
+        }
+
+        .nav-github svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* 动态背景层 */
+        .background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 网格背景 */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(139, 92, 246, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.15) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        /* 动态粒子 */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 15s infinite ease-in-out;
+            box-shadow: 0 0 10px #8b5cf6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* 黑客帝国代码流 - 动态版本 */
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .matrix-column {
+            position: absolute;
+            font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+            font-size: 13px;
+            color: #8b5cf6;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            white-space: nowrap;
+            text-shadow: 0 0 6px rgba(139, 92, 246, 0.6);
+            opacity: 0.5;
+            animation: matrix-fall linear infinite;
+        }
+
+        .matrix-char {
+            display: inline-block;
+        }
+
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(calc(100vh + 100%));
+            }
+        }
+
+        /* 渐变光斑 */
+        .gradient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+            animation: orb-pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes orb-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        /* Hero Section - Apple Style */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 24px 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            animation: hero-logo-float 8s ease-in-out infinite;
+        }
+
+        .hero-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes hero-logo-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            background-clip: border-box !important;
+            -webkit-background-clip: border-box !important;
+            margin-left: 12px;
+            vertical-align: baseline;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 7vw, 72px);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            line-height: 1.08;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Inter', -apple-system, sans-serif;
+            text-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+            filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.2));
+        }
+
+        .hero-title span {
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 400;
+            color: #86868b;
+            max-width: 560px;
+            margin: 0 auto 36px;
+            line-height: 1.5;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: #0071e3;
+            border: none;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        .hero-cta:hover {
+            background: #0077ed;
+            transform: scale(1.02);
+        }
+
+        .hero-cta svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .hero-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #f5f5f7;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        .hero-cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.02);
+        }
+
+        .hero-cta-secondary svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Background Glow */
+        .hero-glow {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.08), transparent 70%);
+            filter: blur(80px);
+            z-index: 0;
+            animation: glow-pulse 10s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 180px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 120px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #a1a1a6;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #f5f5f7;
+        }
+
+        .section-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 400;
+            color: #86868b;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Feature Grid - Apple Style Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        .feature-card {
+            background: rgba(29, 29, 31, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            background: rgba(37, 37, 39, 0.9);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(167, 139, 250, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 14px;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover .feature-card-icon {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(167, 139, 250, 0.15));
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .feature-card-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .feature-card-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #f5f5f7;
+            letter-spacing: -0.01em;
+            transition: color 0.3s ease;
+        }
+
+        .feature-card-header .feature-card-title {
+            margin-bottom: 0;
+        }
+
+        .feature-card:hover .feature-card-title {
+            color: #a78bfa;
+        }
+
+        .feature-card-desc {
+            font-size: 16px;
+            color: #86868b;
+            line-height: 1.7;
+            transition: color 0.3s ease;
+        }
+
+        .feature-card:hover .feature-card-desc {
+            color: #a1a1a6;
+        }
+
+        /* Big Feature Section - Full Width */
+        .big-feature {
+            padding: 180px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .big-feature-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .big-feature-text {
+            padding: 40px 0;
+        }
+
+        .big-feature-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #f5f5f7;
+        }
+
+        .big-feature-desc {
+            font-size: 19px;
+            color: #86868b;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .big-feature-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .stat-item {
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #86868b;
+            font-weight: 500;
+        }
+
+        /* Code Demo Section */
+        .code-section {
+            background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+            padding: 180px 24px;
+        }
+
+        .code-demo {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1c1c1e;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            background: #2c2c2e;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #febc2e; }
+        .dot-green { background: #28c840; }
+
+        .code-title {
+            flex: 1;
+            font-size: 13px;
+            color: #86868b;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .code-body {
+            padding: 40px;
+            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #f5f5f7;
+        }
+
+        .code-line {
+            display: block;
+            margin-bottom: 4px;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: code-reveal 0.5s ease forwards;
+        }
+
+        @keyframes code-reveal {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .code-line:nth-child(1) { animation-delay: 0.1s; }
+        .code-line:nth-child(2) { animation-delay: 0.2s; }
+        .code-line:nth-child(3) { animation-delay: 0.3s; }
+        .code-line:nth-child(4) { animation-delay: 0.4s; }
+        .code-line:nth-child(5) { animation-delay: 0.5s; }
+        .code-line:nth-child(6) { animation-delay: 0.6s; }
+        .code-line:nth-child(7) { animation-delay: 0.7s; }
+        .code-line:nth-child(8) { animation-delay: 0.8s; }
+        .code-line:nth-child(9) { animation-delay: 0.9s; }
+
+        .code-keyword { color: #ff79c6; }
+        .code-string { color: #f1fa8c; }
+        .code-comment { color: #6272a4; }
+        .code-cmd { color: #8be9fd; }
+        .code-arg { color: #50fa7b; }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 180px 24px;
+            background: #000;
+        }
+
+        .comparison-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .comparison-item {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .comparison-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: scale(1.02);
+        }
+
+        .comparison-number {
+            font-size: clamp(60px, 10vw, 120px);
+            font-weight: 700;
+            background: linear-gradient(180deg, #f5f5f7 0%, #a1a1a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .comparison-label {
+            font-size: 21px;
+            font-weight: 600;
+            color: #f5f5f7;
+            margin-bottom: 8px;
+        }
+
+        .comparison-desc {
+            font-size: 15px;
+            color: #86868b;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 200px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, #000 0%, #0a0a0a 50%, #000 100%);
+        }
+
+        .cta-section h2 {
+            font-size: clamp(40px, 7vw, 72px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            color: #f5f5f7;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            background: #0071e3;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 980px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cta-button:hover {
+            background: #0077ed;
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 80px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-link {
+            color: #86868b;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #f5f5f7;
+        }
+
+        .footer-copy {
+            color: #86868b;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 12px 20px;
+            }
+            .nav-links {
+                gap: 20px;
+            }
+            .nav-link {
+                display: none;
+            }
+            .hero-title {
+                font-size: 48px;
+            }
+            .hero-cta-group {
+                flex-direction: column;
+            }
+            .big-feature-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .big-feature-stats {
+                grid-template-columns: 1fr;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 120px 24px;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Feature card special handling */
+        .feature-card.fade-in,
+        .feature-card.fade-in-left,
+        .feature-card.fade-in-right {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .feature-card.fade-in.visible,
+        .feature-card.fade-in-left.visible,
+        .feature-card.fade-in-right.visible {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="nav-brand">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#667eea"/>
+                        <stop offset="50%" style="stop-color:#764ba2"/>
+                        <stop offset="100%" style="stop-color:#f093fb"/>
+                    </linearGradient>
+                </defs>
+                <circle cx="100" cy="100" r="80" stroke="url(#navGrad)" stroke-width="8" fill="none"/>
+                <path d="M75,90 C60,90 55,95 55,105 C55,115 65,120 85,120 C100,120 105,115 105,105 C105,95 95,90 75,90" stroke="url(#navGrad)" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M105,95 C95,95 92,98 92,105 C92,112 98,115 110,115 C120,115 122,112 122,105 C122,98 115,95 105,95" stroke="url(#navGrad)" stroke-width="5" fill="none" stroke-linecap="round"/>
+            </svg>
+            CC-Best
+        </a>
+        <div class="nav-links">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#workflow" class="nav-link">Workflow</a>
+            <a href="#install" class="nav-link">Install</a>
+            <a href="https://github.com/xiaobei930/cc-best/blob/main/README.md" class="nav-link" target="_blank">Docs</a>
+            <a href="https://github.com/xiaobei930/cc-best" class="nav-github" target="_blank" title="View on GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 动态背景 -->
+    <div class="grid-bg"></div>
+    <div class="background-canvas" id="particles"></div>
+
+    <!-- 渐变光斑 -->
+    <div class="gradient-orb" style="width: 600px; height: 600px; top: -250px; left: -250px; background: radial-gradient(circle, #667eea 0%, transparent 70%);"></div>
+    <div class="gradient-orb" style="width: 500px; height: 500px; bottom: -200px; right: -200px; background: radial-gradient(circle, #f093fb 0%, transparent 70%); animation-delay: 2s;"></div>
+    <div class="gradient-orb" style="width: 450px; height: 450px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle, #764ba2 0%, transparent 70%); animation-delay: 4s;"></div>
+
+    <!-- 黑客帝国代码流容器 -->
+    <div class="matrix-container" id="matrix-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-logo">
+                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- 多层渐变 -->
+                        <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea"/>
+                            <stop offset="50%" style="stop-color:#764ba2"/>
+                            <stop offset="100%" style="stop-color:#f093fb"/>
+                        </linearGradient>
+                        <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:#764ba2;stop-opacity:0.4"/>
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0"/>
+                        </radialGradient>
+                        <!-- 发光滤镜 -->
+                        <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="4" result="blur"/>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                        </filter>
+                        <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="8" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <!-- 裁剪路径 -->
+                        <clipPath id="circleClip">
+                            <circle cx="100" cy="100" r="80"/>
+                        </clipPath>
+                    </defs>
+
+                    <!-- 背景发光 -->
+                    <circle cx="100" cy="100" r="90" fill="url(#glowGrad)">
+                        <animate attributeName="r" values="80;100;80" dur="4s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.5;0.8;0.5" dur="4s" repeatCount="indefinite"/>
+                    </circle>
+
+                    <!-- 主体圆形 -->
+                    <g clip-path="url(#circleClip)">
+                        <!-- 动态波浪背景 -->
+                        <path d="M0,100 Q50,80 100,100 T200,100 V200 H0 Z" fill="#1a1a2e" opacity="0.8">
+                            <animate attributeName="d"
+                                values="M0,100 Q50,80 100,100 T200,100 V200 H0 Z;
+                                        M0,100 Q50,120 100,100 T200,100 V200 H0 Z;
+                                        M0,100 Q50,80 100,100 T200,100 V200 H0 Z"
+                                dur="3s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M0,110 Q50,90 100,110 T200,110 V200 H0 Z" fill="url(#mainGrad)" opacity="0.15">
+                            <animate attributeName="d"
+                                values="M0,110 Q50,90 100,110 T200,110 V200 H0 Z;
+                                        M0,110 Q50,130 100,110 T200,110 V200 H0 Z;
+                                        M0,110 Q50,90 100,110 T200,110 V200 H0 Z"
+                                dur="4s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+
+                    <!-- 外圈装饰 - 分段设计 -->
+                    <g stroke="url(#mainGrad)" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#softGlow)">
+                        <path d="M100,20 A80,80 0 0,1 180,100" stroke-dasharray="40,20">
+                            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M180,100 A80,80 0 0,1 100,180" stroke-dasharray="30,25">
+                            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="-360 100 100" dur="25s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M100,180 A80,80 0 0,1 20,100" stroke-dasharray="40,20">
+                            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="22s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M20,100 A80,80 0 0,1 100,20" stroke-dasharray="30,25">
+                            <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="-360 100 100" dur="18s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+
+                    <!-- 内圈动态环 -->
+                    <circle cx="100" cy="100" r="55" stroke="url(#mainGrad)" stroke-width="1.5" fill="none" opacity="0.6">
+                        <animate attributeName="r" values="55;58;55" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.6;0.3;0.6" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+
+                    <!-- 中心艺术CC - 用图形元素代替文字 -->
+                    <g filter="url(#strongGlow)">
+                        <!-- 左C -->
+                        <path d="M75,90
+                                 C60,90 55,95 55,105
+                                 C55,115 65,120 85,120
+                                 C100,120 105,115 105,105
+                                 C105,95 95,90 75,90"
+                              stroke="url(#mainGrad)" stroke-width="3" fill="none" stroke-linecap="round"
+                              opacity="0.9">
+                            <animate attributeName="opacity" values="0.9;1;0.9" dur="2.5s" repeatCount="indefinite"/>
+                        </path>
+                        <!-- 右C - 稍小，营造层次 -->
+                        <path d="M105,95
+                                 C95,95 92,98 92,105
+                                 C92,112 98,115 110,115
+                                 C120,115 122,112 122,105
+                                 C122,98 115,95 105,95"
+                              stroke="url(#mainGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"
+                              opacity="0.7">
+                            <animate attributeName="opacity" values="0.7;0.95;0.7" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+                        </path>
+                    </g>
+
+                    <!-- 装饰元素 - 动态光点 -->
+                    <g filter="url(#softGlow)">
+                        <circle cx="100" cy="30" r="5" fill="#667eea">
+                            <animate attributeName="cy" values="30;35;30" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="170" cy="100" r="4" fill="#764ba2">
+                            <animate attributeName="cx" values="170;165;170" dur="2.5s" repeatCount="indefinite"/>
+                            <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="100" cy="170" r="5" fill="#f093fb">
+                            <animate attributeName="cy" values="170;165;170" dur="2.3s" repeatCount="indefinite"/>
+                            <animate attributeName="r" values="4;6;4" dur="2.3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="1;0.6;1" dur="2.3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="30" cy="100" r="4" fill="#667eea">
+                            <animate attributeName="cx" values="30;35;30" dur="2.8s" repeatCount="indefinite"/>
+                            <animate attributeName="r" values="3;5;3" dur="2.8s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.8s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+
+                    <!-- 对角线动态元素 -->
+                    <g opacity="0.4">
+                        <path d="M60,60 L80,80" stroke="url(#mainGrad)" stroke-width="2" stroke-linecap="round">
+                            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.5s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M120,60 L140,80" stroke="url(#mainGrad)" stroke-width="2" stroke-linecap="round">
+                            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.8s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M60,140 L80,120" stroke="url(#mainGrad)" stroke-width="2" stroke-linecap="round">
+                            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M120,140 L140,120" stroke="url(#mainGrad)" stroke-width="2" stroke-linecap="round">
+                            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="1.6s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+
+                    <!-- 外部螺旋轨道 -->
+                    <circle cx="100" cy="100" r="70" stroke="url(#mainGrad)" stroke-width="0.5" fill="none" opacity="0.3" stroke-dasharray="2,8">
+                        <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="30s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+            <h1 class="hero-title">CC-Best <span class="hero-badge">v0.6.3</span></h1>
+            <p class="hero-subtitle">Turn Claude Code into a full development team.<br>One plugin. Full workflow. Autonomous.</p>
+            <div class="hero-cta-group">
+                <a href="https://github.com/xiaobei930/cc-best/blob/main/docs/guides/quickstart.md" class="hero-cta" target="_blank">
+                    Get Started
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 8h10M9 4l4 4-4 4"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/xiaobei930/cc-best" class="hero-cta-secondary" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="section" id="features">
+        <div class="section-header fade-in">
+            <div class="section-badge">Plugin Components</div>
+            <h2 class="section-title">Everything you need,<br>built into one plugin</h2>
+            <p class="section-subtitle">8 specialized agents, 38 commands, 17 skills, 33 rules, and 18 safety hooks working together seamlessly.</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-card-header">
+                    <div class="feature-card-icon">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="12" stroke="#8b5cf6" stroke-width="1.5" fill="none"/>
+                            <circle cx="16" cy="8" r="2" fill="#8b5cf6"/>
+                            <circle cx="22" cy="12" r="1.5" fill="#a78bfa"/>
+                            <circle cx="22" cy="20" r="1.5" fill="#06b6d4"/>
+                            <circle cx="16" cy="24" r="2" fill="#06b6d4"/>
+                            <circle cx="10" cy="20" r="1.5" fill="#a78bfa"/>
+                            <circle cx="10" cy="12" r="1.5" fill="#8b5cf6"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">8 Specialized Agents</h3>
+                </div>
+                <p class="feature-card-desc">PM, Lead, Designer, Dev, QA, Architect, Code Reviewer, and more. Each agent handles its domain autonomously.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-card-header">
+                    <div class="feature-card-icon">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <rect x="4" y="6" width="24" height="20" rx="4" stroke="#8b5cf6" stroke-width="1.5" fill="none"/>
+                            <circle cx="8" cy="10" r="1.5" fill="#ef4444"/>
+                            <circle cx="12" cy="10" r="1.5" fill="#f59e0b"/>
+                            <circle cx="16" cy="10" r="1.5" fill="#22c55e"/>
+                            <line x1="8" y1="16" x2="24" y2="16" stroke="#06b6d4" stroke-width="1"/>
+                            <line x1="8" y1="20" x2="20" y2="20" stroke="#86868b" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">38 Commands</h3>
+                </div>
+                <p class="feature-card-desc">Complete CLI coverage. From /iterate for autonomous loops to /commit, /verify, /release and everything in between.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-card-header">
+                    <div class="feature-card-icon">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <rect x="6" y="10" width="20" height="12" rx="6" stroke="#8b5cf6" stroke-width="1.5" fill="none"/>
+                            <circle cx="12" cy="16" r="3" fill="#8b5cf6"/>
+                            <circle cx="20" cy="16" r="2.5" stroke="#06b6d4" stroke-width="1.5" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Two Modes</h3>
+                </div>
+                <p class="feature-card-desc">/iterate for fully autonomous development loops. /pair for step-by-step collaborative programming.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-card-header">
+                    <div class="feature-card-icon">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <path d="M8 12 L4 16 L8 20" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M24 12 L28 16 L24 20" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="12" y1="14" x2="20" y2="14" stroke="#06b6d4" stroke-width="1.5"/>
+                            <line x1="12" y1="18" x2="18" y2="18" stroke="#a78bfa" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">17 Skills + 33 Rules</h3>
+                </div>
+                <p class="feature-card-desc">Industry best practices for frontend, backend, database, DevOps, security, testing, and more — built into every interaction.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-card-header">
+                    <div class="feature-card-icon">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <path d="M16 6 L16 26" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M6 16 L26 16" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="16" cy="16" r="10" stroke="#06b6d4" stroke-width="1.5" fill="none"/>
+                            <path d="M10 10 L22 22" stroke="#a78bfa" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+                            <path d="M22 10 L10 22" stroke="#a78bfa" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">18 Safety Hooks</h3>
+                </div>
+                <p class="feature-card-desc">Pre and post tool-use hooks that prevent dangerous operations, enforce coding standards, and auto-format code.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-card-header">
+                    <div class="feature-card-icon">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <rect x="6" y="8" width="20" height="16" rx="3" stroke="#8b5cf6" stroke-width="1.5" fill="none"/>
+                            <line x1="6" y1="14" x2="26" y2="14" stroke="#06b6d4" stroke-width="1"/>
+                            <line x1="6" y1="18" x2="20" y2="18" stroke="#86868b" stroke-width="1"/>
+                            <circle cx="22" cy="18" r="2" fill="#a78bfa"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card-title">Memory Bank</h3>
+                </div>
+                <p class="feature-card-desc">Persistent project memory across sessions. Architecture decisions, tech stack, progress — all remembered and applied.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Big Feature Section -->
+    <section class="big-feature" id="workflow">
+        <div class="big-feature-content">
+            <div class="big-feature-text fade-in-left">
+                <h2 class="big-feature-title">Autonomous<br>development</h2>
+                <p class="big-feature-desc">One command coordinates the full team. PM defines requirements, Lead architects the solution, Designer creates the UI, Dev writes the code, QA validates quality. All working together, automatically.</p>
+                <div class="big-feature-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Agents</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">38</div>
+                        <div class="stat-label">Commands</div>
+                    </div>
+                </div>
+            </div>
+            <div class="big-feature-visual fade-in-right">
+                <svg viewBox="0 0 400 400" fill="none" style="width: 100%; max-width: 400px;">
+                    <defs>
+                        <linearGradient id="vizGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#8b5cf6"/>
+                            <stop offset="100%" style="stop-color:#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Central Hub -->
+                    <circle cx="200" cy="200" r="60" stroke="url(#vizGradient)" stroke-width="2" fill="rgba(139, 92, 246, 0.1)"/>
+                    <circle cx="200" cy="200" r="25" fill="#fff"/>
+                    <!-- Orbiting Agents -->
+                    <circle cx="200" cy="100" r="15" fill="#8b5cf6"/>
+                    <circle cx="286" cy="150" r="12" fill="#a78bfa"/>
+                    <circle cx="286" cy="250" r="12" fill="#06b6d4"/>
+                    <circle cx="200" cy="300" r="15" fill="#06b6d4"/>
+                    <circle cx="114" cy="250" r="12" fill="#a78bfa"/>
+                    <circle cx="114" cy="150" r="12" fill="#8b5cf6"/>
+                    <!-- Connections -->
+                    <line x1="200" y1="140" x2="200" y2="175" stroke="#8b5cf6" stroke-width="1" opacity="0.5"/>
+                    <line x1="260" y1="170" x2="220" y2="190" stroke="#a78bfa" stroke-width="1" opacity="0.5"/>
+                    <line x1="260" y1="230" x2="220" y2="210" stroke="#06b6d4" stroke-width="1" opacity="0.5"/>
+                    <line x1="200" y1="260" x2="200" y2="225" stroke="#06b6d4" stroke-width="1" opacity="0.5"/>
+                    <line x1="140" y1="230" x2="180" y2="210" stroke="#a78bfa" stroke-width="1" opacity="0.5"/>
+                    <line x1="140" y1="170" x2="180" y2="190" stroke="#8b5cf6" stroke-width="1" opacity="0.5"/>
+                    <!-- Labels -->
+                    <text x="200" y="75" text-anchor="middle" fill="#86868b" font-size="12" font-weight="600">PM</text>
+                    <text x="315" y="155" text-anchor="middle" fill="#86868b" font-size="12" font-weight="600">LEAD</text>
+                    <text x="315" y="270" text-anchor="middle" fill="#86868b" font-size="12" font-weight="600">DESIGNER</text>
+                    <text x="200" y="340" text-anchor="middle" fill="#86868b" font-size="12" font-weight="600">DEV</text>
+                    <text x="85" y="270" text-anchor="middle" fill="#86868b" font-size="12" font-weight="600">QA</text>
+                    <text x="85" y="155" text-anchor="middle" fill="#86868b" font-size="12" font-weight="600">COMMIT</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Section -->
+    <section class="code-section" id="install">
+        <div class="section-header fade-in">
+            <h2 class="section-title">One command,<br>infinite possibilities</h2>
+            <p class="section-subtitle">Install the plugin, run a single command, and watch your AI team build your project.</p>
+        </div>
+        <div class="code-demo">
+            <div class="code-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span class="code-title">Terminal</span>
+            </div>
+            <div class="code-body">
+                <span class="code-line"><span class="code-comment"># Install the CC-Best plugin</span></span>
+                <span class="code-line"><span class="code-cmd">$</span> <span class="code-keyword">claude</span> <span class="code-arg">plugin add</span> <span class="code-string">https://github.com/xiaobei930/cc-best</span></span>
+                <span class="code-line"></span>
+                <span class="code-line"><span class="code-comment"># Start autonomous development</span></span>
+                <span class="code-line"><span class="code-cmd">$</span> <span class="code-keyword">/cc-best:iterate</span> <span class="code-string">"add user authentication"</span></span>
+                <span class="code-line"></span>
+                <span class="code-line"><span class="code-comment"># PM analyzes → Lead designs → Dev codes → QA validates</span></span>
+                <span class="code-line"><span class="code-arg">&#10003;</span> Requirements defined &middot; Architecture designed</span>
+                <span class="code-line"><span class="code-arg">&#10003;</span> Code implemented &middot; Tests passed &middot; Committed</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Numbers that matter</h2>
+            <p class="section-subtitle">A comprehensive plugin with everything built in.</p>
+        </div>
+        <div class="comparison-grid">
+            <div class="comparison-item fade-in">
+                <div class="comparison-number">38</div>
+                <div class="comparison-label">Commands</div>
+                <p class="comparison-desc">Role, tool, and mode commands for every scenario</p>
+            </div>
+            <div class="comparison-item fade-in">
+                <div class="comparison-number">17</div>
+                <div class="comparison-label">Skills</div>
+                <p class="comparison-desc">Frontend, backend, DevOps, security, and more</p>
+            </div>
+            <div class="comparison-item fade-in">
+                <div class="comparison-number">18</div>
+                <div class="comparison-label">Safety Hooks</div>
+                <p class="comparison-desc">Guardrails that prevent mistakes automatically</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="fade-in">Ready to transform<br>your development?</h2>
+        <p class="fade-in">One plugin turns Claude Code into a full development team.</p>
+        <a href="https://github.com/xiaobei930/cc-best" class="cta-button fade-in" target="_blank">Get CC-Best on GitHub</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://github.com/xiaobei930/cc-best/blob/main/docs/guides/quickstart.md" class="footer-link" target="_blank">Quick Start</a>
+            <a href="https://github.com/xiaobei930/cc-best/blob/main/docs/guides/advanced.md" class="footer-link" target="_blank">Advanced Guide</a>
+            <a href="https://github.com/xiaobei930/cc-best" class="footer-link" target="_blank">GitHub</a>
+            <a href="https://github.com/xiaobei930/cc-best/issues" class="footer-link" target="_blank">Issues</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 CC-Best. Open source under MIT License.</p>
+    </footer>
+
+    <script>
+        // Scroll Animations
+        var observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        // Code animation on scroll
+        var codeSection = document.querySelector('.code-section');
+        var codeLines = document.querySelectorAll('.code-line');
+
+        var codeObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    codeLines.forEach(function(line) {
+                        line.style.animationPlayState = 'running';
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (codeSection) {
+            codeObserver.observe(codeSection);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                var target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // 生成动态粒子
+        function createParticles() {
+            var container = document.getElementById('particles');
+            var particleCount = 80;
+
+            for (var i = 0; i < particleCount; i++) {
+                var particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // 生成黑客帝国代码流 - 使用安全的 DOM 方法
+        function createMatrixRain() {
+            var container = document.getElementById('matrix-container');
+            var columns = 18;
+            var charSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            for (var i = 0; i < columns; i++) {
+                var column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = (i / columns * 100) + '%';
+                column.style.top = (-Math.random() * 100) + '%';
+                column.style.animationDuration = (80 + Math.random() * 60) + 's';
+                column.style.animationDelay = (-Math.random() * 80) + 's';
+
+                var length = Math.floor(25 + Math.random() * 35);
+                for (var j = 0; j < length; j++) {
+                    var charSpan = document.createElement('span');
+                    charSpan.className = 'matrix-char';
+                    charSpan.textContent = charSet[Math.floor(Math.random() * charSet.length)];
+                    charSpan.style.opacity = (0.2 + Math.random() * 0.6).toFixed(2);
+                    column.appendChild(charSpan);
+                }
+
+                container.appendChild(column);
+            }
+
+            // 动态更新字符和透明度
+            setInterval(function() {
+                var allColumns = document.querySelectorAll('.matrix-column');
+                allColumns.forEach(function(col) {
+                    var charSpans = col.querySelectorAll('.matrix-char');
+                    charSpans.forEach(function(span) {
+                        if (Math.random() > 0.6) {
+                            span.textContent = charSet[Math.floor(Math.random() * charSet.length)];
+                        }
+                        if (Math.random() > 0.7) {
+                            span.style.opacity = (0.1 + Math.random() * 0.7).toFixed(2);
+                        }
+                    });
+                });
+            }, 80);
+        }
+
+        createParticles();
+        createMatrixRain();
+    </script>
+</body>
+</html>
