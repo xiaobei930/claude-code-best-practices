@@ -25,6 +25,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/iterate.gif" alt="CC-Best 自主迭代演示" width="80%">
+</p>
+
+<p align="center">
   <a href="#-快速开始">快速开始</a> •
   <a href="#-核心特性">核心特性</a> •
   <a href="#-工作流程">工作流程</a> •
@@ -65,13 +69,9 @@
 > 💡 **推荐**：通过插件安装，自动更新且易于管理。
 > 所有文档使用插件格式（`/cc-best:xxx`）。Clone 用户请运行 `convert-to-local.js`。
 
-<details>
-<summary>📹 演示效果</summary>
-<br>
 <p align="center">
   <img src="assets/setup.gif" alt="Setup 演示" width="80%">
 </p>
-</details>
 
 <details>
 <summary>📦 替代方案：克隆完整仓库</summary>
@@ -152,14 +152,6 @@ node scripts/node/convert-to-local.js
 | 👥 **结对编程**     | `/cc-best:pair` — 5 个确认节点的逐步协作                  |
 | 🔗 **知识进化管线** | observe → analyze → learn → evolve 自我进化闭环           |
 | 🌐 **跨平台**       | Windows、macOS、Linux — 自动检测包管理器                  |
-
-<details>
-<summary>📹 查看 /cc-best:iterate 运行演示</summary>
-<br>
-<p align="center">
-  <img src="assets/iterate.gif" alt="迭代演示" width="80%">
-</p>
-</details>
 
 > CC-Best 专为 Claude Code 构建，但其方法论（道法术器）和角色驱动模式与框架无关，可适配其他 AI 编码助手。
 

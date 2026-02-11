@@ -25,6 +25,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/iterate.gif" alt="CC-Best autonomous iteration demo" width="80%">
+</p>
+
+<p align="center">
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-core-features">Features</a> •
   <a href="#-workflow">Workflow</a> •
@@ -65,13 +69,9 @@
 > 💡 **Recommended**: Install via plugin for automatic updates and easier management.
 > All documentation uses plugin format (`/cc-best:xxx`). Clone users: run `convert-to-local.js`.
 
-<details>
-<summary>📹 See it in action</summary>
-<br>
 <p align="center">
   <img src="assets/setup.gif" alt="Setup Demo" width="80%">
 </p>
-</details>
 
 <details>
 <summary>📦 Alternative: Clone for full customization</summary>
@@ -152,14 +152,6 @@ You just watch. Intervene only when needed.
 | 👥 **Pair Programming**         | `/cc-best:pair` — step-by-step collaboration with 5 confirmation checkpoints    |
 | 🔗 **Knowledge Pipeline**       | observe → analyze → learn → evolve — self-improving knowledge loop              |
 | 🌐 **Cross-Platform**           | Windows, macOS, Linux — auto-detects package manager                            |
-
-<details>
-<summary>📹 See /cc-best:iterate in action</summary>
-<br>
-<p align="center">
-  <img src="assets/iterate.gif" alt="Iterate Demo" width="80%">
-</p>
-</details>
 
 > While CC-Best is built for Claude Code, the methodology (Dao-Fa-Shu-Qi) and role-driven patterns are framework-agnostic and can be adapted for other AI coding assistants.
 
