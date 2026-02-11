@@ -133,6 +133,7 @@
             height: 3px;
             background: #8b5cf6;
             border-radius: 50%;
+            box-shadow: 0 0 10px #8b5cf6;
             pointer-events: none;
             z-index: 0;
             animation: float 15s infinite ease-in-out;
@@ -193,6 +194,7 @@
             pointer-events: none;
             z-index: 0;
             opacity: 0.6;
+            animation: orb-pulse 8s ease-in-out infinite;
             will-change: transform, opacity;
         }
 
@@ -1357,7 +1359,7 @@
         // 生成动态粒子
         function createParticles() {
             var container = document.getElementById('particles');
-            var particleCount = 30;
+            var particleCount = 60;
 
             for (var i = 0; i < particleCount; i++) {
                 var particle = document.createElement('div');
@@ -1373,7 +1375,7 @@
         // 生成黑客帝国代码流 - 使用安全的 DOM 方法
         function createMatrixRain() {
             var container = document.getElementById('matrix-container');
-            var columns = 10;
+            var columns = 16;
             var charSet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var allCharSpans = [];
 
@@ -1385,7 +1387,7 @@
                 column.style.animationDuration = (80 + Math.random() * 60) + 's';
                 column.style.animationDelay = (-Math.random() * 80) + 's';
 
-                var length = Math.floor(20 + Math.random() * 20);
+                var length = Math.floor(25 + Math.random() * 35);
                 for (var j = 0; j < length; j++) {
                     var charSpan = document.createElement('span');
                     charSpan.className = 'matrix-char';
@@ -1400,7 +1402,7 @@
 
             // 动态更新 - 每次只随机更新少量字符，降低 DOM 操作
             setInterval(function() {
-                var count = Math.min(8, allCharSpans.length);
+                var count = Math.min(12, allCharSpans.length);
                 for (var i = 0; i < count; i++) {
                     var idx = Math.floor(Math.random() * allCharSpans.length);
                     var span = allCharSpans[idx];
