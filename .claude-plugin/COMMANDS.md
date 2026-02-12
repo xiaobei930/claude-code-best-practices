@@ -1,6 +1,6 @@
 # CC-Best Commands Reference | 命令参考
 
-> Version: 0.6.3 | 38 Commands
+> Version: 0.6.3 | 40 Commands
 
 快速查阅所有命令的参数和用法。
 
@@ -69,10 +69,12 @@
 
 ### 状态 & 诊断
 
-| 命令                  | 用途         | 参数                     |
-| --------------------- | ------------ | ------------------------ |
-| `/cc-best:status`     | 项目状态诊断 | `--full` / `--conflicts` |
-| `/cc-best:self-check` | 自我检查     | -                        |
+| 命令                        | 用途           | 参数                     |
+| --------------------------- | -------------- | ------------------------ |
+| `/cc-best:status`           | 项目状态诊断   | `--full` / `--conflicts` |
+| `/cc-best:self-check`       | 自我检查       | -                        |
+| `/cc-best:confidence-check` | 5 维置信度评估 | -                        |
+| `/cc-best:security-audit`   | 配置安全扫描   | -                        |
 
 #### /cc-best:status 参数详解
 

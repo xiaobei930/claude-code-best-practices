@@ -14,7 +14,7 @@
 | `memory-bank/progress.md`     | Current status 当前状态      |
 | `memory-bank/architecture.md` | System architecture 系统架构 |
 | `memory-bank/tech-stack.md`   | Tech stack 技术选型          |
-| `rules/methodology.md`        | Full methodology 完整方法论  |
+| `rules/common/methodology.md` | Full methodology 完整方法论  |
 
 ## Core Constraints | 核心约束
 

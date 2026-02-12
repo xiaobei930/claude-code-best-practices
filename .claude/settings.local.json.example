@@ -1,10 +1,11 @@
 {
   "$schema": "本文件为 settings.local.json 的示例，复制为 settings.local.json 后使用，根据项目需求删减配置",
 
-  "_comment_statusLine": "自定义状态栏配置示例，显示: 用户:路径 分支* 上下文% 模型 时间",
+  "_comment_statusLine": "CC-Best 专属状态栏，显示: 用户:路径 分支* 管线阶段 上下文% 模型 时间 活跃任务",
   "statusLine": {
     "type": "command",
-    "command": "input=$(cat); cwd=$(echo \"$input\" | jq -r '.workspace.current_dir' | sed \"s|$HOME|~|g\"); model=$(echo \"$input\" | jq -r '.model.display_name'); time=$(date +%H:%M); remaining=$(echo \"$input\" | jq -r '.context_window.remaining_percentage // empty'); cd \"$(echo \"$input\" | jq -r '.workspace.current_dir')\" 2>/dev/null; branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo ''); status=''; [ -n \"$branch\" ] && { [ -n \"$(git status --porcelain 2>/dev/null)\" ] && status='*'; }; printf \"${cwd}\"; [ -n \"$branch\" ] && printf \" [${branch}${status}]\"; [ -n \"$remaining\" ] && printf \" ctx:${remaining}%%\"; printf \" ${model} ${time}\"; echo"
+    "command": "node scripts/node/statusline.js",
+    "_comment": "跨平台 Node.js 版本，显示 cc-best 管线阶段（PM→Lead→Dev→QA）和活跃任务"
   },
 
   "_env_guide": {
@@ -113,7 +114,7 @@
             "timeout": 5
           }
         ],
-        "description": "验证危险命令"
+        "description": "命令验证: 阻止危险命令 (rm -rf /, git push --force 等)"
       },
       {
         "matcher": "Bash",
@@ -125,7 +126,19 @@
             "timeout": 5
           }
         ],
-        "description": "git push 前暂停确认"
+        "description": "推送确认: git push 前暂停确认"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/node/hooks/check-secrets.js",
+            "timeout": 10,
+            "statusMessage": "检查密钥泄露..."
+          }
+        ],
+        "description": "密钥检测: 检查命令中是否包含 API 密钥等敏感信息"
       },
       {
         "matcher": "Bash",
@@ -137,7 +150,7 @@
             "timeout": 3
           }
         ],
-        "description": "长时间运行命令提醒（dev server / watch / build --watch）"
+        "description": "长时间命令警告: 检测开发服务器、watch 等长时间运行命令"
       },
       {
         "matcher": "Write|Edit",
@@ -148,7 +161,7 @@
             "timeout": 3
           }
         ],
-        "description": "保护敏感文件"
+        "description": "文件保护: 阻止修改敏感文件 (.env, .key, .git/ 等)"
       },
       {
         "matcher": "Write",
@@ -156,21 +169,11 @@
           {
             "type": "command",
             "command": "node scripts/node/hooks/block-random-md.js",
+            "_command_python": "python scripts/python/block-random-md.py",
             "timeout": 3
           }
         ],
         "description": "阻止随机创建 .md 文件"
-      },
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash skills/strategic-compact/suggest-compact.sh",
-            "timeout": 3
-          }
-        ],
-        "description": "策略性压缩建议"
       }
     ],
     "PostToolUse": [
@@ -180,13 +183,36 @@
           {
             "type": "command",
             "command": "node scripts/node/hooks/format-file.js",
-            "timeout": 60
+            "timeout": 60,
+            "statusMessage": "格式化代码..."
           }
         ],
-        "description": "自动格式化代码"
+        "description": "自动格式化: 文件写入后自动格式化代码"
       },
       {
-        "matcher": "Edit",
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/node/hooks/auto-archive.js",
+            "timeout": 5
+          }
+        ],
+        "description": "自动归档: progress.md 超过 300 行时提醒归档"
+      },
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/node/hooks/observe-patterns.js",
+            "timeout": 3
+          }
+        ],
+        "description": "模式观察: 追踪工具调用模式，写入 memory-bank/observations.jsonl 供 /learn 消费"
+      },
+      {
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
@@ -194,19 +220,44 @@
             "timeout": 3
           }
         ],
-        "description": "检查 console.log 语句"
+        "description": "调试日志检查: 检查 JS/TS 文件中的 console.log 语句"
       },
       {
-        "matcher": "Edit|Write",
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
             "command": "node scripts/node/hooks/typescript-check.js",
             "_command_bash": "bash scripts/shell/typescript-check.sh",
-            "timeout": 30
+            "timeout": 30,
+            "statusMessage": "TypeScript 类型检查..."
           }
         ],
-        "description": "TypeScript 类型检查"
+        "description": "TypeScript 类型检查: .ts 文件编辑后运行 tsc --noEmit"
+      },
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/node/hooks/suggest-compact.js",
+            "timeout": 3
+          }
+        ],
+        "description": "压缩提醒: 工具调用达到阈值时提醒压缩上下文"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/node/hooks/user-prompt-submit.js",
+            "timeout": 3
+          }
+        ],
+        "description": "上下文注入: 用户提交提示时注入项目状态信息"
       }
     ],
     "SessionStart": [
@@ -219,7 +270,7 @@
             "timeout": 5
           }
         ],
-        "description": "会话启动健康检查"
+        "description": "会话检查: 启动时检查文件更新状态和项目配置"
       },
       {
         "matcher": "*",
@@ -242,10 +293,37 @@
             "type": "command",
             "command": "node scripts/node/hooks/pre-compact.js",
             "_command_bash": "bash scripts/shell/pre-compact.sh",
+            "timeout": 10,
+            "statusMessage": "保存压缩前状态..."
+          }
+        ],
+        "description": "压缩前保存: 压缩前保存 git 状态、任务列表等到 .pre-compact-state.json"
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/node/hooks/stop-check.js",
             "timeout": 5
           }
         ],
-        "description": "压缩前保存状态"
+        "description": "遗漏检查: 响应完成时检查 progress.md 中未完成任务"
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/node/hooks/subagent-stop.js",
+            "timeout": 3
+          }
+        ],
+        "description": "子代理追踪: 子代理完成时记录任务状态"
       }
     ],
     "SessionEnd": [
@@ -266,22 +344,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash skills/continuous-learning/evaluate-session.sh",
-            "timeout": 5
+            "command": "node scripts/node/hooks/evaluate-session.js",
+            "timeout": 10
           }
         ],
-        "description": "持续学习 - 评估可提取模式"
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo 'Success'",
-            "timeout": 1
-          }
-        ]
+        "description": "会话评估: 会话结束时评估并提取可学习的模式"
       }
     ]
   }

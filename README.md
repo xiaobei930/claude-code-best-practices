@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>38 commands</code> · <code>17 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>18 hooks</code>
+  <code>40 commands</code> · <code>17 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>18 hooks</code>
 </p>
 
 <p align="center">
@@ -305,18 +305,18 @@ flowchart LR
 
 ## 📋 Command Reference
 
-**38 commands** organized into categories:
+**40 commands** organized into categories:
 
-| Category    | Commands                                                                                                                  | Purpose                                   |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| **Role**    | `/cc-best:pm`, `/cc-best:lead`, `/cc-best:dev`, `/cc-best:qa`, `/cc-best:designer`, `/cc-best:clarify`, `/cc-best:verify` | Development workflow roles                |
-| **Mode**    | `/cc-best:iterate`, `/cc-best:pair`, `/cc-best:cc-ralph`, `/cc-best:mode`                                                 | Autonomous/cc-best:pair programming modes |
-| **Build**   | `/cc-best:build`, `/cc-best:test`, `/cc-best:run`, `/cc-best:fix`                                                         | Build and test automation                 |
-| **Git**     | `/cc-best:commit`, `/cc-best:pr`, `/cc-best:git-guide`                                                                    | Version control                           |
-| **Context** | `/cc-best:compact-context`, `/cc-best:checkpoint`, `/cc-best:catchup`, `/cc-best:context`, `/cc-best:memory`              | Session management                        |
-| **Quality** | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve`                              | Code quality & knowledge                  |
-| **Ops**     | `/cc-best:fix-issue`, `/cc-best:release`, `/cc-best:service`                                                              | Issue fix, release, service management    |
-| **Setup**   | `/cc-best:setup`, `/cc-best:setup-pm`, `/cc-best:status`, `/cc-best:self-check`                                           | Configuration                             |
+| Category    | Commands                                                                                                                                | Purpose                                   |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| **Role**    | `/cc-best:pm`, `/cc-best:lead`, `/cc-best:dev`, `/cc-best:qa`, `/cc-best:designer`, `/cc-best:clarify`, `/cc-best:verify`               | Development workflow roles                |
+| **Mode**    | `/cc-best:iterate`, `/cc-best:pair`, `/cc-best:cc-ralph`, `/cc-best:mode`                                                               | Autonomous/cc-best:pair programming modes |
+| **Build**   | `/cc-best:build`, `/cc-best:test`, `/cc-best:run`, `/cc-best:fix`                                                                       | Build and test automation                 |
+| **Git**     | `/cc-best:commit`, `/cc-best:pr`, `/cc-best:git-guide`                                                                                  | Version control                           |
+| **Context** | `/cc-best:compact-context`, `/cc-best:checkpoint`, `/cc-best:catchup`, `/cc-best:context`, `/cc-best:memory`                            | Session management                        |
+| **Quality** | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve`                                            | Code quality & knowledge                  |
+| **Ops**     | `/cc-best:fix-issue`, `/cc-best:release`, `/cc-best:service`                                                                            | Issue fix, release, service management    |
+| **Setup**   | `/cc-best:setup`, `/cc-best:setup-pm`, `/cc-best:status`, `/cc-best:self-check`, `/cc-best:confidence-check`, `/cc-best:security-audit` | Configuration & diagnostics               |
 
 > 📖 **Full reference**: See [COMMANDS.md](.claude-plugin/COMMANDS.md) for all parameters and usage examples.
 
