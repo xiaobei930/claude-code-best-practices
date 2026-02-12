@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] 文档审计与一致性修复
 - [ ] ~~核心命令英文版~~ → 等待官方 i18n 支持 (#7233)
 
-### v0.6.x ✅ (Released 2026-02-08 ~ 2026-02-10) - 综合审计 + 学习管线 + 架构增强 + 文档升级
+### v0.6.x ✅ (Released 2026-02-08 ~ 2026-02-12) - 综合审计 + 学习管线 + 架构增强 + 文档升级
 
 **核心目标**: 修复已知 bug + 全面审计规范化 + 自动学习闭环 + CI 自动发布
 
@@ -66,6 +66,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Recent Changes / 近期变更
+
+### [0.6.4] - 2026-02-12
+
+#### Added / 新增
+
+- **Giscus 社区评论**: 首页集成 GitHub Discussions 评论系统
+- **Pipeline Statusline**: Node.js 跨平台状态栏脚本，显示管线阶段（PM→Lead→Dev→QA）和活跃任务
+- **Config Security Audit**: `scripts/ci/security-audit.js` 配置安全扫描（密钥泄露、权限过宽等 5 维度检测）
+- **Confidence Check Hook**: `scripts/node/hooks/confidence-check.js` 置信度检查，拦截低置信度操作
+
+#### Fixed / 修复
+
+- **session-end.js**: 修复 `runCommand` 调用签名错误（数组参数导致 git 无参数执行，永远误报未提交变更）
+- **文档计数同步**: 修复 ARCHITECTURE.md、README.zh-CN.md、quickstart.zh-CN.md、status.md、llms.txt 中命令/Hook 数量不一致（38→40 命令、18/24→21 Hook）
+- **rules 路径规范**: analyze.md、learn.md 中建议路径改为 `rules/common/` 子目录，符合现有目录结构
+- **convert-to-local.js**: 扩展处理范围覆盖 `docs/` 和 `rules/` 目录（148 处额外引用）
+- **settings.example 同步**: 新增 Hook 配置同步到 `.claude/settings.local.json.example`
+- **首页性能**: 修复 Hero 动画过度 DOM 操作导致页面冻结
 
 ### [0.6.3] - 2026-02-10
 
@@ -432,6 +450,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.6.4]: https://github.com/xiaobei930/cc-best/compare/v0.6.3...v0.6.4
 [0.6.3]: https://github.com/xiaobei930/cc-best/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/xiaobei930/cc-best/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/xiaobei930/cc-best/compare/v0.6.0...v0.6.1
