@@ -14,6 +14,7 @@ const VALIDATORS = [
   { name: "Skills", script: "validate-skills.js" },
   { name: "Commands", script: "validate-commands.js" },
   { name: "Hooks", script: "validate-hooks.js" },
+  { name: "Security", script: "validate-security.js" },
 ];
 
 /**

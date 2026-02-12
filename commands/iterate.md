@@ -97,6 +97,23 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ---
 
+## 置信度检查（可选）
+
+每完成 3 个任务或阶段切换时，可执行 `/cc-best:confidence-check` 评估当前状态：
+
+```
+完成 TSK-001 → 完成 TSK-002 → 完成 TSK-003 → /cc-best:confidence-check → 继续
+                                               ↑ 每 3 个任务可选执行一次
+```
+
+**注意**：这是可选步骤，不在每次编辑后执行。只在以下时机使用：
+
+- 管线阶段切换（PM→Lead, Lead→Dev, Dev→QA）
+- 每完成 3 个任务后
+- 感觉不确定时
+
+---
+
 ## 上下文管理
 
 **不主动 /clear**，除非：
