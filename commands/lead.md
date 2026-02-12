@@ -222,7 +222,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
 ### 安装方式
 
 ```bash
-claude plugin install feature-dev@claude-plugins-official
+/plugin install feature-dev@claude-plugins-official
 ```
 
 ### 可用 Agent（来自 feature-dev 插件）

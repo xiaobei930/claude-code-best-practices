@@ -22,6 +22,33 @@
     <meta name="twitter:description" content="One plugin. 8 agents. A complete PM → Dev → QA pipeline. Role-driven AI development with 38 commands and 18 safety hooks.">
     <meta name="twitter:creator" content="@xiaobei930">
 
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CC-Best",
+        "description": "A Claude Code plugin that transforms AI coding into a full development workflow with role-driven agents (PM, Lead, Designer, Dev, QA), safety hooks, and self-learning capabilities.",
+        "url": "https://xiaobei930.github.io/cc-best/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Windows, macOS, Linux",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "xiaobei930",
+            "url": "https://github.com/xiaobei930"
+        },
+        "license": "https://opensource.org/licenses/MIT",
+        "codeRepository": "https://github.com/xiaobei930/cc-best",
+        "programmingLanguage": ["TypeScript", "Python", "Java", "Go", "C#", "Rust"],
+        "keywords": ["Claude Code", "AI development", "plugin", "code review", "TDD", "security audit"]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1203,9 +1230,14 @@
             <div class="hero-install">
                 <div class="hero-install-label">Quick Install</div>
                 <div class="hero-install-box">
-                    <span class="install-prompt">$</span>
-                    <span class="install-cmd">claude plugin add</span>
-                    <span class="install-url">https://github.com/xiaobei930/cc-best</span>
+                    <span class="install-prompt">/</span>
+                    <span class="install-cmd">plugin marketplace add</span>
+                    <span class="install-url">xiaobei930/cc-best</span>
+                </div>
+                <div class="hero-install-box" style="margin-top: 6px;">
+                    <span class="install-prompt">/</span>
+                    <span class="install-cmd">plugin install</span>
+                    <span class="install-url">cc-best@xiaobei930</span>
                 </div>
             </div>
         </div>
@@ -1390,8 +1422,10 @@
                 <span class="code-title">Terminal</span>
             </div>
             <div class="code-body">
-                <span class="code-line"><span class="code-comment"># Install the CC-Best plugin</span></span>
-                <span class="code-line"><span class="code-cmd">$</span> <span class="code-keyword">claude</span> <span class="code-arg">plugin add</span> <span class="code-string">https://github.com/xiaobei930/cc-best</span></span>
+                <span class="code-line"><span class="code-comment"># Step 1: Add the marketplace</span></span>
+                <span class="code-line"><span class="code-cmd">/</span> <span class="code-keyword">plugin marketplace add</span> <span class="code-string">xiaobei930/cc-best</span></span>
+                <span class="code-line"><span class="code-comment"># Step 2: Install the plugin</span></span>
+                <span class="code-line"><span class="code-cmd">/</span> <span class="code-keyword">plugin install</span> <span class="code-string">cc-best@xiaobei930</span></span>
                 <span class="code-line"></span>
                 <span class="code-line"><span class="code-comment"># Start autonomous development</span></span>
                 <span class="code-line"><span class="code-cmd">$</span> <span class="code-keyword">/cc-best:iterate</span> <span class="code-string">"add user authentication"</span></span>
