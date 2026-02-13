@@ -103,6 +103,12 @@ src/user.ts:42 - Type 'string' is not assignable to 'number'
 ➡️ 下一步: 修复类型错误后重新 /cc-best:verify
 ```
 
+### 验证失败后操作
+
+1. **更新 progress.md** — 在当前任务下记录验证失败信息（失败 Phase + 错误摘要 + 修复方向）
+2. **回到 Dev 修复** — 输出指引回 /cc-best:dev（或 /cc-best:dev --bugfix，如果是 QA 返工轮次中的验证）
+3. **安全问题优先** — Phase 5 Security 失败标记为 P0，优先修复
+
 ---
 
 ## 执行检查清单

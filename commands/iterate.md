@@ -40,16 +40,18 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ### Step 1: 确定角色
 
-| 当前状态                            | 选择角色            | 动作                                 |
-| ----------------------------------- | ------------------- | ------------------------------------ |
-| 无需求文档                          | `/cc-best:pm`       | 需求分析                             |
-| REQ 有待澄清项（≥1 个低置信度决策） | `/cc-best:clarify`  | 需求澄清                             |
-| 有需求无设计                        | `/cc-best:lead`     | 技术设计                             |
-| 有设计，前端任务未设计              | `/cc-best:designer` | UI 设计指导                          |
-| 有任务待开发                        | `/cc-best:dev`      | 编码实现                             |
-| 有代码待验证                        | `/cc-best:verify`   | 综合验证（构建+类型+Lint+测试+安全） |
-| 验证通过，待功能验收                | `/cc-best:qa`       | 功能验收                             |
-| QA 发现实现 Bug                     | `/cc-best:dev`      | 修复后重新 `/cc-best:verify`         |
+| 当前状态                            | 选择角色                | 动作                                         |
+| ----------------------------------- | ----------------------- | -------------------------------------------- |
+| 无需求文档                          | `/cc-best:pm`           | 需求分析                                     |
+| REQ 有待澄清项（≥1 个低置信度决策） | `/cc-best:clarify`      | 需求澄清                                     |
+| 有需求无设计                        | `/cc-best:lead`         | 技术设计                                     |
+| 有设计，前端任务未设计              | `/cc-best:designer`     | UI 设计指导                                  |
+| 有任务待开发                        | `/cc-best:dev`          | 编码实现                                     |
+| 有代码待验证                        | `/cc-best:verify`       | 综合验证（构建+类型+Lint+测试+安全）         |
+| 验证通过，待功能验收                | `/cc-best:qa`           | 功能验收                                     |
+| QA 发现实现 Bug（fix_count < 3）    | `/cc-best:dev --bugfix` | 修复后重新 `/cc-best:verify` → `/cc-best:qa` |
+| QA 修复循环达上限（fix_count >= 3） | `/cc-best:lead`         | 🛑 熔断，重新评审技术方案                    |
+| QA 发现高影响需求假设错误           | `/cc-best:pm`           | 重新评审需求假设                             |
 
 ### Step 2: 执行任务
 
@@ -94,6 +96,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 3. ✅ 遇到无法自动解决的致命错误
 4. ✅ 需要用户决策的外部依赖
 5. ✅ 上下文接近上限（提示用户后等待决定）
+6. ✅ QA↔Dev 修复循环达到 3 次上限（熔断保护）
 
 ---
 

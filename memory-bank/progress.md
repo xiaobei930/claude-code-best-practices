@@ -15,6 +15,8 @@
   - 阶段: RED / GREEN / REFACTOR
   - 涉及文件: `src/xxx.ts`, `tests/xxx.test.ts`
   - 下一步: [具体要做的操作]
+  - fix_count: 0
+  - fix_history: []
 -->
 
 ## 待办

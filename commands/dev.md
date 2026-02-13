@@ -1,5 +1,6 @@
 ---
 description: 研发工程师智能体，负责功能编码实现
+argument-hint: "[--bugfix]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot, mcp__plugin_playwright_playwright__browser_console_messages, mcp__plugin_playwright_playwright__browser_click, mcp__plugin_playwright_playwright__browser_type, mcp__plugin_playwright_playwright__browser_wait_for
 ---
 
@@ -194,12 +195,70 @@ def process_data(data):
 
 ## 自主决策原则
 
-| 场景           | 决策                            |
-| -------------- | ------------------------------- |
-| 多种实现方式   | 选择最简单的                    |
-| 技术方案有歧义 | 按最可能的意图实现，注释说明    |
-| 发现方案问题   | 用最小改动修正，记录原因        |
-| 遇到阻塞问题   | 先跳过，标记 TODO，继续其他部分 |
+| 场景               | 决策                             |
+| ------------------ | -------------------------------- |
+| 多种实现方式       | 选择最简单的                     |
+| 技术方案有歧义     | 按最可能的意图实现，注释说明     |
+| 发现方案问题       | 用最小改动修正，记录原因         |
+| 遇到阻塞问题       | 先跳过，标记 TODO，继续其他部分  |
+| 技术方案明显不可行 | 回退 /cc-best:lead，附可行性报告 |
+
+## Bugfix 模式
+
+> 使用 `/cc-best:dev --bugfix` 进入 Bugfix 模式。当 QA 发现实现 Bug 时，通过此模式返工修复。
+
+### 与普通开发模式的区别
+
+| 维度     | 普通模式 `/cc-best:dev`         | Bugfix 模式 `/cc-best:dev --bugfix` |
+| -------- | ------------------------------- | ----------------------------------- |
+| 输入     | 技术方案 DES-XXX + 任务 TSK-XXX | QA Bug 报告 + 修复历史              |
+| 范围     | 完整功能实现                    | 仅修复 Bug，最小化改动              |
+| 自测重点 | 全面功能自测                    | 针对 Bug 场景复现验证               |
+| 完成后   | /cc-best:verify                 | /cc-best:verify → /cc-best:qa 复测  |
+
+### Bugfix 工作流程
+
+1. **读取 Bug 报告** — 从 QA 输出或 progress.md 获取 Bug 详情
+2. **检查修复历史** — 读取 progress.md 中该任务的 fix_count 和历史记录
+3. **制定修复策略** — 根据 fix_count 递进：
+
+| fix_count | 策略                                     |
+| --------- | ---------------------------------------- |
+| 1         | 正常修复，直接定位并解决问题             |
+| 2         | 审视前次修复为何失败，换角度或更深层排查 |
+| 3         | 最后机会，考虑更大范围重构或方案调整     |
+
+4. **修复并自测** — 针对 Bug 描述的场景验证修复有效
+5. **更新 progress.md** — 记录本次修复内容到 fix_history
+
+### Bugfix 完成输出
+
+```
+🔧 Bugfix 完成
+
+📋 TSK-XXX: [任务名称]
+🐛 修复: [Bug 简述]
+🔄 修复轮次: N/3
+📝 修复方案: [简述修复内容]
+
+➡️ 下一步: /cc-best:verify → /cc-best:qa 复测
+```
+
+### 技术方案回退
+
+如果在 Bugfix 过程中发现问题根因超出当前方案范围：
+
+```
+⬅️ 技术方案回退 Lead
+
+📋 TSK-XXX: [任务名称]
+❌ 不可行原因: [具体技术限制]
+💡 建议替代方案: [如有]
+
+➡️ 下一步: /cc-best:lead 重新评审
+```
+
+---
 
 ## Agent 集成
 

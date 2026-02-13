@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **核心目标**: 降低上手门槛 + 灵活配置
 
 - [ ] **Lite 模式** - 精简版插件（核心命令+规则子集）
+- [ ] **Hotfix 快速通道** - 精简管线（Dev→QA→Commit），跳过 PM/Lead 分析
 - [ ] 模型策略配置（质量优先/速度优先/均衡）
 - [ ] 常见错误诊断与修复建议
 - [ ] 示例项目（完整工作流演示）

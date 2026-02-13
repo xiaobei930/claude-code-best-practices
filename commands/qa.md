@@ -48,12 +48,12 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
 
 > **QA 需要判断问题根因，区分实现问题和需求假设问题**
 
-| 类型             | 处理方式               |
-| ---------------- | ---------------------- |
-| **实现 Bug**     | 返回 /cc-best:dev 修复 |
-| **设计偏差**     | 记录，后续迭代处理     |
-| **需求假设错误** | 记录，后续迭代调整     |
-| **边界遗漏**     | 返回 /cc-best:dev 补充 |
+| 类型             | 处理方式                   |
+| ---------------- | -------------------------- |
+| **实现 Bug**     | /cc-best:dev --bugfix 修复 |
+| **设计偏差**     | 记录，后续迭代处理         |
+| **需求假设错误** | 低影响记录 / 高影响回退 PM |
+| **边界遗漏**     | /cc-best:dev --bugfix 补充 |
 
 ## 工作流程
 
@@ -94,8 +94,9 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
    └─ 提供修复/调整建议
 
 6. 反馈结果
-   ├─ 有实现 Bug → 返回 /cc-best:dev 修复
-   ├─ 仅有假设问题 → 记录后继续下一任务
+   ├─ 有实现 Bug → /cc-best:dev --bugfix 修复
+   ├─ 仅有假设问题（低影响）→ 记录到 progress.md 待确认区，继续
+   ├─ 仅有假设问题（高影响）→ 回退 /cc-best:pm 重新评审
    └─ 全部通过 → 更新进度，继续下一任务
 ```
 
@@ -136,26 +137,31 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
 
 ## 自主决策原则
 
-| 场景               | 决策                                                        |
-| ------------------ | ----------------------------------------------------------- |
-| 有实现 Bug         | 返回 /cc-best:dev 修复，**修复后必须重新 /cc-best:qa 验证** |
-| 仅有假设问题       | 记录问题，继续下一任务                                      |
-| Bug 和假设问题都有 | 先修复 Bug（/cc-best:dev → /cc-best:qa 循环），假设问题记录 |
-| 测试全部通过       | 更新进度，继续循环                                          |
+| 场景                   | 决策                                                                             |
+| ---------------------- | -------------------------------------------------------------------------------- |
+| 有实现 Bug             | /cc-best:dev --bugfix 修复（fix_count + 1），**修复后必须重新 /cc-best:qa 验证** |
+| 仅有假设问题（低影响） | 记录到 progress.md 待确认区，继续下一任务                                        |
+| 仅有假设问题（高影响） | 回退 → /cc-best:pm 重新评审需求假设                                              |
+| Bug 和假设问题都有     | 先修复 Bug（/cc-best:dev --bugfix → /cc-best:qa 循环），假设问题记录             |
+| 测试全部通过           | 更新进度，继续循环                                                               |
 
-### Bug 修复闭环
+### Bug 修复闭环（含熔断保护）
 
 ```
 /cc-best:qa 发现 Bug
     ↓
-返回 /cc-best:dev 修复
+检查 progress.md 中该任务的 fix_count
     ↓
-/cc-best:dev 修复完成
+fix_count < 3 → /cc-best:dev --bugfix（fix_count + 1）
     ↓
-重新 /cc-best:qa 验证  ←── 必须！不能跳过
+/cc-best:dev --bugfix 修复完成
+    ↓
+/cc-best:verify → 重新 /cc-best:qa 验证  ←── 必须！
     ↓
 通过 → 继续下一任务
-失败 → 继续循环修复
+失败 → 继续循环（直到 fix_count >= 3 熔断）
+
+fix_count >= 3 → 🛑 熔断！升级到 /cc-best:lead 重新评审
 ```
 
 ## Agent 集成
@@ -184,10 +190,11 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
 ### 发现 Bug 输出
 
 ```
-❌ 发现实现 Bug
+❌ 发现实现 Bug (修复轮次: N/3)
 
 📋 TSK-XXX: [任务名称]
 🐛 Bug: N 个 (P0: X, P1: Y)
+🔄 修复历史: 第 1 次 - [简述]（如有）
 
 <details>
 <summary>Bug 详情</summary>
@@ -197,19 +204,50 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
 
 </details>
 
-➡️ 下一步: 返回 /cc-best:dev 修复
+➡️ 下一步: /cc-best:dev --bugfix（剩余 N 次机会）
 ```
 
-### 假设问题输出
+### 熔断输出
+
+```
+🛑 修复循环熔断 (已达 3 次上限)
+
+📋 TSK-XXX: [任务名称]
+🐛 未解决 Bug: N 个
+🔄 修复历史:
+  - 第 1 次: [修复内容] → [仍失败原因]
+  - 第 2 次: [修复内容] → [仍失败原因]
+  - 第 3 次: [修复内容] → [仍失败原因]
+
+📊 根因分析: [可能是技术方案问题/需求理解偏差/依赖缺陷]
+
+➡️ 建议: /cc-best:lead 重新评审技术方案
+```
+
+### 假设问题输出（低影响）
 
 ```
 ⚠️ 发现需求假设问题
 
 📋 TSK-XXX: [任务名称]
 📊 测试: 通过
-❓ 假设问题: N 个 (已记录)
+❓ 假设问题: N 个 (已记录到 progress.md 待确认区)
 
-➡️ 下一步: 继续下一任务 (假设问题后续处理)
+➡️ 下一步: 继续下一任务
+```
+
+### 假设问题输出（高影响）
+
+```
+⬅️ 需求假设回退 PM
+
+📋 TSK-XXX: [任务名称]
+📊 测试: 通过（实现正确）
+❓ 高影响假设问题:
+  - [假设 1]: [为什么不合理] → 影响: [范围]
+  - [假设 2]: [为什么不合理] → 影响: [范围]
+
+➡️ 下一步: /cc-best:pm 重新评审需求
 ```
 
 ---
@@ -219,11 +257,11 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp_
 - **有实现 Bug**:
 
   ```
-  发现 N 个实现 Bug，返回 /cc-best:dev 修复：
+  发现 N 个实现 Bug，调用 /cc-best:dev --bugfix 修复：
   1. [Bug1 描述]
   2. [Bug2 描述]
 
-  修复完成后请重新调用 /cc-best:qa 验证
+  修复完成后请重新 /cc-best:verify → /cc-best:qa 验证
   ```
 
 - **仅有假设问题或全部通过**:
