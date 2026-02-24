@@ -351,6 +351,98 @@ function getGitBranch(dir = process.cwd()) {
   return result.success ? result.output : null;
 }
 
+// ==================== 会话别名 ====================
+
+/**
+ * 获取会话别名文件路径
+ * @returns {string} ~/.claude/session-aliases.json
+ */
+function getSessionAliasesPath() {
+  // 使用 module.exports 引用以支持测试 mock
+  return path.join(module.exports.getClaudeDir(), "session-aliases.json");
+}
+
+/**
+ * 加载所有会话别名
+ * @returns {Array} 别名数组
+ */
+function loadSessionAliases() {
+  return readJsonFile(module.exports.getSessionAliasesPath()) || [];
+}
+
+/**
+ * 保存会话别名
+ * @param {string} name - 别名（如 "feature-login-page"）
+ * @param {object} data - 别名数据 { sessionPath, tags, summary }
+ */
+function saveSessionAlias(name, data = {}) {
+  const aliases = module.exports.loadSessionAliases();
+  const existing = aliases.findIndex((a) => a.name === name);
+
+  const entry = {
+    name,
+    sessionPath: data.sessionPath || "memory-bank/progress.md",
+    tags: data.tags || inferTags(name),
+    created: data.created || getDateTimeString(),
+    summary: data.summary || "",
+  };
+
+  if (existing >= 0) {
+    aliases[existing] = { ...aliases[existing], ...entry };
+  } else {
+    aliases.push(entry);
+  }
+
+  writeJsonFile(module.exports.getSessionAliasesPath(), aliases);
+  return entry;
+}
+
+/**
+ * 按别名查找会话
+ * @param {string} query - 别名或部分匹配
+ * @returns {object|null} 匹配的别名条目
+ */
+function findSessionByAlias(query) {
+  const aliases = module.exports.loadSessionAliases();
+
+  // 精确匹配
+  const exact = aliases.find((a) => a.name === query);
+  if (exact) return exact;
+
+  // 部分匹配
+  const partial = aliases.filter(
+    (a) =>
+      a.name.includes(query) ||
+      (a.tags && a.tags.some((t) => t.includes(query))),
+  );
+  return partial.length === 1 ? partial[0] : null;
+}
+
+/**
+ * 从别名推断标签
+ * @param {string} name - 别名
+ * @returns {string[]} 推断的标签
+ */
+function inferTags(name) {
+  const prefixes = {
+    feature: "feature",
+    bugfix: "bugfix",
+    fix: "bugfix",
+    refactor: "refactor",
+    explore: "explore",
+    hotfix: "hotfix",
+  };
+
+  const tags = [];
+  for (const [prefix, tag] of Object.entries(prefixes)) {
+    if (name.startsWith(`${prefix}-`)) {
+      tags.push(tag);
+      break;
+    }
+  }
+  return tags;
+}
+
 // ==================== 文本处理 ====================
 
 /**
@@ -431,6 +523,13 @@ module.exports = {
   isGitRepo,
   getGitModifiedFiles,
   getGitBranch,
+
+  // 会话别名
+  getSessionAliasesPath,
+  loadSessionAliases,
+  saveSessionAlias,
+  findSessionByAlias,
+  inferTags,
 
   // 文本处理
   grepFile,

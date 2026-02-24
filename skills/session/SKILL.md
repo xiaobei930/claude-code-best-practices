@@ -21,13 +21,13 @@ allowed-tools: Read, Grep, Glob
 
 ## 策略选择
 
-| 场景             | 推荐策略       | 子技能      |
-| ---------------- | -------------- | ----------- |
-| 上下文接近限制   | 策略性压缩     | `/cc-best:compact-context`  |
-| 完成重要任务节点 | 主动压缩       | `/cc-best:compact-context`  |
-| 会话结束时       | 提取可复用模式 | `/learning` |
-| 解决了复杂问题   | 记录解决方案   | `/learning` |
-| 发现项目特定知识 | 记录到知识库   | `/learning` |
+| 场景             | 推荐策略       | 子技能                     |
+| ---------------- | -------------- | -------------------------- |
+| 上下文接近限制   | 策略性压缩     | `/cc-best:compact-context` |
+| 完成重要任务节点 | 主动压缩       | `/cc-best:compact-context` |
+| 会话结束时       | 提取可复用模式 | `/learning`                |
+| 解决了复杂问题   | 记录解决方案   | `/learning`                |
+| 发现项目特定知识 | 记录到知识库   | `/learning`                |
 
 ## 子技能
 
@@ -66,6 +66,49 @@ allowed-tools: Read, Grep, Glob
 1. **立即记录** - 解决问题后立即记录
 2. **定期回顾** - 会话结束前检查值得记录的内容
 3. **增量更新** - 发现新知识时更新已有记录
+
+## 会话别名 | Session Aliases
+
+为会话设置语义化标签，便于快速查找和恢复。
+
+### 别名管理
+
+在会话元数据中记录语义化标签：
+
+```json
+{
+  "name": "feature-login-page",
+  "sessionPath": "memory-bank/progress.md",
+  "tags": ["feature", "frontend"],
+  "created": "2026-02-24 14:30:00",
+  "summary": "实现登录页面 - PM/Lead/Dev 已完成"
+}
+```
+
+**存储位置**: `~/.claude/session-aliases.json`（全局，跨项目共享）
+
+**标签分类系统**：
+
+| 前缀         | 含义     | 示例                  |
+| ------------ | -------- | --------------------- |
+| `feature-*`  | 功能开发 | feature-login-page    |
+| `bugfix-*`   | 缺陷修复 | bugfix-auth-timeout   |
+| `refactor-*` | 重构改进 | refactor-api-layer    |
+| `explore-*`  | 技术探索 | explore-new-framework |
+
+### 跨会话恢复
+
+当使用 `/cc-best:catchup` 恢复时：
+
+1. 读取上次会话的 alias 信息
+2. 加载对应的 progress.md 状态
+3. 显示上次会话的关键决策摘要
+
+### 别名操作
+
+- **保存**: 会话结束时自动提示或通过 `/cc-best:checkpoint` 手动触发
+- **查找**: 通过 `/cc-best:catchup --alias <name>` 快速恢复指定会话
+- **清理**: 超过 30 天未使用的别名自动标记为过期
 
 ## 会话健康指标
 

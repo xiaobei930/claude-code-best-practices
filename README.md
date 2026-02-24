@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>43 commands</code> · <code>18 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>21 hooks</code>
+  <code>44 commands</code> · <code>18 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>21 hooks</code>
 </p>
 
 <p align="center">
@@ -210,7 +210,7 @@ observe → analyze → learn → evolve
 ```
 your-project/
 ├── CLAUDE.md          # Project constitution
-├── commands/          # 43 slash commands
+├── commands/          # 44 slash commands
 ├── skills/            # 18 development skills
 ├── agents/            # 8 specialized agents
 ├── rules/             # 33 coding standards (8 dirs)
@@ -305,7 +305,7 @@ flowchart LR
 
 ## 📋 Command Reference
 
-**43 commands** organized into categories:
+**44 commands** organized into categories:
 
 | Category    | Commands                                                                                                                                | Purpose                                |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
@@ -348,7 +348,7 @@ flowchart TB
         CMD["/cc-best:iterate 'add feature'"]
     end
 
-    subgraph Commands["📋 Commands (43)"]
+    subgraph Commands["📋 Commands (44)"]
         PM["/pm"] --> Lead["/lead"] --> Dev["/dev"] --> QA["/qa"]
     end
 

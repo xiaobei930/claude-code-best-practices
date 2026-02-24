@@ -1,6 +1,6 @@
 # CC-Best Commands Reference | 命令参考
 
-> Version: 0.7.3 | 43 Commands
+> Version: 0.7.4 | 44 Commands
 
 快速查阅所有命令的参数和用法。
 
@@ -71,12 +71,13 @@
 
 ### 状态 & 诊断
 
-| 命令                        | 用途           | 参数                     |
-| --------------------------- | -------------- | ------------------------ |
-| `/cc-best:status`           | 项目状态诊断   | `--full` / `--conflicts` |
-| `/cc-best:self-check`       | 自我检查       | -                        |
-| `/cc-best:confidence-check` | 5 维置信度评估 | -                        |
-| `/cc-best:security-audit`   | 配置安全扫描   | -                        |
+| 命令                        | 用途           | 参数                                    |
+| --------------------------- | -------------- | --------------------------------------- |
+| `/cc-best:status`           | 项目状态诊断   | `--full` / `--conflicts`                |
+| `/cc-best:self-check`       | 自我检查       | -                                       |
+| `/cc-best:confidence-check` | 5 维置信度评估 | `--pre`                                 |
+| `/cc-best:security-audit`   | 配置安全扫描   | -                                       |
+| `/cc-best:stocktake`        | 组件库审计     | `--quick` / `--full` / `--scope <类别>` |
 
 #### /cc-best:status 参数详解
 
@@ -98,13 +99,14 @@
 
 ### 代码质量
 
-| 命令               | 用途       | 参数                                        |
-| ------------------ | ---------- | ------------------------------------------- |
-| `/cc-best:cleanup` | 死代码清理 | -                                           |
-| `/cc-best:docs`    | 文档同步   | -                                           |
-| `/cc-best:learn`   | 会话学习   | `--status` / `--export` / `--import <file>` |
-| `/cc-best:analyze` | 代码库分析 | `--commits <n>` / `--domain <name>`         |
-| `/cc-best:evolve`  | 知识演化   | `--execute` / `--threshold <n>`             |
+| 命令               | 用途         | 参数                                                   |
+| ------------------ | ------------ | ------------------------------------------------------ |
+| `/cc-best:cleanup` | 死代码清理   | -                                                      |
+| `/cc-best:docs`    | 文档同步     | -                                                      |
+| `/cc-best:learn`   | 会话学习     | `--status` / `--export` / `--import <file>` / `--eval` |
+| `/cc-best:analyze` | 代码库分析   | `--commits <n>` / `--domain <name>`                    |
+| `/cc-best:evolve`  | 知识演化     | `--execute` / `--threshold <n>`                        |
+| `/cc-best:codemap` | 代码架构文档 | `--scope <范围>` / `--update`                          |
 
 ### 任务管理
 
@@ -160,8 +162,8 @@
 | 编码实现 | `/cc-best:dev`, `/cc-best:iterate`, `/cc-best:pair`, `/cc-best:fix-issue`, `/cc-best:hotfix` |
 | 质量验证 | `/cc-best:qa`, `/cc-best:test`, `/cc-best:verify`                                            |
 | 代码提交 | `/cc-best:commit`, `/cc-best:pr`, `/cc-best:release`                                         |
-| 维护清理 | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:compact-context`                              |
-| 知识管理 | `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve`                                      |
+| 维护清理 | `/cc-best:cleanup`, `/cc-best:docs`, `/cc-best:compact-context`, `/cc-best:stocktake`        |
+| 知识管理 | `/cc-best:learn`, `/cc-best:analyze`, `/cc-best:evolve`, `/cc-best:codemap`                  |
 
 ---
 
@@ -283,6 +285,6 @@
 ## 相关文档 | Related Docs
 
 - [架构文档](ARCHITECTURE.md) - 组件关系和调用链
-- [Skills 指南](../skills/README) - 17 个开发技能
+- [Skills 指南](../skills/README) - 18 个开发技能
 - [Agents 指南](../agents/README) - 8 个专业代理
 - [Hooks 指南](../hooks/README.md) - 安全钩子配置

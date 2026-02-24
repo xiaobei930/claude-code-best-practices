@@ -22,7 +22,7 @@
 > 从产品需求到代码审查 — 一个插件，完整工作流。
 
 <p align="center">
-  <code>43 命令</code> · <code>18 技能</code> · <code>8 智能体</code> · <code>33 规则</code> · <code>21 hooks</code>
+  <code>44 命令</code> · <code>18 技能</code> · <code>8 智能体</code> · <code>33 规则</code> · <code>21 hooks</code>
 </p>
 
 <p align="center">
@@ -210,7 +210,7 @@ observe → analyze → learn → evolve
 ```
 your-project/
 ├── CLAUDE.md          # 项目宪法
-├── commands/          # 43 个命令
+├── commands/          # 44 个命令
 ├── skills/            # 18 个技能
 ├── agents/            # 8 个智能体
 ├── rules/             # 33 条编码规范 (8 目录分层)
@@ -305,7 +305,7 @@ flowchart LR
 
 ## 📋 命令速查
 
-**43 个命令**，按类别组织：
+**44 个命令**，按类别组织：
 
 | 类别       | 命令                                                                                                                                    | 用途                    |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
@@ -348,7 +348,7 @@ flowchart TB
         CMD["/cc-best:iterate '添加功能'"]
     end
 
-    subgraph Commands["📋 命令 (43)"]
+    subgraph Commands["📋 命令 (44)"]
         PM["/pm"] --> Lead["/lead"] --> Dev["/dev"] --> QA["/qa"]
     end
 
