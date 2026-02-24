@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>42 commands</code> · <code>17 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>21 hooks</code>
+  <code>43 commands</code> · <code>18 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>21 hooks</code>
 </p>
 
 <p align="center">
@@ -210,8 +210,8 @@ observe → analyze → learn → evolve
 ```
 your-project/
 ├── CLAUDE.md          # Project constitution
-├── commands/          # 42 slash commands
-├── skills/            # 17 development skills
+├── commands/          # 43 slash commands
+├── skills/            # 18 development skills
 ├── agents/            # 8 specialized agents
 ├── rules/             # 33 coding standards (8 dirs)
 ├── hooks/             # Safety hooks
@@ -305,7 +305,7 @@ flowchart LR
 
 ## 📋 Command Reference
 
-**42 commands** organized into categories:
+**43 commands** organized into categories:
 
 | Category    | Commands                                                                                                                                | Purpose                                |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
@@ -324,7 +324,7 @@ flowchart LR
 
 ## 🛠️ Skills
 
-**17 development skills** organized by domain:
+**18 development skills** organized by domain:
 
 | Domain           | Skills                               | Coverage                    |
 | ---------------- | ------------------------------------ | --------------------------- |
@@ -348,11 +348,11 @@ flowchart TB
         CMD["/cc-best:iterate 'add feature'"]
     end
 
-    subgraph Commands["📋 Commands (42)"]
+    subgraph Commands["📋 Commands (43)"]
         PM["/pm"] --> Lead["/lead"] --> Dev["/dev"] --> QA["/qa"]
     end
 
-    subgraph Skills["🛠️ Skills (17)"]
+    subgraph Skills["🛠️ Skills (18)"]
         S1["backend · frontend · testing · security"]
         S2["architecture · devops · git"]
         S3["learning · compact · exploration"]

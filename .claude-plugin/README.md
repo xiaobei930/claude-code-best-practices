@@ -15,8 +15,8 @@ This directory contains metadata for Claude Code Plugin Marketplace compatibilit
 
 ```
 /                    # Plugin root
-├── commands/        # 42 slash commands
-├── skills/          # 17 development skills
+├── commands/        # 43 slash commands
+├── skills/          # 18 development skills
 ├── agents/          # 8 sub-agents
 ├── rules/           # 33 coding standards
 ├── scripts/         # 35+ automation scripts

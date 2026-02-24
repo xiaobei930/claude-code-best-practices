@@ -7,9 +7,9 @@
   "plugins": [
     {
       "name": "cc-best",
-      "version": "0.7.2",
+      "version": "0.7.3",
       "source": "./",
-      "description": "Complete development environment with role-based workflows (PM→Lead→Designer→Dev→QA), safety hooks, 42 commands, 17 skills, 8 agents, 33 rules, auto-learning pipeline, and multi-language coding standards",
+      "description": "Complete development environment with role-based workflows (PM→Lead→Designer→Dev→QA), safety hooks, 43 commands, 18 skills, 8 agents, 33 rules, auto-learning pipeline, and multi-language coding standards",
       "author": {
         "name": "xiaobei930"
       }

@@ -14,8 +14,8 @@ CC-Best transforms Claude Code into a complete development team with role-based 
 
 ## Components
 
-- 42 commands (role, mode, build, git, context, quality, ops, setup)
-- 17 skills (backend, frontend, testing, security, architecture, devops, git, learning)
+- 43 commands (role, mode, build, git, context, quality, ops, setup)
+- 18 skills (backend, frontend, testing, security, architecture, devops, git, learning)
 - 8 agents (architect, planner, code-reviewer, code-simplifier, security-reviewer, tdd-guide, build-error-resolver, requirement-validator)
 - 33 rules across 8 directories (common + python, frontend, java, csharp, cpp, embedded, ui)
 - 21 hook scripts across 8 lifecycle events (17 registered in hooks.json)
@@ -77,8 +77,8 @@ Four-layer architecture: Philosophy → Method → Practice → Tools
 ## File Index
 
 - CLAUDE.md — Project constitution template
-- commands/ — 42 command definitions
-- skills/ — 17 skill definitions
+- commands/ — 43 command definitions
+- skills/ — 18 skill definitions
 - agents/ — 8 agent definitions
 - rules/ — 33 coding rules (8 directories)
 - hooks/hooks.json — Hook configuration

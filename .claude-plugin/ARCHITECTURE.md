@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.7.2 | Last Updated: 2026-02-24
+> Version: 0.7.3 | Last Updated: 2026-02-24
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -10,8 +10,8 @@
 
 | 组件         | 数量  | 位置                  | 触发方式                           |
 | ------------ | ----- | --------------------- | ---------------------------------- |
-| **Commands** | 42    | `commands/`           | 用户输入 `/xxx`                    |
-| **Skills**   | 17    | `skills/`             | Agent 预加载 / 自动注入            |
+| **Commands** | 43    | `commands/`           | 用户输入 `/xxx`                    |
+| **Skills**   | 18    | `skills/`             | Agent 预加载 / 自动注入            |
 | **Agents**   | 8     | `agents/`             | Task tool 委派                     |
 | **Rules**    | 33    | `rules/`              | 路径匹配自动注入 (8 目录分层)      |
 | **Hooks**    | 21/17 | `scripts/node/hooks/` | 生命周期自动触发 (21 脚本/17 配置) |
@@ -22,7 +22,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      Commands (42)                          │
+│                      Commands (43)                          │
 │  角色: pm, clarify, lead, designer, dev, qa, verify         │
 │  工具: build, test, run, status, commit, compact...         │
 │  模式: iterate, pair, cc-ralph, mode, model                 │
@@ -51,7 +51,7 @@
                        │ 预加载
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                       Skills (17)                           │
+│                       Skills (18)                           │
 │  开发: api, architecture, backend(5), frontend(4), database │
 │  测试: testing (tdd, e2e)                                   │
 │  质量: quality → security, debug                            │
@@ -211,7 +211,7 @@ Commands (角色)              Agents                      Skills
 ## 6. Skills 层级结构 | Skills Hierarchy
 
 ```
-Skills (17)
+Skills (18)
 ├── 开发技能 (10)
 │   ├── api              # RESTful API 设计
 │   ├── architecture     # 架构设计 (ADR)
@@ -309,7 +309,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.7.2**
+当前版本: **0.7.3**
 
 ---
 
@@ -458,8 +458,8 @@ tools: Read, Grep, Glob
 
 | 类别                 | 数量                                                            |
 | -------------------- | --------------------------------------------------------------- |
-| Commands             | 42                                                              |
-| Skills               | 17                                                              |
+| Commands             | 43                                                              |
+| Skills               | 18                                                              |
 | Agents               | 8                                                               |
 | Rules                | 33 (8 目录: common/python/frontend/java/csharp/cpp/embedded/ui) |
 | Hooks Scripts        | 21 脚本 / 17 已配置                                             |

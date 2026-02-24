@@ -14,6 +14,7 @@ skills:
   - cc-best:exploration
   - cc-best:api
   - cc-best:database
+  - cc-best:search-first
 color: blue
 ---
 

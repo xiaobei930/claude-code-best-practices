@@ -12,6 +12,7 @@ tools: Read, Grep, Glob
 skills:
   - cc-best:architecture
   - cc-best:exploration
+  - cc-best:search-first
 color: cyan
 ---
 
