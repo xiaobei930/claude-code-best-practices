@@ -10,9 +10,9 @@ model: opus
 maxTurns: 15
 tools: Read, Grep, Glob
 skills:
-  - security
-  - quality
-  - exploration
+  - cc-best:security
+  - cc-best:quality
+  - cc-best:exploration
 color: red
 ---
 

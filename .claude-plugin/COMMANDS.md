@@ -1,6 +1,6 @@
 # CC-Best Commands Reference | 命令参考
 
-> Version: 0.7.0 | 42 Commands
+> Version: 0.7.1 | 42 Commands
 
 快速查阅所有命令的参数和用法。
 

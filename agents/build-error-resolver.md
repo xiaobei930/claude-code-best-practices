@@ -10,10 +10,10 @@ model: sonnet
 maxTurns: 15
 tools: Read, Write, Edit, Grep, Glob, Bash
 skills:
-  - debug
-  - devops
-  - testing
-  - exploration
+  - cc-best:debug
+  - cc-best:devops
+  - cc-best:testing
+  - cc-best:exploration
 color: yellow
 ---
 

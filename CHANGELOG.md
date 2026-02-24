@@ -69,6 +69,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Recent Changes / 近期变更
 
+### [0.7.1] - 2026-02-24
+
+#### Fixed / 修复
+
+- **Agent skill 全限定名**: 8 个 agent 共 26 处 skill 引用从裸名改为 `cc-best:xxx` 全限定名格式，修复 v2.1.47+ 下 skill 静默加载失败
+
+---
+
 ### [0.7.0] - 2026-02-13
 
 #### Added / 新增
@@ -484,6 +492,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.7.1]: https://github.com/xiaobei930/cc-best/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/xiaobei930/cc-best/compare/v0.6.5...v0.7.0
 [0.6.5]: https://github.com/xiaobei930/cc-best/compare/v0.6.4...v0.6.5
 [0.6.4]: https://github.com/xiaobei930/cc-best/compare/v0.6.3...v0.6.4

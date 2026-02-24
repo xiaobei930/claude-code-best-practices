@@ -10,8 +10,8 @@ model: opus
 maxTurns: 10
 tools: Read, Grep, Glob
 skills:
-  - architecture
-  - exploration
+  - cc-best:architecture
+  - cc-best:exploration
 color: cyan
 ---
 

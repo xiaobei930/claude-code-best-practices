@@ -10,10 +10,10 @@ model: opus
 maxTurns: 20
 tools: Read, Write, Edit, Grep, Glob, Bash
 skills:
-  - architecture
-  - exploration
-  - api
-  - database
+  - cc-best:architecture
+  - cc-best:exploration
+  - cc-best:api
+  - cc-best:database
 color: blue
 ---
 

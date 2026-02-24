@@ -10,7 +10,7 @@ model: sonnet
 maxTurns: 10
 tools: Read, Grep, Glob
 skills:
-  - architecture
+  - cc-best:architecture
 color: magenta
 ---
 
