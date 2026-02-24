@@ -22,7 +22,7 @@ AI coding assistants without principles produce inconsistent results. CC-Best em
 - **Dao** defines 8 core principles (P1-P8) and 5 autonomous decision principles (A1-A5)
 - **Fa** translates principles into role workflows (PM → Lead → Dev → QA)
 - **Shu** implements standards as enforceable rules (33 rules across 8 directories)
-- **Qi** automates enforcement through hooks (18 scripts across 8 lifecycle events)
+- **Qi** automates enforcement through hooks (21 scripts across 8 lifecycle events)
 
 ### Meta Principles
 
@@ -441,7 +441,7 @@ This state is saved to `.pre-compact-state.json` for recovery via `/cc-best:catc
 | `PreCompact`       | Before context compression | Save state                 |
 | `SessionEnd`       | Session ends               | Evaluate and persist       |
 
-### 18 Hook Scripts by Category
+### 21 Hook Scripts by Category
 
 **Safety (5 scripts)**:
 | Script | Event | Function |
@@ -555,6 +555,7 @@ Each language directory covers:
 
 1. Create directory: `rules/your-lang/`
 2. Add style file with `paths` frontmatter:
+
    ```markdown
    ---
    paths:
@@ -563,6 +564,7 @@ Each language directory covers:
 
    # Rust Coding Standards
    ```
+
 3. Add testing, security, performance files as needed
 4. Update `ARCHITECTURE.md` statistics
 

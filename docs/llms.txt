@@ -82,6 +82,6 @@ Four-layer architecture: Philosophy → Method → Practice → Tools
 - agents/ — 8 agent definitions
 - rules/ — 33 coding rules (8 directories)
 - hooks/hooks.json — Hook configuration
-- scripts/node/hooks/ — 18 hook scripts
+- scripts/node/hooks/ — 21 hook scripts
 - memory-bank/ — Progress and architecture docs
 - .claude-plugin/ — Plugin metadata and reference docs

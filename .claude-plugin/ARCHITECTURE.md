@@ -60,7 +60,7 @@
                        │ 触发
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  Hooks (18 脚本/17 配置)                     │
+│                  Hooks (21 脚本/17 配置)                     │
 │  SessionStart      → session-check                          │
 │  UserPromptSubmit  → user-prompt-submit                     │
 │  PreToolUse        → validate-command, pause-before-push,   │

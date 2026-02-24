@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>42 commands</code> · <code>17 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>18 hooks</code>
+  <code>42 commands</code> · <code>17 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>21 hooks</code>
 </p>
 
 <p align="center">

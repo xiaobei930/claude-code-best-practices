@@ -174,7 +174,7 @@ const pluginPath = path.join(
   pluginVersion,
 );
 // Windows: C:\Users\<user>\.claude\plugins\cache\cc-best\cc-best\0.7.1
-// macOS:   /Users/<user>/.claude/plugins/cache/cc-best/cc-best\0.7.1
+// macOS:   /Users/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.1
 // Linux:   /home/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.1
 ```
 
