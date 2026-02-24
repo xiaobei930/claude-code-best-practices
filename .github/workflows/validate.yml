@@ -9,6 +9,8 @@ on:
       - "commands/**"
       - "hooks/**"
       - "scripts/ci/**"
+      - "scripts/node/**"
+      - "tests/**"
   pull_request:
     branches: [main, master]
     paths:
@@ -17,6 +19,8 @@ on:
       - "commands/**"
       - "hooks/**"
       - "scripts/ci/**"
+      - "scripts/node/**"
+      - "tests/**"
 
 jobs:
   validate:
@@ -46,6 +50,10 @@ jobs:
 
       - name: Validate Hooks
         run: node scripts/ci/validate-hooks.js
+        continue-on-error: false
+
+      - name: Run Tests
+        run: node tests/run-all.js
         continue-on-error: false
 
   # 可选：运行完整验证（汇总报告）

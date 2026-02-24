@@ -1,6 +1,6 @@
 ---
 description: 会话学习，从会话中提取可复用模式
-argument-hint: "[--status|--export|--import file]"
+argument-hint: "[--status|--export|--import file|--eval]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---
 
@@ -12,6 +12,7 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 
 ```bash
 /cc-best:learn                    # 从当前会话提取知识
+/cc-best:learn --eval             # 仅评估知识质量，不保存
 /cc-best:learn --status           # 查看已学习内容和置信度
 /cc-best:learn --export           # 导出学习内容（用于分享）
 /cc-best:learn --import <file>    # 导入他人的学习内容
@@ -46,6 +47,16 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
    ├─ 提炼核心要点
    ├─ 确定适用范围
    └─ 编写简洁描述
+
+2.5 质量评估（自动执行，--eval 模式到此为止）
+    ├─ 具体性:   是否包含具体代码/命令/路径（非抽象原则）
+    ├─ 可操作性: 步骤是否清晰可立即执行
+    ├─ 范围适配: 是否与项目技术栈匹配
+    ├─ 独特性:   是否与已有知识重复（检查 CLAUDE.md + rules/）
+    └─ 覆盖度:   是否覆盖主要用例和边界
+
+    评分: 每维 1-5 分，总分 ≥15 分通过
+    未通过: 提示改进建议，不自动保存
 
 3. 知识存储
    ├─ 更新 CLAUDE.md（核心规则）
@@ -97,6 +108,37 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ## 置信度系统
 
 > 📋 详细置信度等级定义和提升规则参见预加载的 `skills/learning/extraction-guide.md`
+
+## 质量评估 | Quality Gate
+
+知识保存前的 5 维质量评分，防止低质量知识进入知识库。
+
+### 评分维度
+
+| 维度     | 权重 | 满分条件                     | 0 分条件             |
+| -------- | ---- | ---------------------------- | -------------------- |
+| 具体性   | 1-5  | 包含具体代码/命令/路径       | 仅抽象原则           |
+| 可操作性 | 1-5  | 步骤清晰，可立即执行         | 模糊的"应该"建议     |
+| 范围适配 | 1-5  | 与项目技术栈精确匹配         | 通用知识，无项目关联 |
+| 独特性   | 1-5  | 与 CLAUDE.md / rules/ 无重叠 | 已有完全相同的记录   |
+| 覆盖度   | 1-5  | 覆盖主要用例和边界           | 仅覆盖 happy path    |
+
+### 评估结果
+
+| 总分   | 判定 | 行动                     |
+| ------ | ---- | ------------------------ |
+| ≥20/25 | 优秀 | 直接保存                 |
+| 15-19  | 通过 | 保存，标注可改进方向     |
+| 10-14  | 待改 | 提示改进建议，不自动保存 |
+| <10    | 拒绝 | 需要重新萃取             |
+
+### --eval 模式
+
+`/cc-best:learn --eval` 仅执行 Step 0 → 1 → 2 → 2.5，输出质量评分和改进建议，不执行保存。适用于：
+
+- 评估候选知识的质量
+- 在正式保存前预览效果
+- 团队代码审查时评估学习内容
 
 ## --status / --export / --import
 

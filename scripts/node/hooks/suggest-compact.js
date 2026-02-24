@@ -22,6 +22,7 @@
  */
 
 const path = require("path");
+const fs = require("fs");
 const {
   getTempDir,
   getSessionId,
@@ -64,6 +65,58 @@ function writeCount(count) {
 }
 
 /**
+ * 检测管线阶段切换（补充建议，不替换计数器逻辑）
+ * 读取 progress.md 最近的角色标记，与上次记录的角色对比
+ */
+function detectPhaseSwitch() {
+  try {
+    // 查找 progress.md（优先 memory-bank/，其次项目根目录）
+    const candidates = [
+      path.join(process.cwd(), "memory-bank", "progress.md"),
+      path.join(process.cwd(), "progress.md"),
+    ];
+
+    let progressContent = null;
+    for (const p of candidates) {
+      if (fs.existsSync(p)) {
+        progressContent = fs.readFileSync(p, "utf8");
+        break;
+      }
+    }
+
+    if (!progressContent) return null;
+
+    // 检测最近的角色标记（PM/Lead/Dev/QA/Designer）
+    const rolePattern = /\b(PM|Lead|Dev|QA|Designer)\b/gi;
+    const matches = progressContent.match(rolePattern);
+    if (!matches || matches.length === 0) return null;
+
+    const currentRole = matches[matches.length - 1].toLowerCase();
+
+    // 读取上次记录的角色
+    const sessionId = getSessionId("default");
+    const phaseFile = path.join(getTempDir(), `claude-phase-${sessionId}.txt`);
+
+    let lastRole = null;
+    if (fs.existsSync(phaseFile)) {
+      lastRole = fs.readFileSync(phaseFile, "utf8").trim().toLowerCase();
+    }
+
+    // 记录当前角色
+    fs.writeFileSync(phaseFile, currentRole);
+
+    // 如果角色发生了切换，返回切换信息
+    if (lastRole && lastRole !== currentRole) {
+      return { from: lastRole, to: currentRole };
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * 主函数
  */
 function main() {
@@ -93,6 +146,15 @@ function main() {
         `[CompactReminder] 🔴 立即保存状态并执行压缩（/cc-best:checkpoint → /clear → /cc-best:catchup）`,
       );
     }
+  }
+
+  // 阶段感知：检测管线角色切换
+  const phaseSwitch = detectPhaseSwitch();
+  if (phaseSwitch) {
+    log(
+      `[CompactReminder] 🔄 检测到阶段切换: ${phaseSwitch.from} → ${phaseSwitch.to}`,
+    );
+    log(`[CompactReminder] 💡 阶段切换是压缩的好时机，建议先保存进度再压缩`);
   }
 
   process.exit(0);

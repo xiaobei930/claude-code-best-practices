@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "cc-best",
+  "description": "Claude Code Best Practices Plugin",
+  "scripts": {
+    "test": "node tests/run-all.js"
+  }
+}
