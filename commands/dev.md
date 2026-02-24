@@ -393,3 +393,5 @@ def process_data(data):
 💡 前端代码已使用 /frontend-design 生成
 💡 复杂代码已通过 code-simplifier 优化
 ```
+
+> **记住**: 开发的目标是可工作的代码而非完美的代码。先让测试通过，再考虑重构优化。

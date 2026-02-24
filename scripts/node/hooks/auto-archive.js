@@ -12,6 +12,15 @@
  * - 0: 正常退出
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`auto-archive.js - 自动归档提醒
+
+用途: PostToolUse hook，progress.md 超过 300 行时提醒归档
+触发: Write|Edit 工具调用后（检测 progress.md 行数）`);
+  process.exit(0);
+}
+
 const fs = require("fs");
 const path = require("path");
 const { readStdinJson, log } = require("../lib/utils");

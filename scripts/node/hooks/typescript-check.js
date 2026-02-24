@@ -12,6 +12,15 @@
  * - 0: 检查完成（无论是否有类型错误）
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`typescript-check.js - TypeScript 类型检查
+
+用途: PostToolUse hook，.ts 文件编辑后运行 tsc --noEmit
+触发: Write|Edit 工具调用后（检测 .ts 文件变更）`);
+  process.exit(0);
+}
+
 const path = require("path");
 const { readStdinJson, log, fileExists, runCommand } = require("../lib/utils");
 

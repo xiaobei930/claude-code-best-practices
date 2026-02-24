@@ -126,3 +126,5 @@ cmake --build .
                         ↓
               /cc-best:fix 执行修复
 ```
+
+> **记住**: 构建是质量的第一道门，失败时先 /fix 快速修复，复杂问题交给 build-error-resolver。

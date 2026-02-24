@@ -22,7 +22,7 @@
 > 从产品需求到代码审查 — 一个插件，完整工作流。
 
 <p align="center">
-  <code>44 命令</code> · <code>18 技能</code> · <code>8 智能体</code> · <code>33 规则</code> · <code>21 hooks</code>
+  <code>44 命令</code> · <code>18 技能</code> · <code>8 智能体</code> · <code>33 规则</code> · <code>19 hooks</code>
 </p>
 
 <p align="center">
@@ -364,7 +364,7 @@ flowchart TB
         A3["tdd-guide · build-error-resolver · requirement-validator"]
     end
 
-    subgraph Safety["🛡️ 安全钩子 (17)"]
+    subgraph Safety["🛡️ 安全钩子 (18)"]
         H1["PreToolUse: 命令验证, 密钥检测, 文件保护"]
         H2["PostToolUse: 自动格式化, 类型检查, 模式观察"]
     end
@@ -516,9 +516,7 @@ allowed_tools:
 | PostToolUse  | console.log 检查    | `check-console-log.js`    |
 | PostToolUse  | TypeScript 类型检查 | `typescript-check.js`     |
 | SessionStart | 会话健康检查        | `session-check.js`        |
-| SessionStart | 加载上次上下文      | `session-start.js`        |
 | PreCompact   | 压缩前保存状态      | `pre-compact.js`          |
-| SessionEnd   | 会话结束持久化      | `session-end.js`          |
 
 ---
 

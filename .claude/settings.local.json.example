@@ -271,18 +271,6 @@
           }
         ],
         "description": "会话检查: 启动时检查文件更新状态和项目配置"
-      },
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node scripts/node/hooks/session-start.js",
-            "_command_bash": "bash scripts/shell/session-start.sh",
-            "timeout": 3
-          }
-        ],
-        "description": "加载上次会话上下文"
       }
     ],
     "PreCompact": [
@@ -327,18 +315,6 @@
       }
     ],
     "SessionEnd": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node scripts/node/hooks/session-end.js",
-            "_command_bash": "bash scripts/shell/session-end.sh",
-            "timeout": 5
-          }
-        ],
-        "description": "会话结束时持久化状态"
-      },
       {
         "matcher": "*",
         "hooks": [

@@ -290,3 +290,5 @@ node scripts/node/archive-progress.js memory-bank
 
    使用 /ralph-loop:cancel-ralph 取消循环
    ```
+
+> **记住**: ralph 模式适合长时间自动迭代，确保 progress.md 中有明确任务列表作为执行依据。

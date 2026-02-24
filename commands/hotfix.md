@@ -98,3 +98,5 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill
 - 修复范围应尽可能小，避免引入新问题
 - 完成后建议在下次迭代中补充完整的 QA 验收
 - 如果修复涉及架构变更，应使用完整管线
+
+> **记住**: Hotfix 求快但不求省——跳过分析阶段，但验证和测试一步都不能少。

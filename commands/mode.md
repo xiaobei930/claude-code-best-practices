@@ -147,3 +147,5 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 执行 `/cc-best:mode` 不带参数可查看当前模式。
 
 当前模式状态保存在 `memory-bank/current-mode.md` 中。
+
+> **记住**: 选择模式要匹配场景——明确任务用 iterate，探索学习用 pair，紧急修复用 hotfix。

@@ -83,3 +83,5 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 - 完成的任务只保留摘要
 - 相似问题合并记录
 - 定期清理过时信息
+
+> **记住**: Memory Bank 是跨会话的桥梁，每次会话结束前更新 progress.md，下次启动就能无缝继续。

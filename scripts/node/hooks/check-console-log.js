@@ -13,6 +13,15 @@
  * - 0: 检查完成（不阻止执行）
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`check-console-log.js - 调试日志检查
+
+用途: PostToolUse hook，检查 JS/TS 文件中遗留的 console.log 语句
+触发: Write|Edit 工具调用后（检测 .js/.ts 文件）`);
+  process.exit(0);
+}
+
 const fs = require("fs");
 const path = require("path");
 const { readStdinJson, log, getGitBranch } = require("../lib/utils");

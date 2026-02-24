@@ -98,3 +98,5 @@ node scripts/node/model-strategy.js <strategy>
 - 如需个人偏好不进入 Git，可在 `.gitignore` 中添加 `agents/*.md`（不推荐）
 - 策略名称从 agent 文件推断，不存储到额外配置文件
 - 当前默认配置（5 opus + 3 sonnet）不匹配任何预设策略，显示为 `custom`
+
+> **记住**: 模型策略影响成本和质量——Quality 用于关键决策，Economy 用于批量执行，Balanced 是安全默认。

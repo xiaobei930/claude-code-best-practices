@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.7.4 | Last Updated: 2026-02-24
+> Version: 0.7.5 | Last Updated: 2026-02-24
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -14,7 +14,7 @@
 | **Skills**   | 18    | `skills/`             | Agent 预加载 / 自动注入            |
 | **Agents**   | 8     | `agents/`             | Task tool 委派                     |
 | **Rules**    | 33    | `rules/`              | 路径匹配自动注入 (8 目录分层)      |
-| **Hooks**    | 21/17 | `scripts/node/hooks/` | 生命周期自动触发 (21 脚本/17 配置) |
+| **Hooks**    | 19/18 | `scripts/node/hooks/` | 生命周期自动触发 (19 脚本/18 配置) |
 
 ---
 
@@ -60,12 +60,12 @@
                        │ 触发
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  Hooks (21 脚本/17 配置)                     │
+│                  Hooks (19 脚本/18 配置)                     │
 │  SessionStart      → session-check                          │
 │  UserPromptSubmit  → user-prompt-submit                     │
 │  PreToolUse        → validate-command, pause-before-push,   │
 │                      check-secrets, protect-files,          │
-│                      long-running-warning                   │
+│                      block-random-md, long-running-warning  │
 │  PostToolUse       → format-file, auto-archive,             │
 │                      observe-patterns, suggest-compact,     │
 │                      check-console-log, typescript-check    │
@@ -309,7 +309,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.7.4**
+当前版本: **0.7.5**
 
 ---
 
@@ -462,7 +462,7 @@ tools: Read, Grep, Glob
 | Skills               | 18                                                              |
 | Agents               | 8                                                               |
 | Rules                | 33 (8 目录: common/python/frontend/java/csharp/cpp/embedded/ui) |
-| Hooks Scripts        | 21 脚本 / 17 已配置                                             |
+| Hooks Scripts        | 19 脚本 / 18 已配置                                             |
 | Language Support     | 6 (Python, TS, Java, Go, C#, Rust)                              |
 | Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...)                     |
 | Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)                           |

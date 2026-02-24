@@ -1,6 +1,6 @@
 {
   "name": "cc-best",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Production-ready Claude Code configuration with role-based workflows (PM→Lead→Designer→Dev→QA), safety hooks, 44 commands, 18 skills, 8 agents, 33 rules, auto-learning pipeline, and multi-language coding standards",
   "author": {
     "name": "xiaobei930",

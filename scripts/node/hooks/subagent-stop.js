@@ -13,6 +13,15 @@
  * - 0: 正常完成
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`subagent-stop.js - 子代理追踪
+
+用途: SubagentStop hook，记录子代理完成状态
+触发: 子代理完成时`);
+  process.exit(0);
+}
+
 const { readStdinJson, log } = require("../lib/utils");
 
 /**

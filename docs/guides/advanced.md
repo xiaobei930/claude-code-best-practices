@@ -441,15 +441,16 @@ This state is saved to `.pre-compact-state.json` for recovery via `/cc-best:catc
 | `PreCompact`       | Before context compression | Save state                 |
 | `SessionEnd`       | Session ends               | Evaluate and persist       |
 
-### 21 Hook Scripts by Category
+### 19 Hook Scripts by Category
 
-**Safety (5 scripts)**:
+**Safety (6 scripts)**:
 | Script | Event | Function |
 | ------ | ----- | -------- |
 | `validate-command.js` | PreToolUse | Block dangerous commands (rm -rf, force push) |
 | `pause-before-push.js` | PreToolUse | Confirm before git push |
 | `check-secrets.js` | PreToolUse | Detect API keys in commands |
 | `protect-files.js` | PreToolUse | Block modification of .env, .key, .git/ |
+| `block-random-md.js` | PreToolUse | Block random .md file creation in root |
 | `long-running-warning.js` | PreToolUse | Warn about dev servers, watch commands |
 
 **Quality (3 scripts)**:
@@ -474,12 +475,11 @@ This state is saved to `.pre-compact-state.json` for recovery via `/cc-best:catc
 | `suggest-compact.js` | PostToolUse | Remind to compress context |
 | `pre-compact.js` | PreCompact | Save state before compression |
 
-**Tracking (3 scripts)**:
+**Tracking (2 scripts)**:
 | Script | Event | Function |
 | ------ | ----- | -------- |
 | `stop-check.js` | Stop | Check for incomplete tasks |
 | `subagent-stop.js` | SubagentStop | Record sub-agent task status |
-| `session-check.js` | SessionStart | Initial session health check |
 
 ### Writing Custom Hooks
 

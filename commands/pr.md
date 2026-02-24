@@ -43,3 +43,5 @@ allowed-tools: Read, Glob, Grep, Bash
 ## 参考
 
 - 完整 Git 工作流规范请参考 `skills/git/SKILL.md`
+
+> **记住**: PR 是代码交流的载体——标题说做了什么，描述说为什么做，测试计划说如何验证。

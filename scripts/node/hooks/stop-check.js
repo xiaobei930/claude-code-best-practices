@@ -14,6 +14,15 @@
  * - 0: 正常完成
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`stop-check.js - 遗漏检查
+
+用途: Stop hook，响应完成时检查 progress.md 中未完成任务
+触发: AI 响应完成时`);
+  process.exit(0);
+}
+
 const path = require("path");
 const {
   readStdinJson,

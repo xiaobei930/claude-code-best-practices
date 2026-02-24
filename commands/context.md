@@ -82,3 +82,5 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 - `/cc-best:context load` - 加载项目上下文
 - `/cc-best:context save` - 保存当前状态
 - `/cc-best:context show` - 显示当前上下文范围
+
+> **记住**: 上下文是 AI 协作的核心资产，花时间维护上下文就是在为未来的效率投资。

@@ -15,6 +15,15 @@
  * - 0: 检查完成，输出提示信息
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`session-check.js - 会话健康检查
+
+用途: SessionStart hook，启动时检查配置、文档过期和 Git 状态
+触发: 会话启动时`);
+  process.exit(0);
+}
+
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");

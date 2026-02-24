@@ -13,6 +13,15 @@
  * - 0: 评估完成
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`evaluate-session.js - 会话评估
+
+用途: SessionEnd hook，会话结束时评估并提取可学习的模式
+触发: 会话结束时`);
+  process.exit(0);
+}
+
 const fs = require("fs");
 const path = require("path");
 const { readStdinJson, log } = require("../lib/utils");

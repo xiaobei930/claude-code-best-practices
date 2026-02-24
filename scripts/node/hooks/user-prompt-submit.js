@@ -14,6 +14,15 @@
  * - 0: 正常完成
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`user-prompt-submit.js - 上下文注入
+
+用途: UserPromptSubmit hook，用户提交提示时注入项目状态信息
+触发: 用户提交提示时`);
+  process.exit(0);
+}
+
 const path = require("path");
 const {
   fileExists,

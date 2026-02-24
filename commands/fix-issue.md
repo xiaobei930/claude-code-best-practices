@@ -110,3 +110,5 @@ gh issue close <NUMBER> --comment "修复已提交: <commit-sha>\n\n变更摘要
 | `/cc-best:commit`  | 第 5 步调用，规范提交                   |
 | `/cc-best:dev`     | 类似但更通用，fix-issue 专注 Issue 闭环 |
 | `/cc-best:iterate` | 可在 iterate 模式中自动调用 fix-issue   |
+
+> **记住**: Issue 修复要端到端——从复现到测试到提交，缺少任何一环都不算完成。

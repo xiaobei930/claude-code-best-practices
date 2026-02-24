@@ -189,3 +189,5 @@ requirement-validator ←── 重要需求用 Agent 再验证
 
 💡 重要需求建议先调用 requirement-validator agent 验证质量
 ```
+
+> **记住**: 好的需求文档是项目成功的基石。宁可多花时间在 REQ 文档上，也不要在开发中反复返工。

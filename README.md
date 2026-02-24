@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>44 commands</code> · <code>18 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>21 hooks</code>
+  <code>44 commands</code> · <code>18 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>19 hooks</code>
 </p>
 
 <p align="center">
@@ -364,7 +364,7 @@ flowchart TB
         A3["tdd-guide · build-error-resolver · requirement-validator"]
     end
 
-    subgraph Safety["🛡️ Safety Hooks (17)"]
+    subgraph Safety["🛡️ Safety Hooks (18)"]
         H1["PreToolUse: validate, secrets, protect"]
         H2["PostToolUse: format, typecheck, observe"]
     end
@@ -516,9 +516,7 @@ All hooks default to Node.js for cross-platform compatibility. Python/Bash alter
 | PostToolUse  | Check console.log           | `check-console-log.js`    |
 | PostToolUse  | TypeScript type check       | `typescript-check.js`     |
 | SessionStart | Session health check        | `session-check.js`        |
-| SessionStart | Load previous context       | `session-start.js`        |
 | PreCompact   | Save state before compact   | `pre-compact.js`          |
-| SessionEnd   | Session end persistence     | `session-end.js`          |
 
 ---
 

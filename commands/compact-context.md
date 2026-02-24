@@ -116,3 +116,5 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 - 压缩前确保所有重要信息已保存
 - `_compact_summary.md` 是临时文件，恢复后可删除
 - 如果正在进行关键操作，先完成再压缩
+
+> **记住**: 压缩时机很重要——70% 是最佳压缩点，超过 85% 可能失败。宁可早压缩也不要等到来不及。

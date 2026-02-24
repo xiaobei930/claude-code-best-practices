@@ -14,6 +14,15 @@
  * - 0: 检测完成（不阻止执行）
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`long-running-warning.js - 长运行预警
+
+用途: PreToolUse hook，检测 dev server、watch 等长时间运行命令
+触发: Bash 工具调用前（检测 npm run dev、watch 等）`);
+  process.exit(0);
+}
+
 const { readStdinJson, log } = require("../lib/utils");
 
 // 平台检测

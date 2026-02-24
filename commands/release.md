@@ -109,3 +109,5 @@ git tag -a v<VERSION> -m "Release v<VERSION>"
 2. **幂等性**: 如果中途失败，可以重新执行（会覆盖上次的部分变更）
 3. **CHANGELOG 格式**: 严格遵循 Keep a Changelog 格式
 4. **语义化版本**: 遵循 [SemVer](https://semver.org/) 规范
+
+> **记住**: 发布是一个仪式——版本号、CHANGELOG、tag 缺一不可。发布前检查比发布后修复成本低十倍。

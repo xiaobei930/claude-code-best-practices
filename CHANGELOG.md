@@ -36,14 +36,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] Git Skill 拆分（SKILL.md → 3 个子文件，584→<480 行）
 - [x] 综合审计修复（Agent 格式规范化、Commands argument-hint/交叉引用、Rules 路径扩展、Legacy 脚本清理、SKILL.md 引用补全）
 
-### v0.7.0 ✅ (Released 2026-02-13) - Lite 模式 + 模型策略
+### v0.7.x ✅ (Released 2026-02-13 ~ 2026-02-24) - Lite 模式 + 模型策略 + 综合审计修复
 
-**核心目标**: 降低上手门槛 + Token 成本控制
+**核心目标**: 降低上手门槛 + Token 成本控制 + 全面审计修复
 
 - [x] **Lite 模式** - iterate 管线行为精简（跳过 PM/Lead/Designer/QA，直接 Dev→Verify→Commit）
 - [x] **三档模型策略** - Quality（全 Opus）/ Balanced（设计 Opus + 执行 Sonnet）/ Economy（核心 Sonnet + 其余 Haiku），交互式切换
 - [x] **Hotfix 快速通道** - 精简管线（Dev→Verify→Commit），跳过 PM/Lead 分析
 - [x] **Mermaid 流程图** - 管线角色决策树、异常回退路径可视化
+- [x] **综合审计修复** - Hook --help 全覆盖、闭合总结全覆盖、孤儿脚本清理、竞争条件修复
 - [ ] 常见错误诊断与修复建议
 
 ### v0.8.0 (Planned) - 示例项目与生态扩展
@@ -68,6 +69,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Recent Changes / 近期变更
+
+### [0.7.5] - 2026-02-24
+
+#### Fixed / 修复
+
+- **Hook --help 全覆盖**: 18/19 hook 脚本支持 `--help` 早退（24% → 95%，排除 init.js 工具脚本）
+- **孤儿脚本清理**: 删除冗余的 session-start.js 和 session-end.js（与 session-check.js/evaluate-session.js 功能重叠）
+- **block-random-md.js 注册**: 将未注册的 hook 脚本加入 hooks.json PreToolUse 事件
+- **闭合总结全覆盖**: 44/44 命令 + 18/18 技能全部添加 `> **记住**` 闭合总结（25%/50% → 100%）
+- **observe-patterns.js 竞争条件**: 历史记录存储从 JSON read-modify-write 改为 JSONL append（原子写入）
+- **embedded rule 命名规范**: esp32-c-style.md → embedded-style.md，统一 `-style.md` 命名模式
+- **advanced.md 分类修复**: Safety 类别补充 block-random-md.js，Tracking 去除 session-check.js 重复
+- **文档计数同步**: hook 脚本 21→19，已配置 17→18，覆盖 ~15 文件 ~20 处
+
+---
+
+### [0.7.4] - 2026-02-24
+
+#### Added / 新增
+
+- **竞品分析**: 对标 everything-claude-code、SuperClaude、claude-code-templates 等 5 个竞品
+- **综合审计**: 6 维度自动化审计（frontmatter 100%、CI 100%、引用 100%、版本 100%）
+
+#### Fixed / 修复
+
+- **docs/index.html 比较区域**: Commands 42→44、Skills 17→18 计数同步
+
+---
+
+### [0.7.3] - 2026-02-24
+
+#### Added / 新增
+
+- **check-secrets.js 增强**: 支持 30+ 云服务商密钥模式检测，新增 Anthropic/OpenAI/AWS/GCP 等格式
+
+---
+
+### [0.7.2] - 2026-02-24
+
+#### Added / 新增
+
+- **hooks.json 插件级 hooks**: 迁移 hooks 配置从 settings.local.json 到 hooks/hooks.json，支持插件自带 hooks
+
+---
 
 ### [0.7.1] - 2026-02-24
 
@@ -492,6 +537,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.7.5]: https://github.com/xiaobei930/cc-best/compare/v0.7.4...v0.7.5
+[0.7.4]: https://github.com/xiaobei930/cc-best/compare/v0.7.3...v0.7.4
+[0.7.3]: https://github.com/xiaobei930/cc-best/compare/v0.7.2...v0.7.3
+[0.7.2]: https://github.com/xiaobei930/cc-best/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/xiaobei930/cc-best/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/xiaobei930/cc-best/compare/v0.6.5...v0.7.0
 [0.6.5]: https://github.com/xiaobei930/cc-best/compare/v0.6.4...v0.6.5

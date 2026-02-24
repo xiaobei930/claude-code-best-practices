@@ -15,6 +15,15 @@
  * - 0: 状态保存完成
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`pre-compact.js - 压缩前保存
+
+用途: PreCompact hook，压缩前保存 git 状态到 .pre-compact-state.json
+触发: 上下文压缩前`);
+  process.exit(0);
+}
+
 const path = require("path");
 const {
   getMemoryBankDir,

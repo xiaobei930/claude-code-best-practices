@@ -346,3 +346,5 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
 
 💡 复杂功能已使用 code-architect 分析，方案详见 DES-XXX
 ```
+
+> **记住**: 技术方案要"刚好够用"——过度设计和设计不足一样危险。聚焦当前需求，为未来留接口。

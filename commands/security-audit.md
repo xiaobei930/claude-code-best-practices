@@ -217,3 +217,5 @@ allowed-tools: Read, Glob, Grep, Bash
 
 > 📝 **命令格式说明**：本文档使用插件命令格式（`/cc-best:security-audit`）。
 > 如果你是直接 clone 到 `.claude/` 目录使用，请去掉 `cc-best:` 前缀。
+
+> **记住**: 安全审计要系统化而非碰运气。按 OWASP 清单逐项检查，一个遗漏就可能是一个漏洞。

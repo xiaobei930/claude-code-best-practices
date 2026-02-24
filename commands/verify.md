@@ -170,3 +170,5 @@ security-reviewer (深度审查)  ←── Agent 补充检查
 |------|------|
 | 需要安全检查清单参考 | `security` skill |
 | 需要自动扫描代码安全 | `security-reviewer` agent |
+
+> **记住**: 验证是发布前的最后防线——安全审查不通过，宁可延期也不要带着隐患上线。

@@ -90,8 +90,6 @@ scripts/
 
 | Hook              | 文件                     | 用途                 |
 | ----------------- | ------------------------ | -------------------- |
-| **session-start**    | `hooks/session-start.js`    | 会话启动时加载上下文 |
-| **session-end**      | `hooks/session-end.js`      | 会话结束时保存状态   |
 | **pre-compact**      | `hooks/pre-compact.js`      | 上下文压缩前保存状态 |
 | **init**             | `hooks/init.js`             | 项目初始化           |
 | **session-check**    | `hooks/session-check.js`    | 会话健康检查         |

@@ -101,3 +101,5 @@ console.log(`使用 ${pm.name} (来源: ${pm.source})`);
 const devCmd = getRunCommand("dev"); // -> "pnpm dev" 或 "npm run dev"
 const testCmd = getRunCommand("test"); // -> "pnpm test" 或 "npm test"
 ```
+
+> **记住**: 包管理器配置一次到位，后续每个需求都能受益。模板和规范是效率的基础设施。

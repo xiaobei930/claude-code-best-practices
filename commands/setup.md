@@ -167,15 +167,15 @@ const path = require("path");
 
 // 获取插件绝对路径
 const homeDir = os.homedir();
-const pluginVersion = "0.7.4"; // 当前版本
+const pluginVersion = "0.7.5"; // 当前版本
 const pluginPath = path.join(
   homeDir,
   ".claude/plugins/cache/cc-best/cc-best",
   pluginVersion,
 );
-// Windows: C:\Users\<user>\.claude\plugins\cache\cc-best\cc-best\0.7.4
-// macOS:   /Users/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.4
-// Linux:   /home/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.4
+// Windows: C:\Users\<user>\.claude\plugins\cache\cc-best\cc-best\0.7.5
+// macOS:   /Users/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.5
+// Linux:   /home/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.5
 ```
 
 **Hooks 配置模板**：
@@ -373,3 +373,5 @@ Hooks: 全局 5 个 + 项目 2 个
 2. 运行 /cc-best:setup --verify 验证配置
 3. 运行 /cc-best:pm 开始第一个需求
 ```
+
+> **记住**: 初始化是项目的起跑线——hooks 配置正确、目录结构完整，后续才能顺畅运行。

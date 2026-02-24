@@ -356,3 +356,5 @@ git rebase --continue
 ## 委派到专业 Agent | Delegation to Agents
 
 > 详细内容参见 [delegation.md](delegation.md)
+
+> **记住**: Git 是协作的基石——清晰的分支策略和提交规范让团队协作事半功倍。

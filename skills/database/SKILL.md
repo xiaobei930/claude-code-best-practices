@@ -210,3 +210,5 @@ npm run typeorm migration:run
 - **MySQL**: [mysql.md](./mysql.md) - InnoDB 优化、索引策略、字符集
 - **Oracle**: [oracle.md](./oracle.md) - 分区表、全局索引、PL/SQL
 - **SQLite**: [sqlite.md](./sqlite.md) - WAL 模式、PRAGMA 优化、嵌入式场景
+
+> **记住**: 数据库设计是系统的地基——索引、约束、迁移策略在上线前就要规划好。

@@ -47,6 +47,17 @@
         "description": "文件保护: 阻止修改敏感文件 (.env, .key, .git/ 等)"
       },
       {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/block-random-md.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "Markdown 文件保护: 阻止在根目录创建随机 .md 文件"
+      },
+      {
         "matcher": "Bash",
         "hooks": [
           {

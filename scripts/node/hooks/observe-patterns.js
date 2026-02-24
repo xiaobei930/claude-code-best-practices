@@ -64,28 +64,58 @@ const MAX_OBSERVATIONS = parseInt(process.env.MAX_OBSERVATIONS || "200", 10);
  */
 function getHistoryPath() {
   const sessionId = getSessionIdShort("default");
-  return path.join(getTempDir(), `claude-observe-${sessionId}.json`);
+  return path.join(getTempDir(), `claude-observe-${sessionId}.jsonl`);
 }
 
 /**
- * 读取工具调用历史
+ * 读取工具调用历史（JSONL 格式，每行一个 JSON 对象）
  */
 function readHistory() {
   const historyPath = getHistoryPath();
   if (!fileExists(historyPath)) return [];
   try {
-    return JSON.parse(readFile(historyPath) || "[]");
+    const content = readFile(historyPath) || "";
+    return content
+      .trim()
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => {
+        try {
+          return JSON.parse(line);
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean)
+      .slice(-MAX_HISTORY);
   } catch {
     return [];
   }
 }
 
 /**
- * 写入工具调用历史（保留最近 MAX_HISTORY 条）
+ * 追加一条历史记录（原子 append，无竞争条件）
  */
-function writeHistory(history) {
-  const trimmed = history.slice(-MAX_HISTORY);
-  writeFile(getHistoryPath(), JSON.stringify(trimmed));
+function appendHistoryEntry(entry) {
+  const historyPath = getHistoryPath();
+  appendFile(historyPath, JSON.stringify(entry) + "\n");
+  cleanupHistoryIfNeeded(historyPath);
+}
+
+/**
+ * 历史文件过大时截断（行数超 MAX_HISTORY×3 时保留最近 MAX_HISTORY 条）
+ */
+function cleanupHistoryIfNeeded(historyPath) {
+  try {
+    const content = readFile(historyPath) || "";
+    const lines = content.trim().split("\n").filter(Boolean);
+    if (lines.length > MAX_HISTORY * 3) {
+      const kept = lines.slice(-MAX_HISTORY);
+      writeFile(historyPath, kept.join("\n") + "\n");
+    }
+  } catch {
+    // 清理失败不影响正常流程
+  }
 }
 
 /**
@@ -293,9 +323,8 @@ async function main() {
       }
     }
 
-    // 更新历史
-    history.push(current);
-    writeHistory(history);
+    // 追加历史（原子写入，避免竞争条件）
+    appendHistoryEntry(current);
   } catch {
     // 观察失败不阻止正常工作流
   }

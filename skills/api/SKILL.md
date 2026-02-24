@@ -220,3 +220,5 @@ Accept: application/vnd.api+json; version=1
 8. **HATEOAS** - 可选，返回相关链接
 9. **文档** - OpenAPI/Swagger 文档
 10. **幂等性** - PUT、DELETE 保持幂等
+
+> **记住**: API 设计的核心是一致性——统一的 URL 结构、响应格式、错误处理，让调用方可预测。

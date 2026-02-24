@@ -40,3 +40,5 @@ allowed-tools: Read, Glob, Grep, Bash
 - 确保虚拟环境已激活（Python）
 - 确保依赖已安装（npm install / pip install）
 - 检查必要的环境变量
+
+> **记住**: 开发服务要在后台运行，前台留给主工作流。用完记得关闭，避免端口占用和资源浪费。

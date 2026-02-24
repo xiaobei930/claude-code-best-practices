@@ -374,3 +374,5 @@ spec:
 - Sources: 12-Factor App, CNCF, 各云平台文档
 - Last updated: 2025-01-23
 - Pattern: 通用原则 + 按需加载平台专属
+
+> **记住**: DevOps 的目标是自动化一切可重复的操作——手动步骤越少，出错概率越低。

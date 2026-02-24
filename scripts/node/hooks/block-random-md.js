@@ -13,6 +13,15 @@
  * - 2: 阻止操作
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`block-random-md.js - Markdown 保护
+
+用途: PreToolUse hook，阻止在根目录创建随机 .md 文件
+触发: Write 工具调用前（检测根目录 .md 文件创建）`);
+  process.exit(0);
+}
+
 const path = require("path");
 const { readStdinJson, log } = require("../lib/utils");
 

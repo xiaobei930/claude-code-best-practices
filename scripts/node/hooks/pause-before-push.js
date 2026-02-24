@@ -14,6 +14,15 @@
  * - 0: 允许推送，继续执行
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`pause-before-push.js - 推送确认
+
+用途: PreToolUse hook，git push 前暂停确认
+触发: Bash 工具调用前（检测 git push 命令）`);
+  process.exit(0);
+}
+
 const { readStdinJson, log, runCommand } = require("../lib/utils");
 
 async function main() {

@@ -21,6 +21,15 @@
  * - 0: 正常（不阻止操作）
  */
 
+// --help 支持
+if (process.argv.includes("--help")) {
+  console.log(`suggest-compact.js - 压缩提醒
+
+用途: PostToolUse hook，工具调用达到阈值时提醒压缩上下文
+触发: 所有工具调用后（计数器检测）`);
+  process.exit(0);
+}
+
 const path = require("path");
 const fs = require("fs");
 const {
