@@ -193,6 +193,57 @@ function validateHookScripts() {
 }
 
 /**
+ * 检测孤儿脚本（存在但未在 hooks.json 中注册）
+ */
+function detectOrphanScripts() {
+  const warnings = [];
+
+  // 已知的非 hook 脚本（工具类）
+  const EXCLUDED_SCRIPTS = ["init.js"];
+
+  if (!fs.existsSync(HOOKS_JSON_PATH) || !fs.existsSync(SCRIPTS_DIR)) {
+    return { warnings };
+  }
+
+  // 收集 hooks.json 中引用的所有脚本文件名
+  const registeredScripts = new Set();
+  try {
+    const data = JSON.parse(fs.readFileSync(HOOKS_JSON_PATH, "utf-8"));
+    const hooks = data.hooks || data;
+    for (const [, hookGroups] of Object.entries(hooks)) {
+      if (!Array.isArray(hookGroups)) continue;
+      for (const group of hookGroups) {
+        if (!group.hooks || !Array.isArray(group.hooks)) continue;
+        for (const hook of group.hooks) {
+          if (hook.command) {
+            const scriptPath = extractScriptPath(hook.command);
+            if (scriptPath) {
+              registeredScripts.add(path.basename(scriptPath));
+            }
+          }
+        }
+      }
+    }
+  } catch {
+    return { warnings };
+  }
+
+  // 扫描目录中的脚本
+  const allScripts = fs
+    .readdirSync(SCRIPTS_DIR)
+    .filter((f) => f.endsWith(".js"));
+
+  for (const script of allScripts) {
+    if (EXCLUDED_SCRIPTS.includes(script)) continue;
+    if (!registeredScripts.has(script)) {
+      warnings.push(`孤儿脚本: ${script} 存在但未在 hooks.json 中注册`);
+    }
+  }
+
+  return { warnings };
+}
+
+/**
  * 主函数
  */
 function main() {
@@ -240,6 +291,21 @@ function main() {
     scriptsResult.warnings.length === 0
   ) {
     console.log(`   ✅ ${scriptsResult.count} 个脚本验证通过`);
+  }
+
+  console.log("");
+
+  // 检测孤儿脚本
+  console.log("🔍 孤儿脚本检测:");
+  const orphanResult = detectOrphanScripts();
+
+  for (const warning of orphanResult.warnings) {
+    console.log(`   ⚠️  ${warning}`);
+    totalWarnings++;
+  }
+
+  if (orphanResult.warnings.length === 0) {
+    console.log("   ✅ 无孤儿脚本");
   }
 
   console.log("");

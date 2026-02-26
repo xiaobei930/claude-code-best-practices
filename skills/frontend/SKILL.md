@@ -433,3 +433,5 @@ API 请求 → Query Library（TanStack Query）
 - Sources: MDN, WCAG 2.1, web.dev, 各框架官方文档
 - Last updated: 2025-01-22
 - Pattern: 通用清单 + 按需加载框架专属
+
+> **记住**: 前端开发的核心是用户体验——性能、无障碍、交互细节缺一不可，独特的设计比通用模板更有价值。

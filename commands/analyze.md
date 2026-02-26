@@ -288,6 +288,9 @@ confidence: 0.85
 新项目初始化:
 克隆仓库 → /cc-best:analyze → /cc-best:setup → /cc-best:status
 
+架构评估:
+/cc-best:analyze → architect agent 深度架构分析 → ADR 记录
+
 团队知识沉淀:
 /cc-best:analyze → /cc-best:learn --export → 分享给团队
 

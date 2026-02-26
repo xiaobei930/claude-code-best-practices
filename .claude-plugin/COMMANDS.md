@@ -1,6 +1,6 @@
 # CC-Best Commands Reference | 命令参考
 
-> Version: 0.7.5 | 44 Commands
+> Version: 0.8.0 | 44 Commands
 
 快速查阅所有命令的参数和用法。
 
@@ -285,6 +285,6 @@
 ## 相关文档 | Related Docs
 
 - [架构文档](ARCHITECTURE.md) - 组件关系和调用链
-- [Skills 指南](../skills/README) - 18 个开发技能
+- [Skills 指南](../skills/README) - 19 个开发技能
 - [Agents 指南](../agents/README) - 8 个专业代理
 - [Hooks 指南](../hooks/README.md) - 安全钩子配置

@@ -93,7 +93,8 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
    └─ 在"进行中"写入: `DES-XXX: [名称] + TSK 列表 → 待 Dev 实现`
 
 7. 交接下游
-   └─ 调用 /cc-best:dev 开始实现 TSK-XXX
+   ├─ 前端任务 → 调用 /cc-best:designer 进行 UI 设计
+   └─ 后端任务 → 调用 /cc-best:dev 开始实现 TSK-XXX
 ```
 
 ## 编号规则

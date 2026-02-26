@@ -127,13 +127,13 @@ allowed-tools: Read, Grep, Glob, Task
 
 ## 与角色系统配合
 
-| 角色             | 探索场景           | 推荐策略            |
-| ---------------- | ------------------ | ------------------- |
-| `/cc-best:pm`    | 理解现有功能       | isolated-research   |
-| `/cc-best:lead`  | 架构分析、技术设计 | iterative-retrieval |
-| `/cc-best:dev`   | 实现前了解相关代码 | isolated-research   |
-| `/cc-best:qa`    | 理解测试范围       | isolated-research   |
-| `/cc-best:debug` | 追踪 Bug 根因      | iterative-retrieval |
+| 角色            | 探索场景           | 推荐策略            |
+| --------------- | ------------------ | ------------------- |
+| `/cc-best:pm`   | 理解现有功能       | isolated-research   |
+| `/cc-best:lead` | 架构分析、技术设计 | iterative-retrieval |
+| `/cc-best:dev`  | 实现前了解相关代码 | isolated-research   |
+| `/cc-best:qa`   | 理解测试范围       | isolated-research   |
+| `/cc-best:fix`  | 追踪 Bug 根因      | iterative-retrieval |
 
 ---
 

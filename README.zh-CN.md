@@ -22,7 +22,7 @@
 > 从产品需求到代码审查 — 一个插件，完整工作流。
 
 <p align="center">
-  <code>44 命令</code> · <code>18 技能</code> · <code>8 智能体</code> · <code>33 规则</code> · <code>19 hooks</code>
+  <code>44 命令</code> · <code>19 技能</code> · <code>8 智能体</code> · <code>33 规则</code> · <code>19 hooks</code>
 </p>
 
 <p align="center">
@@ -211,7 +211,7 @@ observe → analyze → learn → evolve
 your-project/
 ├── CLAUDE.md          # 项目宪法
 ├── commands/          # 44 个命令
-├── skills/            # 18 个技能
+├── skills/            # 19 个技能
 ├── agents/            # 8 个智能体
 ├── rules/             # 33 条编码规范 (8 目录分层)
 ├── hooks/             # 安全钩子
@@ -324,15 +324,17 @@ flowchart LR
 
 ## 🛠️ 技能说明
 
-**18 个开发技能**，按领域组织：
+**19 个开发技能**，按领域组织：
 
-| 领域     | 技能                                 | 覆盖范围                    |
-| -------- | ------------------------------------ | --------------------------- |
-| **后端** | `backend`, `api`, `database`         | Python, TS, Java, Go, C#    |
-| **前端** | `frontend`                           | Vue, React, Svelte, Angular |
-| **质量** | `testing`, `security`, `debug`       | TDD, OWASP, 性能分析        |
-| **架构** | `architecture`, `devops`, `git`      | ADR, CI/CD, 分支策略        |
-| **会话** | `learning`, `compact`, `exploration` | 知识管理                    |
+| 领域     | 技能                                            | 覆盖范围                 |
+| -------- | ----------------------------------------------- | ------------------------ |
+| **后端** | `backend`, `api`, `database`                    | Python, TS, Java, Go, C# |
+| **前端** | `frontend`, `native`                            | Web + iOS/macOS/Tauri    |
+| **质量** | `quality`, `testing`, `security`, `debug`       | TDD, OWASP, 性能分析     |
+| **架构** | `architecture`, `devops`, `git`                 | ADR, CI/CD, 分支策略     |
+| **路由** | `model`                                         | 任务→模型推荐            |
+| **会话** | `session`, `learning`, `compact`, `exploration` | 生命周期 + 知识管理      |
+| **研究** | `search-first`, `second-opinion`                | 搜索策略, 交叉验证       |
 
 > 📖 **完整参考**: 查看 [skills/README](skills/README) 了解技能详细文档。
 
@@ -352,7 +354,7 @@ flowchart TB
         PM["/pm"] --> Lead["/lead"] --> Dev["/dev"] --> QA["/qa"]
     end
 
-    subgraph Skills["🛠️ 技能 (18)"]
+    subgraph Skills["🛠️ 技能 (19)"]
         S1["backend · frontend · testing · security"]
         S2["architecture · devops · git"]
         S3["learning · compact · exploration"]

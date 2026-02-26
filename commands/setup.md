@@ -167,15 +167,15 @@ const path = require("path");
 
 // 获取插件绝对路径
 const homeDir = os.homedir();
-const pluginVersion = "0.7.5"; // 当前版本
+const pluginVersion = "0.8.0"; // 当前版本
 const pluginPath = path.join(
   homeDir,
   ".claude/plugins/cache/cc-best/cc-best",
   pluginVersion,
 );
-// Windows: C:\Users\<user>\.claude\plugins\cache\cc-best\cc-best\0.7.5
-// macOS:   /Users/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.5
-// Linux:   /home/<user>/.claude/plugins/cache/cc-best/cc-best/0.7.5
+// Windows: C:\Users\<user>\.claude\plugins\cache\cc-best\cc-best\0.8.0
+// macOS:   /Users/<user>/.claude/plugins/cache/cc-best/cc-best/0.8.0
+// Linux:   /home/<user>/.claude/plugins/cache/cc-best/cc-best/0.8.0
 ```
 
 **Hooks 配置模板**：

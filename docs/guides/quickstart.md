@@ -13,7 +13,7 @@
 /cc-best:status
 ```
 
-You should see a summary of all installed components (44 commands, 18 skills, 8 agents, 33 rules).
+You should see a summary of all installed components (44 commands, 19 skills, 8 agents, 33 rules).
 
 ## 2. Your First Iterate (2 minutes)
 

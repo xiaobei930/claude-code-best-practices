@@ -173,6 +173,15 @@ function main() {
     }
   }
 
+  // 计数完整性检查（防止文件意外丢失）
+  const MIN_EXPECTED_SKILLS = 15;
+  if (files.length < MIN_EXPECTED_SKILLS) {
+    console.log(
+      `❌ Skills 数量异常: 仅 ${files.length} 个（预期至少 ${MIN_EXPECTED_SKILLS}）`,
+    );
+    hasErrors = true;
+  }
+
   // 输出汇总
   console.log("─".repeat(50));
   if (hasErrors) {

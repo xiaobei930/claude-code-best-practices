@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>44 commands</code> · <code>18 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>19 hooks</code>
+  <code>44 commands</code> · <code>19 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>19 hooks</code>
 </p>
 
 <p align="center">
@@ -211,7 +211,7 @@ observe → analyze → learn → evolve
 your-project/
 ├── CLAUDE.md          # Project constitution
 ├── commands/          # 44 slash commands
-├── skills/            # 18 development skills
+├── skills/            # 19 development skills
 ├── agents/            # 8 specialized agents
 ├── rules/             # 33 coding standards (8 dirs)
 ├── hooks/             # Safety hooks
@@ -324,15 +324,17 @@ flowchart LR
 
 ## 🛠️ Skills
 
-**18 development skills** organized by domain:
+**19 development skills** organized by domain:
 
-| Domain           | Skills                               | Coverage                    |
-| ---------------- | ------------------------------------ | --------------------------- |
-| **Backend**      | `backend`, `api`, `database`         | Python, TS, Java, Go, C#    |
-| **Frontend**     | `frontend`                           | Vue, React, Svelte, Angular |
-| **Quality**      | `testing`, `security`, `debug`       | TDD, OWASP, profiling       |
-| **Architecture** | `architecture`, `devops`, `git`      | ADR, CI/CD, branching       |
-| **Session**      | `learning`, `compact`, `exploration` | Knowledge management        |
+| Domain           | Skills                                          | Coverage                          |
+| ---------------- | ----------------------------------------------- | --------------------------------- |
+| **Backend**      | `backend`, `api`, `database`                    | Python, TS, Java, Go, C#          |
+| **Frontend**     | `frontend`, `native`                            | Web + iOS/macOS/Tauri             |
+| **Quality**      | `quality`, `testing`, `security`, `debug`       | TDD, OWASP, profiling             |
+| **Architecture** | `architecture`, `devops`, `git`                 | ADR, CI/CD, branching             |
+| **Routing**      | `model`                                         | Task→model recommendation         |
+| **Session**      | `session`, `learning`, `compact`, `exploration` | Lifecycle + knowledge management  |
+| **Research**     | `search-first`, `second-opinion`                | Search strategy, cross-validation |
 
 > 📖 **Full reference**: See [skills/README](skills/README) for detailed skill documentation.
 
@@ -352,7 +354,7 @@ flowchart TB
         PM["/pm"] --> Lead["/lead"] --> Dev["/dev"] --> QA["/qa"]
     end
 
-    subgraph Skills["🛠️ Skills (18)"]
+    subgraph Skills["🛠️ Skills (19)"]
         S1["backend · frontend · testing · security"]
         S2["architecture · devops · git"]
         S3["learning · compact · exploration"]

@@ -12,6 +12,7 @@ tools: Read, Edit, Grep, Glob, Bash
 skills:
   - cc-best:quality
   - cc-best:architecture
+  - cc-best:exploration
 color: green
 ---
 

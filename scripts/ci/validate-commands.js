@@ -170,6 +170,15 @@ function main() {
     }
   }
 
+  // 计数完整性检查（防止文件意外丢失）
+  const MIN_EXPECTED_COMMANDS = 40;
+  if (files.length < MIN_EXPECTED_COMMANDS) {
+    console.log(
+      `❌ Commands 数量异常: 仅 ${files.length} 个（预期至少 ${MIN_EXPECTED_COMMANDS}）`,
+    );
+    hasErrors = true;
+  }
+
   // 输出汇总
   console.log("─".repeat(50));
   if (hasErrors) {

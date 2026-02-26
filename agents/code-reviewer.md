@@ -16,6 +16,8 @@ skills:
   - cc-best:testing
   - cc-best:exploration
   - cc-best:learning
+  - cc-best:frontend
+  - cc-best:backend
 color: yellow
 ---
 

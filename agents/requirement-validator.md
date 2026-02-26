@@ -11,6 +11,7 @@ maxTurns: 10
 tools: Read, Grep, Glob
 skills:
   - cc-best:architecture
+  - cc-best:exploration
 color: magenta
 ---
 

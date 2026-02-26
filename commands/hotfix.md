@@ -98,5 +98,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill
 - 修复范围应尽可能小，避免引入新问题
 - 完成后建议在下次迭代中补充完整的 QA 验收
 - 如果修复涉及架构变更，应使用完整管线
+- **安全类修复**建议调用 `security-reviewer` agent 审查修复代码
+- **构建失败**可调用 `build-error-resolver` agent 快速定位问题
 
 > **记住**: Hotfix 求快但不求省——跳过分析阶段，但验证和测试一步都不能少。

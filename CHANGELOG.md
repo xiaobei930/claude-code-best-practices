@@ -70,6 +70,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Recent Changes / 近期变更
 
+### [0.8.0] - 2026-02-26
+
+#### Added / 新增
+
+- **Model Skill（模型选择技能）**: 新增 `skills/model/` 目录，包含 SKILL.md 和 routing-matrix.md，利用 Claude Code skill 自动调用机制实现任务级模型智能路由
+- **Mode Context 模板**: 新增 4 个模式上下文模板（`skills/session/context-{dev,research,review,planning}.md`），为每个工作模式注入行为指令和工具偏好
+
+#### Changed / 变更
+
+- **commands/model.md**: 新增 Model Skill 引用章节，说明全局策略与 skill 细粒度建议的关系
+- **commands/mode.md**: 新增 Context 模板章节，切换模式时自动加载对应上下文
+
+#### Fixed / 修复
+
+- **跨组件调用补全**: 4 个 Agent frontmatter 补充缺失 skills（code-reviewer +frontend/backend、tdd-guide +debug、code-simplifier/requirement-validator +exploration）
+- **命令流程补全**: 6 个命令补充下游角色/Agent 调用路径（lead、hotfix、pr、test、analyze、dev）
+- **断裂引用修复**: exploration/SKILL.md `/cc-best:debug` → `/cc-best:fix`（debug 是 skill 不是 command）
+- **ARCHITECTURE.md 目录计数**: "9 目录" → "8 目录"（1 common + 7 语言）
+- **fix.md 闭合总结位置**: 从 Agent 节前移至文件末尾（符合规范）
+
+#### Improved / 改进
+
+- **CI 孤儿脚本检测**: validate-hooks.js 新增 `detectOrphanScripts()` 函数，检测未注册的 hook 脚本
+- **CI 安全扫描前置**: validate.yml 将 Security Scan 加入主 validate job 关键路径
+- **CI 计数断言**: validate-commands.js/validate-skills.js 新增最低数量检查（防止误删导致组件丢失）
+
+#### Stats / 统计
+
+- Skills: 18 → 19 (+model)
+- 新增文件: 6 个（2 skill + 4 context 模板）
+- 修改文件: ~50 个（命令/Agent/技能/CI/文档/版本同步）
+
+---
+
 ### [0.7.5] - 2026-02-24
 
 #### Fixed / 修复
@@ -537,6 +571,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.8.0]: https://github.com/xiaobei930/cc-best/compare/v0.7.5...v0.8.0
 [0.7.5]: https://github.com/xiaobei930/cc-best/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/xiaobei930/cc-best/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/xiaobei930/cc-best/compare/v0.7.2...v0.7.3

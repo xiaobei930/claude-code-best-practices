@@ -148,4 +148,19 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 当前模式状态保存在 `memory-bank/current-mode.md` 中。
 
+---
+
+## Context 模板
+
+每个模式都有对应的上下文模板，切换模式时会自动加载：
+
+| 模式     | Context 文件                         | 核心指令             |
+| -------- | ------------------------------------ | -------------------- |
+| dev      | `skills/session/context-dev.md`      | 先写代码，自动测试   |
+| research | `skills/session/context-research.md` | 只读探索，记录发现   |
+| review   | `skills/session/context-review.md`   | 严格标准，不修改代码 |
+| planning | `skills/session/context-planning.md` | 多方案对比，风险评估 |
+
+切换模式时，**读取对应 context 模板**以注入模式特定的行为指令和工具偏好。
+
 > **记住**: 选择模式要匹配场景——明确任务用 iterate，探索学习用 pair，紧急修复用 hotfix。

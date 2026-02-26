@@ -19,22 +19,7 @@
  * - 0: 正常（不阻止操作）
  */
 
-const path = require("path");
-const {
-  getTempDir,
-  getSessionIdShort,
-  getDateTimeString,
-  getMemoryBankDir,
-  readFile,
-  writeFile,
-  appendFile,
-  fileExists,
-  ensureDir,
-  readStdinJson,
-  log,
-} = require("../lib/utils");
-
-// --help 支持
+// --help 支持（必须在 require 前）
 if (process.argv.includes("--help")) {
   console.log(`observe-patterns.js - 自动观察工具调用模式
 
@@ -54,6 +39,21 @@ if (process.argv.includes("--help")) {
   CLAUDE_SESSION_ID 会话 ID (由 Claude Code 自动设置)`);
   process.exit(0);
 }
+
+const path = require("path");
+const {
+  getTempDir,
+  getSessionIdShort,
+  getDateTimeString,
+  getMemoryBankDir,
+  readFile,
+  writeFile,
+  appendFile,
+  fileExists,
+  ensureDir,
+  readStdinJson,
+  log,
+} = require("../lib/utils");
 
 // 配置
 const MAX_HISTORY = parseInt(process.env.MAX_HISTORY || "10", 10);

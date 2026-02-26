@@ -39,6 +39,7 @@ allowed-tools: Read, Glob, Grep, Bash
 
 - 需要 GitHub CLI (gh) 已安装并认证
 - 默认目标分支为 main/master
+- 重要代码变更建议先调用 `code-reviewer` agent 进行代码审查
 
 ## 参考
 

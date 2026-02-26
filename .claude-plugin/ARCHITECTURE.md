@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.7.5 | Last Updated: 2026-02-24
+> Version: 0.8.0 | Last Updated: 2026-02-26
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -8,13 +8,13 @@
 
 ## 1. 组件概览 | Component Overview
 
-| 组件         | 数量  | 位置                  | 触发方式                           |
-| ------------ | ----- | --------------------- | ---------------------------------- |
-| **Commands** | 44    | `commands/`           | 用户输入 `/xxx`                    |
-| **Skills**   | 18    | `skills/`             | Agent 预加载 / 自动注入            |
-| **Agents**   | 8     | `agents/`             | Task tool 委派                     |
-| **Rules**    | 33    | `rules/`              | 路径匹配自动注入 (8 目录分层)      |
-| **Hooks**    | 19/18 | `scripts/node/hooks/` | 生命周期自动触发 (19 脚本/18 配置) |
+| 组件         | 数量  | 位置                  | 触发方式                                     |
+| ------------ | ----- | --------------------- | -------------------------------------------- |
+| **Commands** | 44    | `commands/`           | 用户输入 `/xxx`                              |
+| **Skills**   | 19    | `skills/`             | Agent 预加载 / 自动注入                      |
+| **Agents**   | 8     | `agents/`             | Task tool 委派                               |
+| **Rules**    | 33    | `rules/`              | 路径匹配自动注入 (8 目录: 1 common + 7 语言) |
+| **Hooks**    | 19/18 | `scripts/node/hooks/` | 生命周期自动触发 (19 脚本/18 配置)           |
 
 ---
 
@@ -51,8 +51,9 @@
                        │ 预加载
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                       Skills (18)                           │
+│                       Skills (19)                           │
 │  开发: api, architecture, backend(5), frontend(4), database │
+│  路由: model (任务→模型推荐矩阵)                            │
 │  测试: testing (tdd, e2e)                                   │
 │  质量: quality → security, debug                            │
 │  会话: session → learning, compact                          │
@@ -211,7 +212,7 @@ Commands (角色)              Agents                      Skills
 ## 6. Skills 层级结构 | Skills Hierarchy
 
 ```
-Skills (18)
+Skills (19)
 ├── 开发技能 (10)
 │   ├── api              # RESTful API 设计
 │   ├── architecture     # 架构设计 (ADR)
@@ -223,6 +224,9 @@ Skills (18)
 │   ├── native           # 原生开发 (iOS/macOS)
 │   ├── second-opinion   # 多模型验证
 │   └── exploration      # 代码库探索
+│
+├── 路由技能 (1)
+│   └── model            # 任务类型→模型推荐矩阵
 │
 ├── 测试技能 (1)
 │   └── testing          # TDD, E2E, 框架配置
@@ -309,7 +313,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.7.5**
+当前版本: **0.8.0**
 
 ---
 
@@ -459,7 +463,7 @@ tools: Read, Grep, Glob
 | 类别                 | 数量                                                            |
 | -------------------- | --------------------------------------------------------------- |
 | Commands             | 44                                                              |
-| Skills               | 18                                                              |
+| Skills               | 19                                                              |
 | Agents               | 8                                                               |
 | Rules                | 33 (8 目录: common/python/frontend/java/csharp/cpp/embedded/ui) |
 | Hooks Scripts        | 19 脚本 / 18 已配置                                             |

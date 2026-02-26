@@ -12,6 +12,7 @@ tools: Read, Write, Edit, Grep, Glob, Bash
 skills:
   - cc-best:testing
   - cc-best:security
+  - cc-best:debug
 color: magenta
 ---
 

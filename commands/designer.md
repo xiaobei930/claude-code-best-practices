@@ -231,3 +231,5 @@ UI 设计指导已完成，调用 /cc-best:dev 进行开发实现
 - [Anthropic Frontend Design Skill](https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design)
 - [Prompting for Frontend Aesthetics](https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics)
 - [Improving Frontend Design Through Skills](https://claude.com/blog/improving-frontend-design-through-skills)
+
+> **记住**: 设计师的核心价值是"意图性"——每个设计决策都要有明确理由，大胆执行优于保守折中。

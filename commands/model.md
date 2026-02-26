@@ -99,4 +99,16 @@ node scripts/node/model-strategy.js <strategy>
 - 策略名称从 agent 文件推断，不存储到额外配置文件
 - 当前默认配置（5 opus + 3 sonnet）不匹配任何预设策略，显示为 `custom`
 
+---
+
+## Model Skill（细粒度路由）
+
+除全局策略外，`skills/model/` 提供任务级别的模型选择参考：
+
+- **routing-matrix.md** — 任务类型→推荐模型映射表
+- Claude 会根据当前任务类型自动参考该 skill，选择合适的子代理模型
+- 全局策略（本命令设定）优先级高于 skill 建议
+
+详见 `skills/model/SKILL.md`。
+
 > **记住**: 模型策略影响成本和质量——Quality 用于关键决策，Economy 用于批量执行，Balanced 是安全默认。
