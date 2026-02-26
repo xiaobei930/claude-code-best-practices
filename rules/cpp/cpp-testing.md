@@ -11,6 +11,65 @@ paths:
 
 > 本文件扩展 [common/testing.md](../common/testing.md)，提供 C++ 特定测试规范
 
+## 基础框架（Google Test）
+
+### 目录结构
+
+```
+src/
+├── audio_processor.cpp
+├── audio_processor.h
+└── tests/
+    ├── audio_processor_test.cpp
+    └── CMakeLists.txt
+```
+
+### 示例
+
+```cpp
+#include <gtest/gtest.h>
+#include "audio_processor.h"
+
+class AudioProcessorTest : public ::testing::Test {
+protected:
+    void SetUp() override {
+        processor = std::make_unique<AudioProcessor>();
+    }
+
+    std::unique_ptr<AudioProcessor> processor;
+};
+
+TEST_F(AudioProcessorTest, ProcessReturnsValidResultForValidInput) {
+    // Arrange
+    AudioData input = CreateTestAudio();
+
+    // Act
+    auto result = processor->Process(input);
+
+    // Assert
+    EXPECT_TRUE(result.IsValid());
+    EXPECT_GT(result.GetDuration(), 0);
+}
+
+TEST_F(AudioProcessorTest, ProcessThrowsForEmptyInput) {
+    // Arrange
+    AudioData emptyInput;
+
+    // Assert
+    EXPECT_THROW(processor->Process(emptyInput), std::invalid_argument);
+}
+```
+
+### 运行命令
+
+```bash
+cmake --build build
+ctest --test-dir build
+./build/tests/audio_processor_test
+```
+
+---
+
 ## 禁止操作
 
 ```cpp

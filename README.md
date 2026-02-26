@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>44 commands</code> · <code>19 skills</code> · <code>8 agents</code> · <code>33 rules</code> · <code>19 hooks</code>
+  <code>44 commands</code> · <code>19 skills</code> · <code>8 agents</code> · <code>35 rules</code> · <code>19 hooks</code>
 </p>
 
 <p align="center">
@@ -228,7 +228,7 @@ your-project/
 | `commands/`    | Role commands (`pm`, `lead`, `dev`, `qa`), Mode commands (`iterate`, `pair`), Tool commands (`build`, `test`, `commit`)                       |
 | `skills/`      | Backend, Frontend, Testing, Security, DevOps, Architecture, Git                                                                               |
 | `agents/`      | `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide` |
-| `rules/`       | 33 rules in 8 dirs: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                        |
+| `rules/`       | 35 rules in 8 dirs: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                        |
 | `scripts/`     | Cross-platform hooks in Node.js (default), with Python/Bash alternatives                                                                      |
 | `memory-bank/` | `progress.md` (rolling window), `architecture.md`, `tech-stack.md`                                                                            |
 

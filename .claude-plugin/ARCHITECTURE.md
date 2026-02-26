@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.8.0 | Last Updated: 2026-02-26
+> Version: 0.8.1 | Last Updated: 2026-02-26
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -13,7 +13,7 @@
 | **Commands** | 44    | `commands/`           | 用户输入 `/xxx`                              |
 | **Skills**   | 19    | `skills/`             | Agent 预加载 / 自动注入                      |
 | **Agents**   | 8     | `agents/`             | Task tool 委派                               |
-| **Rules**    | 33    | `rules/`              | 路径匹配自动注入 (8 目录: 1 common + 7 语言) |
+| **Rules**    | 35    | `rules/`              | 路径匹配自动注入 (8 目录: 1 common + 7 语言) |
 | **Hooks**    | 19/18 | `scripts/node/hooks/` | 生命周期自动触发 (19 脚本/18 配置)           |
 
 ---
@@ -313,7 +313,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.8.0**
+当前版本: **0.8.1**
 
 ---
 
@@ -465,7 +465,7 @@ tools: Read, Grep, Glob
 | Commands             | 44                                                              |
 | Skills               | 19                                                              |
 | Agents               | 8                                                               |
-| Rules                | 33 (8 目录: common/python/frontend/java/csharp/cpp/embedded/ui) |
+| Rules                | 35 (8 目录: common/python/frontend/java/csharp/cpp/embedded/ui) |
 | Hooks Scripts        | 19 脚本 / 18 已配置                                             |
 | Language Support     | 6 (Python, TS, Java, Go, C#, Rust)                              |
 | Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...)                     |

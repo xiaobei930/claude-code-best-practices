@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **综合审计修复** - Hook --help 全覆盖、闭合总结全覆盖、孤儿脚本清理、竞争条件修复
 - [ ] 常见错误诊断与修复建议
 
-### v0.8.0 (Planned) - 示例项目与生态扩展
+### v0.8.x (Planned) - 示例项目与生态扩展
 
 **核心目标**: 端到端验证 + 社区生态
 
@@ -69,6 +69,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Recent Changes / 近期变更
+
+### [0.8.1] - 2026-02-26
+
+#### Changed / 变更
+
+- **Token 加载优化（-30% always-loaded）**: 始终加载 token 从 ~14,000 降至 ~9,800/轮
+- **testing.md 拆分**: `rules/common/testing.md` 从 488 行裁剪至 31 行，5 种语言测试内容迁入各 `{lang}-testing.md`（按文件类型自动加载）
+- **methodology.md 精简**: Playwright 工具章节提取为 `rules/frontend/frontend-tools.md`（按前端文件类型自动加载）
+- **CLAUDE.md 精简**: 原则描述从 16 行详述压缩为 4 行 ID 速查 + methodology.md 引用
+- **frontend SKILL.md 精简**: 设计美学 + 测试模式替换为子文件引用（-117 行）
+- **devops SKILL.md 精简**: 部署策略 ASCII 图 + IaC 示例替换为简表 + 引用（-124 行）
+
+#### Added / 新增
+
+- **`rules/frontend/frontend-e2e.md`**: Playwright E2E 测试规范（窄路径：仅 `e2e/**`、`*.spec.ts` 触发）
+- **`rules/frontend/frontend-tools.md`**: 前端验证工具规范（Playwright 浏览器工具、截图管理、登录状态处理）
+
+#### Stats / 统计
+
+- Rules: 33 → 35 (+frontend-e2e, +frontend-tools)
+- 始终加载: ~47 KB → ~33 KB（-30%）
+- 始终加载: ~14,000 → ~9,800 tokens/turn（-4,200 tokens）
+
+---
 
 ### [0.8.0] - 2026-02-26
 
@@ -571,6 +595,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.8.1]: https://github.com/xiaobei930/cc-best/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/xiaobei930/cc-best/compare/v0.7.5...v0.8.0
 [0.7.5]: https://github.com/xiaobei930/cc-best/compare/v0.7.4...v0.7.5
 [0.7.4]: https://github.com/xiaobei930/cc-best/compare/v0.7.3...v0.7.4

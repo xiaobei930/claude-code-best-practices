@@ -81,69 +81,13 @@ DATABASE_URL=postgresql://dev:dev@localhost:5432/myapp_dev
 
 ## 部署策略
 
-### 蓝绿部署
+| 策略         | 特点                                       | 适用场景             |
+| ------------ | ------------------------------------------ | -------------------- |
+| **蓝绿部署** | 双环境切换，零停机，回滚快                 | 关键业务，零停机要求 |
+| **滚动部署** | 逐实例替换，maxSurge/maxUnavailable 控制   | 标准 K8s 部署        |
+| **金丝雀**   | 5-10% 流量试验，渐进增量，监控错误率后全量 | 高风险功能发布       |
 
-```
-         ┌──────────────┐
-         │   负载均衡    │
-         └──────┬───────┘
-                │
-        ┌───────┴───────┐
-        ↓               ↓
-  ┌──────────┐    ┌──────────┐
-  │  蓝环境   │    │  绿环境   │
-  │ (当前版本) │    │ (新版本)  │
-  │  Active   │    │ Standby  │
-  └──────────┘    └──────────┘
-```
-
-**切换流程**:
-
-1. 新版本部署到 Standby 环境
-2. 测试验证新版本
-3. 负载均衡切换到新环境
-4. 旧环境保留作为回滚备份
-
-### 滚动部署
-
-```
-初始状态:  [v1] [v1] [v1] [v1]
-第一步:    [v2] [v1] [v1] [v1]
-第二步:    [v2] [v2] [v1] [v1]
-第三步:    [v2] [v2] [v2] [v1]
-完成:      [v2] [v2] [v2] [v2]
-```
-
-**配置示例**:
-
-```yaml
-# 滚动更新策略
-maxSurge: 25% # 最多额外创建 25% 的 Pod
-maxUnavailable: 25% # 最多 25% 的 Pod 不可用
-```
-
-### 金丝雀发布
-
-```
-         ┌──────────────┐
-         │   负载均衡    │
-         └──────┬───────┘
-                │
-        ┌───────┴───────┐
-        │ 90%           │ 10%
-        ↓               ↓
-  ┌──────────┐    ┌──────────┐
-  │  稳定版本  │    │  新版本   │
-  │   v1.0    │    │   v1.1   │
-  └──────────┘    └──────────┘
-```
-
-**流程**:
-
-1. 新版本接收 5-10% 流量
-2. 监控错误率和性能指标
-3. 逐步增加流量比例
-4. 全量发布或回滚
+> 详细配置和流程图见 [docker.md](./docker.md) 和各云平台文档。
 
 ---
 
@@ -200,63 +144,13 @@ groups:
 
 ## 基础设施即代码 (IaC)
 
-### 目录结构
+| 工具      | 用途         | 关键原则                     |
+| --------- | ------------ | ---------------------------- |
+| Terraform | 基础设施编排 | 声明式、模块化、环境隔离     |
+| Ansible   | 配置管理     | 幂等性、Playbook 可复用      |
+| Scripts   | 部署/回滚    | deploy.sh + rollback.sh 成对 |
 
-```
-infrastructure/
-├── terraform/
-│   ├── environments/
-│   │   ├── dev/
-│   │   │   └── main.tf
-│   │   ├── staging/
-│   │   │   └── main.tf
-│   │   └── production/
-│   │       └── main.tf
-│   ├── modules/
-│   │   ├── vpc/
-│   │   ├── database/
-│   │   └── kubernetes/
-│   └── variables.tf
-├── ansible/
-│   ├── playbooks/
-│   └── inventory/
-└── scripts/
-    ├── deploy.sh
-    └── rollback.sh
-```
-
-### Terraform 基础示例
-
-```hcl
-# main.tf
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-variable "environment" {
-  description = "部署环境"
-  type        = string
-}
-
-resource "aws_instance" "app" {
-  ami           = var.ami_id
-  instance_type = var.environment == "production" ? "t3.medium" : "t3.micro"
-
-  tags = {
-    Name        = "app-${var.environment}"
-    Environment = var.environment
-  }
-}
-
-output "instance_ip" {
-  value = aws_instance.app.public_ip
-}
-```
+> 目录结构和 Terraform 示例详见 [ci-cd.md](./ci-cd.md#基础设施即代码-iac-附录)。
 
 ---
 

@@ -7,6 +7,68 @@ paths:
 
 > 本文件扩展 [common/testing.md](../common/testing.md)，提供 Python 特定测试规范
 
+## 基础框架（pytest）
+
+### 目录结构
+
+```
+tests/
+├── unit/               # 单元测试
+│   ├── test_service.py
+│   └── test_utils.py
+├── integration/        # 集成测试
+│   └── test_api.py
+├── conftest.py         # 共享 fixtures
+└── fixtures/           # 测试数据
+    └── sample.json
+```
+
+### 示例
+
+```python
+import pytest
+from myapp.service import UserService
+
+class TestUserService:
+    """用户服务测试"""
+
+    @pytest.fixture
+    def service(self):
+        return UserService()
+
+    @pytest.mark.asyncio
+    async def test_get_user_returns_user_when_exists(self, service):
+        """测试获取存在的用户"""
+        # Arrange
+        user_id = 1
+
+        # Act
+        result = await service.get_user(user_id)
+
+        # Assert
+        assert result is not None
+        assert result.id == user_id
+
+    @pytest.mark.asyncio
+    async def test_get_user_raises_when_not_found(self, service):
+        """测试获取不存在的用户抛出异常"""
+        with pytest.raises(UserNotFoundError):
+            await service.get_user(999)
+```
+
+### 运行命令
+
+```bash
+pytest                          # 运行所有测试
+pytest tests/unit/              # 运行单元测试
+pytest -v                       # 详细输出
+pytest --lf                     # 只运行上次失败的
+pytest -k "test_get_user"       # 按名称过滤
+pytest --cov=myapp              # 覆盖率报告
+```
+
+---
+
 ## 禁止操作
 
 ### 禁止使用 unittest 断言风格（优先 pytest 原生断言）

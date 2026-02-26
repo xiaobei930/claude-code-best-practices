@@ -7,6 +7,67 @@ paths:
 
 > 本文件扩展 [common/testing.md](../common/testing.md)，提供 Java 特定测试规范
 
+## 基础框架（JUnit 5）
+
+### 目录结构
+
+```
+src/
+├── main/java/com/example/
+│   └── service/UserService.java
+└── test/java/com/example/
+    └── service/UserServiceTest.java
+```
+
+### 示例
+
+```java
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserServiceTest {
+
+    private UserService service;
+
+    @BeforeEach
+    void setUp() {
+        service = new UserService();
+    }
+
+    @Test
+    @DisplayName("获取存在的用户应返回用户对象")
+    void getUserShouldReturnUserWhenExists() {
+        // Arrange
+        Long userId = 1L;
+
+        // Act
+        User result = service.getUser(userId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(userId, result.getId());
+    }
+
+    @Test
+    @DisplayName("获取不存在的用户应抛出异常")
+    void getUserShouldThrowWhenNotFound() {
+        assertThrows(UserNotFoundException.class, () -> {
+            service.getUser(999L);
+        });
+    }
+}
+```
+
+### 运行命令
+
+```bash
+mvn test                        # Maven
+gradle test                     # Gradle
+mvn test -Dtest=UserServiceTest # 指定类
+```
+
+---
+
 ## 禁止操作
 
 ```java

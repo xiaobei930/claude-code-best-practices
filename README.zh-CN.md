@@ -22,7 +22,7 @@
 > 从产品需求到代码审查 — 一个插件，完整工作流。
 
 <p align="center">
-  <code>44 命令</code> · <code>19 技能</code> · <code>8 智能体</code> · <code>33 规则</code> · <code>19 hooks</code>
+  <code>44 命令</code> · <code>19 技能</code> · <code>8 智能体</code> · <code>35 规则</code> · <code>19 hooks</code>
 </p>
 
 <p align="center">
@@ -228,7 +228,7 @@ your-project/
 | `commands/`    | 角色命令 (`pm`, `lead`, `dev`, `qa`)，模式命令 (`iterate`, `pair`)，工具命令 (`build`, `test`, `commit`)                                      |
 | `skills/`      | 后端、前端、测试、安全、DevOps、架构、Git                                                                                                     |
 | `agents/`      | `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide` |
-| `rules/`       | 33 条规则，8 目录: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                         |
+| `rules/`       | 35 条规则，8 目录: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                         |
 | `scripts/`     | Node.js 跨平台钩子（默认），Python/Bash 备选                                                                                                  |
 | `memory-bank/` | `progress.md`（滚动窗口），`architecture.md`，`tech-stack.md`                                                                                 |
 

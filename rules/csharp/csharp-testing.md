@@ -8,6 +8,78 @@ paths:
 
 > 本文件扩展 [common/testing.md](../common/testing.md)，提供 C# 特定测试规范
 
+## 基础框架（xUnit/NUnit）
+
+### 目录结构
+
+```
+src/
+├── MyApp/
+│   └── Services/UserService.cs
+└── MyApp.Tests/
+    └── Services/UserServiceTests.cs
+```
+
+### 示例 (xUnit)
+
+```csharp
+using Xunit;
+using MyApp.Services;
+
+public class UserServiceTests
+{
+    private readonly UserService _service;
+
+    public UserServiceTests()
+    {
+        _service = new UserService();
+    }
+
+    [Fact]
+    public async Task GetUser_ReturnsUser_WhenExists()
+    {
+        // Arrange
+        var userId = 1;
+
+        // Act
+        var result = await _service.GetUserAsync(userId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(userId, result.Id);
+    }
+
+    [Fact]
+    public async Task GetUser_ThrowsException_WhenNotFound()
+    {
+        // Assert
+        await Assert.ThrowsAsync<UserNotFoundException>(
+            () => _service.GetUserAsync(999)
+        );
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    public async Task GetUser_ReturnsUser_ForValidIds(int userId)
+    {
+        var result = await _service.GetUserAsync(userId);
+        Assert.NotNull(result);
+    }
+}
+```
+
+### 运行命令
+
+```bash
+dotnet test                     # 运行所有测试
+dotnet test --filter "FullyQualifiedName~UserService"
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+---
+
 ## 禁止操作
 
 ### 禁止混用 xUnit 与 NUnit 特性

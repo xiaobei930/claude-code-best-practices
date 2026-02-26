@@ -55,7 +55,7 @@ Commands:  44 个 (commands/*.md)
 Skills:    19 个 (skills/*/SKILL.md)
 Agents:     8 个 (agents/*.md)
 Hooks:     19 个 (scripts/node/hooks/*.js)
-Rules:     33 个 (rules/**/*.md)
+Rules:     35 个 (rules/**/*.md)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

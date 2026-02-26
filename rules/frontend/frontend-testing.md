@@ -16,6 +16,64 @@ paths:
 
 > 本文件扩展 [common/testing.md](../common/testing.md)，提供前端特定测试规范
 
+## 基础框架（Vitest/Jest）
+
+### 目录结构
+
+```
+src/
+├── components/
+│   ├── Button.vue
+│   └── Button.test.ts
+├── services/
+│   ├── api.ts
+│   └── api.test.ts
+└── __tests__/          # 或集中放置
+    └── integration/
+```
+
+### 示例
+
+```typescript
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { UserService } from "./UserService";
+
+describe("UserService", () => {
+  let service: UserService;
+
+  beforeEach(() => {
+    service = new UserService();
+  });
+
+  it("should return user when exists", async () => {
+    // Arrange
+    const userId = 1;
+
+    // Act
+    const result = await service.getUser(userId);
+
+    // Assert
+    expect(result).toBeDefined();
+    expect(result.id).toBe(userId);
+  });
+
+  it("should throw when user not found", async () => {
+    // Assert
+    await expect(service.getUser(999)).rejects.toThrow("User not found");
+  });
+});
+```
+
+### 运行命令
+
+```bash
+npm test                # 运行所有测试
+npm test -- --watch     # 监听模式
+npm test -- --coverage  # 覆盖率
+```
+
+---
+
 ## 禁止操作
 
 ### 快照测试滥用

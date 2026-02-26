@@ -29,20 +29,11 @@
 
 ## Key Principles | 关键原则 (IMPORTANT)
 
-### Must Follow | 必须遵守
+> 完整原则详见 `rules/common/methodology.md`
 
-1. **P1 API Handling 接口处理** - Must read docs before calling APIs 调用前必须查阅文档，**NO guessing 禁止猜测**
-2. **P3 Business Logic 业务理解** - Must come from clear requirements 必须来源于明确需求，**NO assumptions 禁止假设**
-3. **P7 Honest Communication 诚信沟通** - Must clarify incomplete info 信息不完整时必须说明，**NO pretending 禁止假装理解**
-4. **CP4 Simplicity 简洁执念** - Single responsibility, nesting≤3, complexity≤10 函数单一职责，嵌套≤3层
+**Must Follow 必须遵守**: **P1** 接口先查文档禁止猜测 | **P3** 需求先明确禁止假设 | **P7** 不懂就说禁止装懂 | **CP4** 函数单一职责嵌套≤3
 
-### Autonomous Decision Principles | 自主决策原则
-
-1. **A1 Context Inference 上下文推断** - Infer from project context 基于项目上下文推断，**don't interrupt to ask 不中断循环询问用户**
-2. **A2 Decision Recording 决策记录** - Record **rationale** and **confidence** 记录**依据**和**置信度**
-3. **A3 Downstream Correction 下游纠偏** - Lead can adjust PM decisions, QA can identify assumption errors
-4. **A4 MVP Fallback 兜底** - Use minimal viable approach when uncertain 无依据时采用最小可行方案，mark "TBD 待确认"
-5. **A5 Issue Classification 问题分类** - Distinguish "implementation bugs" vs "requirement assumption errors" 区分"实现Bug"和"需求假设错误"
+**Autonomous Decisions 自主决策**: **A1** 上下文推断不中断 | **A2** 记录依据+置信度 | **A3** 下游可纠偏 | **A4** 不确定用MVP标TBD | **A5** 区分Bug和假设错误
 
 ---
 

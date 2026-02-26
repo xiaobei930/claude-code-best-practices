@@ -681,3 +681,65 @@ plugins:
 - [ ] 支持回滚
 - [ ] 使用金丝雀/蓝绿部署
 - [ ] 部署后执行健康检查
+
+---
+
+## 基础设施即代码 (IaC) 附录
+
+### 推荐目录结构
+
+```
+infrastructure/
+├── terraform/
+│   ├── environments/
+│   │   ├── dev/
+│   │   │   └── main.tf
+│   │   ├── staging/
+│   │   │   └── main.tf
+│   │   └── production/
+│   │       └── main.tf
+│   ├── modules/
+│   │   ├── vpc/
+│   │   ├── database/
+│   │   └── kubernetes/
+│   └── variables.tf
+├── ansible/
+│   ├── playbooks/
+│   └── inventory/
+└── scripts/
+    ├── deploy.sh
+    └── rollback.sh
+```
+
+### Terraform 基础示例
+
+```hcl
+# main.tf
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+variable "environment" {
+  description = "部署环境"
+  type        = string
+}
+
+resource "aws_instance" "app" {
+  ami           = var.ami_id
+  instance_type = var.environment == "production" ? "t3.medium" : "t3.micro"
+
+  tags = {
+    Name        = "app-${var.environment}"
+    Environment = var.environment
+  }
+}
+
+output "instance_ip" {
+  value = aws_instance.app.public_ip
+}
+```
