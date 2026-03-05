@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **综合审计修复** - Hook --help 全覆盖、闭合总结全覆盖、孤儿脚本清理、竞争条件修复
 - [ ] 常见错误诊断与修复建议
 
-### v0.8.x ✅ (Released 2026-02-26 ~ 2026-03-05) - 模型策略 + Token 优化 + 会话智能
+### v0.8.0 ~ v0.8.2 ✅ (Released 2026-02-26 ~ 2026-03-05) - 模型策略 + Token 优化 + 会话智能
 
 **核心目标**: Token 成本控制 + 会话智能闭环 + 生态扩展
 
@@ -58,8 +58,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **De-Sloppify** - iterate 管线 QA 后自动触发 code-simplifier 清理 (v0.8.2)
 - [x] **红旗自动化** - 红旗 #4 PostToolUse 实时检测 (v0.8.2)
 - [x] **压缩抑制** - 调试循环中自动抑制 compact 建议 (v0.8.2)
-- [ ] **Eval 评估框架** - 5 维评分系统 (v0.8.3 计划中)
-- [ ] **npm 分发** - npx cc-best-install (v0.8.3 计划中)
+- [x] **CI 审计加固** - 共享 parse-frontmatter、MIN_EXPECTED 守卫、CRLF 兼容 (v0.8.2)
+
+### v0.8.3 (Planned) - 评估框架 + 分发
+
+- [ ] **Eval 评估框架** - 5 维评分系统
+- [ ] **npm 分发** - npx cc-best-install
 
 ### v1.0.0 (Future) - 稳定版
 
@@ -105,6 +109,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **plugin.json description** - rules 计数 33→35（v0.8.1 漏更新）
 - **CHANGELOG.md roadmap** - v0.8.x 路线图更新为实际发布内容
+- **CI 共享 YAML 解析器** - 提取 `scripts/ci/lib/parse-frontmatter.js`，消除 3 个 CI 脚本中的重复解析器（H3）
+- **CI MIN_EXPECTED 守卫** - validate-agents.js 新增最低数量检查，防止静默丢失 agent 文件（H2）
+- **check-console-log.js** - 新增 `/* */` 块注释状态机跟踪，避免注释内容误报（M1）
+- **utils.js CRLF 兼容** - `getGitModifiedFiles()` 使用 `/\r?\n/` 分割，修复 Windows 环境下路径解析（M2）
+- **embedded rules glob 扩展** - 4 个嵌入式规则文件新增通用 `**/*.c`/`**/*.h` 匹配（M4）
+- **llms.txt 计数同步** - L83 处 "33 coding rules" → "35 coding rules"（v0.8.1 遗漏）
 
 #### Stats / 统计
 
@@ -639,6 +649,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.8.2]: https://github.com/xiaobei930/cc-best/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/xiaobei930/cc-best/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/xiaobei930/cc-best/compare/v0.7.5...v0.8.0
 [0.7.5]: https://github.com/xiaobei930/cc-best/compare/v0.7.4...v0.7.5
