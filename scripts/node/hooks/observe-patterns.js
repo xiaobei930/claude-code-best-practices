@@ -55,6 +55,10 @@ const {
   log,
 } = require("../lib/utils");
 
+// ==================== 回滚开关 ====================
+const ENABLE_DYNAMIC_CONFIDENCE = true; // F4: false → 固定置信度
+const ENABLE_AUTO_RED_FLAGS = true; // F12: false → 跳过红旗检测
+
 // 配置
 const MAX_HISTORY = parseInt(process.env.MAX_HISTORY || "10", 10);
 const MAX_OBSERVATIONS = parseInt(process.env.MAX_OBSERVATIONS || "200", 10);
@@ -253,6 +257,112 @@ function detectFixRetry(history, current) {
   return null;
 }
 
+// ==================== Pattern ID 生成 (F4) ====================
+
+/**
+ * 生成 pattern_id，用于跨会话聚合
+ *
+ * 粒度规则:
+ *   error_fix       → 目录级: "error_fix:src/auth"
+ *   repeated_search → 搜索词前16字符: "repeated_search:functionName"
+ *   multi_file_edit → 目录级: "multi_file_edit:src/components"
+ *   test_after_edit → 源目录级: "test_after_edit:src/services"
+ *   fix_retry       → 文件名: "fix_retry:auth.ts"
+ */
+function generatePatternId(pattern, file, context) {
+  const basename = file ? path.basename(file) : "unknown";
+  const dir = file ? path.basename(path.dirname(file)) : "unknown";
+
+  switch (pattern) {
+    case "error_fix":
+      return `error_fix:${dir}`;
+    case "repeated_search": {
+      // 从 context 提取搜索词
+      const match = context.match(/搜索 "(.+?)"/);
+      const term = match ? match[1].slice(0, 16) : "unknown";
+      return `repeated_search:${term}`;
+    }
+    case "multi_file_edit": {
+      const dirMatch = context.match(/^(\S+)\s+下编辑/);
+      return `multi_file_edit:${dirMatch ? dirMatch[1] : dir}`;
+    }
+    case "test_after_edit":
+      return `test_after_edit:${dir}`;
+    case "fix_retry":
+      return `fix_retry:${basename}`;
+    default:
+      return `${pattern}:${basename}`;
+  }
+}
+
+/**
+ * 计算会话内 occurrence 数（从临时历史文件统计同 pattern_id 的数量）
+ */
+function countSessionOccurrence(patternId) {
+  const historyPath = getHistoryPath();
+  if (!fileExists(historyPath)) return 0;
+
+  // 读取 observations.jsonl 中当前 session 的同 pattern_id 数量
+  const mbDir = getMemoryBankDir();
+  const obsPath = path.join(mbDir, "observations.jsonl");
+  if (!fileExists(obsPath)) return 0;
+
+  const content = readFile(obsPath) || "";
+  const sessionId = getSessionIdShort("unknown");
+  let count = 0;
+
+  for (const line of content.split("\n").filter(Boolean)) {
+    try {
+      const obs = JSON.parse(line);
+      if (obs.sessionId === sessionId && obs.pattern_id === patternId) {
+        count++;
+      }
+    } catch {
+      // 跳过
+    }
+  }
+  return count;
+}
+
+/**
+ * 根据 occurrence 计算动态置信度 (F4)
+ */
+function getDynamicConfidence(occurrence, baseConfidence) {
+  if (!ENABLE_DYNAMIC_CONFIDENCE) return baseConfidence;
+
+  if (occurrence >= 7) return 0.9;
+  if (occurrence >= 4) return 0.7;
+  if (occurrence >= 2) return 0.5;
+  return 0.3;
+}
+
+// ==================== 红旗检测 (F12) ====================
+
+/**
+ * 红旗 #4 自动检测: 同文件多次修改 + 连续 Bash 错误
+ * 独立于模式检测，在检测循环之后执行
+ */
+function detectRedFlags(history, current) {
+  if (!ENABLE_AUTO_RED_FLAGS) return;
+
+  // 红旗 #4: fix_retry + Bash 错误关联
+  if (current.tool === "Edit" && current.file) {
+    const sameFileEdits = history.filter(
+      (h) => h.tool === "Edit" && h.file === current.file,
+    );
+    if (sameFileEdits.length >= 2) {
+      // 加上 current = 3+ 次同文件编辑
+      const recentBashErrors = history
+        .slice(-5)
+        .filter((h) => h.tool === "Bash" && h.exitCode !== 0);
+      if (recentBashErrors.length >= 2) {
+        log("[RedFlag] 同文件多次修改+连续 Bash 错误，当前方法可能不适用");
+        log("[RedFlag] 建议切换思路或使用 /cc-best:self-check");
+      }
+    }
+  }
+}
+
 /**
  * 写入观察结果到 JSONL
  */
@@ -309,19 +419,34 @@ async function main() {
     for (const detect of detectors) {
       const result = detect(history, current);
       if (result) {
+        // F4: 生成 pattern_id + 动态置信度
+        const file = current.file ? path.basename(current.file) : "";
+        const patternId = generatePatternId(
+          result.pattern,
+          current.file,
+          result.context,
+        );
+        const occurrence = countSessionOccurrence(patternId) + 1;
+        const confidence = getDynamicConfidence(occurrence, result.confidence);
+
         const observation = {
           sessionId: getSessionIdShort("unknown"),
           timestamp: getDateTimeString(),
           tool: toolName,
-          file: current.file ? path.basename(current.file) : "",
+          file,
           pattern: result.pattern,
+          pattern_id: patternId,
           context: result.context,
-          confidence: result.confidence,
+          confidence,
+          occurrence,
         };
         writeObservation(observation);
         break; // 每次工具调用最多记录一个模式
       }
     }
+
+    // F12: 红旗检测（独立于模式检测，在 break 之后执行）
+    detectRedFlags(history, current);
 
     // 追加历史（原子写入，避免竞争条件）
     appendHistoryEntry(current);

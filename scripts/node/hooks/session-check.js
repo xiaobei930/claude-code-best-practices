@@ -3,9 +3,10 @@
  * Session Check: 会话启动健康检查
  *
  * 在每次会话开始时自动执行健康检查：
- * 1. 检查 CLAUDE.md 文件大小（过大会影响性能）
- * 2. 检查 memory-bank 文档是否过期
- * 3. 检查 Git 状态，提醒未提交的变更
+ * 1. 恢复上次 session 摘要上下文（F10）
+ * 2. 检查 CLAUDE.md 文件大小（过大会影响性能）
+ * 3. 检查 memory-bank 文档是否过期
+ * 4. 检查 Git 状态，提醒未提交的变更
  * 跨平台支持（Windows/macOS/Linux）
  *
  * 触发时机: SessionStart
@@ -119,23 +120,62 @@ function checkGitStatus() {
   return issues;
 }
 
+/**
+ * 恢复上次 session 摘要 (F10)
+ * 读取 memory-bank/sessions/ 中最近的 1 个 session 文件
+ */
+function getLastSessionSummary() {
+  const sessionsDir = path.join(PROJECT_ROOT, "memory-bank", "sessions");
+
+  if (!fs.existsSync(sessionsDir)) return null;
+
+  try {
+    const files = fs
+      .readdirSync(sessionsDir)
+      .filter((f) => f.endsWith(".md"))
+      .sort()
+      .reverse();
+
+    if (files.length === 0) return null;
+
+    const latestFile = path.join(sessionsDir, files[0]);
+    const content = fs.readFileSync(latestFile, "utf8");
+
+    // 只取前 500 字符避免注入过多上下文
+    return content.length > 500 ? content.slice(0, 500) + "\n..." : content;
+  } catch {
+    return null;
+  }
+}
+
 function main() {
   const allIssues = [];
+  const contextParts = [];
+
+  // F10: 恢复上次 session 摘要
+  const lastSession = getLastSessionSummary();
+  if (lastSession) {
+    contextParts.push("[Last Session]\n" + lastSession);
+  }
 
   // 执行各项检查
   allIssues.push(...checkClaudeMd());
   allIssues.push(...checkMemoryBank());
   allIssues.push(...checkGitStatus());
 
+  if (allIssues.length > 0) {
+    contextParts.push(
+      "[Session Check]\n" + allIssues.map((i) => `- ${i}`).join("\n"),
+    );
+  }
+
   // SessionStart hook 必须输出 JSON 格式，否则会报 'hook error'
   // 参考：https://github.com/anthropics/claude-code/issues/12671
-  if (allIssues.length > 0) {
-    const context =
-      "[Session Check]\n" + allIssues.map((i) => `- ${i}`).join("\n");
+  if (contextParts.length > 0) {
     console.log(
       JSON.stringify({
         hookSpecificOutput: {
-          additionalContext: context,
+          additionalContext: contextParts.join("\n\n"),
         },
       }),
     );

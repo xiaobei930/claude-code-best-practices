@@ -84,4 +84,14 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 - 相似问题合并记录
 - 定期清理过时信息
 
+## 渐进式加载（大项目推荐）
+
+当 memory-bank 文件 > 5 个或总量 > 30KB 时:
+
+1. 先 `ls memory-bank/` 查看文件列表和大小
+2. 用 `head -20 <file>` 预览相关文件
+3. 只完整加载确实需要的文件
+
+> 小项目（3-5 个文件，~20KB）直接全量加载即可，不必强求渐进式。
+
 > **记住**: Memory Bank 是跨会话的桥梁，每次会话结束前更新 progress.md，下次启动就能无缝继续。

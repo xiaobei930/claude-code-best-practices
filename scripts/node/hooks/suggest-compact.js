@@ -35,11 +35,16 @@ const fs = require("fs");
 const {
   getTempDir,
   getSessionId,
+  getSessionIdShort,
+  getMemoryBankDir,
   fileExists,
   readFile,
   writeFile,
   log,
 } = require("../lib/utils");
+
+// ==================== 回滚开关 ====================
+const ENABLE_OPERATION_SUPPRESSION = true; // F6a: false → 不抑制 compact
 
 // 配置
 const THRESHOLD = parseInt(process.env.COMPACT_THRESHOLD || "40", 10);
@@ -128,10 +133,48 @@ function detectPhaseSwitch() {
 /**
  * 主函数
  */
+/**
+ * F6a: 检测调试循环时抑制 compact 建议
+ * 读取 observations.jsonl 中当前 session 的 fix_retry 模式
+ */
+function shouldSuppressCompact() {
+  if (!ENABLE_OPERATION_SUPPRESSION) return false;
+
+  const shortId = getSessionIdShort("default");
+  const mbDir = getMemoryBankDir();
+  const obsFile = path.join(mbDir, "observations.jsonl");
+  if (!fs.existsSync(obsFile)) return false;
+
+  try {
+    const lines = fs.readFileSync(obsFile, "utf8").split("\n").filter(Boolean);
+    const sessionObs = lines.filter((l) => {
+      try {
+        return JSON.parse(l).sessionId === shortId;
+      } catch {
+        return false;
+      }
+    });
+    return sessionObs.some((l) => {
+      try {
+        return JSON.parse(l).pattern === "fix_retry";
+      } catch {
+        return false;
+      }
+    });
+  } catch {
+    return false;
+  }
+}
+
 function main() {
   // 增加计数
   const count = readCount() + 1;
   writeCount(count);
+
+  // F6a: 调试循环中抑制 compact 建议
+  if (shouldSuppressCompact()) {
+    process.exit(0);
+  }
 
   // 首次达到阈值时提醒
   if (count === THRESHOLD) {

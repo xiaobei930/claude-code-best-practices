@@ -62,18 +62,19 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ### Step 1: 确定角色
 
-| 当前状态                            | 选择角色                | 动作                                         |
-| ----------------------------------- | ----------------------- | -------------------------------------------- |
-| 无需求文档                          | `/cc-best:pm`           | 需求分析                                     |
-| REQ 有待澄清项（≥1 个低置信度决策） | `/cc-best:clarify`      | 需求澄清                                     |
-| 有需求无设计                        | `/cc-best:lead`         | 技术设计                                     |
-| 有设计，前端任务未设计              | `/cc-best:designer`     | UI 设计指导                                  |
-| 有任务待开发                        | `/cc-best:dev`          | 编码实现                                     |
-| 有代码待验证                        | `/cc-best:verify`       | 综合验证（构建+类型+Lint+测试+安全）         |
-| 验证通过，待功能验收                | `/cc-best:qa`           | 功能验收                                     |
-| QA 发现实现 Bug（fix_count < 3）    | `/cc-best:dev --bugfix` | 修复后重新 `/cc-best:verify` → `/cc-best:qa` |
-| QA 修复循环达上限（fix_count >= 3） | `/cc-best:lead`         | 🛑 熔断，重新评审技术方案                    |
-| QA 发现高影响需求假设错误           | `/cc-best:pm`           | 重新评审需求假设                             |
+| 当前状态                            | 选择角色                | 动作                                           |
+| ----------------------------------- | ----------------------- | ---------------------------------------------- |
+| 无需求文档                          | `/cc-best:pm`           | 需求分析                                       |
+| REQ 有待澄清项（≥1 个低置信度决策） | `/cc-best:clarify`      | 需求澄清                                       |
+| 有需求无设计                        | `/cc-best:lead`         | 技术设计                                       |
+| 有设计，前端任务未设计              | `/cc-best:designer`     | UI 设计指导                                    |
+| 有任务待开发                        | `/cc-best:dev`          | 编码实现                                       |
+| 有代码待验证                        | `/cc-best:verify`       | 综合验证（构建+类型+Lint+测试+安全）           |
+| 验证通过，待功能验收                | `/cc-best:qa`           | 功能验收                                       |
+| QA 通过，full 模式，3+ 文件修改     | code-simplifier Agent   | 独立上下文审查 AI slop（自动跳过 lite/hotfix） |
+| QA 发现实现 Bug（fix_count < 3）    | `/cc-best:dev --bugfix` | 修复后重新 `/cc-best:verify` → `/cc-best:qa`   |
+| QA 修复循环达上限（fix_count >= 3） | `/cc-best:lead`         | 🛑 熔断，重新评审技术方案                      |
+| QA 发现高影响需求假设错误           | `/cc-best:pm`           | 重新评审需求假设                               |
 
 ### Step 2: 执行任务
 
@@ -82,7 +83,11 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
   ├─ /cc-best:dev: 编码实现 + 单元测试
   ├─ /cc-best:verify: 构建 + 类型 + Lint + 测试 + 安全扫描
   ├─ /cc-best:qa: 功能验收 + E2E 测试
-  └─ 前端：浏览器验证（Playwright 截图）
+  ├─ 前端：浏览器验证（Playwright 截图）
+  └─ Simplify（可选）: QA 通过后，full 模式且 3+ 文件修改时
+       使用 Agent 工具调用 code-simplifier（subagent 天然隔离上下文）
+       检查 AI slop：冗余注释、过度 try-catch、不必要抽象、重复逻辑
+       lite 模式和 hotfix 自动跳过
 ```
 
 ### Step 3: 完成任务

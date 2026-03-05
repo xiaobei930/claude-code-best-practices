@@ -33,8 +33,10 @@ allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ```
 0. 观察数据预加载
    ├─ 读取 memory-bank/observations.jsonl（如存在）
-   ├─ 按 pattern 分组：error_fix / repeated_search / multi_file_edit / test_after_edit
+   ├─ 按 pattern 分组：error_fix / repeated_search / multi_file_edit / test_after_edit / fix_retry
+   ├─ 按 pattern_id 聚合统计（v0.8.2+），显示每个 pattern_id 的 occurrence 和置信度
    ├─ 筛选 confidence ≥ 0.3 且当前会话的观察
+   ├─ 高置信度模式（confidence ≥ 0.7）标记为演化候选（可固化为规则）
    └─ 作为会话分析的补充输入（自动捕获 + 人工回顾 = 完整画面）
 
 1. 会话分析

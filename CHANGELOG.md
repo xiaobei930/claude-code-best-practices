@@ -47,15 +47,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **综合审计修复** - Hook --help 全覆盖、闭合总结全覆盖、孤儿脚本清理、竞争条件修复
 - [ ] 常见错误诊断与修复建议
 
-### v0.8.x (Planned) - 示例项目与生态扩展
+### v0.8.x ✅ (Released 2026-02-26 ~ 2026-03-05) - 模型策略 + Token 优化 + 会话智能
 
-**核心目标**: 端到端验证 + 社区生态
+**核心目标**: Token 成本控制 + 会话智能闭环 + 生态扩展
 
-- [ ] **Example Project** - 完整工作流演示（PM→Commit 端到端）
-- [ ] **社区扩展机制** - 自定义 Skill/Rule/Agent 注册点
-- [ ] multi-model skill（多模型协作协议）
-- [ ] 扩展 second-opinion（支持更多模型）
-- [ ] Token 用量追踪与报告
+- [x] **Smart Routing** - Mode Context 模板 + 任务→模型推荐矩阵 (v0.8.0)
+- [x] **Token 加载优化** - 始终加载 -30%，testing.md 拆分，CLAUDE.md 精简 (v0.8.1)
+- [x] **Session Intelligence** - Session 摘要持久化 + 自动恢复上下文 (v0.8.2)
+- [x] **Instinct 追踪** - pattern_id 聚合 + 动态置信度 + 高置信度候选标记 (v0.8.2)
+- [x] **De-Sloppify** - iterate 管线 QA 后自动触发 code-simplifier 清理 (v0.8.2)
+- [x] **红旗自动化** - 红旗 #4 PostToolUse 实时检测 (v0.8.2)
+- [x] **压缩抑制** - 调试循环中自动抑制 compact 建议 (v0.8.2)
+- [ ] **Eval 评估框架** - 5 维评分系统 (v0.8.3 计划中)
+- [ ] **npm 分发** - npx cc-best-install (v0.8.3 计划中)
 
 ### v1.0.0 (Future) - 稳定版
 
@@ -69,6 +73,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Recent Changes / 近期变更
+
+### [0.8.2] - 2026-03-05
+
+#### Theme / 主题: Session Intelligence（会话智能）
+
+#### Added / 新增
+
+- **F10: Session 摘要持久化** - SessionEnd 自动写入 `memory-bank/sessions/YYYY-MM-DD-HHmm.md`，SessionStart 自动恢复最近 session 上下文
+- **F4: Instinct 自动化追踪** - pattern_id 生成 + 会话内 occurrence 统计 + 动态置信度（0.3→0.5→0.7→0.9）+ 全局聚合 + 高置信度候选标记
+- **F11: De-Sloppify 自动清理** - iterate 管线 QA 通过后、Commit 前，full 模式 + 3+ 文件修改时自动触发 code-simplifier Agent
+- **F12: 红旗 #4 自动化检测** - 同文件 Edit 3+ 次 + Bash 错误 2+ 次时自动输出 `[RedFlag]` 警告
+- **F6a: 压缩抑制** - 检测到 fix_retry 模式时抑制 compact 建议，避免中断调试循环
+- **F6b: Token 预算文档** - compact SKILL.md 新增 Token Budget Strategy 章节 + memory.md 渐进加载最佳实践
+- **`skills/learning/instinct-tracker.md`** - 动态置信度规则 + 演化路径参考文档
+- **3 个新测试文件** - observe-patterns.test.js、evaluate-session.test.js、session-check.test.js
+
+#### Changed / 变更
+
+- **evaluate-session.js** - 从 158 行重构为 ~280 行（transcript 解析 + session 文件写入 + 过期清理 + pattern 聚合）
+- **observe-patterns.js** - 新增 pattern_id 生成 + 动态置信度 + 红旗检测独立步骤（+100 行）
+- **session-check.js** - 新增上次 session 摘要恢复（+35 行）
+- **suggest-compact.js** - 新增 fix_retry 检测抑制逻辑（+35 行）
+- **hooks.json** - evaluate-session.js timeout 10→30 秒
+- **iterate.md** - Step 1 决策表新增 Simplify 阶段
+- **code-simplifier.md** - 新增 iterate 管线集成说明
+- **learn.md** - Step 0 增加 pattern_id 聚合统计
+- **self-check.md** - 增加红旗自动化检测说明 + iterate 推荐频率
+
+#### Fixed / 修复
+
+- **plugin.json description** - rules 计数 33→35（v0.8.1 漏更新）
+- **CHANGELOG.md roadmap** - v0.8.x 路线图更新为实际发布内容
+
+#### Stats / 统计
+
+- Hook scripts: 功能增强 4 个（无新增脚本，计数不变 19）
+- 新增测试: 3 个文件（~60 个测试用例）
+- 组件计数不变: 44 commands, 19 skills, 8 agents, 35 rules
+
+---
 
 ### [0.8.1] - 2026-02-26
 

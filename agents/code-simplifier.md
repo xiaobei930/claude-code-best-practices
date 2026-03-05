@@ -45,6 +45,14 @@ color: green
 tdd-guide(测试) → code-reviewer(审查) → code-simplifier(简化)
 ```
 
+### iterate 管线集成 (v0.8.2)
+
+在 `/cc-best:iterate` full 模式中，QA 通过后、Commit 前自动触发：
+
+- **触发条件**: full 模式 + 非 hotfix + 本轮 3+ 文件修改
+- **隔离**: Agent 工具的 subagent 模式天然提供独立上下文（无"作者偏见"）
+- **跳过**: lite 模式和 hotfix 管线自动跳过
+
 ---
 
 ## 简化原则

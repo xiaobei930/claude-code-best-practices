@@ -9,6 +9,7 @@ CLAUDE.local.md
 # Memory Bank 运行时状态文件
 memory-bank/.pre-compact-state.json
 memory-bank/observations.jsonl
+memory-bank/sessions/
 
 # MCP 临时目录（由各 MCP 工具自动创建）
 .playwright-mcp/
@@ -93,4 +94,6 @@ logs/
 .claude/sessions/
 AUDIT-REPORT-v0.7.4.md
 docs/ROADMAP-v0.8.md
+docs/PLAN-*.md
+scripts/poc/
 tests/.results.json

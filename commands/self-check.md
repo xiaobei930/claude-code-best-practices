@@ -133,6 +133,15 @@ allowed-tools: Read, Glob, Grep, Bash, TodoWrite
 - **阶段级检查**：检查红旗 #2, #3（业务假设、技术时效）
 - **方向检查**：检查红旗 #4, #7（方法有效性、进展停滞）
 
+### 自动化检测 (v0.8.2+)
+
+红旗 #4（多次失败后仍用相同方法）已通过 `observe-patterns.js` PostToolUse hook 自动检测：
+
+- 同文件 Edit 3+ 次 + 最近 5 步内 Bash 错误 2+ 次 → 自动输出 `[RedFlag]` 警告
+- 其他红旗仍需手动检查
+
+**iterate 管线推荐频率**: 每 5 个任务手动执行一次 `/cc-best:self-check`
+
 ### 红旗响应协议
 
 ```

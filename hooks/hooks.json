@@ -212,7 +212,7 @@
           {
             "type": "command",
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/evaluate-session.js\"",
-            "timeout": 10
+            "timeout": 30
           }
         ],
         "description": "会话评估: 会话结束时评估并提取可学习的模式"
