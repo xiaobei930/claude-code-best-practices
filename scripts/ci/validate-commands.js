@@ -9,43 +9,12 @@
 const fs = require("fs");
 const path = require("path");
 
+const { parseFrontmatter } = require("./lib/parse-frontmatter");
+
 const COMMANDS_DIR = path.join(__dirname, "../../commands");
 
 // 必需字段
 const REQUIRED_FIELDS = ["allowed-tools"];
-
-/**
- * 解析 YAML frontmatter
- */
-function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return null;
-
-  const yaml = match[1];
-  const data = {};
-
-  yaml.split("\n").forEach((line) => {
-    const colonIndex = line.indexOf(":");
-    if (colonIndex === -1) return;
-
-    const key = line.slice(0, colonIndex).trim();
-    let value = line.slice(colonIndex + 1).trim();
-
-    // 处理数组格式 (简单解析)
-    if (value.startsWith("[") && value.endsWith("]")) {
-      value = value
-        .slice(1, -1)
-        .split(",")
-        .map((s) => s.trim().replace(/['"]/g, ""));
-    } else if (value.startsWith('"') || value.startsWith("'")) {
-      value = value.slice(1, -1);
-    }
-
-    data[key] = value;
-  });
-
-  return data;
-}
 
 /**
  * 递归查找所有 .md 文件

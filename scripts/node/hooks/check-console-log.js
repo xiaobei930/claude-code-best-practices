@@ -73,12 +73,27 @@ async function main() {
   // 检查 console 语句
   const consoleLogs = [];
   const lines = content.split("\n");
+  let inBlockComment = false;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const trimmed = line.trim();
 
-    // 跳过注释行
+    // 块注释跟踪
+    if (inBlockComment) {
+      if (trimmed.includes("*/")) {
+        inBlockComment = false;
+      }
+      continue;
+    }
+    if (trimmed.startsWith("/*")) {
+      if (!trimmed.includes("*/")) {
+        inBlockComment = true;
+      }
+      continue;
+    }
+
+    // 跳过单行注释
     if (trimmed.startsWith("//") || trimmed.startsWith("*")) {
       continue;
     }

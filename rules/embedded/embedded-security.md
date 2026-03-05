@@ -4,6 +4,8 @@ paths:
   - "**/components/**/*.h"
   - "**/main/**/*.c"
   - "**/main/**/*.h"
+  - "**/*.c"
+  - "**/*.h"
 ---
 
 # 嵌入式安全规范 | Embedded Security Rules

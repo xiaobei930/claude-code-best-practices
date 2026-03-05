@@ -4,6 +4,8 @@ paths:
   - "**/components/**/*.h"
   - "**/main/**/*.c"
   - "**/main/**/*.h"
+  - "**/*.c"
+  - "**/*.h"
 ---
 
 # 嵌入式测试规范 | Embedded Testing Rules

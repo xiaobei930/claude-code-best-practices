@@ -340,7 +340,7 @@ function getGitModifiedFiles(dir = process.cwd()) {
   const result = runCommand("git diff --name-only HEAD", { cwd: dir });
   if (!result.success) return [];
 
-  return result.output.split("\n").filter(Boolean);
+  return result.output.split(/\r?\n/).filter(Boolean);
 }
 
 /**
@@ -478,6 +478,11 @@ function countInFile(filePath, pattern) {
 }
 
 // ==================== 导出 ====================
+// 错误返回约定:
+//   readFile/readJsonFile → null（文件不存在或解析失败）
+//   findFiles             → []（空数组，无匹配或目录不存在）
+//   runCommand            → { success: false, output: "" }（命令失败）
+//   getGitBranch          → null（非 git 仓库或命令失败）
 
 module.exports = {
   // 平台信息
