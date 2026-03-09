@@ -36,7 +36,6 @@ const {
   ensureDir,
   readFile,
   writeFile,
-  findFiles,
 } = require("../lib/utils");
 
 // ==================== 回滚开关 ====================
@@ -258,7 +257,7 @@ function cleanupExpiredSessions() {
       const fp = path.join(sessionsDir, file);
       try {
         const stat = fs.statSync(fp);
-        if (now - stat.mtimeMs > maxAgeMs) {
+        if (stat.isFile() && now - stat.mtimeMs > maxAgeMs) {
           fs.unlinkSync(fp);
           cleaned++;
         }

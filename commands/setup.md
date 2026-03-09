@@ -165,17 +165,12 @@ if (settings.hooks) {
 const os = require("os");
 const path = require("path");
 
-// 获取插件绝对路径
+// 获取插件绝对路径（推荐使用 CLAUDE_PLUGIN_ROOT 环境变量）
+const pluginPath = process.env.CLAUDE_PLUGIN_ROOT;
+// 如果不在 hook 上下文中，可手动查找：
 const homeDir = os.homedir();
-const pluginVersion = "0.8.2"; // 当前版本
-const pluginPath = path.join(
-  homeDir,
-  ".claude/plugins/cache/cc-best/cc-best",
-  pluginVersion,
-);
-// Windows: C:\Users\<user>\.claude\plugins\cache\cc-best\cc-best\0.8.2
-// macOS:   /Users/<user>/.claude/plugins/cache/cc-best/cc-best/0.8.2
-// Linux:   /home/<user>/.claude/plugins/cache/cc-best/cc-best/0.8.2
+const cacheDir = path.join(homeDir, ".claude/plugins/cache/cc-best/cc-best");
+// 缓存目录下按版本号存放，如 0.8.2/、0.9.0/ 等
 ```
 
 **Hooks 配置模板**：
