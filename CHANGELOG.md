@@ -60,10 +60,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **压缩抑制** - 调试循环中自动抑制 compact 建议 (v0.8.2)
 - [x] **CI 审计加固** - 共享 parse-frontmatter、MIN_EXPECTED 守卫、CRLF 兼容 (v0.8.2)
 
-### v0.8.3 (Planned) - 评估框架 + 分发
+### v0.9.x (Current) - 官方合规 + 自身完善
 
-- [ ] **Eval 评估框架** - 5 维评分系统
-- [ ] **npm 分发** - npx cc-best-install
+**核心目标**: 对齐 Claude Code v2.1.76 官方变更 + 语言规则补齐
+
+- [x] **4 个新 Hook 事件** - PostCompact、PostToolUseFailure、Notification、SubagentStart (v0.9.0)
+- [x] **Agent frontmatter 增强** - background、isolation、memory 新字段 (v0.9.0)
+- [x] **Hook Profile 系统** - 3 档控制（minimal/standard/full），环境变量切换 (v0.9.0)
+- [x] **置信度决策门控** - Lead/Dev 嵌入检查点 (v0.9.0)
+- [x] **自治循环增强** - Stall 检测 + PDCA 学习闭环 (v0.9.0)
+- [x] **证据要求完成** - QA 4 个强制验证问题 + 幻觉红旗检测 (v0.9.0)
+- [x] **Rust + Go 语言规则** - 8 个新规则文件 (v0.9.0)
+- [x] **组件按需安装清单** - 15 个组件家族 + 3 个预设 (v0.9.0)
+- [x] **plugin settings.json** - Agent 默认配置 (v0.9.0)
+- [ ] Skill 渐进式加载优化
+- [ ] npm 分发
 
 ### v1.0.0 (Future) - 稳定版
 
@@ -77,6 +88,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Recent Changes / 近期变更
+
+### [0.9.0] - 2026-03-16
+
+#### Theme / 主题: 官方合规 + 能力增强 + 自身完善
+
+基于 Claude Code v2.1.76 官方变更调研，从官方合规性、能力增强、自身完善三个维度的全面升级。
+
+#### Added / 新增
+
+- **4 个新 Hook 事件** — PostCompact（压缩后恢复状态）、PostToolUseFailure（工具失败学习）、Notification（通知处理）、SubagentStart（Agent 启动追踪），Hook 事件从 8 个扩展至 12 个
+- **4 个新 Hook 脚本** — `post-compact.js`、`post-tool-failure.js`、`notification-handler.js`、`subagent-start.js`
+- **Hook Profile 系统** — 3 档控制（minimal/standard/full），通过 `CC_BEST_HOOK_PROFILE` 环境变量切换，utils.js 新增 `shouldRunInProfile()` 函数
+- **证据要求完成机制** — QA 命令新增 4 个强制验证问题 + 幻觉红旗检测模式
+- **Stall 检测** — iterate 命令新增 3 种卡住模式检测（重复失败/进度停滞/工具失败），stop-check.js 新增 `detectStallPatterns()` 和 `detectHallucinationRedFlags()`
+- **PDCA 学习闭环** — iterate 命令嵌入 Plan→Do→Check→Act 循环概念
+- **Rust 语言规则** — 4 个规则文件（style/testing/security/performance），覆盖 `**/*.rs`
+- **Go 语言规则** — 4 个规则文件（style/testing/security/performance），覆盖 `**/*.go`
+- **组件按需安装清单** — `manifests/install-components.json`，15 个组件家族 + 3 个预设（minimal/standard/full）
+- **Plugin settings.json** — `.claude-plugin/settings.json` Agent 默认配置（background、isolation）
+
+#### Changed / 变更
+
+- **Agent frontmatter 增强** — code-reviewer/security-reviewer 添加 `background: true`，architect 添加 `isolation: worktree`，5 个 agent 添加 `memory: project`
+- **Lead 命令** — 新增 Step 7 置信度检查点（`/cc-best:confidence-check --pre`）
+- **Dev 命令** — 新增 Step 2.5 置信度检查点（复杂任务）
+- **iterate 命令** — 新增 Stall 检测章节 + PDCA 学习闭环章节 + 停止条件 #7（Stall 触发）
+- **QA 命令** — 新增"证据要求完成"章节（4 个强制问题 + 幻觉红旗）
+- **stop-check.js** — 新增幻觉红旗检测 + Stall 模式检测
+- **plugin.json** — 版本 0.8.2 → 0.9.0，描述更新（23 hook scripts, hook profiles）
+- **ARCHITECTURE.md** — 版本更新，组件计数同步，官方特性兼容性更新至 v2.1.76
+
+#### Stats / 统计
+
+- Hook scripts: 19 → 23 (+4 新脚本)
+- Hook events: 8 → 12 (+4 新事件)
+- Hook configured: 18 → 22 (+4)
+- Rules: 35 → 43 (+8 新规则文件, +2 目录 rust/go)
+- Rules dirs: 8 → 10
+- 新增文件: 13 个（4 hooks + 8 rules + 1 manifest）
+- 修改文件: ~25 个
+
+---
 
 ### [0.8.2] - 2026-03-05
 
@@ -201,7 +254,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added / 新增
 
-- **竞品分析**: 对标 everything-claude-code、SuperClaude、claude-code-templates 等 5 个竞品
 - **综合审计**: 6 维度自动化审计（frontmatter 100%、CI 100%、引用 100%、版本 100%）
 
 #### Fixed / 修复
@@ -530,7 +582,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added / 新增
 
 - **架构文档** - `.claude-plugin/ARCHITECTURE.md`
-- **竞品对比表** - "CC-Best vs Superpowers"
 - **`/status --full`** - 增强状态检查命令
 - **`/mode` 命令** - 工作模式切换（dev/research/review/planning）
 - **SessionEnd 自动学习钩子** - `evaluate-session.js`
@@ -649,6 +700,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.9.0]: https://github.com/xiaobei930/cc-best/compare/v0.8.2...v0.9.0
 [0.8.2]: https://github.com/xiaobei930/cc-best/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/xiaobei930/cc-best/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/xiaobei930/cc-best/compare/v0.7.5...v0.8.0

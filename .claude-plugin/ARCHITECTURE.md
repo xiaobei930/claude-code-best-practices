@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.8.2 | Last Updated: 2026-02-26
+> Version: 0.9.0 | Last Updated: 2026-03-16
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -8,13 +8,13 @@
 
 ## 1. 组件概览 | Component Overview
 
-| 组件         | 数量  | 位置                  | 触发方式                                     |
-| ------------ | ----- | --------------------- | -------------------------------------------- |
-| **Commands** | 44    | `commands/`           | 用户输入 `/xxx`                              |
-| **Skills**   | 19    | `skills/`             | Agent 预加载 / 自动注入                      |
-| **Agents**   | 8     | `agents/`             | Task tool 委派                               |
-| **Rules**    | 35    | `rules/`              | 路径匹配自动注入 (8 目录: 1 common + 7 语言) |
-| **Hooks**    | 19/18 | `scripts/node/hooks/` | 生命周期自动触发 (19 脚本/18 配置)           |
+| 组件         | 数量  | 位置                  | 触发方式                                      |
+| ------------ | ----- | --------------------- | --------------------------------------------- |
+| **Commands** | 44    | `commands/`           | 用户输入 `/xxx`                               |
+| **Skills**   | 19    | `skills/`             | Agent 预加载 / 自动注入                       |
+| **Agents**   | 8     | `agents/`             | Task tool 委派                                |
+| **Rules**    | 43    | `rules/`              | 路径匹配自动注入 (10 目录: 1 common + 9 语言) |
+| **Hooks**    | 23/22 | `scripts/node/hooks/` | 生命周期自动触发 (23 脚本/22 配置, 12 事件)   |
 
 ---
 
@@ -61,7 +61,7 @@
                        │ 触发
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  Hooks (19 脚本/18 配置)                     │
+│                  Hooks (23 脚本/22 配置)                     │
 │  SessionStart      → session-check                          │
 │  UserPromptSubmit  → user-prompt-submit                     │
 │  PreToolUse        → validate-command, pause-before-push,   │
@@ -72,7 +72,11 @@
 │                      check-console-log, typescript-check    │
 │  Stop              → stop-check                             │
 │  SubagentStop      → subagent-stop                          │
+│  SubagentStart     → subagent-start              (v0.9.0)  │
 │  PreCompact        → pre-compact                            │
+│  PostCompact       → post-compact                (v0.9.0)  │
+│  PostToolUseFailure→ post-tool-failure           (v0.9.0)  │
+│  Notification      → notification-handler        (v0.9.0)  │
 │  SessionEnd        → evaluate-session                       │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -313,7 +317,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.8.2**
+当前版本: **0.9.0**
 
 ---
 
@@ -460,23 +464,23 @@ tools: Read, Grep, Glob
 
 ## 12. 统计数据 | Statistics
 
-| 类别                 | 数量                                                            |
-| -------------------- | --------------------------------------------------------------- |
-| Commands             | 44                                                              |
-| Skills               | 19                                                              |
-| Agents               | 8                                                               |
-| Rules                | 35 (8 目录: common/python/frontend/java/csharp/cpp/embedded/ui) |
-| Hooks Scripts        | 19 脚本 / 18 已配置                                             |
-| Language Support     | 6 (Python, TS, Java, Go, C#, Rust)                              |
-| Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...)                     |
-| Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)                           |
-| Total Markdown Lines | ~25,000                                                         |
+| 类别                 | 数量                                                                     |
+| -------------------- | ------------------------------------------------------------------------ |
+| Commands             | 44                                                                       |
+| Skills               | 19                                                                       |
+| Agents               | 8                                                                        |
+| Rules                | 43 (10 目录: common/python/frontend/java/csharp/cpp/embedded/ui/rust/go) |
+| Hooks Scripts        | 23 脚本 / 22 已配置 / 12 事件                                            |
+| Language Support     | 6 (Python, TS, Java, Go, C#, Rust)                                       |
+| Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...)                              |
+| Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)                                    |
+| Total Markdown Lines | ~25,000                                                                  |
 
 ---
 
 ## 13. 官方特性兼容性 | Official Feature Compatibility
 
-> 基于 Claude Code v2.1.31 评估（2026-02-06 更新）
+> 基于 Claude Code v2.1.76 评估（2026-03-16 更新）
 
 ### 已采用特性 | Adopted Features
 
@@ -491,6 +495,13 @@ tools: Read, Grep, Glob
 | UserPromptSubmit 事件   | hooks 配置                  | ✅   |
 | Stop 事件               | hooks 配置                  | ✅   |
 | SubagentStop 事件       | hooks 配置                  | ✅   |
+| SubagentStart 事件      | hooks 配置 (v0.9.0)         | ✅   |
+| PostCompact 事件        | hooks 配置 (v0.9.0)         | ✅   |
+| PostToolUseFailure 事件 | hooks 配置 (v0.9.0)         | ✅   |
+| Notification 事件       | hooks 配置 (v0.9.0)         | ✅   |
+| Agent `background`      | code-reviewer 等 (v0.9.0)   | ✅   |
+| Agent `isolation`       | architect (v0.9.0)          | ✅   |
+| Agent `memory`          | 5 agents (v0.9.0)           | ✅   |
 | `${CLAUDE_PLUGIN_ROOT}` | hooks 路径                  | ✅   |
 
 ### 兼容但未采用 | Compatible but Not Adopted

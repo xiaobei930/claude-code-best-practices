@@ -205,6 +205,58 @@
         "description": "压缩前保存: 压缩前保存 git 状态、任务列表等到 .pre-compact-state.json"
       }
     ],
+    "PostCompact": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/post-compact.js\"",
+            "timeout": 5
+          }
+        ],
+        "description": "压缩后恢复: 读取压缩前状态并输出恢复信息（分支、任务、修改文件）"
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/post-tool-failure.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "失败追踪: 工具调用失败后记录错误模式，检测重复失败（红旗增强）"
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/notification-handler.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "通知处理: 记录和处理 Claude Code 通知事件"
+      }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/subagent-start.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "子代理启动: 记录子代理启动信息，与 SubagentStop 配对追踪生命周期"
+      }
+    ],
     "SessionEnd": [
       {
         "matcher": ".*",

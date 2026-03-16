@@ -8,6 +8,36 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 
 本技能提供前端开发的最佳实践和模式，支持多框架按需加载。
 
+## 快速参考
+
+- **核心职责**: 提供前端开发最佳实践——组件设计、状态管理、性能优化、无障碍开发
+- **框架支持**: Vue 3 / React 18 / Svelte / Angular 17+（根据 `package.json` 按需加载）
+- **性能目标**: LCP < 2.5s, FID < 100ms, CLS < 0.1, TTI < 3.8s
+- **设计原则**: 单一职责、Props 向下、Events 向上、组合优于继承
+- **子文件引用**:
+  - [vue.md](./vue.md) / [react.md](./react.md) / [svelte.md](./svelte.md) / [angular.md](./angular.md) — 框架专属模式
+  - [performance.md](./performance.md) — Core Web Vitals 优化
+  - [tailwind.md](./tailwind.md) — Tailwind 最佳实践 + v4 迁移
+  - [design-guide.md](./design-guide.md) — 设计方法论与审查清单
+
+<!-- 详细内容 -->
+
+## 目录
+
+- [触发条件](#触发条件)
+- [框架专属模式](#框架专属模式)
+- [通用组件模式](#通用组件模式)
+- [状态管理模式](#状态管理模式)
+- [性能优化模式](#性能优化模式)
+- [无障碍模式 (a11y)](#无障碍模式-a11y)
+- [表单模式](#表单模式)
+- [动画模式](#动画模式)
+- [设计美学（避免 AI Slop）](#设计美学避免-ai-slop)
+- [测试模式](#测试模式)
+- [框架专属内容](#框架专属内容)
+- [专项优化](#专项优化)
+- [Maintenance](#maintenance)
+
 ## 触发条件
 
 - 创建或修改前端组件

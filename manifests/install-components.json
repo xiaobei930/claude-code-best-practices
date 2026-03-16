@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "CC-Best 组件按需安装清单。用户可在 /cc-best:setup 中选择需要的组件家族。",
+  "version": "0.9.0",
+
+  "families": {
+    "baseline": {
+      "description": "核心组件（必选）：通用规则、安全 hooks、核心命令",
+      "required": true,
+      "components": {
+        "rules": ["common/*"],
+        "hooks": [
+          "validate-command",
+          "pause-before-push",
+          "check-secrets",
+          "protect-files",
+          "block-random-md",
+          "session-check"
+        ],
+        "commands": [
+          "iterate",
+          "pair",
+          "dev",
+          "verify",
+          "commit",
+          "status",
+          "build",
+          "test",
+          "run",
+          "fix",
+          "hotfix",
+          "mode",
+          "model"
+        ],
+        "agents": ["build-error-resolver", "planner"]
+      }
+    },
+
+    "workflow:full": {
+      "description": "完整角色工作流（PM→Lead→Designer→Dev→QA）",
+      "requires": ["baseline"],
+      "components": {
+        "commands": [
+          "pm",
+          "clarify",
+          "lead",
+          "designer",
+          "qa",
+          "confidence-check"
+        ],
+        "agents": ["requirement-validator", "architect"]
+      }
+    },
+
+    "quality": {
+      "description": "代码质量工具：审查、简化、安全扫描",
+      "requires": ["baseline"],
+      "components": {
+        "hooks": [
+          "format-file",
+          "check-console-log",
+          "typescript-check",
+          "auto-archive",
+          "suggest-compact",
+          "stop-check"
+        ],
+        "agents": ["code-reviewer", "code-simplifier", "security-reviewer"],
+        "commands": ["cleanup", "security-audit"]
+      }
+    },
+
+    "learning": {
+      "description": "学习管线：模式观察、会话评估、知识演化",
+      "requires": ["baseline"],
+      "components": {
+        "hooks": [
+          "observe-patterns",
+          "evaluate-session",
+          "subagent-start",
+          "subagent-stop",
+          "post-tool-failure",
+          "notification-handler",
+          "pre-compact",
+          "post-compact"
+        ],
+        "commands": ["learn", "evolve", "catchup", "analyze"],
+        "skills": ["learning", "compact", "session", "exploration"]
+      }
+    },
+
+    "testing": {
+      "description": "测试驱动开发：TDD、E2E 测试",
+      "requires": ["baseline"],
+      "components": {
+        "agents": ["tdd-guide"],
+        "skills": ["testing"]
+      }
+    },
+
+    "lang:python": {
+      "description": "Python 语言规则和最佳实践",
+      "requires": ["baseline"],
+      "components": {
+        "rules": ["python/*"]
+      }
+    },
+
+    "lang:frontend": {
+      "description": "前端（TypeScript/React/Vue/Angular）规则",
+      "requires": ["baseline"],
+      "components": {
+        "rules": ["frontend/*"],
+        "skills": ["frontend"]
+      }
+    },
+
+    "lang:java": {
+      "description": "Java 语言规则",
+      "requires": ["baseline"],
+      "components": {
+        "rules": ["java/*"]
+      }
+    },
+
+    "lang:csharp": {
+      "description": "C# 语言规则",
+      "requires": ["baseline"],
+      "components": {
+        "rules": ["csharp/*"]
+      }
+    },
+
+    "lang:cpp": {
+      "description": "C++ 语言规则",
+      "requires": ["baseline"],
+      "components": {
+        "rules": ["cpp/*"]
+      }
+    },
+
+    "lang:embedded": {
+      "description": "嵌入式开发规则",
+      "requires": ["baseline"],
+      "components": {
+        "rules": ["embedded/*"]
+      }
+    },
+
+    "capability:devops": {
+      "description": "DevOps 和部署技能",
+      "requires": ["baseline"],
+      "components": {
+        "skills": ["devops"]
+      }
+    },
+
+    "capability:security": {
+      "description": "安全审查和最佳实践",
+      "requires": ["baseline"],
+      "components": {
+        "agents": ["security-reviewer"],
+        "skills": ["security"]
+      }
+    },
+
+    "capability:architecture": {
+      "description": "架构设计和 ADR",
+      "requires": ["baseline"],
+      "components": {
+        "agents": ["architect"],
+        "skills": ["architecture", "api", "database"]
+      }
+    },
+
+    "ui": {
+      "description": "UI/UX 设计规则和可访问性",
+      "requires": ["baseline"],
+      "components": {
+        "rules": ["ui/*"],
+        "commands": ["designer"]
+      }
+    }
+  },
+
+  "presets": {
+    "minimal": {
+      "description": "最小安装：仅核心命令和安全 hooks",
+      "families": ["baseline"]
+    },
+    "standard": {
+      "description": "标准安装：核心 + 质量 + 学习（推荐）",
+      "families": [
+        "baseline",
+        "workflow:full",
+        "quality",
+        "learning",
+        "testing"
+      ]
+    },
+    "full": {
+      "description": "完整安装：所有组件",
+      "families": [
+        "baseline",
+        "workflow:full",
+        "quality",
+        "learning",
+        "testing",
+        "lang:python",
+        "lang:frontend",
+        "lang:java",
+        "lang:csharp",
+        "lang:cpp",
+        "lang:embedded",
+        "capability:devops",
+        "capability:security",
+        "capability:architecture",
+        "ui"
+      ]
+    }
+  }
+}

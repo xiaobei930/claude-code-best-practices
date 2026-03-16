@@ -9,6 +9,7 @@ description: |
 model: opus
 maxTurns: 10
 tools: Read, Grep, Glob
+memory: project
 skills:
   - cc-best:architecture
   - cc-best:exploration

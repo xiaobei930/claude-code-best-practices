@@ -22,7 +22,7 @@
 > 从产品需求到代码审查 — 一个插件，完整工作流。
 
 <p align="center">
-  <code>44 命令</code> · <code>19 技能</code> · <code>8 智能体</code> · <code>35 规则</code> · <code>19 hooks</code>
+  <code>44 命令</code> · <code>19 技能</code> · <code>8 智能体</code> · <code>43 规则</code> · <code>23 hooks</code>
 </p>
 
 <p align="center">
@@ -213,7 +213,7 @@ your-project/
 ├── commands/          # 44 个命令
 ├── skills/            # 19 个技能
 ├── agents/            # 8 个智能体
-├── rules/             # 33 条编码规范 (8 目录分层)
+├── rules/             # 43 条编码规范 (10 目录分层)
 ├── hooks/             # 安全钩子
 ├── scripts/           # 自动化脚本 (node/python/shell)
 ├── memory-bank/       # 进度 & 架构文档
@@ -228,7 +228,7 @@ your-project/
 | `commands/`    | 角色命令 (`pm`, `lead`, `dev`, `qa`)，模式命令 (`iterate`, `pair`)，工具命令 (`build`, `test`, `commit`)                                      |
 | `skills/`      | 后端、前端、测试、安全、DevOps、架构、Git                                                                                                     |
 | `agents/`      | `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide` |
-| `rules/`       | 35 条规则，8 目录: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                         |
+| `rules/`       | 43 条规则，10 目录: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`, `rust/`, `go/`                        |
 | `scripts/`     | Node.js 跨平台钩子（默认），Python/Bash 备选                                                                                                  |
 | `memory-bank/` | `progress.md`（滚动窗口），`architecture.md`，`tech-stack.md`                                                                                 |
 
@@ -710,11 +710,6 @@ Claude 会自动：
 
 - [快速上手指南](docs/guides/quickstart.zh-CN.md) - 5 分钟入门
 - [深度指南](docs/guides/advanced.zh-CN.md) - 方法论与架构深度解析
-
-### 社区项目
-
-- [everything-claude-code](https://github.com/affaan-m/everything-claude-code) - Claude Code 资源集合
-- [vibe-coding-cn](https://github.com/2025Emma/vibe-coding-cn) - 中文 Vibe Coding 指南
 
 ---
 

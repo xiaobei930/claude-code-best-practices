@@ -36,7 +36,13 @@ const {
   ensureDir,
   readFile,
   writeFile,
+  shouldRunInProfile,
 } = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile("evaluate-session")) {
+  process.exit(0);
+}
 
 // ==================== 回滚开关 ====================
 const ENABLE_DYNAMIC_CONFIDENCE = true; // F4: false → 跳过 pattern 聚合

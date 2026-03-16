@@ -22,7 +22,7 @@
 > From product requirements to code review — one plugin, full workflow.
 
 <p align="center">
-  <code>44 commands</code> · <code>19 skills</code> · <code>8 agents</code> · <code>35 rules</code> · <code>19 hooks</code>
+  <code>44 commands</code> · <code>19 skills</code> · <code>8 agents</code> · <code>43 rules</code> · <code>23 hooks</code>
 </p>
 
 <p align="center">
@@ -213,7 +213,7 @@ your-project/
 ├── commands/          # 44 slash commands
 ├── skills/            # 19 development skills
 ├── agents/            # 8 specialized agents
-├── rules/             # 33 coding standards (8 dirs)
+├── rules/             # 43 coding standards (10 dirs)
 ├── hooks/             # Safety hooks
 ├── scripts/           # Automation (node/python/shell)
 ├── memory-bank/       # Progress & architecture docs
@@ -228,7 +228,7 @@ your-project/
 | `commands/`    | Role commands (`pm`, `lead`, `dev`, `qa`), Mode commands (`iterate`, `pair`), Tool commands (`build`, `test`, `commit`)                       |
 | `skills/`      | Backend, Frontend, Testing, Security, DevOps, Architecture, Git                                                                               |
 | `agents/`      | `architect`, `build-error-resolver`, `code-reviewer`, `code-simplifier`, `planner`, `requirement-validator`, `security-reviewer`, `tdd-guide` |
-| `rules/`       | 35 rules in 8 dirs: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`                                        |
+| `rules/`       | 43 rules in 10 dirs: `common/` + `python/`, `frontend/`, `java/`, `csharp/`, `cpp/`, `embedded/`, `ui/`, `rust/`, `go/`                       |
 | `scripts/`     | Cross-platform hooks in Node.js (default), with Python/Bash alternatives                                                                      |
 | `memory-bank/` | `progress.md` (rolling window), `architecture.md`, `tech-stack.md`                                                                            |
 
@@ -710,11 +710,6 @@ Some commands use MCP (Model Context Protocol) tools for enhanced functionality:
 
 - [Quick Start Guide](docs/guides/quickstart.md) - Get started in 5 minutes
 - [Advanced Guide](docs/guides/advanced.md) - Deep dive into methodology and architecture
-
-### Community Projects
-
-- [everything-claude-code](https://github.com/affaan-m/everything-claude-code) - Claude Code resource collection
-- [vibe-coding-cn](https://github.com/2025Emma/vibe-coding-cn) - Chinese Vibe Coding guide
 
 ---
 

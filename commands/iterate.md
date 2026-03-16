@@ -114,6 +114,41 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 
 ---
 
+## Stall 检测（v0.9.0）
+
+自治循环中检测"卡住"模式，避免无效重试：
+
+| 模式     | 检测条件                                | 响应                                 |
+| -------- | --------------------------------------- | ------------------------------------ |
+| 重复失败 | 连续 2 次相同错误（同文件+同错误信息）  | 降级范围：缩小修改范围或换用其他方法 |
+| 进度停滞 | 3 轮循环后 progress.md 无新完成任务     | 输出卡住警告，考虑切换策略           |
+| 工具失败 | PostToolUseFailure 检测到 3+ 次同类失败 | 停止重试，分析根因                   |
+
+**Stall 响应策略**:
+
+```
+检测到 stall →
+  1. 记录当前状态到 progress.md
+  2. 分析 stall 原因（查看 .tool-failures.json）
+  3. 缩小范围 → 重试 OR 切换方法 → 重试 OR 标记为阻塞 → 停止
+```
+
+---
+
+## PDCA 学习闭环（v0.9.0）
+
+每轮 iterate 隐式执行 PDCA 循环：
+
+```
+Plan: 从 progress.md 选取任务，确定实现策略
+Do:   执行任务（角色命令）
+Check: /cc-best:verify 验证 → /cc-best:qa 验收
+Act:  成功 → 提交 + 更新 progress.md
+      失败 → 记录原因到决策表 → 调整策略 → 重试
+```
+
+---
+
 ## 停止条件
 
 **只有以下情况才能停止**：
@@ -124,6 +159,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, 
 4. ✅ 需要用户决策的外部依赖
 5. ✅ 上下文需要压缩（自动保存后输出 `/clear` 指令，等待用户执行）
 6. ✅ QA↔Dev 修复循环达到 3 次上限（熔断保护）
+7. ✅ Stall 检测触发且无法自动恢复
 
 ---
 

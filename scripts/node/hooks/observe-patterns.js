@@ -41,6 +41,7 @@ if (process.argv.includes("--help")) {
 }
 
 const path = require("path");
+
 const {
   getTempDir,
   getSessionIdShort,
@@ -53,7 +54,13 @@ const {
   ensureDir,
   readStdinJson,
   log,
+  shouldRunInProfile,
 } = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile("observe-patterns")) {
+  process.exit(0);
+}
 
 // ==================== 回滚开关 ====================
 const ENABLE_DYNAMIC_CONFIDENCE = true; // F4: false → 固定置信度

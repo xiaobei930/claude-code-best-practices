@@ -7,6 +7,8 @@ description: |
   assistant: (invokes security-reviewer agent to scan for OWASP vulnerabilities and secret leaks)
   </example>
 model: opus
+background: true
+memory: project
 maxTurns: 15
 tools: Read, Grep, Glob
 skills:

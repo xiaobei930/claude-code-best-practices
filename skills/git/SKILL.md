@@ -8,6 +8,36 @@ allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 
 本技能提供 Git 版本控制的最佳实践。
 
+## 快速参考
+
+- **核心职责**: 提供 Git 版本控制的分支策略、提交规范、合并流程和冲突解决最佳实践
+- **推荐分支模型**: GitHub Flow（main + feature 分支 + PR）
+- **提交规范**: Conventional Commits（`<type>(<scope>): <subject>`）
+- **合并策略**: 功能分支用 Squash Merge，同步主分支用 Rebase，长期分支用 Merge
+- **子文件引用**:
+  - [commands-reference.md](commands-reference.md) — 常用 Git 命令参考
+  - [pr-workflow.md](pr-workflow.md) — Pull Request 流程
+  - [hooks-guide.md](hooks-guide.md) — Git Hooks 指南
+  - [delegation.md](delegation.md) — 委派到专业 Agent
+
+<!-- 详细内容 -->
+
+## 目录
+
+- [触发条件](#触发条件)
+- [Workflow | 工作流程](#workflow--工作流程)
+- [分支策略](#分支策略)
+- [提交规范 (Conventional Commits)](#提交规范-conventional-commits)
+- [常用命令](#常用命令)
+- [合并策略](#合并策略)
+- [冲突解决](#冲突解决)
+- [Pull Request 流程](#pull-request-流程)
+- [Git Hooks](#git-hooks)
+- [.gitignore 最佳实践](#gitignore-最佳实践)
+- [最佳实践](#最佳实践)
+- [快速场景指南 | Quick Scenarios](#快速场景指南--quick-scenarios)
+- [委派到专业 Agent | Delegation to Agents](#委派到专业-agent--delegation-to-agents)
+
 ## 触发条件
 
 当用户提及以下关键词时自动激活：`git`, `commit`, `branch`, `merge`, `rebase`, `cherry-pick`, `PR`, `pull request`, `conflict`, `stash`, `gitflow`, `conventional commits`

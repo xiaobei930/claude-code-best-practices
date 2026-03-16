@@ -92,7 +92,10 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
    ├─ 更新 memory-bank/progress.md
    └─ 在"进行中"写入: `DES-XXX: [名称] + TSK 列表 → 待 Dev 实现`
 
-7. 交接下游
+7. 置信度检查点（推荐）
+   └─ 执行 /cc-best:confidence-check --pre 确认实现准备度 ≥70%
+
+8. 交接下游
    ├─ 前端任务 → 调用 /cc-best:designer 进行 UI 设计
    └─ 后端任务 → 调用 /cc-best:dev 开始实现 TSK-XXX
 ```

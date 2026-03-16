@@ -8,6 +8,8 @@ description: |
   </example>
 model: opus
 maxTurns: 20
+isolation: worktree
+memory: project
 tools: Read, Write, Edit, Grep, Glob, Bash
 skills:
   - cc-best:architecture

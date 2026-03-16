@@ -21,8 +21,8 @@ AI coding assistants without principles produce inconsistent results. CC-Best em
 
 - **Dao** defines 8 core principles (P1-P8) and 5 autonomous decision principles (A1-A5)
 - **Fa** translates principles into role workflows (PM → Lead → Dev → QA)
-- **Shu** implements standards as enforceable rules (35 rules across 8 directories)
-- **Qi** automates enforcement through hooks (21 scripts across 8 lifecycle events)
+- **Shu** implements standards as enforceable rules (43 rules across 10 directories)
+- **Qi** automates enforcement through hooks (23 scripts across 12 lifecycle events)
 
 ### Meta Principles
 
@@ -441,7 +441,7 @@ This state is saved to `.pre-compact-state.json` for recovery via `/cc-best:catc
 | `PreCompact`       | Before context compression | Save state                 |
 | `SessionEnd`       | Session ends               | Evaluate and persist       |
 
-### 19 Hook Scripts by Category
+### 23 Hook Scripts by Category
 
 **Safety (6 scripts)**:
 | Script | Event | Function |

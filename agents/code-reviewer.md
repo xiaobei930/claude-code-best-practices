@@ -7,6 +7,8 @@ description: |
   assistant: (invokes code-reviewer agent to perform comprehensive code review)
   </example>
 model: opus
+background: true
+memory: project
 maxTurns: 15
 tools: Read, Grep, Glob
 skills:

@@ -22,7 +22,12 @@ if (process.argv.includes("--help")) {
   process.exit(0);
 }
 
-const { readStdinJson, log } = require("../lib/utils");
+const { readStdinJson, log, shouldRunInProfile } = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile("subagent-stop")) {
+  process.exit(0);
+}
 
 /**
  * 主函数

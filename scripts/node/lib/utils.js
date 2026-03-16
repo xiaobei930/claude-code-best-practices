@@ -443,6 +443,71 @@ function inferTags(name) {
   return tags;
 }
 
+// ==================== Hook Profile ====================
+
+/**
+ * Hook Profile 系统
+ *
+ * 通过环境变量 CC_BEST_HOOK_PROFILE 控制 hook 执行范围：
+ * - minimal: 仅安全类 hook（validate-command, check-secrets, protect-files 等）
+ * - standard: 安全 + 质量类 hook（默认）
+ * - full: 全部 hook（含学习、追踪类）
+ */
+
+const HOOK_PROFILES = {
+  // safety: minimal 级别即执行
+  "validate-command": "safety",
+  "pause-before-push": "safety",
+  "check-secrets": "safety",
+  "protect-files": "safety",
+  "block-random-md": "safety",
+  "session-check": "safety",
+
+  // quality: standard 级别执行
+  "long-running-warning": "quality",
+  "format-file": "quality",
+  "auto-archive": "quality",
+  "suggest-compact": "quality",
+  "check-console-log": "quality",
+  "typescript-check": "quality",
+  "user-prompt-submit": "quality",
+  "stop-check": "quality",
+  "pre-compact": "quality",
+  "post-compact": "quality",
+
+  // learning: full 级别执行
+  "observe-patterns": "learning",
+  "post-tool-failure": "learning",
+  "subagent-stop": "learning",
+  "subagent-start": "learning",
+  "evaluate-session": "learning",
+  "notification-handler": "learning",
+};
+
+const PROFILE_LEVELS = { minimal: 1, standard: 2, full: 3 };
+const CATEGORY_MIN_LEVEL = { safety: 1, quality: 2, learning: 3 };
+
+/**
+ * 获取当前 Hook Profile
+ * @returns {'minimal'|'standard'|'full'}
+ */
+function getHookProfile() {
+  const profile = process.env.CC_BEST_HOOK_PROFILE || "full";
+  return PROFILE_LEVELS[profile] ? profile : "full";
+}
+
+/**
+ * 检查 hook 是否应在当前 profile 下执行
+ * @param {string} hookName - hook 名称（不含 .js）
+ * @returns {boolean}
+ */
+function shouldRunInProfile(hookName) {
+  const currentLevel = PROFILE_LEVELS[getHookProfile()] || 2;
+  const hookCategory = HOOK_PROFILES[hookName] || "quality";
+  const requiredLevel = CATEGORY_MIN_LEVEL[hookCategory] || 2;
+  return currentLevel >= requiredLevel;
+}
+
 // ==================== 文本处理 ====================
 
 /**
@@ -539,4 +604,9 @@ module.exports = {
   // 文本处理
   grepFile,
   countInFile,
+
+  // Hook Profile
+  HOOK_PROFILES,
+  getHookProfile,
+  shouldRunInProfile,
 };

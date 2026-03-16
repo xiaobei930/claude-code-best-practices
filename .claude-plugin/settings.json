@@ -1,0 +1,13 @@
+{
+  "agent": {
+    "code-reviewer": {
+      "background": true
+    },
+    "security-reviewer": {
+      "background": true
+    },
+    "architect": {
+      "isolation": "worktree"
+    }
+  }
+}

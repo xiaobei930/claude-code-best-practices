@@ -100,6 +100,66 @@ function getMissingConfidenceCount() {
 }
 
 /**
+ * 幻觉红旗检测 (v0.9.0)
+ * 检测响应中可能的无证据声明
+ */
+function detectHallucinationRedFlags(responseText) {
+  if (!responseText) return [];
+
+  const RED_FLAG_PATTERNS = [
+    {
+      pattern: /一切正常|全部通过|所有测试通过/,
+      flag: "无证据的'全部通过'声明",
+    },
+    { pattern: /已修复|已解决|问题已处理/, flag: "无证据的'已修复'声明" },
+    { pattern: /性能良好|性能正常|性能没问题/, flag: "无基准数据的性能声明" },
+    { pattern: /安全无问题|没有安全[问隐]/, flag: "无扫描结果的安全声明" },
+    {
+      pattern: /没有\s*bug|不存在\s*bug|无\s*bug/,
+      flag: "无测试证据的无Bug声明",
+    },
+  ];
+
+  const flags = [];
+  for (const { pattern, flag } of RED_FLAG_PATTERNS) {
+    if (pattern.test(responseText)) {
+      flags.push(flag);
+    }
+  }
+  return flags;
+}
+
+/**
+ * Stall 模式检测 (v0.9.0)
+ * 检测工具失败的重复模式
+ */
+function detectStallPatterns() {
+  const failurePath = path.join(
+    getMemoryBankDir(PROJECT_ROOT),
+    ".tool-failures.json",
+  );
+  if (!fileExists(failurePath)) return null;
+
+  try {
+    const data = JSON.parse(readFile(failurePath));
+    const recent = (data.recent_failures || []).slice(-6);
+    if (recent.length < 3) return null;
+
+    // 检测连续相同错误
+    const last3 = recent.slice(-3);
+    const sameError = last3.every(
+      (f) => f.tool === last3[0].tool && f.error_hint === last3[0].error_hint,
+    );
+    if (sameError) {
+      return `工具 ${last3[0].tool} 连续 3 次相同失败: ${last3[0].error_hint}`;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * 主函数
  */
 async function main() {
@@ -121,6 +181,21 @@ async function main() {
         log(
           `[StopCheck] ⚠️ 决策表中有 ${missingConfidence} 条记录缺失置信度（A2 原则要求记录置信度）`,
         );
+      }
+
+      // 幻觉红旗检测 (v0.9.0)
+      const responseText = input.response || "";
+      const redFlags = detectHallucinationRedFlags(responseText);
+      if (redFlags.length > 0) {
+        log(
+          `[StopCheck] 🚩 检测到 ${redFlags.length} 个幻觉红旗: ${redFlags.join("; ")}`,
+        );
+      }
+
+      // Stall 模式检测 (v0.9.0)
+      const stallInfo = detectStallPatterns();
+      if (stallInfo) {
+        log(`[StopCheck] ⚠️ Stall 检测: ${stallInfo}，建议切换策略`);
       }
     }
 
