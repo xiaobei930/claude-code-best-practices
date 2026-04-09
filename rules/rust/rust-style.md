@@ -1,4 +1,5 @@
 ---
+description: "Rust 编码风格：命名、格式化、惯用模式"
 paths:
   - "**/*.rs"
 ---

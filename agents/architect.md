@@ -7,6 +7,7 @@ description: |
   assistant: (invokes architect agent to analyze requirements and design system architecture)
   </example>
 model: opus
+effort: high
 maxTurns: 20
 isolation: worktree
 memory: project

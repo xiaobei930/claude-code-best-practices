@@ -7,6 +7,7 @@ description: |
   assistant: (invokes code-simplifier agent to identify and eliminate redundancy)
   </example>
 model: opus
+effort: medium
 maxTurns: 15
 tools: Read, Edit, Grep, Glob, Bash
 memory: project

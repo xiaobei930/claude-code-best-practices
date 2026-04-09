@@ -1,4 +1,5 @@
 ---
+description: "嵌入式测试规范：硬件模拟、单元测试、集成测试"
 paths:
   - "**/components/**/*.c"
   - "**/components/**/*.h"

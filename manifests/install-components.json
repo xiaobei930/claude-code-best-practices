@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "CC-Best 组件按需安装清单。用户可在 /cc-best:setup 中选择需要的组件家族。",
-  "version": "0.9.0",
+  "version": "0.10.0",
 
   "families": {
     "baseline": {
@@ -15,7 +15,8 @@
           "check-secrets",
           "protect-files",
           "block-random-md",
-          "session-check"
+          "session-check",
+          "permission-request"
         ],
         "commands": [
           "iterate",
@@ -62,7 +63,11 @@
           "typescript-check",
           "auto-archive",
           "suggest-compact",
-          "stop-check"
+          "stop-check",
+          "file-changed",
+          "cwd-changed",
+          "config-change",
+          "instructions-loaded"
         ],
         "agents": ["code-reviewer", "code-simplifier", "security-reviewer"],
         "commands": ["cleanup", "security-audit"]
@@ -81,7 +86,9 @@
           "post-tool-failure",
           "notification-handler",
           "pre-compact",
-          "post-compact"
+          "post-compact",
+          "permission-denied",
+          "task-completed"
         ],
         "commands": ["learn", "evolve", "catchup", "analyze"],
         "skills": ["learning", "compact", "session", "exploration"]

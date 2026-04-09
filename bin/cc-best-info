@@ -1,0 +1,108 @@
+#!/usr/bin/env node
+/**
+ * cc-best-info - CC-Best 插件诊断工具
+ *
+ * 打印插件版本、组件计数、当前 hook profile 等信息。
+ * 可通过 Claude Code Bash 工具直接调用。
+ *
+ * 用法: cc-best-info [--json]
+ */
+
+const path = require("path");
+const fs = require("fs");
+
+const pluginRoot =
+  process.env.CLAUDE_PLUGIN_ROOT ||
+  path.resolve(__dirname, "..");
+
+// 读取 plugin.json
+function readJson(filePath) {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function countFiles(dir, pattern) {
+  try {
+    const entries = fs.readdirSync(dir);
+    const regex = new RegExp(pattern);
+    return entries.filter((e) => regex.test(e)).length;
+  } catch {
+    return 0;
+  }
+}
+
+function countFilesRecursive(dir, pattern) {
+  let count = 0;
+  try {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    const regex = new RegExp(pattern);
+    for (const entry of entries) {
+      if (entry.isFile() && regex.test(entry.name)) {
+        count++;
+      } else if (entry.isDirectory()) {
+        count += countFilesRecursive(path.join(dir, entry.name), pattern);
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return count;
+}
+
+const pluginJson = readJson(path.join(pluginRoot, ".claude-plugin", "plugin.json"));
+const hooksJson = readJson(path.join(pluginRoot, "hooks", "hooks.json"));
+
+const version = pluginJson?.version || "unknown";
+const hookProfile = process.env.CC_BEST_HOOK_PROFILE || "full";
+const pluginData = process.env.CLAUDE_PLUGIN_DATA || "(not set, using memory-bank/)";
+
+const commandCount = countFiles(path.join(pluginRoot, "commands"), "\\.md$");
+const agentCount = (pluginJson?.agents || []).length;
+const ruleCount = countFilesRecursive(path.join(pluginRoot, "rules"), "\\.md$");
+const hookEventCount = hooksJson ? Object.keys(hooksJson.hooks || {}).length : 0;
+const hookScriptCount = countFiles(
+  path.join(pluginRoot, "scripts", "node", "hooks"),
+  "\\.js$",
+);
+
+// 统计 skill 目录数量
+const skillCount = countFiles(path.join(pluginRoot, "skills"), "^[^.]");
+
+const isJson = process.argv.includes("--json");
+
+if (isJson) {
+  console.log(
+    JSON.stringify(
+      {
+        version,
+        hookProfile,
+        pluginData,
+        components: {
+          commands: commandCount,
+          skills: skillCount,
+          agents: agentCount,
+          rules: ruleCount,
+          hookEvents: hookEventCount,
+          hookScripts: hookScriptCount,
+        },
+      },
+      null,
+      2,
+    ),
+  );
+} else {
+  console.log(`CC-Best Plugin v${version}`);
+  console.log(`─────────────────────────────`);
+  console.log(`Hook Profile:  ${hookProfile}`);
+  console.log(`Plugin Data:   ${pluginData}`);
+  console.log(`─────────────────────────────`);
+  console.log(`Commands:      ${commandCount}`);
+  console.log(`Skills:        ${skillCount}`);
+  console.log(`Agents:        ${agentCount}`);
+  console.log(`Rules:         ${ruleCount}`);
+  console.log(`Hook Events:   ${hookEventCount}`);
+  console.log(`Hook Scripts:  ${hookScriptCount}`);
+}

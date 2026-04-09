@@ -1,4 +1,5 @@
 ---
+description: "Rust 安全规范：内存安全、unsafe 使用、依赖审计"
 paths:
   - "**/*.rs"
 ---

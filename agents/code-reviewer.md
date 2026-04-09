@@ -7,10 +7,12 @@ description: |
   assistant: (invokes code-reviewer agent to perform comprehensive code review)
   </example>
 model: opus
+effort: medium
 background: true
 memory: project
 maxTurns: 15
 tools: Read, Grep, Glob
+disallowedTools: Write, Edit, Bash
 skills:
   - cc-best:security
   - cc-best:quality

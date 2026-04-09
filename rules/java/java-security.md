@@ -1,4 +1,5 @@
 ---
+description: "Java 安全规范：注入防护、认证授权、加密"
 paths:
   - "**/*.java"
 ---

@@ -1,4 +1,5 @@
 ---
+description: "前端性能优化：懒加载、Bundle 优化、渲染性能"
 paths:
   - "**/*.ts"
   - "**/*.tsx"

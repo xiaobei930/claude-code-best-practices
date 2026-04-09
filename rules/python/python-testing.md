@@ -1,4 +1,5 @@
 ---
+description: "Python 测试规范：pytest、mock、fixture 模式"
 paths:
   - "**/*.py"
 ---

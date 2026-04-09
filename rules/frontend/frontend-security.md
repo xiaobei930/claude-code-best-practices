@@ -1,4 +1,5 @@
 ---
+description: "前端安全规范：XSS 防护、CSP、输入验证"
 paths:
   - "**/*.ts"
   - "**/*.tsx"

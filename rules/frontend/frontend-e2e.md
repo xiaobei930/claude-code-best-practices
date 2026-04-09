@@ -1,4 +1,5 @@
 ---
+description: "前端 E2E 测试：Playwright 配置、页面对象模式"
 paths:
   - "e2e/**"
   - "playwright.config.*"

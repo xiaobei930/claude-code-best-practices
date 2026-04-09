@@ -1,4 +1,5 @@
 ---
+description: "前端编码风格：TypeScript、组件设计、状态管理"
 paths:
   - "**/*.ts"
   - "**/*.tsx"

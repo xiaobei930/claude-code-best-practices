@@ -1,4 +1,5 @@
 ---
+description: "嵌入式编码风格：命名、内存约束、硬件抽象"
 paths:
   - "**/components/**/*.c"
   - "**/components/**/*.h"

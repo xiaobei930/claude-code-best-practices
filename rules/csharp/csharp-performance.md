@@ -1,4 +1,5 @@
 ---
+description: "C# 性能优化：异步、Span<T>、内存池"
 paths:
   - "**/*.cs"
   - "**/*.csx"

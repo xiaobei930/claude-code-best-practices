@@ -84,7 +84,8 @@ secrets.json
 *.exe
 *.o
 *.obj
-bin/
+bin/*
+!bin/cc-best-info
 obj/
 target/
 
@@ -97,3 +98,4 @@ docs/ROADMAP-v0.8.md
 docs/PLAN-*.md
 scripts/poc/
 tests/.results.json
+/scripts/node/hooks/memory-bank

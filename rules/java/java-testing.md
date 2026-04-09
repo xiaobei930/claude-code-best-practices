@@ -1,4 +1,5 @@
 ---
+description: "Java 测试规范：JUnit、Mockito、集成测试"
 paths:
   - "**/*.java"
 ---

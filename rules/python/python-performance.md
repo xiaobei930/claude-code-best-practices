@@ -1,4 +1,5 @@
 ---
+description: "Python 性能优化：异步编程、内存管理、缓存策略"
 paths:
   - "**/*.py"
 ---

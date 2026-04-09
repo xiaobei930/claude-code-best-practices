@@ -1,4 +1,5 @@
 ---
+description: "C++ 测试规范：Google Test、Catch2、内存检测"
 paths:
   - "**/*.cpp"
   - "**/*.hpp"

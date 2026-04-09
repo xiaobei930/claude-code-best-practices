@@ -1,6 +1,6 @@
 # CC-Best Architecture | 架构文档
 
-> Version: 0.9.0 | Last Updated: 2026-03-16
+> Version: 0.10.0 | Last Updated: 2026-04-09
 
 本文档描述 CC-Best 插件的完整架构、组件关系和调用链路。
 
@@ -8,13 +8,13 @@
 
 ## 1. 组件概览 | Component Overview
 
-| 组件         | 数量  | 位置                  | 触发方式                                      |
-| ------------ | ----- | --------------------- | --------------------------------------------- |
-| **Commands** | 44    | `commands/`           | 用户输入 `/xxx`                               |
-| **Skills**   | 19    | `skills/`             | Agent 预加载 / 自动注入                       |
-| **Agents**   | 8     | `agents/`             | Task tool 委派                                |
-| **Rules**    | 43    | `rules/`              | 路径匹配自动注入 (10 目录: 1 common + 9 语言) |
-| **Hooks**    | 23/22 | `scripts/node/hooks/` | 生命周期自动触发 (23 脚本/22 配置, 12 事件)   |
+| 组件         | 数量 | 位置                  | 触发方式                                      |
+| ------------ | ---- | --------------------- | --------------------------------------------- |
+| **Commands** | 44   | `commands/`           | 用户输入 `/xxx`                               |
+| **Skills**   | 19   | `skills/`             | Agent 预加载 / 自动注入                       |
+| **Agents**   | 8    | `agents/`             | Task tool 委派                                |
+| **Rules**    | 43   | `rules/`              | 路径匹配自动注入 (10 目录: 1 common + 9 语言) |
+| **Hooks**    | 30   | `scripts/node/hooks/` | 生命周期自动触发 (30 脚本, 19 事件)           |
 
 ---
 
@@ -61,7 +61,7 @@
                        │ 触发
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  Hooks (23 脚本/22 配置)                     │
+│                  Hooks (30 脚本 / 19 事件)                   │
 │  SessionStart      → session-check                          │
 │  UserPromptSubmit  → user-prompt-submit                     │
 │  PreToolUse        → validate-command, pause-before-push,   │
@@ -78,6 +78,13 @@
 │  PostToolUseFailure→ post-tool-failure           (v0.9.0)  │
 │  Notification      → notification-handler        (v0.9.0)  │
 │  SessionEnd        → evaluate-session                       │
+│  PermissionRequest → permission-request         (v0.10.0)  │
+│  PermissionDenied  → permission-denied          (v0.10.0)  │
+│  InstructionsLoaded→ instructions-loaded        (v0.10.0)  │
+│  FileChanged       → file-changed              (v0.10.0)  │
+│  CwdChanged        → cwd-changed               (v0.10.0)  │
+│  ConfigChange      → config-change             (v0.10.0)  │
+│  TaskCompleted     → task-completed            (v0.10.0)  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -470,7 +477,7 @@ tools: Read, Grep, Glob
 | Skills               | 19                                                                       |
 | Agents               | 8                                                                        |
 | Rules                | 43 (10 目录: common/python/frontend/java/csharp/cpp/embedded/ui/rust/go) |
-| Hooks Scripts        | 23 脚本 / 22 已配置 / 12 事件                                            |
+| Hooks Scripts        | 30 脚本 / 19 事件                                                        |
 | Language Support     | 6 (Python, TS, Java, Go, C#, Rust)                                       |
 | Framework Support    | 8 (React, Vue, Angular, Svelte, FastAPI...)                              |
 | Database Support     | 4 (MySQL, PostgreSQL, Oracle, SQLite)                                    |
@@ -480,29 +487,43 @@ tools: Read, Grep, Glob
 
 ## 13. 官方特性兼容性 | Official Feature Compatibility
 
-> 基于 Claude Code v2.1.76 评估（2026-03-16 更新）
+> 基于 Claude Code v2.1.97 评估（2026-04-09 更新）
 
 ### 已采用特性 | Adopted Features
 
-| 官方特性                | 本仓库实现                  | 状态 |
-| ----------------------- | --------------------------- | ---- |
-| YAML Frontmatter        | 全部 agents/commands/skills | ✅   |
-| Agent `model` 字段      | 8 个 agents                 | ✅   |
-| Agent `skills` 预加载   | 8 个 agents                 | ✅   |
-| Wildcard Permissions    | `Skill(*)`                  | ✅   |
-| `context: fork`         | exploration Skill           | ✅   |
-| SessionEnd Lifecycle    | hooks                       | ✅   |
-| UserPromptSubmit 事件   | hooks 配置                  | ✅   |
-| Stop 事件               | hooks 配置                  | ✅   |
-| SubagentStop 事件       | hooks 配置                  | ✅   |
-| SubagentStart 事件      | hooks 配置 (v0.9.0)         | ✅   |
-| PostCompact 事件        | hooks 配置 (v0.9.0)         | ✅   |
-| PostToolUseFailure 事件 | hooks 配置 (v0.9.0)         | ✅   |
-| Notification 事件       | hooks 配置 (v0.9.0)         | ✅   |
-| Agent `background`      | code-reviewer 等 (v0.9.0)   | ✅   |
-| Agent `isolation`       | architect (v0.9.0)          | ✅   |
-| Agent `memory`          | 5 agents (v0.9.0)           | ✅   |
-| `${CLAUDE_PLUGIN_ROOT}` | hooks 路径                  | ✅   |
+| 官方特性                 | 本仓库实现                            | 状态 |
+| ------------------------ | ------------------------------------- | ---- |
+| YAML Frontmatter         | 全部 agents/commands/skills           | ✅   |
+| Agent `model` 字段       | 8 个 agents                           | ✅   |
+| Agent `skills` 预加载    | 8 个 agents                           | ✅   |
+| Agent `effort` 字段      | 8 个 agents (v0.10.0)                 | ✅   |
+| Agent `disallowedTools`  | 3 个审查类 agents (v0.10.0)           | ✅   |
+| Wildcard Permissions     | `Skill(*)`                            | ✅   |
+| `context: fork`          | exploration Skill                     | ✅   |
+| Rules `description` 字段 | 43 个规则文件 (v0.10.0)               | ✅   |
+| SessionEnd Lifecycle     | hooks                                 | ✅   |
+| UserPromptSubmit 事件    | hooks 配置                            | ✅   |
+| Stop 事件                | hooks 配置                            | ✅   |
+| SubagentStop 事件        | hooks 配置                            | ✅   |
+| SubagentStart 事件       | hooks 配置 (v0.9.0)                   | ✅   |
+| PostCompact 事件         | hooks 配置 (v0.9.0)                   | ✅   |
+| PostToolUseFailure 事件  | hooks 配置 (v0.9.0)                   | ✅   |
+| Notification 事件        | hooks 配置 (v0.9.0)                   | ✅   |
+| PermissionRequest 事件   | hooks 配置 (v0.10.0)                  | ✅   |
+| PermissionDenied 事件    | hooks 配置 (v0.10.0)                  | ✅   |
+| InstructionsLoaded 事件  | hooks 配置 (v0.10.0)                  | ✅   |
+| FileChanged 事件         | hooks 配置 (v0.10.0)                  | ✅   |
+| CwdChanged 事件          | hooks 配置 (v0.10.0)                  | ✅   |
+| ConfigChange 事件        | hooks 配置 (v0.10.0)                  | ✅   |
+| TaskCompleted 事件       | hooks 配置 (v0.10.0)                  | ✅   |
+| Agent `background`       | code-reviewer 等 (v0.9.0)             | ✅   |
+| Agent `isolation`        | architect (v0.9.0)                    | ✅   |
+| Agent `memory`           | 5 agents (v0.9.0)                     | ✅   |
+| `${CLAUDE_PLUGIN_ROOT}`  | hooks 路径                            | ✅   |
+| `${CLAUDE_PLUGIN_DATA}`  | getPluginDataDir() fallback (v0.10.0) | ✅   |
+| plugin.json `hooks` 字段 | 显式声明 hooks.json (v0.10.0)         | ✅   |
+| plugin.json `userConfig` | hookProfile 配置 (v0.10.0)            | ✅   |
+| plugin.json `bin` 字段   | bin/cc-best-info (v0.10.0)            | ✅   |
 
 ### 兼容但未采用 | Compatible but Not Adopted
 

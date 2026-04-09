@@ -60,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **压缩抑制** - 调试循环中自动抑制 compact 建议 (v0.8.2)
 - [x] **CI 审计加固** - 共享 parse-frontmatter、MIN_EXPECTED 守卫、CRLF 兼容 (v0.8.2)
 
-### v0.9.x (Current) - 官方合规 + 自身完善
+### v0.9.x - 官方合规 + 自身完善
 
 **核心目标**: 对齐 Claude Code v2.1.76 官方变更 + 语言规则补齐
 
@@ -73,6 +73,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **Rust + Go 语言规则** - 8 个新规则文件 (v0.9.0)
 - [x] **组件按需安装清单** - 15 个组件家族 + 3 个预设 (v0.9.0)
 - [x] **plugin settings.json** - Agent 默认配置 (v0.9.0)
+
+### v0.10.x (Current) - 对齐 Claude Code v2.1.97
+
+**核心目标**: 同步 Claude Code v2.1.97 新特性 + 插件规范增强
+
+- [x] **7 个新 Hook 事件** - PermissionRequest、PermissionDenied、InstructionsLoaded、FileChanged、CwdChanged、ConfigChange、TaskCompleted，事件总数 12→19 (v0.10.0)
+- [x] **7 个新 Hook 脚本** - 权限追踪、文件变更检测、目录切换、配置变更、指令加载验证、任务完成追踪，脚本总数 23→30 (v0.10.0)
+- [x] **Agent frontmatter 增强** - effort（推理深度）、disallowedTools（工具黑名单）新字段 (v0.10.0)
+- [x] **Rules description 字段** - 43 个规则文件全部添加 description，提升规则加载精准度 (v0.10.0)
+- [x] **plugin.json 新字段** - hooks 显式声明、userConfig 用户配置、bin 可执行文件 (v0.10.0)
+- [x] **${CLAUDE_PLUGIN_DATA} 支持** - utils.js 新增 getPluginDataDir()，向前兼容 fallback 到 memory-bank (v0.10.0)
+- [x] **bin/ 诊断工具** - cc-best-info 命令行工具，输出插件版本和组件统计 (v0.10.0)
 - [ ] Skill 渐进式加载优化
 - [ ] npm 分发
 
@@ -88,6 +100,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ## Recent Changes / 近期变更
+
+### [0.10.0] - 2026-04-09
+
+#### Theme / 主题: 对齐 Claude Code v2.1.97 + 插件规范增强
+
+同步 Claude Code v2.1.76→v2.1.97 的官方变更，新增 7 个 hook 事件和脚本，增强 agent/rules 元数据，引入 plugin.json 新字段和 bin/ 可执行文件支持。
+
+#### Added / 新增
+
+- **7 个新 Hook 事件** — PermissionRequest（权限请求记录）、PermissionDenied（权限拒绝追踪）、InstructionsLoaded（指令加载验证）、FileChanged（外部文件变更检测）、CwdChanged（工作目录变更记录）、ConfigChange（配置文件变更提醒）、TaskCompleted（任务完成追踪），Hook 事件从 12 个扩展至 19 个
+- **7 个新 Hook 脚本** — `permission-request.js`、`permission-denied.js`、`instructions-loaded.js`、`file-changed.js`、`cwd-changed.js`、`config-change.js`、`task-completed.js`，脚本总数从 23 个增加到 30 个
+- **Agent `effort` 字段** — 8 个 agent 全部添加推理深度控制（high/medium/low）
+- **Agent `disallowedTools` 字段** — code-reviewer、security-reviewer、requirement-validator 添加工具黑名单，防止审查类 agent 直接修改代码
+- **Rules `description` 字段** — 43 个规则文件全部添加 description frontmatter，帮助 Claude Code 精准判断何时加载规则
+- **plugin.json `hooks` 字段** — 显式声明 hooks.json 路径
+- **plugin.json `userConfig` 字段** — 声明 hookProfile 用户配置项
+- **plugin.json `bin` 字段** — 注册 bin/ 目录可执行文件
+- **`bin/cc-best-info`** — 插件诊断工具，输出版本、组件统计、hook profile 等信息
+- **`getPluginDataDir()` 函数** — utils.js 新增，优先使用官方 `${CLAUDE_PLUGIN_DATA}` 环境变量，向前兼容 fallback 到 memory-bank/
+
+#### Changed / 变更
+
+- **Hook Profile 注册表扩展** — HOOK_PROFILES 新增 7 个 hook 映射（safety: permission-request, quality: file-changed/cwd-changed/config-change/instructions-loaded, learning: permission-denied/task-completed）
+- **install-components.json** — baseline 家族新增 permission-request，quality 家族新增 4 个质量 hook，learning 家族新增 2 个学习 hook
+- **兼容性基线** — 从 Claude Code v2.1.76 更新到 v2.1.97
 
 ### [0.9.0] - 2026-03-16
 

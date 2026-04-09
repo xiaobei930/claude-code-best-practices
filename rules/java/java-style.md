@@ -1,4 +1,5 @@
 ---
+description: "Java 编码风格：命名、设计模式、代码组织"
 paths:
   - "**/*.java"
 ---

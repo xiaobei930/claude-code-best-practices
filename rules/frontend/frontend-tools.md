@@ -1,4 +1,5 @@
 ---
+description: "前端工具链：构建工具、Linter、包管理"
 paths:
   - "**/*.vue"
   - "**/*.tsx"

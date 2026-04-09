@@ -1,4 +1,5 @@
 ---
+description: "C# 测试规范：xUnit、NSubstitute、集成测试"
 paths:
   - "**/*.cs"
   - "**/*.csx"

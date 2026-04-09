@@ -1,4 +1,5 @@
 ---
+description: "C++ 编码风格：命名、RAII、现代 C++ 特性"
 paths:
   - "**/*.cpp"
   - "**/*.hpp"

@@ -22,7 +22,7 @@
 > 从产品需求到代码审查 — 一个插件，完整工作流。
 
 <p align="center">
-  <code>44 命令</code> · <code>19 技能</code> · <code>8 智能体</code> · <code>43 规则</code> · <code>23 hooks</code>
+  <code>44 命令</code> · <code>19 技能</code> · <code>8 智能体</code> · <code>43 规则</code> · <code>30 hooks</code>
 </p>
 
 <p align="center">

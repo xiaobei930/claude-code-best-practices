@@ -1,4 +1,5 @@
 ---
+description: "嵌入式性能优化：实时性、功耗、内存占用"
 paths:
   - "**/components/**/*.c"
   - "**/components/**/*.h"

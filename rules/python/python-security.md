@@ -1,4 +1,5 @@
 ---
+description: "Python 安全规范：注入防护、依赖审计、序列化安全"
 paths:
   - "**/*.py"
 ---

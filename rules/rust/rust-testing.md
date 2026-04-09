@@ -1,4 +1,5 @@
 ---
+description: "Rust 测试规范：单元测试、集成测试、属性测试"
 paths:
   - "**/*.rs"
 ---

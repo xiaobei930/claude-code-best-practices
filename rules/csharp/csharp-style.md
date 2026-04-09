@@ -1,4 +1,5 @@
 ---
+description: "C# 编码风格：命名、LINQ、异步模式"
 paths:
   - "**/*.cs"
   - "**/*.csx"

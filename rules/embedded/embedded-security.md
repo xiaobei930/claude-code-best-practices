@@ -1,4 +1,5 @@
 ---
+description: "嵌入式安全规范：固件安全、通信加密、安全启动"
 paths:
   - "**/components/**/*.c"
   - "**/components/**/*.h"

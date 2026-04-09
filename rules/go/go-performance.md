@@ -1,4 +1,5 @@
 ---
+description: "Go 性能优化：goroutine 管理、内存分配、profile"
 paths:
   - "**/*.go"
 ---

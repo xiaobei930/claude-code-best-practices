@@ -269,6 +269,97 @@
         ],
         "description": "会话评估: 会话结束时评估并提取可学习的模式"
       }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/permission-request.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "权限请求: 记录工具权限请求信息"
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/permission-denied.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "权限拒绝: 记录被拒绝的权限请求到 observations.jsonl"
+      }
+    ],
+    "InstructionsLoaded": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/instructions-loaded.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "指令加载: 验证指令加载并注入插件版本信息"
+      }
+    ],
+    "FileChanged": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/file-changed.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "文件变更: 检测外部文件修改并提醒用户"
+      }
+    ],
+    "CwdChanged": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/cwd-changed.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "目录切换: 记录工作目录变更"
+      }
+    ],
+    "ConfigChange": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/config-change.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "配置变更: 检测配置文件修改并提醒重新加载"
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/node/hooks/task-completed.js\"",
+            "timeout": 3
+          }
+        ],
+        "description": "任务完成: 记录任务完成事件到 observations.jsonl"
+      }
     ]
   }
 }

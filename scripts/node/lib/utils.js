@@ -47,6 +47,21 @@ function getMemoryBankDir(projectDir = process.cwd()) {
 }
 
 /**
+ * 获取插件数据持久化目录
+ * 优先使用官方 CLAUDE_PLUGIN_DATA 环境变量（v2.1.97+），
+ * 向前兼容回退到 memory-bank 目录
+ *
+ * @param {string} projectDir - 项目目录
+ * @returns {string} 插件数据目录路径
+ */
+function getPluginDataDir(projectDir = process.cwd()) {
+  if (process.env.CLAUDE_PLUGIN_DATA) {
+    return process.env.CLAUDE_PLUGIN_DATA;
+  }
+  return getMemoryBankDir(projectDir);
+}
+
+/**
  * 获取临时目录
  */
 function getTempDir() {
@@ -482,6 +497,18 @@ const HOOK_PROFILES = {
   "subagent-start": "learning",
   "evaluate-session": "learning",
   "notification-handler": "learning",
+
+  // v0.10.0 新增 hook（对齐 Claude Code v2.1.97）
+  // safety: 权限请求记录
+  "permission-request": "safety",
+  // quality: 环境变化感知
+  "file-changed": "quality",
+  "cwd-changed": "quality",
+  "config-change": "quality",
+  "instructions-loaded": "quality",
+  // learning: 权限拒绝追踪、任务完成追踪
+  "permission-denied": "learning",
+  "task-completed": "learning",
 };
 
 const PROFILE_LEVELS = { minimal: 1, standard: 2, full: 3 };
@@ -560,6 +587,7 @@ module.exports = {
   getClaudeDir,
   getProjectClaudeDir,
   getMemoryBankDir,
+  getPluginDataDir,
   getTempDir,
   ensureDir,
 

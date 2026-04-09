@@ -1,4 +1,5 @@
 ---
+description: "Python 编码风格：PEP 8、类型注解、模块组织"
 paths:
   - "**/*.py"
 ---

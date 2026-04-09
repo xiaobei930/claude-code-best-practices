@@ -7,10 +7,12 @@ description: |
   assistant: (invokes security-reviewer agent to scan for OWASP vulnerabilities and secret leaks)
   </example>
 model: opus
+effort: high
 background: true
 memory: project
 maxTurns: 15
 tools: Read, Grep, Glob
+disallowedTools: Write, Edit, Bash
 skills:
   - cc-best:security
   - cc-best:quality

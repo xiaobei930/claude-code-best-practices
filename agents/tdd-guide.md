@@ -7,6 +7,7 @@ description: |
   assistant: (invokes tdd-guide agent to write failing tests first, then implement code)
   </example>
 model: sonnet
+effort: medium
 maxTurns: 25
 tools: Read, Write, Edit, Grep, Glob, Bash
 skills:

@@ -7,8 +7,10 @@ description: |
   assistant: (invokes requirement-validator agent to check requirement quality)
   </example>
 model: sonnet
+effort: medium
 maxTurns: 10
 tools: Read, Grep, Glob
+disallowedTools: Write, Edit, Bash
 skills:
   - cc-best:architecture
   - cc-best:exploration

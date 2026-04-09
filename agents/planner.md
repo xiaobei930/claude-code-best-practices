@@ -7,6 +7,7 @@ description: |
   assistant: (invokes planner agent to analyze complexity and create implementation plan)
   </example>
 model: opus
+effort: high
 maxTurns: 10
 tools: Read, Grep, Glob
 memory: project

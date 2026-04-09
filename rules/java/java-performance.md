@@ -1,4 +1,5 @@
 ---
+description: "Java 性能优化：JVM 调优、并发、内存管理"
 paths:
   - "**/*.java"
 ---

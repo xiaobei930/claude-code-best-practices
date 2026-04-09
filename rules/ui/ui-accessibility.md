@@ -1,4 +1,5 @@
 ---
+description: "UI 无障碍规范：WCAG、ARIA、键盘导航、屏幕阅读器"
 paths:
   - "**/*.vue"
   - "**/*.tsx"

@@ -1,4 +1,5 @@
 ---
+description: "开发方法论（道法术器）：核心原则、决策优先级、自治循环规则"
 ---
 
 # Development Methodology | 开发方法论（道法术器）
