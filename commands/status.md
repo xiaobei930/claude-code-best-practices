@@ -54,8 +54,8 @@ allowed-tools: Read, Glob, Grep, Bash
 Commands:  44 个 (commands/*.md)
 Skills:    19 个 (skills/*/SKILL.md)
 Agents:     8 个 (agents/*.md)
-Hooks:     19 个 (scripts/node/hooks/*.js)
-Rules:     35 个 (rules/**/*.md)
+Hooks:     30 个 (scripts/node/hooks/*.js)
+Rules:     43 个 (rules/**/*.md)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

@@ -18,8 +18,8 @@ This directory contains metadata for Claude Code Plugin Marketplace compatibilit
 ├── commands/        # 44 slash commands
 ├── skills/          # 19 development skills
 ├── agents/          # 8 sub-agents
-├── rules/           # 33 coding standards
-├── scripts/         # 35+ automation scripts
+├── rules/           # 43 coding standards
+├── scripts/         # 30 hook scripts
 ├── hooks/           # Hook configuration and scripts
 └── memory-bank/     # Progress persistence
 

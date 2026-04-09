@@ -366,7 +366,7 @@ flowchart TB
         A3["tdd-guide · build-error-resolver · requirement-validator"]
     end
 
-    subgraph Safety["🛡️ Safety Hooks (18)"]
+    subgraph Safety["🛡️ Safety Hooks (30)"]
         H1["PreToolUse: validate, secrets, protect"]
         H2["PostToolUse: format, typecheck, observe"]
     end

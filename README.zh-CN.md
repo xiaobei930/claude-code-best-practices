@@ -366,7 +366,7 @@ flowchart TB
         A3["tdd-guide · build-error-resolver · requirement-validator"]
     end
 
-    subgraph Safety["🛡️ 安全钩子 (18)"]
+    subgraph Safety["🛡️ 安全钩子 (30)"]
         H1["PreToolUse: 命令验证, 密钥检测, 文件保护"]
         H2["PostToolUse: 自动格式化, 类型检查, 模式观察"]
     end
