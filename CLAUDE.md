@@ -40,7 +40,7 @@
 ## Workflow | 工作流程
 
 ```
-/cc-best:pm → /cc-best:clarify(if needed) → /cc-best:lead → /cc-best:designer(frontend) → /cc-best:dev → /cc-best:qa → /cc-best:verify → /cc-best:commit → /clear → loop
+/cc-best:pm → /cc-best:clarify(if needed) → /cc-best:lead → /cc-best:designer(frontend) → /cc-best:dev → /cc-best:verify → /cc-best:qa → /cc-best:commit → /clear → loop
 ```
 
 **Role Commands 角色命令**: `/cc-best:pm` `/cc-best:clarify` `/cc-best:lead` `/cc-best:designer` `/cc-best:dev` `/cc-best:qa` `/cc-best:verify`

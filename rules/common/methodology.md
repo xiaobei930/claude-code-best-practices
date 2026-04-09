@@ -129,6 +129,9 @@ Do one thing at a time 每次只做一件事：
 /cc-best:dev  → Implement autonomously, record implementation decisions
         自主实现，记录实现决策
   ↓
+/cc-best:verify → Build + Type check + Lint + Test + Security scan
+          构建 + 类型检查 + Lint + 测试 + 安全扫描
+  ↓
 /cc-best:qa   → Distinguish issue types (implementation bug vs assumption error)
         区分问题类型（实现bug vs 假设错误）
   ↓
