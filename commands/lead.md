@@ -37,10 +37,12 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
 
 ### NEVER（禁止做）
 
-1. 不编写具体实现代码
-2. 不跳过需求评审
-3. 不忽略架构规范
-4. **不中断自循环去询问用户**（自主决策并记录）
+1. **不修改任何源代码文件**（.ts/.js/.py/.go/.rs/.java/.cs/.cpp/.vue/.jsx/.css/.html/.sql 等）
+2. 不创建或修改测试文件、配置文件、脚本文件
+3. **仅可创建/修改 `.md` 文档**（DES-XXX.md、TSK-XXX.md、index.md、ADR-XXX.md）
+4. 不跳过需求评审
+5. 不忽略架构规范
+6. **不中断自循环去询问用户**（自主决策并记录）
 
 ## PM 决策评审
 
@@ -181,129 +183,18 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
 ➡️ 重新输出: DES-XXX 更新版 + 新 TSK 列表
 ```
 
-## 本地 Agent 集成
+## Agent 集成
 
-### architect - 系统架构设计
+需要深度分析时可调用以下 agent：
 
-**与 /cc-best:lead 的关系**:
-| 角色 | 特点 |
-|------|------|
-| `/cc-best:lead` 命令 | 完整的技术设计流程，包含评审、设计、任务分解 |
-| `architect` agent | 专注于架构设计和 ADR 创建，适合重大架构决策 |
+| 场景                                  | Agent                        | 调用方式      |
+| ------------------------------------- | ---------------------------- | ------------- |
+| 重大架构决策/ADR                      | `cc-best:architect`          | Task 工具委派 |
+| 复杂任务分解（>10 子任务）            | `cc-best:planner`            | Task 工具委派 |
+| 深度代码分析（需 feature-dev 插件）   | `feature-dev:code-explorer`  | Task 工具委派 |
+| 多方案架构对比（需 feature-dev 插件） | `feature-dev:code-architect` | Task 工具委派 |
 
-**何时使用 architect agent**:
-
-- 需要创建 ADR（架构决策记录）时
-- 涉及重大架构变更时
-- 需要评估多种架构方案时
-- 系统扩展性设计时
-
-**调用方式**:
-
-```
-使用 Task 工具调用 architect agent:
-- subagent_type: "cc-best:architect"
-- prompt: "为 [功能/系统] 进行架构设计，创建 ADR 记录"
-```
-
-**推荐工作流**:
-
-```
-/cc-best:lead 开始技术设计
-    ↓
-  需要架构决策？
-    ├─ 否 → 继续设计流程
-    └─ 是 → architect agent ←── 独立架构分析
-              ↓
-           返回 ADR 和设计建议
-              ↓
-  /cc-best:lead 整合到 DES-XXX
-```
-
----
-
-### planner - 复杂任务规划
-
-**与 /cc-best:lead 的关系**:
-| 角色 | 特点 |
-|------|------|
-| `/cc-best:lead` 命令 | 完整的技术设计流程，包含评审、设计、任务分解 |
-| `planner` agent | 专注于任务分析和分解，独立上下文，适合复杂任务 |
-
-**何时使用 planner agent**:
-
-- 任务分解特别复杂时（>10 个子任务）
-- 需要独立上下文深度分析时
-- 想要更详细的风险评估时
-
-**调用方式**:
-
-```
-使用 Task 工具调用 planner agent:
-- subagent_type: "cc-best:planner"
-- prompt: "分析 REQ-XXX 需求，进行技术可行性评估和任务分解"
-```
-
-**推荐工作流**:
-
-```
-/cc-best:lead 开始技术设计
-    ↓
-  复杂任务？
-    ├─ 否 → 直接分解
-    └─ 是 → planner agent ←── 独立深度分析
-              ↓
-           返回任务列表
-              ↓
-  /cc-best:lead 整合到 DES-XXX
-```
-
----
-
-## 官方插件集成（可选）
-
-> **注意**: 以下功能需要安装 Anthropic 官方 `feature-dev` 插件。本地 `planner` agent 已能满足大部分需求。
-
-### 安装方式
-
-```bash
-/plugin install feature-dev@claude-plugins-official
-```
-
-### 可用 Agent（来自 feature-dev 插件）
-
-| Agent              | 用途             | 调用时机                   |
-| ------------------ | ---------------- | -------------------------- |
-| **code-explorer**  | 深度分析现有代码 | 复杂功能、需理解现有架构时 |
-| **code-architect** | 设计多种架构方案 | 需要方案对比、架构决策时   |
-
-### 调用方式
-
-**分析现有代码**（理解项目结构）:
-
-```
-使用 Task 工具调用 code-explorer agent:
-- subagent_type: "feature-dev:code-explorer"
-- prompt: "分析 [模块/功能] 的实现，包括入口点、数据流、依赖关系"
-```
-
-**设计架构方案**（复杂功能）:
-
-```
-使用 Task 工具调用 code-architect agent:
-- subagent_type: "feature-dev:code-architect"
-- prompt: "为 [功能描述] 设计 2-3 种实现方案，考虑 [约束条件]"
-```
-
-### 何时使用
-
-| 场景              | 建议                                    |
-| ----------------- | --------------------------------------- |
-| 简单功能/bug 修复 | 直接设计，不调用 agent                  |
-| 中等复杂度功能    | 本地 `planner` 或 `code-explorer`       |
-| 大型功能/架构变更 | 推荐 `code-explorer` + `code-architect` |
-
-> **本地替代**: 未安装插件时，使用本地 `planner` agent 进行任务分析和规划。
+简单功能直接设计，不调用 agent。Agent 返回结果后整合到 DES-XXX。
 
 ---
 

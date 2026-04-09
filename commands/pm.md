@@ -37,7 +37,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFet
 
 ### NEVER（禁止做）
 
-1. 不编写代码
+1. **不修改任何源代码、测试、配置或脚本文件**——仅可创建/修改 `.md` 需求文档（REQ-XXX.md、index.md）
 2. 不做详细技术方案设计（那是 Lead 的工作）
 3. **不中断自循环去询问用户**（通过上下文推断决策）
 4. 不做无依据的凭空假设

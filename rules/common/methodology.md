@@ -137,6 +137,16 @@ Do one thing at a time 每次只做一件事：
 > **Note**: `/cc-best:designer` role intervenes for frontend UI tasks, pure backend tasks can skip.
 > **注意**: `/cc-best:designer` 角色在涉及前端 UI 的任务时介入，纯后端任务可跳过。
 
+### Role Tool Boundaries | 角色工具边界（IMPORTANT）
+
+| 角色 Role | 可写文件 Writable Files            | 禁止 Forbidden                   |
+| --------- | ---------------------------------- | -------------------------------- |
+| PM        | `.md` 需求文档（REQ-XXX, index）   | 任何源代码、测试、配置、脚本文件 |
+| Lead      | `.md` 设计/任务文档（DES/TSK/ADR） | 任何源代码、测试、配置、脚本文件 |
+| Designer  | `.md` 设计文档                     | 任何源代码（业务逻辑）           |
+| **Dev**   | **所有项目文件**                   | 未分配模块                       |
+| QA        | 测试文件、`.md` 文档               | 业务代码                         |
+
 ---
 
 ## 术 (Shu) - Practice | 开发技术
