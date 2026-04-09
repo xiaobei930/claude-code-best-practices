@@ -95,7 +95,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node scripts/node/hooks/init.js",
+            "command": "node scripts/node/init.js",
             "_command_bash": "bash scripts/shell/init.sh",
             "timeout": 30
           }

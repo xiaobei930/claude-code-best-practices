@@ -34,7 +34,12 @@ Exit codes:
 }
 
 const path = require("path");
-const { readStdinJson, log } = require("../lib/utils");
+const { readStdinJson, log, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('protect-files')) {
+  process.exit(0);
+}
 
 // 禁止修改的文件/目录模式
 const PROTECTED_PATTERNS = [
@@ -99,6 +104,7 @@ function isProtected(filePath) {
 
   return { blocked: false, reason: "" };
 }
+
 
 async function main() {
   let input;

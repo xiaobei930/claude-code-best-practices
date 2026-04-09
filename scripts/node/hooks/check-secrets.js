@@ -32,7 +32,12 @@ Exit codes:
 
 const fs = require("fs");
 const path = require("path");
-const { readStdinJson, log } = require("../lib/utils");
+const { readStdinJson, log, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('check-secrets')) {
+  process.exit(0);
+}
 
 // 密钥模式定义：{ provider, pattern, description }
 const SECRET_PATTERNS = [
@@ -328,6 +333,7 @@ function scanForSecrets(content, filePath) {
 
   return findings;
 }
+
 
 async function main() {
   let input;

@@ -24,13 +24,19 @@ if (process.argv.includes("--help")) {
 
 const fs = require("fs");
 const path = require("path");
-const { readStdinJson, log, getGitBranch } = require("../lib/utils");
+const { readStdinJson, log, getGitBranch, shouldRunInProfile} = require("../lib/utils");
 
 // 生产分支列表
 const PROTECTED_BRANCHES = ["main", "master", "production", "prod", "release"];
 
 // 检测的 console 方法
 const CONSOLE_METHODS = ["log", "warn", "error", "debug", "info", "trace"];
+
+
+// Hook Profile 检查
+if (!shouldRunInProfile('check-console-log')) {
+  process.exit(0);
+}
 
 async function main() {
   let input;

@@ -40,8 +40,12 @@ const {
   log,
   ensureDir,
   appendFile,
-  getDateString,
-} = require("../lib/utils");
+  getDateString, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('validate-command')) {
+  process.exit(0);
+}
 
 // 危险命令模式（正则表达式）
 const DANGEROUS_PATTERNS = [
@@ -114,6 +118,7 @@ function checkCommand(command) {
 
   return { blocked: false, reason: "" };
 }
+
 
 async function main() {
   let input;

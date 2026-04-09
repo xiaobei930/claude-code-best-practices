@@ -29,8 +29,13 @@ const {
   getMemoryBankDir,
   readJsonFile,
   fileExists,
-  log,
-} = require("../lib/utils");
+  log, shouldRunInProfile} = require("../lib/utils");
+
+
+// Hook Profile 检查
+if (!shouldRunInProfile('post-compact')) {
+  process.exit(0);
+}
 
 async function main() {
   const memoryBank = getMemoryBankDir();

@@ -85,8 +85,8 @@ node <SCRIPT_PATH>/verify-hooks.js
 # 优先使用 Node.js（跨平台）
 if command -v node &> /dev/null; then
     # 查找脚本位置（Plugin 或 Clone 模式）
-    if [ -f "scripts/node/hooks/init.js" ]; then
-        node scripts/node/hooks/init.js
+    if [ -f "scripts/node/init.js" ]; then
+        node scripts/node/init.js
     fi
 else
     # 回退到 Bash（仅 Unix）

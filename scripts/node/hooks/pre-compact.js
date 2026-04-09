@@ -36,8 +36,12 @@ const {
   runCommand,
   isGitRepo,
   getGitBranch,
-  getGitModifiedFiles,
-} = require("../lib/utils");
+  getGitModifiedFiles, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('pre-compact')) {
+  process.exit(0);
+}
 
 /**
  * 从 progress.md 提取未完成的任务
@@ -111,6 +115,7 @@ function saveState(summary, memoryBankDir) {
   writeFile(statePath, JSON.stringify(summary, null, 2));
   return statePath;
 }
+
 
 async function main() {
   const memoryBank = getMemoryBankDir();

@@ -39,7 +39,12 @@ Exit codes:
 const path = require("path");
 const { execSync } = require("child_process");
 const fs = require("fs");
-const { readStdinJson, log, commandExists } = require("../lib/utils");
+const { readStdinJson, log, commandExists, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('format-file')) {
+  process.exit(0);
+}
 
 /**
  * 执行命令并返回是否成功
@@ -175,6 +180,7 @@ const FORMATTERS = {
   // C#
   ".cs": formatCsharp,
 };
+
 
 async function main() {
   let input;

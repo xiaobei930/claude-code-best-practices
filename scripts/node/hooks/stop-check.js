@@ -29,8 +29,12 @@ const {
   readFile,
   fileExists,
   getMemoryBankDir,
-  log,
-} = require("../lib/utils");
+  log, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('stop-check')) {
+  process.exit(0);
+}
 
 // 配置
 const PROJECT_ROOT = process.cwd();
@@ -162,6 +166,7 @@ function detectStallPatterns() {
 /**
  * 主函数
  */
+
 async function main() {
   try {
     const input = await readStdinJson();

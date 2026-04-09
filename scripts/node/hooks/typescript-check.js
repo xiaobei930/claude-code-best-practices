@@ -22,7 +22,13 @@ if (process.argv.includes("--help")) {
 }
 
 const path = require("path");
-const { readStdinJson, log, fileExists, runCommand } = require("../lib/utils");
+const { readStdinJson, log, fileExists, runCommand, shouldRunInProfile} = require("../lib/utils");
+
+
+// Hook Profile 检查
+if (!shouldRunInProfile('typescript-check')) {
+  process.exit(0);
+}
 
 async function main() {
   let input;

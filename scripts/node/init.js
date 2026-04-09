@@ -2,7 +2,7 @@
 /**
  * Claude Code 项目初始化脚本
  *
- * Clone 模式用法: node scripts/node/hooks/init.js
+ * Clone 模式用法: node scripts/node/init.js
  * Plugin 模式：在 Claude Code 中运行 /setup 命令
  * 跨平台支持（Windows/macOS/Linux）
  */
@@ -36,8 +36,16 @@ const TEMPLATE_ROOT = path.resolve(SCRIPT_DIR, "..", "..", "..");
 
 // 检测运行模式
 function detectMode() {
-  const pluginJsonPath = path.join(TEMPLATE_ROOT, ".claude-plugin", "plugin.json");
-  const localSettingsPath = path.join(process.cwd(), ".claude", "settings.json");
+  const pluginJsonPath = path.join(
+    TEMPLATE_ROOT,
+    ".claude-plugin",
+    "plugin.json",
+  );
+  const localSettingsPath = path.join(
+    process.cwd(),
+    ".claude",
+    "settings.json",
+  );
 
   if (fileExists(pluginJsonPath) && !fileExists(localSettingsPath)) {
     return "plugin";
@@ -86,9 +94,8 @@ function main() {
   console.log("");
 
   // 确定模板源目录
-  const templateClaudeDir = mode === "plugin"
-    ? path.join(TEMPLATE_ROOT, ".claude")
-    : ".claude";
+  const templateClaudeDir =
+    mode === "plugin" ? path.join(TEMPLATE_ROOT, ".claude") : ".claude";
 
   // 1. 创建 .claude 目录
   ensureDir(".claude");

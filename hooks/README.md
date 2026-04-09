@@ -275,7 +275,8 @@ echo $?  # 检查退出码
 │       ├── lib/
 │       │   ├── utils.js                         # 27 个辅助函数
 │       │   └── package-manager.js               # 包管理器检测
-│       └── hooks/                               # 17 个生命周期钩子 + init.js 工具脚本
+│       ├── init.js                               # 项目初始化脚本
+│       └── hooks/                               # 30 个生命周期钩子
 │           ├── validate-command.js              # 命令验证
 │           ├── protect-files.js                 # 文件保护
 │           ├── format-file.js                   # 自动格式化
@@ -289,7 +290,7 @@ echo $?  # 检查退出码
 │           ├── evaluate-session.js              # 会话评估
 │           ├── suggest-compact.js               # 压缩提醒
 │           ├── pre-compact.js                   # 压缩前处理
-│           ├── init.js                          # 项目初始化
+│           ├── (init.js 已移至 scripts/node/)
 │           ├── user-prompt-submit.js            # 用户提交时上下文注入
 │           ├── stop-check.js                    # 响应完成时遗漏检查
 │           ├── subagent-stop.js                 # 子代理完成追踪

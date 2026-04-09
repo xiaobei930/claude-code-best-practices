@@ -148,6 +148,13 @@ function getLastSessionSummary() {
   }
 }
 
+const { shouldRunInProfile } = require('../lib/utils');
+
+// Hook Profile 检查
+if (!shouldRunInProfile('session-check')) {
+  process.exit(0);
+}
+
 function main() {
   const allIssues = [];
   const contextParts = [];

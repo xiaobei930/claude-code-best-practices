@@ -88,15 +88,15 @@ scripts/
 
 **会话生命周期**
 
-| Hook              | 文件                     | 用途                 |
-| ----------------- | ------------------------ | -------------------- |
-| **pre-compact**      | `hooks/pre-compact.js`      | 上下文压缩前保存状态 |
-| **init**             | `hooks/init.js`             | 项目初始化           |
-| **session-check**    | `hooks/session-check.js`    | 会话健康检查         |
-| **protect-files**    | `hooks/protect-files.js`    | 保护敏感文件         |
-| **block-random-md**  | `hooks/block-random-md.js`  | 阻止随机创建 .md     |
-| **format-file**      | `hooks/format-file.js`      | 自动格式化代码       |
-| **check-console-log**| `hooks/check-console-log.js`| 检查 console.log     |
+| Hook                  | 文件                         | 用途                 |
+| --------------------- | ---------------------------- | -------------------- |
+| **pre-compact**       | `hooks/pre-compact.js`       | 上下文压缩前保存状态 |
+| **init**              | `../scripts/node/init.js`    | 项目初始化           |
+| **session-check**     | `hooks/session-check.js`     | 会话健康检查         |
+| **protect-files**     | `hooks/protect-files.js`     | 保护敏感文件         |
+| **block-random-md**   | `hooks/block-random-md.js`   | 阻止随机创建 .md     |
+| **format-file**       | `hooks/format-file.js`       | 自动格式化代码       |
+| **check-console-log** | `hooks/check-console-log.js` | 检查 console.log     |
 
 **命令验证 (PreToolUse:Bash)**
 

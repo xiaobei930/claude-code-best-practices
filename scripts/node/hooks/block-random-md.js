@@ -23,7 +23,12 @@ if (process.argv.includes("--help")) {
 }
 
 const path = require("path");
-const { readStdinJson, log } = require("../lib/utils");
+const { readStdinJson, log, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('block-random-md')) {
+  process.exit(0);
+}
 
 // 允许创建的 markdown 文件模式
 const ALLOWED_MD_PATTERNS = [
@@ -106,6 +111,7 @@ function isAllowedPath(filePath) {
 /**
  * 主函数
  */
+
 async function main() {
   try {
     const input = await readStdinJson();

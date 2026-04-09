@@ -199,7 +199,7 @@ function detectOrphanScripts() {
   const warnings = [];
 
   // 已知的非 hook 脚本（工具类）
-  const EXCLUDED_SCRIPTS = ["init.js"];
+  const EXCLUDED_SCRIPTS = [];
 
   if (!fs.existsSync(HOOKS_JSON_PATH) || !fs.existsSync(SCRIPTS_DIR)) {
     return { warnings };

@@ -23,7 +23,12 @@ if (process.argv.includes("--help")) {
 
 const fs = require("fs");
 const path = require("path");
-const { readStdinJson, log } = require("../lib/utils");
+const { readStdinJson, log, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('auto-archive')) {
+  process.exit(0);
+}
 
 const MAX_LINES = 300;
 
@@ -68,6 +73,7 @@ function checkAndWarn(progressFile) {
     // 读取失败时静默退出，不影响主流程
   }
 }
+
 
 async function main() {
   let input;

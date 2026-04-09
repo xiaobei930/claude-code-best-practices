@@ -23,7 +23,12 @@ if (process.argv.includes("--help")) {
   process.exit(0);
 }
 
-const { readStdinJson, log } = require("../lib/utils");
+const { readStdinJson, log, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('long-running-warning')) {
+  process.exit(0);
+}
 
 // 平台检测
 const isWindows = process.platform === "win32";
@@ -60,6 +65,7 @@ const LONG_RUNNING_PATTERNS = [
   /live-server/i,
   /browser-sync/i,
 ];
+
 
 async function main() {
   let input;

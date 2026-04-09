@@ -40,8 +40,12 @@ const {
   fileExists,
   readFile,
   writeFile,
-  log,
-} = require("../lib/utils");
+  log, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('suggest-compact')) {
+  process.exit(0);
+}
 
 // ==================== 回滚开关 ====================
 const ENABLE_OPERATION_SUPPRESSION = true; // F6a: false → 不抑制 compact
@@ -165,6 +169,7 @@ function shouldSuppressCompact() {
     return false;
   }
 }
+
 
 function main() {
   // 增加计数

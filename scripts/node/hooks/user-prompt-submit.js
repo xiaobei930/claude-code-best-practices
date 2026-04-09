@@ -28,8 +28,12 @@ const {
   fileExists,
   readFile,
   getMemoryBankDir,
-  output,
-} = require("../lib/utils");
+  output, shouldRunInProfile} = require("../lib/utils");
+
+// Hook Profile 检查
+if (!shouldRunInProfile('user-prompt-submit')) {
+  process.exit(0);
+}
 
 // 配置
 const PROJECT_ROOT = process.cwd();
@@ -81,6 +85,7 @@ function getCurrentPhase() {
 /**
  * 主函数
  */
+
 function main() {
   const context = [];
 

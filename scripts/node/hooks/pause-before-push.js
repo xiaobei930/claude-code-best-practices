@@ -23,7 +23,13 @@ if (process.argv.includes("--help")) {
   process.exit(0);
 }
 
-const { readStdinJson, log, runCommand } = require("../lib/utils");
+const { readStdinJson, log, runCommand, shouldRunInProfile} = require("../lib/utils");
+
+
+// Hook Profile 检查
+if (!shouldRunInProfile('pause-before-push')) {
+  process.exit(0);
+}
 
 async function main() {
   let input;
