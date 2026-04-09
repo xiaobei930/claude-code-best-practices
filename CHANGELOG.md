@@ -151,6 +151,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **方法论增强** — 新增"Assemble don't create"原则（AI 时代组装 > 创建）
 - **Designer AI Slop 反模式** — 新增 6 个具体 AI 审美反模式及替代方案表
 - **CI 反模式检测** — validate-skills 新增 SKILL.md 行数警告（>400）和子文件引用断裂检查；validate-agents 新增 description 质量检查
+- **Hook Profile 全量执行** — 16 个早期 hook 补齐 `shouldRunInProfile()` 检查，profile 系统现在对全部 29 个注册 hook 生效
+- **init.js 迁移** — 从 hooks/ 移至 scripts/node/（非 hook 脚本，不应放在 hooks 目录）
+- **工作流顺序修正** — CLAUDE.md 和 methodology.md 管线顺序从 dev→qa→verify 纠正为 dev→verify→qa
+- **角色工具边界** — PM/Lead/Designer NEVER 指令明确禁止修改源代码，methodology.md 新增角色工具边界表
+- **Token 消耗优化** — coding-standards.md 从 385→58 行（-85%），common rules 总计 -35%
+- **文档同步** — 修复 7 处过时组件计数（status.md、README、quickstart、index.html 等）
 
 ### [0.9.0] - 2026-03-16
 
