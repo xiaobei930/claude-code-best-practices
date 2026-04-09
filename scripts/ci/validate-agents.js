@@ -72,9 +72,13 @@ function validateAgent(filePath) {
     );
   }
 
-  // 验证 description 长度
+  // 验证 description 长度和触发条件
   if (data.description && data.description.length < 20) {
     warnings.push("description 过短，建议至少 20 字符");
+  } else if (data.description && data.description.length < 50) {
+    warnings.push(
+      `description 较短 (${data.description.length} chars)，建议添加触发条件（如 "Use PROACTIVELY when..."）`,
+    );
   }
 
   // 检查文件内容不为空

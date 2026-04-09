@@ -105,7 +105,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Theme / 主题: 对齐 Claude Code v2.1.97 + 插件规范增强
 
-同步 Claude Code v2.1.76→v2.1.97 的官方变更，新增 7 个 hook 事件和脚本，增强 agent/rules 元数据，引入 plugin.json 新字段和 bin/ 可执行文件支持。
+同步 Claude Code v2.1.76→v2.1.97 的官方变更，新增 7 个 hook 事件和脚本，增强 agent/rules 元数据，引入 plugin.json 新字段和 bin/ 可执行文件支持。融入社区最佳实践：渐进式加载、任务类型路由、inherit 模型层级、置信度门控、并行执行、CI 反模式检测。
 
 #### Added / 新增
 
@@ -125,6 +125,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Hook Profile 注册表扩展** — HOOK_PROFILES 新增 7 个 hook 映射（safety: permission-request, quality: file-changed/cwd-changed/config-change/instructions-loaded, learning: permission-denied/task-completed）
 - **install-components.json** — baseline 家族新增 permission-request，quality 家族新增 4 个质量 hook，learning 家族新增 2 个学习 hook
 - **兼容性基线** — 从 Claude Code v2.1.76 更新到 v2.1.97
+- **Skill 渐进式加载** — frontend/security/git SKILL.md 精简（1195→217 行，-82%），详细内容提取到子文件（patterns.md、owasp-patterns.md）
+- **模型路由增强** — routing-matrix 新增任务性质维度（背景/推理/长上下文/模式化）+ Agent 模型策略文档
+- **Agent inherit 层级** — build-error-resolver/tdd-guide/requirement-validator 移除 model 字段，继承用户当前模型
+- **置信度门控强化** — Lead 步骤 7 从"推荐"升级为"MUST"，可行性 <60% 自动回退 PM
+- **并行执行指南** — Dev 命令新增 Wave→Checkpoint→Wave 并行执行原则
+- **方法论增强** — 新增"Assemble don't create"原则（AI 时代组装 > 创建）
+- **Designer AI Slop 反模式** — 新增 6 个具体 AI 审美反模式及替代方案表
+- **CI 反模式检测** — validate-skills 新增 SKILL.md 行数警告（>400）和子文件引用断裂检查；validate-agents 新增 description 质量检查
 
 ### [0.9.0] - 2026-03-16
 

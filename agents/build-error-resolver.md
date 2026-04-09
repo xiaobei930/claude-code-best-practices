@@ -6,7 +6,6 @@ description: |
   user: "构建失败了，有 TypeScript 类型错误"
   assistant: (invokes build-error-resolver agent to diagnose and fix the type errors)
   </example>
-model: sonnet
 effort: low
 maxTurns: 15
 tools: Read, Write, Edit, Grep, Glob, Bash

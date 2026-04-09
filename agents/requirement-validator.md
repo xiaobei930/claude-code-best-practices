@@ -6,7 +6,6 @@ description: |
   user: "验证需求文档的完整性和一致性"
   assistant: (invokes requirement-validator agent to check requirement quality)
   </example>
-model: sonnet
 effort: medium
 maxTurns: 10
 tools: Read, Grep, Glob

@@ -100,6 +100,7 @@ description: "开发方法论（道法术器）：核心原则、决策优先级
 - **Interface first, implementation later** 接口先行，实现后补
 - **One module at a time** 一次只改一个模块
 - **Docs are context** 文档即上下文，不是事后补
+- **Assemble don't create** 能组装不创建 - Maximize reuse of open-source components, minimize custom glue code AI 时代组装 > 创建
 
 ### Minimum Work Unit | 最小工作单元
 

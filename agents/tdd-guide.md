@@ -6,7 +6,6 @@ description: |
   user: "用 TDD 方式实现购物车功能"
   assistant: (invokes tdd-guide agent to write failing tests first, then implement code)
   </example>
-model: sonnet
 effort: medium
 maxTurns: 25
 tools: Read, Write, Edit, Grep, Glob, Bash

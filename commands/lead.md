@@ -94,8 +94,10 @@ allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, Skill, WebSearch,
    ├─ 更新 memory-bank/progress.md
    └─ 在"进行中"写入: `DES-XXX: [名称] + TSK 列表 → 待 Dev 实现`
 
-7. 置信度检查点（推荐）
-   └─ 执行 /cc-best:confidence-check --pre 确认实现准备度 ≥70%
+7. 置信度检查点（MUST）
+   ├─ 可行性 ≥ 80% → 继续交接下游
+   ├─ 可行性 60-79% → 标注风险点，仍可继续但需在 DES 中记录
+   └─ 可行性 < 60% → 回退 PM，输出低可行性报告
 
 8. 交接下游
    ├─ 前端任务 → 调用 /cc-best:designer 进行 UI 设计
