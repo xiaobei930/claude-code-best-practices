@@ -85,16 +85,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] **plugin.json 新字段** - hooks 显式声明、userConfig 用户配置、bin 可执行文件 (v0.10.0)
 - [x] **${CLAUDE_PLUGIN_DATA} 支持** - utils.js 新增 getPluginDataDir()，向前兼容 fallback 到 memory-bank (v0.10.0)
 - [x] **bin/ 诊断工具** - cc-best-info 命令行工具，输出插件版本和组件统计 (v0.10.0)
-- [ ] Skill 渐进式加载优化
-- [ ] npm 分发
+- [x] **Skill 渐进式加载** - frontend/security/git SKILL.md 精简 82%，详细内容提取到子文件 (v0.10.0)
+- [x] **模型路由增强** - 任务性质维度 + inherit 模型层级，3 个 agent 继承用户模型 (v0.10.0)
+- [x] **置信度门控强化** - Lead 可行性检查升级为 MUST，<60% 自动回退 PM (v0.10.0)
+- [x] **并行执行指南** - Dev 命令新增 Wave→Checkpoint→Wave 模式 (v0.10.0)
+- [x] **CI 反模式检测** - SKILL.md 行数/引用断裂检查 + agent description 质量检查 (v0.10.0)
+- [x] **方法论增强** - "组装优于创建"原则 + AI 审美反模式表 (v0.10.0)
+- [x] **角色工具边界** - PM/Lead/Designer 明确禁止修改源代码，仅允许 .md 文档 (v0.10.0)
+- [x] **Token 消耗优化** - coding-standards.md -85%，common rules 总计 -35% (v0.10.0)
+
+### v0.11.x (Next) - 生态扩展 + 质量闭环
+
+**核心目标**: npm 分发 + 评估体系 + 持续跟进官方变更
+
+- [ ] **npm 分发** - 发布到 npm registry，支持 `npx cc-best` 安装
+- [ ] **Skill 评估体系** - 参考 PluginEval，为 skill/agent 建立质量评分和基准测试
+- [ ] **跨会话学习增强** - Reflexion 模式，错误模式跨会话持久化和自动预防
+- [ ] **剩余 Skill 渐进式加载** - learning(359行) 等中等 SKILL.md 精简
+- [ ] **Hook HTTP 模式** - 支持 hook POST 到远程端点（通知、监控集成）
+- [ ] **MCP 配置模板** - 按语言/框架提供常用 MCP 服务器配置模板
+- [ ] 持续跟进 Claude Code 官方变更
 
 ### v1.0.0 (Future) - 稳定版
 
-**核心目标**: 生产级可靠
+**核心目标**: 生产级可靠 + 生态完整
 
-- [ ] 稳定的扩展 API
+- [ ] 稳定的插件 API（无破坏性变更）
 - [ ] Memory-bank 云同步（可选）
-- [ ] 团队协作支持
+- [ ] 团队协作支持（多人共享配置）
 - [ ] 完整 i18n（等待官方支持）
 
 ---

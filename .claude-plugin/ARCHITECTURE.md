@@ -324,7 +324,7 @@ hooks/
 | `CLAUDE.md`                       | 头部 Version |
 | `CHANGELOG.md`                    | 最新条目     |
 
-当前版本: **0.9.0**
+当前版本: **0.10.0**
 
 ---
 
@@ -543,11 +543,11 @@ tools: Read, Grep, Glob
 
 ### 模型配置策略 | Model Configuration Strategy
 
-**当前策略: 质量优先**
+**当前策略: 关键决策质量优先 + 非关键任务用户控制**
 
-| 模型   | 使用场景                   | 当前 Agents                                                           |
-| ------ | -------------------------- | --------------------------------------------------------------------- |
-| opus   | 需要深度理解和创造性的任务 | architect, planner, code-reviewer, code-simplifier, security-reviewer |
-| sonnet | 执行性任务和快速响应       | tdd-guide, build-error-resolver, requirement-validator                |
+| 层级         | 模型    | Agents                                                                | 说明                           |
+| ------------ | ------- | --------------------------------------------------------------------- | ------------------------------ |
+| **关键决策** | opus    | architect, planner, code-reviewer, code-simplifier, security-reviewer | 质量不妥协                     |
+| **用户控制** | inherit | tdd-guide, build-error-resolver, requirement-validator                | 继承用户当前模型，灵活控制成本 |
 
-> 模型策略配置（质量/速度/均衡）计划在 v0.6.x 版本实现
+> 详细路由矩阵参见 `skills/model/routing-matrix.md`，支持按复杂度和任务性质双维度路由。
