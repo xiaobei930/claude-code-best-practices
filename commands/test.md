@@ -1,5 +1,5 @@
 ---
-description: 运行项目测试套件
+description: プロジェクトのテストスイートを実行
 allowed-tools: Read, Glob, Grep, Bash
 ---
 

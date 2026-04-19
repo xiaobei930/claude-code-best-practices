@@ -1,5 +1,5 @@
 ---
-description: 会话学习，从会话中提取可复用模式
+description: セッション学習、セッションから再利用可能なパターンを抽出
 argument-hint: "[--status|--export|--import file|--eval]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---

@@ -1,5 +1,5 @@
 ---
-description: 死代码清理和代码整理
+description: デッドコード削除とコード整理
 argument-hint: "[--dry-run|--aggressive]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---

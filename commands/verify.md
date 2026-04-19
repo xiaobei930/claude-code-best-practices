@@ -1,5 +1,5 @@
 ---
-description: 综合验证命令，执行构建、类型、Lint、测试、安全检查
+description: 総合検証コマンド、ビルド・型・Lint・テスト・セキュリティ検査を実行
 allowed-tools: Read, Glob, Grep, Bash, TodoWrite, Task
 ---
 

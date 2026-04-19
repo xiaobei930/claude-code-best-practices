@@ -1,5 +1,5 @@
 ---
-description: 启动开发服务或应用（快捷启动，完整管理见 /cc-best:service）
+description: 開発サービスやアプリを起動（クイック起動、完全管理は /cc-best:service）
 argument-hint: "[api|frontend|all]"
 allowed-tools: Read, Glob, Grep, Bash
 ---

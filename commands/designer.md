@@ -1,5 +1,5 @@
 ---
-description: UI 设计师智能体，负责界面设计审查和用户体验优化
+description: UI デザイナーエージェント、UI 設計レビューと UX 最適化を担当
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFetch, Skill, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot
 ---
 

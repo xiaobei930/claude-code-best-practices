@@ -1,5 +1,5 @@
 ---
-description: 产品经理智能体，负责需求分析和产品规划
+description: プロダクトマネージャーエージェント、要件分析と企画を担当
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFetch, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot
 ---
 

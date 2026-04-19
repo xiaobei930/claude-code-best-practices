@@ -1,5 +1,5 @@
 ---
-description: 需求澄清智能体，解决 REQ 文档中的待澄清项
+description: 要件明確化エージェント、REQ ドキュメントの未確定項目を解消
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite, Task, WebSearch, WebFetch
 ---
 

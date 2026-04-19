@@ -1,5 +1,5 @@
 ---
-description: 项目状态与诊断信息
+description: プロジェクト状態と診断情報
 argument-hint: "[--full|--conflicts]"
 allowed-tools: Read, Glob, Grep, Bash
 ---

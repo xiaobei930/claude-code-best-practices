@@ -1,5 +1,5 @@
 ---
-description: 紧急修复快速通道，跳过 PM/Lead 直接 Dev→Verify→Commit
+description: 緊急修正ファストパス、PM/Lead をスキップし Dev→Verify→Commit を直行
 argument-hint: "[描述]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill
 ---

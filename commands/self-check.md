@@ -1,5 +1,5 @@
 ---
-description: 自我检查，验证输出质量
+description: セルフチェック、出力品質を検証
 allowed-tools: Read, Glob, Grep, Bash, TodoWrite
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: 项目记忆管理，维护 memory-bank（持久化，另见 /cc-best:context 管理会话上下文）
+description: プロジェクト記憶管理、memory-bank を維持（永続、セッションコンテキストは /cc-best:context）
 argument-hint: "[load|status|sync]"
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---

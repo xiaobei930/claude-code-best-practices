@@ -1,5 +1,5 @@
 ---
-description: 文档同步，更新项目文档
+description: ドキュメント同期、プロジェクト文書を更新
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---
 

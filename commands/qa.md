@@ -1,5 +1,5 @@
 ---
-description: 测试工程师智能体，负责质量保证和问题验证
+description: QA エンジニアエージェント、品質保証と不具合検証を担当
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot, mcp__plugin_playwright_playwright__browser_console_messages, mcp__plugin_playwright_playwright__browser_click, mcp__plugin_playwright_playwright__browser_type, mcp__plugin_playwright_playwright__browser_wait_for
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: 切换 Agent 模型策略（质量/均衡/经济）
+description: Agent モデル戦略切替（品質/バランス/経済）
 argument-hint: "[--show]"
 allowed-tools: Read, Bash
 ---

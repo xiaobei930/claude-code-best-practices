@@ -1,5 +1,5 @@
 ---
-description: 置信度检查，评估当前阶段的决策质量和完成度
+description: 確信度チェック、現段階の意思決定品質と完成度を評価
 argument-hint: "[--pre]"
 allowed-tools: Read, Glob, Grep, Bash
 ---

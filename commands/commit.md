@@ -1,5 +1,5 @@
 ---
-description: Git 提交命令，生成规范的 commit message（另见 /cc-best:git-guide 操作指南）
+description: Git コミットコマンド、規約準拠の commit message を生成（操作ガイドは /cc-best:git-guide）
 allowed-tools: Read, Glob, Grep, Bash
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: 检查点管理，保存和恢复进度
+description: チェックポイント管理、進捗の保存と復元
 argument-hint: "[save|restore|list] [--archive]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite
 ---

@@ -1,5 +1,5 @@
 ---
-description: 代码库分析，从 Git 历史和代码结构提取编码模式
+description: コードベース分析、Git 履歴とコード構造からコーディングパターンを抽出
 argument-hint: "[--commits N] [--domain name]"
 allowed-tools: Bash, Read, Write, Grep, Glob, TodoWrite
 ---

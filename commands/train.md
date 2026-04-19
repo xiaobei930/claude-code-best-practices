@@ -1,5 +1,5 @@
 ---
-description: 训练机器学习/深度学习模型
+description: 機械学習/深層学習モデルの学習
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite
 ---
 

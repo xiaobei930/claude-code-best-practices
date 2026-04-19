@@ -1,5 +1,5 @@
 ---
-description: 模型推理和测试
+description: モデル推論とテスト
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 

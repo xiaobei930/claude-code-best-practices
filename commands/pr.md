@@ -1,5 +1,5 @@
 ---
-description: 创建 Pull Request
+description: Pull Request を作成
 allowed-tools: Read, Glob, Grep, Bash
 ---
 

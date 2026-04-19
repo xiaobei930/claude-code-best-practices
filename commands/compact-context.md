@@ -1,5 +1,5 @@
 ---
-description: 上下文压缩，减少 token 消耗
+description: コンテキスト圧縮、token 消費を削減
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 ---
 

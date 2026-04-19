@@ -1,5 +1,5 @@
 ---
-description: 代码架构文档生成，自动扫描项目结构生成 token 优化的架构图
+description: コードアーキテクチャ文書生成、プロジェクト構造を自動スキャンし token 最適化した構造図を生成
 argument-hint: "[--scope frontend|backend|all] [--update]"
 allowed-tools: Read, Write, Bash, Glob, Grep, TodoWrite
 ---

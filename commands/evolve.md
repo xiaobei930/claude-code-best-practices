@@ -1,5 +1,5 @@
 ---
-description: 知识演化，将学习内容聚类生成 Skills/Agents/Commands
+description: 知識進化、学習内容をクラスタリングして Skills/Agents/Commands を生成
 argument-hint: "[--execute] [--dry-run] [--domain name]"
 allowed-tools: Read, Write, Edit, Glob, Grep, TodoWrite
 ---

@@ -1,5 +1,5 @@
 ---
-description: GitHub Issue 端到端修复闭环（分析→修复→测试→提交→关闭）
+description: GitHub Issue のエンドツーエンド修正（分析→修正→テスト→コミット→クローズ）
 argument-hint: "[#issue-number] [--no-close]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite, Task
 ---

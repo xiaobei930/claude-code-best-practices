@@ -1,5 +1,5 @@
 ---
-description: 配置项目首选包管理器 (npm/pnpm/yarn/bun)
+description: プロジェクト優先パッケージマネージャを設定 (npm/pnpm/yarn/bun)
 argument-hint: "[--detect|--project pm|--global pm|--list]"
 allowed-tools: Read, Bash
 ---

@@ -1,5 +1,5 @@
 ---
-description: 版本发布管理（版本号同步、CHANGELOG 更新、Git Tag）
+description: リリース管理（バージョン同期、CHANGELOG 更新、Git Tag）
 argument-hint: "[patch|minor|major] [--dry-run]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---

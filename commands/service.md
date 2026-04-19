@@ -1,5 +1,5 @@
 ---
-description: 开发服务管理（自动检测运行时、启动/停止/重启服务）
+description: 開発サービス管理（ランタイム自動検出、起動/停止/再起動）
 argument-hint: "[--stop|--restart|--logs] [--port num]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---

@@ -1,5 +1,5 @@
 ---
-description: 配置安全扫描，审计插件自身配置的安全性
+description: 設定セキュリティスキャン、プラグイン自身の設定の安全性を監査
 allowed-tools: Read, Glob, Grep, Bash
 ---
 

@@ -1,5 +1,5 @@
 ---
-description: Git 提交规范和操作指南（参考文档，提交请用 /cc-best:commit）
+description: Git コミット規約と操作ガイド（参考資料、コミットは /cc-best:commit）
 allowed-tools: Read, Glob, Grep, Bash
 ---
 

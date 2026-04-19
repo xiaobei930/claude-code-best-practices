@@ -1,5 +1,5 @@
 ---
-description: 项目初始化，配置 Claude Code 项目和 Hooks
+description: プロジェクト初期化、Claude Code プロジェクトと Hooks を設定
 argument-hint: "[--hooks|--global|--project] [--verify]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, TodoWrite
 ---

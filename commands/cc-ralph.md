@@ -1,5 +1,5 @@
 ---
-description: CC-Best Ralph Loop 集成，长时间自主循环
+description: CC-Best Ralph Loop 統合、長時間の自律ループ
 argument-hint: "[task-description]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, WebSearch, WebFetch, Skill, mcp__*
 ---

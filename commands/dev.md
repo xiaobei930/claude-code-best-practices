@@ -1,5 +1,5 @@
 ---
-description: 研发工程师智能体，负责功能编码实现
+description: 開発エンジニアエージェント、機能コードの実装を担当
 argument-hint: "[--bugfix]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, Task, Skill, mcp__plugin_playwright_playwright__browser_navigate, mcp__plugin_playwright_playwright__browser_snapshot, mcp__plugin_playwright_playwright__browser_take_screenshot, mcp__plugin_playwright_playwright__browser_console_messages, mcp__plugin_playwright_playwright__browser_click, mcp__plugin_playwright_playwright__browser_type, mcp__plugin_playwright_playwright__browser_wait_for
 ---

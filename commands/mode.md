@@ -1,5 +1,5 @@
 ---
-description: "切换工作模式以适应不同场景（dev/research/review/planning）"
+description: "作業モード切替（dev/research/review/planning）"
 argument-hint: "[dev|research|review|planning]"
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---

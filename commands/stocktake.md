@@ -1,5 +1,5 @@
 ---
-description: 组件库审计，评估 skills/rules/commands 的健康度
+description: コンポーネント監査、skills/rules/commands の健全性を評価
 argument-hint: "[--quick|--full] [--scope skills|rules|commands|all]"
 allowed-tools: Read, Glob, Grep, Bash, TodoWrite, WebSearch
 ---

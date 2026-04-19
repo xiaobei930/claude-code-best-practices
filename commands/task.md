@@ -1,5 +1,5 @@
 ---
-description: 任务粒度管理，分解和追踪任务
+description: タスク粒度管理、タスクの分解と追跡
 allowed-tools: Read, Glob, Grep, Bash, TodoWrite
 ---
 

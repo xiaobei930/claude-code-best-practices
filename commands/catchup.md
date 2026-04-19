@@ -1,5 +1,5 @@
 ---
-description: 快速恢复上下文，了解项目当前状态
+description: コンテキストを素早く復元、プロジェクトの現状を把握
 argument-hint: "[session-id]"
 allowed-tools: Read, Glob, Grep, Bash
 ---
